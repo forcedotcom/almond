@@ -1,0 +1,99 @@
+<!--
+Copyright (c) 2014, salesforce.com, Inc.
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification,
+are permitted provided that the following conditions are met:
+
+    * Redistributions of source code must retain the above copyright notice,
+    this list of conditions and the following disclaimer.
+    * Redistributions in binary form must reproduce the above copyright notice,
+    this list of conditions and the following disclaimer in the documentation
+    and/or other materials provided with the distribution.
+    * Neither the name of the salesforce.com, Inc. nor the names of its contributors
+    may be used to endorse or promote products derived from this software
+    without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
+INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
+OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<apex:page controller="MyProfileController" docType="html-5.0" sidebar="false" showHeader="false" standardStylesheets="false">
+
+    <apex:composition template="LMS_HeroTemplate">
+
+        <apex:define name="head">
+            <title>Achievements</title>
+        </apex:define>
+
+        <apex:define name="hero-banner">
+
+            <div class="profile-data">
+                <h2>{!oUser.Name}</h2>
+                <ul>
+                    <li class="profile-title">{!oUser.Title}</li>
+                    <apex:outputPanel layout="none" rendered="{!oManager != null}">
+                        <li class="profile-manager"><a href="javascript:almond.redirectHandlerWithStatus('{!$Page.MyProfile}?id={!oManager.Id}')" ><apex:image value="{!URLFOR($Resource.almond_uilib, '/img/manager.png')}" /> {!oManager.Name}</a></li>
+                    </apex:outputPanel>
+                    <li class="profile-mail"><apex:image value="{!URLFOR($Resource.almond_uilib, '/img/envelope.png')}" /> {!oUser.Email}</li>
+                    <li class="profile-mail"><a href="javascript:almond.redirectHandler('/{!oUser.Id}')" ><apex:image value="{!URLFOR($Resource.almond_uilib, '/img/chat@2x.png')}" /> @chatter</a></li>
+                </ul>
+            </div>
+
+        </apex:define>
+
+        <apex:define name="hero-search">
+            <c:achievementsUserSearchBar searchBarSize="md"/>
+        </apex:define>
+
+        <apex:define name="hero-banner-badge">
+            <div class="thumb achievements-avatar" style="background:url({!JSENCODE(oUser.FullPhotoUrl)});background-size: cover;">
+            </div>
+        </apex:define>
+
+        <apex:define name="hero-banner-footer">
+        	<span>Total Acquired Achievements : {!totalAchievements}</span>
+        </apex:define>
+
+        <apex:define name="body">
+
+
+            <apex:form id="theForm">
+
+                <apex:actionStatus id="status">
+                    <apex:facet name="start">
+                        <c:LMSStatus statusComponentId="{!$Component.status}"/>
+                    </apex:facet>
+                </apex:actionStatus>
+
+                <div class="row almond-nav" >
+                    <div class="btn-group col-xs-12 col-sm-12 col-md-12">
+                        <apex:repeat value="{!achievementTypes}" var="at">
+                            <apex:commandLink value="{!at.label}" action="{!changeAchievementType}" status="status" rerender="theForm" styleClass="btn btn-default col-xs-5 col-sm-3 col-md-3 {!IF(achievementType == at.name,'almond-nav-active','')}">
+                                <apex:param value="{!at.name}" name="type"/>
+                            </apex:commandLink>
+                        </apex:repeat>
+                    </div>
+                </div>
+
+			</apex:form>
+
+            <apex:outputPanel layout="none" rendered="{!lcategories != null && lcategories.size > 0}">
+                <c:AchievementsList achievements="{!lcategories}" badgeContainerClass="col-xs-6 col-sm-6 col-md-3"/>
+            </apex:outputPanel>
+            <apex:outputPanel layout="none" rendered="{!lcategories == null || lcategories.size == 0}">
+                <div style="width:100%;text-align:center;padding:20px;0;">
+                    <h2>{!$Label.LMSUI_Nothing_to_see}</h2>
+                </div>
+            </apex:outputPanel>
+        </apex:define>
+
+    </apex:composition>
+</apex:page>

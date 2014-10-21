@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Training Track Level Item</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Training Track Level Items</value>
+    </caseValues>
+    <fields>
+        <label><!-- Training Plan --></label>
+        <name>Training_Plan__c</name>
+        <relationshipLabel><!-- Training Track Level Items --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Training Track Level --></label>
+        <name>Training_Track_Level__c</name>
+        <relationshipLabel><!-- Training Track Level Items --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Order --></label>
+        <name>Order__c</name>
+    </fields>
+    <layouts>
+        <layout>Training Track Level Item Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

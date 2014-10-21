@@ -1,0 +1,60 @@
+<apex:component layout="none">
+
+    <apex:attribute name="achievements" type="AchievementCategoryWrapper[]" description="List of Achievement Category Wrappers"  required="true"/>
+    <apex:attribute name="badgeContainerClass" type="String" description="Set to true to apply css fixes for chatter subtab"  required="false" default="col-xs-12 col-sm-6 col-md-3" />
+
+
+	<apex:repeat value="{!achievements}" var="c">
+
+        <div class="achievements-wrapper">
+    		<div class="row">
+
+            <div class="col-xs-12 col-sm-12 col-md-12">
+    				<h3>{!c.name}</h3>
+                <hr />
+            </div>
+
+            <apex:repeat value="{!c.achievements}" var="o">
+                <div class="badge-container {!badgeContainerClass}">
+
+                    <apex:outputPanel layout="none" rendered="{!o.assignment.Achievement__r.Work_Badge_Image_URL__c == null}">
+                        <apex:outputField value="{!o.assignment.Achievement__r.Acquired_Image__c}" rendered="{!o.status == 'Acquired'}" styleClass="badge-img" />
+                        <apex:outputField value="{!o.assignment.Achievement__r.Eligible_Image__c}" rendered="{!o.status == 'Eligible'}" styleClass="badge-img" />
+                    </apex:outputPanel>
+                    <apex:outputPanel layout="none" rendered="{!o.assignment.Achievement__r.Work_Badge_Image_URL__c != null}">
+                        <apex:image url="{!o.assignment.Achievement__r.Work_Badge_Image_URL__c}" styleClass="{!IF(o.status == 'Eligible','badge-disabled','')}"/>
+                    </apex:outputPanel>
+
+                    <apex:outputPanel layout="none" rendered="{!o.status == 'Override'}">
+
+                        <apex:outputPanel layout="block" style="position:absolute;width:60%;"><span class="label label-info">{!o.assignment.Status__c}</span></apex:outputPanel>
+
+                        <apex:outputPanel layout="none" rendered="{!o.assignment.Achievement__r.Work_Badge_Image_URL__c == null}">
+                            <apex:outputPanel layout="none" rendered="{!o.overrideURL != null}">
+                                <a href="javascript:almond.redirectHandler('{!o.overrideURL}')" target="_self"><apex:outputField value="{!o.assignment.Achievement__r.Eligible_Image__c}"  styleClass="badge-img" /></a>
+                            </apex:outputPanel>
+                            <apex:outputPanel layout="none" rendered="{!o.overrideURL == null}">
+                                <apex:outputField value="{!o.assignment.Achievement__r.Eligible_Image__c}"  styleClass="badge-img" />
+                            </apex:outputPanel>
+                        </apex:outputPanel>
+                        <apex:outputPanel layout="none" rendered="{!o.assignment.Achievement__r.Work_Badge_Image_URL__c == null}">
+                            <apex:outputPanel layout="none" rendered="{!o.overrideURL != null}">
+                                <a href="javascript:almond.redirectHandler('{!o.overrideURL}')" target="_self"><apex:image url="{!o.assignment.Achievement__r.Work_Badge_Image_URL__c}" styleClass="badge-disabled" /></a>
+                            </apex:outputPanel>
+                            <apex:outputPanel layout="none" rendered="{!o.overrideURL == null}">
+                                <apex:image url="{!o.assignment.Achievement__r.Work_Badge_Image_URL__c}" styleClass="badge-disabled" />
+                            </apex:outputPanel>
+                        </apex:outputPanel>
+
+                    </apex:outputPanel>
+
+                    <apex:outputField value="{!o.assignment.Achievement__r.Name}" />
+                </div>
+
+            </apex:repeat>
+
+        </div>
+    </div>
+   </apex:repeat>
+
+</apex:component>

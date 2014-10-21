@@ -1,0 +1,109 @@
+<!--
+Copyright (c) 2014, salesforce.com, Inc.
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification,
+are permitted provided that the following conditions are met:
+
+    * Redistributions of source code must retain the above copyright notice,
+    this list of conditions and the following disclaimer.
+    * Redistributions in binary form must reproduce the above copyright notice,
+    this list of conditions and the following disclaimer in the documentation
+    and/or other materials provided with the distribution.
+    * Neither the name of the salesforce.com, Inc. nor the names of its contributors
+    may be used to endorse or promote products derived from this software
+    without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
+INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
+OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<apex:page controller="AchievementsUserSearchController" docType="html-5.0" sidebar="false" showHeader="false" standardStylesheets="false" cache="false">
+
+    <apex:composition template="LMS_Template">
+
+        <apex:define name="head">
+            <title>Search</title>
+        </apex:define>
+
+        <apex:define name="body">
+
+            <c:achievementsUserSearchBar currentSearchTerm="{!currentSearchTerm}" searchBarColLengthClass="col-xs-12 col-sm-12 col-md-12 col-lg-12 lms-user-search-group-sonly"/>
+
+            <apex:form id="theForm">
+                <apex:outputPanel layout="block" styleClass="alert alert-danger" rendered="{!hasMessages}">
+                    <apex:pageMessages />
+                </apex:outputPanel>
+
+                <apex:outputPanel layout="none" rendered="{!searchResults != null && searchResults.size > 0}">
+                    <div class="list-group">
+                        <apex:repeat value="{!searchResults}" var="u" id="theRepeat">
+                            <a class="lms-user-search-item list-group-item" item-url="{!$Page.MyProfile}?id={!u.Id}">
+                                <img src="{!u.SmallPhotoUrl}" class="profilePic-header-45"/>
+                                <span class="list-group-item-text" style="padding: 0 0 0 10px;">{!u.Name}</span>
+                            </a>
+                        </apex:repeat>
+                    </div>
+                </apex:outputPanel>
+
+                <apex:outputPanel layout="none" rendered="{!searchResults == null || searchResults.size == 0}">
+                    <div style="width:100%;text-align:center;padding:20px;0;">
+                        <h2>No Results Found</h2>
+                    </div>
+                </apex:outputPanel>
+
+                <apex:outputPanel layout="none" rendered="{!searchResults.size > 0 && totalPages > 1}">
+                  <div class="row">
+                      <div class="col-md-6 col-md-offset-3">
+                        <ul class="pager">
+                          <apex:outputPanel layout="none" rendered="{!hasPrevious}">
+                            <li><apex:commandLink action="{!doPrevious}" value="<<" rerender="theForm" status="status"/></li>
+                          </apex:outputPanel>
+                          <apex:outputPanel layout="none" rendered="{!!hasPrevious}">
+                            <li><span>&lt;&lt;</span></li>
+                          </apex:outputPanel>
+                          <li><label style="padding:0 10px;">page {!pageNumber} of {!totalPages}</label></li>
+                          <apex:outputPanel layout="none" rendered="{!hasNext}">
+                            <li><apex:commandLink action="{!doNext}" rendered="{!hasNext}" value=">>" rerender="theForm" status="status"/></li>
+                          </apex:outputPanel>
+                          <apex:outputPanel layout="none" rendered="{!!hasNext}">
+                            <li><span>&gt;&gt;</span></li>
+                          </apex:outputPanel>
+                        </ul>
+                      </div>
+                  </div>
+                </apex:outputPanel>
+
+                <apex:actionStatus id="status">
+                    <apex:facet name="start">
+                        <apex:outputPanel >
+                            <c:LMSStatus statusComponentId="{!$Component.status}"/>
+                        </apex:outputPanel>
+                    </apex:facet>
+                </apex:actionStatus>
+
+                <script>
+                    jQuery(document).ready(function($){
+                        $(document.body).delegate('.lms-user-search-item', 'click', function(){
+                            var planUrl = $(this).attr('item-url');
+                            if(planUrl){
+                                //Retain navigation history
+                                almond.redirectHandlerWithStatus(planUrl,true);
+                            }
+                        });
+                    });
+                </script>
+
+            </apex:form>
+
+        </apex:define>
+    </apex:composition>
+
+</apex:page>

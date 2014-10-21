@@ -1,0 +1,15 @@
+<apex:component >
+	<style>
+		.lms-footer img{
+			height: 18px;
+			width: auto;
+		}
+
+	</style>
+    <footer>
+        <div class="container lms-footer" style="padding:0 0 10px 0;">
+			<!-- LMS Footer content -->
+        </div>
+    </footer>
+
+</apex:component>

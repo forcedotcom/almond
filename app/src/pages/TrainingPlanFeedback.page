@@ -1,0 +1,250 @@
+<!--
+Copyright (c) 2014, salesforce.com, Inc.
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification,
+are permitted provided that the following conditions are met:
+
+    * Redistributions of source code must retain the above copyright notice,
+    this list of conditions and the following disclaimer.
+    * Redistributions in binary form must reproduce the above copyright notice,
+    this list of conditions and the following disclaimer in the documentation
+    and/or other materials provided with the distribution.
+    * Neither the name of the salesforce.com, Inc. nor the names of its contributors
+    may be used to endorse or promote products derived from this software
+    without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
+INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
+OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<apex:page controller="TrainingPlanFeedbackController" docType="html-5.0" sidebar="false" showHeader="false" standardStylesheets="false" >
+
+    <apex:outputPanel layout="none" rendered="{!isAllowedToView}">
+
+        <apex:composition template="LMS_HeroTemplate">
+
+                <apex:define name="head">
+                    <title>{!tPlan.trainingPlan.Name}</title>
+                    <link href="{!URLFOR($Resource.almond_uilib, '/css/rateit.css')}" rel="stylesheet" media="screen" />
+                    <link href="{!URLFOR($Resource.almond_uilib, '/css/bigstars.css')}" rel="stylesheet" media="screen" />
+                </apex:define>
+
+                <apex:define name="hero-banner">
+                    <div id="hb-wrap">
+                        <h2>{!tPlan.trainingPlan.Name}</h2>
+                        <p><apex:outputField value="{!tPlan.trainingPlan.Description__c}"/></p>
+
+                        <div class="user-carousel">
+                            <apex:repeat value="{!lUsersWithAchievement}" var="u">
+                                <a href="javascript:almond.redirectHandlerWithStatus('{!$Page.MyProfile}?id={!u.Id}',true)" class="user-carousel-img">
+                                    <apex:image value="{!u.SmallPhotoUrl}" />
+                                </a>
+                            </apex:repeat>
+                        </div>
+                    </div>
+                </apex:define>
+
+                <apex:define name="hero-banner-footer">
+                	<span>Overall Rating : {!tPlan.trainingPlan.Training_Plan_Rating__c}</span>
+                </apex:define>
+
+                <apex:define name="hero-banner-badge">
+                    <div class="badge-container">
+                        <apex:outputfield value="{!tPlan.mainAchievement.Acquired_Image__c}" rendered="{!tPlan.mainAchievement.Work_Badge_Image_URL__c == null}"/>
+                        <apex:image url="{!tPlan.mainAchievement.Work_Badge_Image_URL__c}" rendered="{!tPlan.mainAchievement.Work_Badge_Image_URL__c != null}"/>
+                    </div>
+                </apex:define>
+
+                <apex:define name="container-header">
+                    <div class="row almond-nav" >
+                        <div class="btn-group col-xs-12 col-sm-12 col-md-12">
+                            <a href="javascript:almond.redirectHandlerWithStatus('{!IF(isPreview,$Page.TrainingPlanPreview,$Page.TrainingPlanDetail)}?id={!tplan.trainingPlan.Id}')" class="btn btn-default col-xs-4 col-sm-3 col-md-3" >Detail</a>
+                            <apex:outputPanel layout="none" rendered="{!tPlan.trainingPlan.Intro_Video_URL__c != null}">
+                                <a href="javascript:launchLearning('{!tPlan.trainingPlan.Intro_Video_URL__c}','iframe')" class="btn btn-default col-xs-4 col-sm-3 col-md-3">Intro Video</a>
+                            </apex:outputPanel>
+                            <a href="javascript:void(0)" class="btn btn-default col-xs-4 col-sm-3 col-md-3 almond-nav-active">Feedback</a>
+                        </div>
+                    </div>
+                </apex:define>
+
+                <apex:define name="body">
+
+                    <apex:form id="feedbackForm">
+
+                        <apex:outputPanel layout="none" rendered="{!isAssignedToTrainingPlan}">
+                        <div class="row">
+                            <div class="col-md-2 col-md-offset-2 tplan-feedback-photo" style="text-align:center;padding:0 0 10px 0;">
+                                <div><img src="{!currentUser.SmallPhotoUrl}" class="profilePic-header-45"/></div>
+                                <div><span class="feedback-username">{!currentUser.Name}</span></div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="panel panel-default">
+                                    <div class="panel-body">
+
+                                        <div class="form-group">
+                                            <label>Rating : </label>
+                                            <div id="feedback-rating" class="rateit bigstars" data-rateit-step="1" data-rateit-starwidth="32" data-rateit-starheight="32"></div>
+                                            <apex:inputHidden id="feedbackRating" value="{!feedback.Rating__c}" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Comments : </label>
+                                            <apex:inputField value="{!feedback.Comments__c}" styleClass="form-control" />
+                                        </div>
+                                        <apex:commandButton value="Submit" action="{!submitFeedback}" styleClass="btn btn-success" status="status" rerender="feedbackContent" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        </apex:outputPanel>
+
+                        <apex:outputPanel id="feedbackContent" layout="block">
+
+                            <apex:outputPanel layout="none" id="pageMessages">
+                                <apex:outputPanel layout="block" styleClass="alert alert-danger" rendered="{!hasMessages}">
+                                    <apex:pageMessages />
+                                </apex:outputPanel>
+                            </apex:outputPanel>
+
+                            <apex:outputPanel layout="none" rendered="{!comments != null && comments.size > 0}">
+                                <apex:repeat value="{!comments}" var="c">
+                                    <div class="row">
+                                        <div class="col-md-2 col-md-offset-2" style="text-align:center;padding:0 0 10px 0;margin-bottom:10px;">
+                                            <div><img src="{!c.User__r.SmallPhotoUrl}" class="profilePic-header-45"/></div>
+                                            <div><span class="feedback-username">{!c.User__r.Name}</span></div>
+                                            <apex:outputPanel layout="none" rendered="{!c.Rating__c != null && c.Rating__c > 0 }">
+                                                <div><span class="feedback-rating">Rating : {!c.Rating__c}</span></div>
+                                            </apex:outputPanel>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="well">
+                                                <apex:outputField value="{!c.Comments__c}"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </apex:repeat>
+
+                                <apex:outputPanel layout="none" rendered="{!comments.size > 0 && totalPages > 1}">
+                                  <div class="row">
+                                      <div class="col-md-6 col-md-offset-4">
+                                        <ul class="pager">
+                                          <apex:outputPanel layout="none" rendered="{!hasPrevious}">
+                                            <li><apex:commandLink action="{!doPrevious}" value="<<" rerender="feedbackContent" status="status"/></li>
+                                          </apex:outputPanel>
+                                          <apex:outputPanel layout="none" rendered="{!!hasPrevious}">
+                                            <li><span>&lt;&lt;</span></li>
+                                          </apex:outputPanel>
+                                          <li><label style="padding:0 10px;">page {!pageNumber} of {!totalPages}</label></li>
+                                          <apex:outputPanel layout="none" rendered="{!hasNext}">
+                                            <li><apex:commandLink action="{!doNext}" rendered="{!hasNext}" value=">>" rerender="feedbackContent" status="status"/></li>
+                                          </apex:outputPanel>
+                                          <apex:outputPanel layout="none" rendered="{!!hasNext}">
+                                            <li><span>&gt;&gt;</span></li>
+                                          </apex:outputPanel>
+                                        </ul>
+                                      </div>
+                                  </div>
+                                </apex:outputPanel>
+                            </apex:outputPanel>
+                            <apex:outputPanel layout="none" rendered="{!!isAssignedToTrainingPlan && (comments == null || comments.size == 0)}">
+                                <div style="width:100%;text-align:center;padding:20px;0;">
+                                    <h2>{!$Label.LMSUI_Nothing_to_see}</h2>
+                                </div>
+                            </apex:outputPanel>
+
+                        </apex:outputPanel>
+
+
+                        <apex:actionStatus id="status">
+                            <apex:facet name="start">
+                                <apex:outputPanel >
+                                    <c:LMSStatus statusComponentId="{!$Component.status}"/>
+                                </apex:outputPanel>
+                            </apex:facet>
+                        </apex:actionStatus>
+
+                    </apex:form>
+
+                    <!-- Modal Content Preview -->
+                    <apex:outputPanel id="contentModalPanel">
+
+                        <div class="modal fade" id="myContentModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                        <h4 class="modal-title" style="display:inline-block;"></h4>
+                                    </div>
+                                    <div class="modal-body" style="text-align:center;">
+                                        <a id="contentLink" href="javascript:void(0)" >Open in new window</a>
+                                        <div id="contentIframeWrapper" style="padding:10px 0;">
+                                            <iframe id="contentIframe" style="width:100%;"/>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="almond-secondary-btn small-btn" data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </apex:outputPanel>
+
+                    <script>
+                      var $jk = jQuery.noConflict();
+
+                      $jk(document).ready(function(){
+                          //color change on banner
+                          var bkcolor = "{!JSENCODE(tPlan.trainingPlan.Background_Color__c)}";
+                          var txtcolor = "{!JSENCODE(tPlan.trainingPlan.Text_Color__c)}";
+                          var bkimage = "url('{!JSENCODE(tPlan.trainingPlan.Background_Image_URL__c)}')";
+                          $jk('#hero-banner').css('background-color',bkcolor);
+                          $jk('#hero-banner').css('color',txtcolor);
+                          $jk('#hero-banner').css('background-image', bkimage);
+                          $jk('#feedback-rating').bind('rated', function() {
+                              var ratingValue = $jk(this).rateit('value');
+                              document.getElementById('{!$Component.feedbackForm.feedbackRating}').value = ratingValue;
+                          });
+                          $jk('#feedback-rating').bind('reset', function() {
+                              document.getElementById('{!$Component.feedbackForm.feedbackRating}').value = "";
+                          });
+                      });
+
+                        function launchLearning(learningURL,target){
+                            if(target == 'iframe'){
+                                $jk('#contentLink').unbind('click');
+                                $jk('#contentLink').click(function() {
+                                    almond.redirectHandlerWithTarget(learningURL,'_blank');
+                                });
+                                $jk('#contentIframe').prop('src',learningURL);
+                                $jk('#myContentModal').modal('show');
+                                $jk(".modal-backdrop").appendTo("#lms-template-wrapper");
+                            }else{
+                                almond.redirectHandler(learningURL);
+                            }
+                        }
+
+                        $jk('#myContentModal').on('hidden.bs.modal', function () {
+                            $jk('#contentIframe').prop('src','');
+                        });
+                    </script>
+              </apex:define>
+
+        </apex:composition>
+    </apex:outputPanel>
+    <apex:outputPanel layout="none" rendered="{!!isAllowedToView}">
+        <apex:pageMessages />
+    </apex:outputPanel>
+
+
+</apex:page>

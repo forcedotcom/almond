@@ -1,0 +1,70 @@
+#project related files
+.DS_Store
+Referenced Packages
+.settings
+.project
+.externalToolBuilders/
+salesforce.schema
+build/node_modules/
+build/tmp/
+npm-debug.log
+
+#ignore credential files
+sfdc-build.properties
+credentials.json
+credentials-validation.json
+
+#unfiled emails
+app/src/email/unfiled$public
+
+#default communities available in dev org
+app/src/communities/Internal Community.community
+
+#default home layouts for dev orgs
+app/src/homePageLayouts/DE Default.homePageLayout
+
+#standard roles from dev org
+app/src/roles/CEO.role
+app/src/roles/CFO.role
+app/src/roles/COO.role
+app/src/roles/ChannelSalesTeam.role
+app/src/roles/CustomerSupportInternational.role
+app/src/roles/CustomerSupportNorthAmerica.role
+app/src/roles/DirectorChannelSales.role
+app/src/roles/DirectorDirectSales.role
+app/src/roles/EasternSalesTeam.role
+app/src/roles/InstallationRepairServices.role
+app/src/roles/MarketingTeam.role
+app/src/roles/SVPCustomerServiceSupport.role
+app/src/roles/SVPHumanResources.role
+app/src/roles/SVPSalesMarketing.role
+app/src/roles/VPInternationalSales.role
+app/src/roles/VPMarketing.role
+app/src/roles/VPNorthAmericanSales.role
+app/src/roles/WesternSalesTeam.role
+
+#standard assignment rules
+app/src/assignmentRules/Case.assignmentRules
+app/src/assignmentRules/Lead.assignmentRules
+
+#standard sharing rules
+app/src/opportunitySharingRules/Opportunity.sharingRules
+app/src/leadSharingRules/Lead.sharingRules
+app/src/accountSharingRules/Account.sharingRules
+app/src/campaignSharingRules/Campaign.sharingRules
+app/src/caseSharingRules/Case.sharingRules
+app/src/contactSharingRules/Contact.sharingRules
+
+#settings
+app/src/settings/Case.settings
+app/src/settings/ChatterAnswers.settings
+app/src/settings/Company.settings
+app/src/settings/Contract.settings
+app/src/settings/Entitlement.settings
+app/src/settings/Knowledge.settings
+app/src/settings/Mobile.settings
+app/src/settings/Security.settings
+#app/src/settings/Ideas.settings
+
+#dynamically generated static resources
+app/src/staticresources/almond_uilib.resource

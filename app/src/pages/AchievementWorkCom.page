@@ -1,0 +1,142 @@
+<!--
+Copyright (c) 2014, salesforce.com, Inc.
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification,
+are permitted provided that the following conditions are met:
+
+    * Redistributions of source code must retain the above copyright notice,
+    this list of conditions and the following disclaimer.
+    * Redistributions in binary form must reproduce the above copyright notice,
+    this list of conditions and the following disclaimer in the documentation
+    and/or other materials provided with the distribution.
+    * Neither the name of the salesforce.com, Inc. nor the names of its contributors
+    may be used to endorse or promote products derived from this software
+    without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
+INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
+OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<apex:page standardController="Achievement__c" extensions="AchievementWorkComExt">
+
+    <apex:includeScript value="{!URLFOR($Resource.almond_uilib, '/js/jquery.min.js')}"/>
+
+    <apex:sectionHeader title="Achievements" subtitle="Work.com Badges">
+        <div class="bPageTitle" style="padding:0px;">
+            <div class="ptBreadcrumb">&nbsp;&lt;&lt;&nbsp;<a href="/{!Achievement__c.Id}">Back to Achievement: {!achievement.Name} </a></div>
+        </div>
+    </apex:sectionHeader>
+
+    <style>
+    	.workBadgeWrapper{
+            display: inline-block;
+            width: 120px;
+            height:120px;
+            zoom: 1;         /* for IE */
+            display*:inline; /* for IE */
+        }
+    	.workBadgeWrapper a{
+            display:block;
+        	padding:10px;
+        }
+        .workBadgeWrapper img{
+        	height:100px;
+        	width:auto;
+        }
+        .workBadgeWrapper .badge-active{
+            background-color:#FFFFC0;
+            border:1px solid #000;
+        }
+        .workBadgeWrapper .badge-item-caption{
+            text-align:center;
+            font-weight:bold;
+            background-color:#eee;
+            border:1px solid #000;
+        }
+    </style>
+
+    <apex:actionStatus id="status">
+        <apex:facet name="start">
+            <c:LMSStatus />
+        </apex:facet>
+    </apex:actionStatus>
+
+    <apex:form id="theForm">
+
+        <apex:pageBlock>
+
+            <apex:pageBlockButtons>
+                <apex:commandButton value="Save" action="{!saveBadgeInfo}" rerender="theForm" status="status"/>
+                <apex:commandButton value="Cancel" action="{!cancel}" />
+            </apex:pageBlockButtons>
+
+            <apex:pageMessages />
+
+            <apex:pageBlockSection columns="2" title="Badge Information">
+
+                <apex:inputField value="{!achievement.Work_Badge_Giver__c}" required="true"/>
+                <apex:inputField value="{!achievement.Work_Badge_Message__c}" style="width:90%;height:60px;"/>
+
+            </apex:pageBlockSection>
+
+            <apex:pageBlockSection columns="1" title="Badge Selection">
+                <apex:pageBlock>
+
+                	<apex:repeat value="{!badges}" var="b">
+
+                        <div class="workBadgeWrapper">
+
+                            <a id="{!b.Id}-wbadge" href="javascript:selectBadge('{!b.Id}')" class="badge-item {!IF(selectedBadge == b.Id,'badge-active','')}">
+                                <img src="{!b.ImageUrl}" title="{!b.Name}"/>
+                            </a>
+
+                        </div>
+
+                    </apex:repeat>
+
+                </apex:pageBlock>
+            </apex:pageBlockSection>
+
+        </apex:pageBlock>
+
+        <apex:inputHidden id="selectedBadge" value="{!selectedBadge}" />
+
+        <script>
+
+            function selectBadge(badgeId){
+                var j$ = jQuery.noConflict();
+
+                //Reset selected items
+                j$('.badge-item').removeClass('badge-active');
+
+                //Set input value
+                var badgeIdInput = j$('input[id$=selectedBadge]');
+
+                if(badgeIdInput){
+                    badgeIdInput.val(badgeId);
+
+                    //Apply active class to selected item
+                    var badgeItem = j$('#'+badgeId+'-wbadge');
+                    if(badgeItem){
+                        badgeItem.addClass('badge-active');
+                    }
+                }else{
+                    alert('Unable to register selection.')
+                }
+
+            }
+
+        </script>
+
+
+	</apex:form>
+
+</apex:page>

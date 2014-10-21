@@ -1,0 +1,38 @@
+<apex:component >
+
+    <apex:attribute name="QuizItem" type="QuizItem" description="pass in a quiz item"  required="true"/>
+    <apex:variable var="qi" value="{!QuizItem}"/>
+
+    <div class="radio">
+        <label>
+            <input onClick="document.getElementsByName('{!$Component.resource}')[0].value='true';" 
+                type="radio" name="{!qi.question.Id}" 
+                id="{!qi.question.id}true"
+                value="true" />
+                True          
+        </label>
+    </div>
+    <div class="radio">
+        <label>
+            <input onClick="document.getElementsByName('{!$Component.resource}')[0].value='false';" 
+                type="radio" name="{!qi.question.Id}" 
+                id="{!qi.question.id}false"
+                value="false" />
+                False          
+        </label>
+    </div>
+
+    <script>
+        if('{!JSENCODE(qi.response.Boolean_Response__c)}'=='true'){
+            document.getElementById('{!qi.question.id}true').checked=true;
+        };
+        if('{!JSENCODE(qi.response.Boolean_Response__c)}'=='false'){
+            document.getElementById('{!qi.question.id}false').checked=true;
+        };
+    </script>
+
+
+    <apex:inputHidden value="{!qi.response.Boolean_Response__c}" id="resource" rendered="true" />
+
+        
+</apex:component>

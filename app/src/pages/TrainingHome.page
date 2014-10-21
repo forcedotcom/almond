@@ -1,0 +1,102 @@
+<!--
+Copyright (c) 2014, salesforce.com, Inc.
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification,
+are permitted provided that the following conditions are met:
+
+    * Redistributions of source code must retain the above copyright notice,
+    this list of conditions and the following disclaimer.
+    * Redistributions in binary form must reproduce the above copyright notice,
+    this list of conditions and the following disclaimer in the documentation
+    and/or other materials provided with the distribution.
+    * Neither the name of the salesforce.com, Inc. nor the names of its contributors
+    may be used to endorse or promote products derived from this software
+    without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
+INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
+OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<apex:page docType="html-5.0" sidebar="false" showHeader="false" standardStylesheets="false">
+
+    <apex:composition template="LMS_Template">
+
+        <apex:define name="head">
+            <title>Learning Home</title>
+        </apex:define>
+
+        <apex:define name="body">
+
+            <div class="trainingplan-container row">
+                <div class="col-xs-12 col-sm-6 col-md-4 launch-wrapper" item-url="{!$Page.MyTraining}">
+                    <div class="tplan_box">
+                        <div class="tplan_img">
+                            <apex:image value="{!URLFOR($Resource.almond_uilib, '/img/mytraining.png')}"/>
+                        </div>
+                        <div class="tplan_details tplan_details_home">
+                            <h3>{!$Label.LMSUI_MyTraining}</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-4 launch-wrapper" item-url="{!$Page.MyProfile}">
+                    <div class="tplan_box">
+                        <div class="tplan_img">
+                            <apex:image value="{!URLFOR($Resource.almond_uilib, '/img/achievements.png')}"/>
+                        </div>
+                        <div class="tplan_details tplan_details_home" >
+                            <h3>Achievements</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-4 launch-wrapper" item-url="{!$Page.TrainingCatalogHome}">
+                    <div class="tplan_box">
+                        <div class="tplan_img">
+                            <apex:image value="{!URLFOR($Resource.almond_uilib, '/img/catalogs.png')}"/>
+                        </div>
+                        <div class="tplan_details tplan_details_home" >
+                            <h3>Catalog</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-4 launch-wrapper" item-url="{!$Page.TrainingTracks}">
+                    <div class="tplan_box">
+                        <div class="tplan_img">
+                            <apex:image value="{!URLFOR($Resource.almond_uilib, '/img/tracks.png')}"/>
+                        </div>
+                        <div class="tplan_details tplan_details_home" >
+                            <h3>Training Tracks</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <apex:actionStatus id="status">
+                <apex:facet name="start">
+                    <apex:outputPanel >
+                        <c:LMSStatus statusComponentId="{!$Component.status}"/>
+                    </apex:outputPanel>
+                </apex:facet>
+            </apex:actionStatus>
+
+            <script>
+                jQuery(document).ready(function($){
+
+                    $(document.body).delegate('.launch-wrapper', 'click', function(){
+                        var itemUrl = $(this).attr('item-url');
+                        almond.redirectHandlerWithStatus(itemUrl,true);
+                    });
+                });
+            </script>
+
+        </apex:define>
+
+    </apex:composition>
+</apex:page>

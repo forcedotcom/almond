@@ -1,0 +1,141 @@
+<!--
+Copyright (c) 2014, salesforce.com, Inc.
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification,
+are permitted provided that the following conditions are met:
+
+    * Redistributions of source code must retain the above copyright notice,
+    this list of conditions and the following disclaimer.
+    * Redistributions in binary form must reproduce the above copyright notice,
+    this list of conditions and the following disclaimer in the documentation
+    and/or other materials provided with the distribution.
+    * Neither the name of the salesforce.com, Inc. nor the names of its contributors
+    may be used to endorse or promote products derived from this software
+    without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
+INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
+OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<apex:page controller="TrainingTrackDetailCtrl" docType="html-5.0" sidebar="false" showHeader="false" standardStylesheets="false" cache="false">
+
+    <apex:composition template="LMS_HeroTemplate">
+
+        <apex:define name="head">
+            <title>{!track.Name}</title>
+        </apex:define>
+
+        <apex:define name="hero-banner">
+            <div id="hb-wrap">
+                <h2>{!track.Name}</h2>
+                <p><apex:outputField value="{!track.Description__c}"/></p>
+            </div>
+        </apex:define>
+
+        <apex:define name="hero-banner-badge">
+            <div class="badge-container">
+                <apex:outputfield value="{!track.Achievement__r.Acquired_Image__c}" rendered="{!track.Achievement__r.Work_Badge_Image_URL__c == null}"/>
+                <apex:image url="{!track.Achievement__r.Work_Badge_Image_URL__c}" rendered="{!track.Achievement__r.Work_Badge_Image_URL__c != null}"/>
+            </div>
+        </apex:define>
+
+        <apex:define name="hero-banner-footer">
+            <span>{!$Label.LMSUI_Total_Plans} : {!totalItems}</span>
+        </apex:define>
+
+        <apex:define name="body">
+
+            <div class="progress">
+              <div class="progress-bar" role="progressbar" aria-valuemax="100" style="width: {!IF(totalCompleted != null && totalItems >0,(totalCompleted/totalItems)*100,"0")}%;">
+                <span class="sr-only"></span>
+              </div>
+            </div>
+
+            <apex:repeat value="{!trackLevels}" var="l">
+
+                <h3>{!l.name}</h3>
+                <hr/>
+                <h5>{!l.description}</h5>
+                <div class="trainingplan-container row">
+                    <apex:repeat value="{!l.trackItems}" var="ti">
+
+                        <apex:variable var="hasBadge" value="{!ti.mainAchievement.Acquired_Image__c != null || ti.mainAchievement.Work_Badge_Image_URL__c != null}" />
+                        <apex:variable var="itemURL" value="{!ti.itemURL}"/>
+
+                        <div class="col-xs-12 col-sm-6 col-md-4 track-level-item-content" item-url="{!itemURL}">
+                            <div class="tplan_box {!IF(itemURL == null,'tplan_box_disabled','')}">
+                                <apex:outputPanel layout="none" rendered="{!hasBadge}">
+                                    <div class="tplan_img">
+                                        <apex:outputPanel layout="none" rendered="{!ti.itemURL != null}">
+                                            <apex:outputfield value="{!ti.mainAchievement.Acquired_Image__c}" rendered="{!ti.mainAchievement.Work_Badge_Image_URL__c == null}"/>
+                                            <apex:image url="{!ti.mainAchievement.Work_Badge_Image_URL__c}" rendered="{!ti.mainAchievement.Work_Badge_Image_URL__c != null}"/>
+                                        </apex:outputPanel>
+                                        <apex:outputPanel layout="none" rendered="{!ti.itemURL == null}">
+                                            <apex:outputfield value="{!ti.mainAchievement.Eligible_Image__c}" rendered="{!ti.mainAchievement.Work_Badge_Image_URL__c == null}"/>
+                                            <apex:image url="{!ti.mainAchievement.Work_Badge_Image_URL__c}" styleClass="badge-disabled" rendered="{!ti.mainAchievement.Work_Badge_Image_URL__c != null}"/>
+                                        </apex:outputPanel>
+                                    </div>
+                                </apex:outputPanel>
+                                <div class="{!IF(hasBadge,'tplan_details','tplan_details_no_image')}" >
+                                    <h4>{!ti.trackItem.Training_Plan__r.Name}</h4>
+                                    <apex:outputPanel layout="block" rendered="{!ti.tplanAssignment != null}">
+                                        <label class="label {!IF(ti.tplanAssignment.Status__c=='Completed','label-success',IF(ti.tplanAssignment.Status__c=='In Progress','label-primary','label-default'))}">
+                                            {!ti.tplanAssignment.Status__c}
+                                        </label>
+                                    </apex:outputPanel>
+                                    <apex:outputPanel layout="block" rendered="{!itemURL != null && ti.tplanAssignment == null}">
+                                        <label class="label label-info">Not Registered</label>
+                                    </apex:outputPanel>
+                                    <apex:outputPanel layout="block" rendered="{!itemURL == null}">
+                                        <label class="label label-default">Requires Assignment</label>
+                                    </apex:outputPanel>
+                                </div>
+                            </div>
+                        </div>
+
+                    </apex:repeat>
+                </div>
+
+            </apex:repeat>
+
+            <apex:actionStatus id="status">
+                <apex:facet name="start">
+                    <apex:outputPanel >
+                        <c:LMSStatus statusComponentId="{!$Component.status}"/>
+                    </apex:outputPanel>
+                </apex:facet>
+            </apex:actionStatus>
+
+            <script>
+                jQuery(document).ready(function($){
+
+                    var bkcolor = "{!JSENCODE(track.Background_Color__c)}";
+                    var txtcolor = "{!JSENCODE(track.Text_Color__c)}";
+                    var bkimage = "url('{!JSENCODE(track.Background_Image_URL__c)}')";
+                    $('#hero-banner').css('background-color',bkcolor);
+                    $('#hero-banner').css('color',txtcolor);
+                    $('#hero-banner').css('background-image', bkimage);
+
+                    $(document.body).delegate('.track-level-item-content', 'click', function(){
+                        var planUrl = $(this).attr('item-url');
+                        if(planUrl){
+                            // Retain navigation history
+                            almond.redirectHandlerWithStatus(planUrl,true);
+                        }
+                    });
+                });
+            </script>
+
+        </apex:define>
+
+    </apex:composition>
+
+</apex:page>

@@ -1,0 +1,91 @@
+<!--
+Copyright (c) 2014, salesforce.com, Inc.
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification,
+are permitted provided that the following conditions are met:
+
+    * Redistributions of source code must retain the above copyright notice,
+    this list of conditions and the following disclaimer.
+    * Redistributions in binary form must reproduce the above copyright notice,
+    this list of conditions and the following disclaimer in the documentation
+    and/or other materials provided with the distribution.
+    * Neither the name of the salesforce.com, Inc. nor the names of its contributors
+    may be used to endorse or promote products derived from this software
+    without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
+INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
+OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<apex:page controller="TrainingTracksController" docType="html-5.0" sidebar="false" showHeader="false" standardStylesheets="false" cache="true" >
+
+    <apex:composition template="LMS_Template">
+
+        <apex:define name="head">
+            <title>Training Tracks</title>
+        </apex:define>
+
+        <apex:define name="body">
+
+            <apex:outputPanel layout="none" rendered="{!tTracks != null && tTracks.size > 0}">
+                <div class="trainingplan-container row">
+                    <apex:repeat value="{!tTracks}" var="o" id="theRepeat">
+
+                        <apex:variable var="hasBadge" value="{!o.Achievement__r.Acquired_Image__c != null || o.Achievement__r.Work_Badge_Image_URL__c != null}" />
+
+                        <div class="col-xs-12 col-sm-6 col-md-4 tplan_box_register" lms-data-trackId="{!JSENCODE(o.id)}">
+                            <div class="tplan_box">
+                                <apex:outputPanel layout="none" rendered="{!hasBadge}">
+                                    <div class="tplan_img">
+                                        <apex:outputField value="{!o.Achievement__r.Acquired_Image__c}"  rendered="{!o.Achievement__r.Work_Badge_Image_URL__c == null}"/>
+                                        <apex:image url="{!o.Achievement__r.Work_Badge_Image_URL__c}" rendered="{!o.Achievement__r.Work_Badge_Image_URL__c != null}"/>
+                                    </div>
+                                </apex:outputPanel>
+                                <div class="{!IF(hasBadge,'tplan_details','tplan_details_no_image')}" >
+                                    <h4>{!o.name}</h4>
+                                    <span>{!o.Description__c}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </apex:repeat>
+                </div>
+            </apex:outputPanel>
+
+            <apex:outputPanel layout="none" rendered="{!tTracks == null || tTracks.size == 0}">
+                <div style="width:100%;text-align:center;padding:20px;0;">
+                    <h2>Nothing to see here!</h2>
+            </div>
+            </apex:outputPanel>
+
+            <apex:actionStatus id="status">
+                <apex:facet name="start">
+                    <apex:outputPanel >
+                        <c:LMSStatus statusComponentId="{!$Component.status}"/>
+                    </apex:outputPanel>
+                </apex:facet>
+            </apex:actionStatus>
+
+            <script>
+                jQuery(document).ready(function($){
+                    $(document.body).delegate('.tplan_box_register', 'click', function(){
+                        var trackId = $(this).attr('lms-data-trackId');
+                        //Retain navigation history
+                        almond.redirectHandlerWithStatus('{!$Page.TrainingTrackDetail}?id='+trackId,true);
+                    });
+                });
+            </script>
+
+        </apex:define>
+
+    </apex:composition>
+
+</apex:page>

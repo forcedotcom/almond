@@ -1,0 +1,42 @@
+<apex:component layout="none">
+
+    <apex:attribute name="currentSearchTerm" type="String" description="current page search term" required="false" default=""/>
+    <apex:attribute name="retainInHistory" type="String" description="retain the current page in search history" required="false" default="false"/>
+
+    <div class="row">
+        <div class="col-lg-12 lms-search-group">
+            <div class="input-group input-group-lg">
+                <input type="text" class="form-control" id="lms-search-input" autocomplete="off" maxlength="100" placeholder="Search Catalog"/>
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button" id="lms-search-button"><span class="glyphicon glyphicon-search"></span></button>
+                </span>
+            </div>
+         </div>
+    </div>
+
+    <script>
+        jQuery(document).ready(function($){
+            $("#lms-search-input").val("{!JSENCODE(currentSearchTerm)}");
+            $( document ).on( "click", "#lms-search-button", function() {
+                doTrainingPlanSearch();
+            });
+            $( document ).on( "keypress", "#lms-search-input", function(e) {
+                if(e.which == 13){
+                    e.preventDefault();
+                    doTrainingPlanSearch();
+                }
+            });
+        });
+
+        function doTrainingPlanSearch(){
+            var searchTerm = jQuery('#lms-search-input').val();
+            var searchURL = '{!$Page.TrainingPlansSearch}?q='+encodeURIComponent(searchTerm);
+            console.log(searchURL);
+            if(searchURL){
+                //Do not retain navigation history for searches
+                almond.redirectHandlerWithStatus(searchURL,'{!JSENCODE(retainInHistory)}'=='true');
+            }
+        }
+    </script>
+
+</apex:component>

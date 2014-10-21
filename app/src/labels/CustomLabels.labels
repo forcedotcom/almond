@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
+    <labels>
+        <fullName>LMSUI_Activities</fullName>
+        <categories>LMS General, LMS UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LMSUI Activities</shortDescription>
+        <value>Activities</value>
+    </labels>
+    <labels>
+        <fullName>LMSUI_Category</fullName>
+        <categories>LMS General, LMS UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LMSUI_Category</shortDescription>
+        <value>Category</value>
+    </labels>
+    <labels>
+        <fullName>LMSUI_Categories</fullName>
+        <categories>LMS General, LMS UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LMSUI_Categories</shortDescription>
+        <value>Categories</value>
+    </labels>
+    <labels>
+        <fullName>LMSUI_Close</fullName>
+        <categories>LMS General, LMS UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LMSUI Close</shortDescription>
+        <value>Close</value>
+    </labels>
+    <labels>
+        <fullName>LMSUI_Complete_Previous</fullName>
+        <categories>LMS General, LMS UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LMSUI Complete Previous</shortDescription>
+        <value>You must complete all previous activities in order to continue.</value>
+    </labels>
+    <labels>
+        <fullName>LMSUI_Complete_Success</fullName>
+        <categories>LMS General, LMS UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LMSUI Complete Success</shortDescription>
+        <value>Complete (success)</value>
+    </labels>
+    <labels>
+        <fullName>LMSUI_Completed</fullName>
+        <categories>LMS General, LMS UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LMSUI_Completed</shortDescription>
+        <value>Completed</value>
+    </labels>
+    <labels>
+        <fullName>LMSUI_Continue</fullName>
+        <categories>LMS General, LMS UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LMSUI Continue</shortDescription>
+        <value>Continue</value>
+    </labels>
+    <labels>
+        <fullName>LMSUI_Continue_Old_Version</fullName>
+        <categories>LMS General, LMS UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LMSUI Continue Old Version</shortDescription>
+        <value>Continue with old vesion</value>
+    </labels>
+    <labels>
+        <fullName>LMSUI_Detail</fullName>
+        <categories>LMS General, LMS UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LMSUI Detail</shortDescription>
+        <value>Detail</value>
+    </labels>
+    <labels>
+        <fullName>LMSUI_Duration</fullName>
+        <categories>LMS General, LMS UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LMSUI Duration</shortDescription>
+        <value>Duration</value>
+    </labels>
+    <labels>
+        <fullName>LMSUI_Feedback</fullName>
+        <categories>LMS General, LMS UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LMSUI Feedback</shortDescription>
+        <value>Feedback</value>
+    </labels>
+    <labels>
+        <fullName>LMSUI_InProgress</fullName>
+        <categories>LMS General, LMS UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LMSUI_InProgress</shortDescription>
+        <value>In Progress</value>
+    </labels>
+    <labels>
+        <fullName>LMSUI_Intro_Video</fullName>
+        <categories>LMS General, LMS UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LMSUI Intro Video</shortDescription>
+        <value>Intro Video</value>
+    </labels>
+    <labels>
+        <fullName>LMSUI_Launch</fullName>
+        <categories>LMS General, LMS UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LMSUI Launch</shortDescription>
+        <value>Launch</value>
+    </labels>
+    <labels>
+        <fullName>LMSUI_Launch_New_Version</fullName>
+        <categories>LMS General, LMS UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LMSUI Launch New Version</shortDescription>
+        <value>Click &quot;Continue&quot; to launch the new version</value>
+    </labels>
+    <labels>
+        <fullName>LMSUI_MyProfile</fullName>
+        <categories>LMS General, LMS UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LMSUI_MyProfile</shortDescription>
+        <value>Achievements</value>
+    </labels>
+    <labels>
+        <fullName>LMSUI_MyTraining</fullName>
+        <categories>LMS General, LMS UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LMSUI_MyTraining</shortDescription>
+        <value>My Training</value>
+    </labels>
+    <labels>
+        <fullName>LMSUI_My_Training</fullName>
+        <categories>LMS General, LMS UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LMSUI My Training</shortDescription>
+        <value>My Training</value>
+    </labels>
+    <labels>
+        <fullName>LMSUI_New_Version_available</fullName>
+        <categories>LMS General, LMS UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LMSUI New Version available</shortDescription>
+        <value>New version available!</value>
+    </labels>
+    <labels>
+        <fullName>LMSUI_NotStarted</fullName>
+        <categories>LMS General, LMS UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LMSUI_NotStarted</shortDescription>
+        <value>Not Started</value>
+    </labels>
+    <labels>
+        <fullName>LMSUI_Nothing_to_see</fullName>
+        <categories>LMS General, LMS UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LMSUI Nothing to see</shortDescription>
+        <value>Nothing to see here !</value>
+    </labels>
+    <labels>
+        <fullName>LMSUI_Open_New_Window</fullName>
+        <categories>LMS General, LMS UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LMSUI Open New Window</shortDescription>
+        <value>Open in new window</value>
+    </labels>
+    <labels>
+        <fullName>LMSUI_PublicCatalog</fullName>
+        <categories>LMS General, LMS UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LMSUI_PublicCatalog</shortDescription>
+        <value>Catalog</value>
+    </labels>
+    <labels>
+        <fullName>LMSUI_Take_New_Version</fullName>
+        <categories>LMS General, LMS UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LMSUI Take New Version</shortDescription>
+        <value>Take new version</value>
+    </labels>
+    <labels>
+        <fullName>LMSUI_Total_Plans</fullName>
+        <categories>LMS General, LMS UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LMSUI Total Plan Items</shortDescription>
+        <value>Total Items</value>
+    </labels>
+    <labels>
+        <fullName>LMSUI_TrainingTracks</fullName>
+        <categories>LMS General, LMS UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LMSUI_TrainingTracks</shortDescription>
+        <value>Tracks</value>
+    </labels>
+    <labels>
+        <fullName>LMSUI_Training_Catalog</fullName>
+        <categories>LMS General, LMS UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LMSUI Training Catalog</shortDescription>
+        <value>Training Catalog</value>
+    </labels>
+</CustomLabels>

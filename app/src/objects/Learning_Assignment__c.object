@@ -1,0 +1,447 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>true</enableActivities>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <fields>
+        <fullName>Approved_By__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Approved By</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Learning_Assignments1</relationshipName>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Approved__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Approved</label>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Approver_Notes__c</fullName>
+        <externalId>false</externalId>
+        <label>Approver Notes</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Contact__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Contact</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>Learning Assignments</relationshipLabel>
+        <relationshipName>Learning_Assignments</relationshipName>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Evaluation_Result_Text__c</fullName>
+        <externalId>false</externalId>
+        <formula>TEXT( Evaluation_Result__c )</formula>
+        <label>Evaluation Result Text</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Evaluation_Result__c</fullName>
+        <externalId>false</externalId>
+        <label>Evaluation Result</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Passed</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Failed</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>N/A</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Evaluation_Score__c</fullName>
+        <externalId>false</externalId>
+        <label>Evaluation Score</label>
+        <precision>5</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Evaluation_Times_Taken__c</fullName>
+        <externalId>false</externalId>
+        <label>Evaluation Times Taken</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Is_Test_Assignment__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>This flag indicates that this assignment is created for preview purposes while creating new Learnings</description>
+        <externalId>false</externalId>
+        <inlineHelpText>This flag indicates that this assignment is created for preview purposes while creating new Learnings</inlineHelpText>
+        <label>Is Test Assignment</label>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Last_Published_Learning_Version_Decision__c</fullName>
+        <externalId>false</externalId>
+        <label>Last Published Learning Version Decision</label>
+        <picklist>
+            <picklistValues>
+                <fullName>New version taken</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Keep using old version</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Last_Published_Learning_Version__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Last Published Learning Version</label>
+        <referenceTo>Learning_Version__c</referenceTo>
+        <relationshipLabel>Learning Assignments</relationshipLabel>
+        <relationshipName>Learning_Assignments</relationshipName>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Learning_Version__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Learning Version</label>
+        <referenceTo>Learning_Version__c</referenceTo>
+        <relationshipLabel>Learning Assignments (Learning Version)</relationshipLabel>
+        <relationshipName>Learning_Assignments1</relationshipName>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Learning__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Learning</label>
+        <referenceTo>Learning__c</referenceTo>
+        <relationshipLabel>Learning Assignments</relationshipLabel>
+        <relationshipName>Learning_Assignments</relationshipName>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Progress_Percentage__c</fullName>
+        <externalId>false</externalId>
+        <label>Progress %</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Progress_Text__c</fullName>
+        <externalId>false</externalId>
+        <formula>TEXT(Progress__c)</formula>
+        <label>Progress Text</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Progress__c</fullName>
+        <externalId>false</externalId>
+        <label>Progress</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Not Started</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>In Progress</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>In Review</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Completed</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cancelled</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Shared_Learning_Assignment__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Shared Learning Assignment</label>
+        <referenceTo>Shared_Learning_Assignment__c</referenceTo>
+        <relationshipLabel>Learning Assignments</relationshipLabel>
+        <relationshipName>Learning_Assignments</relationshipName>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Training_Plan_Section_Assignment__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Training Plan Section Assignment</label>
+        <referenceTo>Training_Plan_Section_Assignment__c</referenceTo>
+        <relationshipLabel>Learning Assignments</relationshipLabel>
+        <relationshipName>Learning_Assignments</relationshipName>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Training_Plan_Section_Item__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Training Plan Section Item</label>
+        <referenceTo>Training_Plan_Section_Item__c</referenceTo>
+        <relationshipLabel>Learning Assignments</relationshipLabel>
+        <relationshipName>Learning_Assignments</relationshipName>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Training_Plan_Section__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Training Plan Section</label>
+        <referenceTo>Training_Plan_Section__c</referenceTo>
+        <relationshipLabel>Learning Assignments</relationshipLabel>
+        <relationshipName>Learning_Assignments</relationshipName>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Training_Plan__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Training Plan</label>
+        <referenceTo>Training_Plan__c</referenceTo>
+        <relationshipLabel>Learning Assignments</relationshipLabel>
+        <relationshipName>Learning_Assignments</relationshipName>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>User__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>User</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Learning_Assignments</relationshipName>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Optional__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Optional</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <label>Learning Assignment</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>Contact__c</columns>
+        <columns>User__c</columns>
+        <columns>OWNER.ALIAS</columns>
+        <columns>Learning__c</columns>
+        <columns>Learning_Version__c</columns>
+        <columns>Progress__c</columns>
+        <columns>Progress_Percentage__c</columns>
+        <columns>Last_Published_Learning_Version__c</columns>
+        <columns>Last_Published_Learning_Version_Decision__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <listViews>
+        <fullName>My_Assignments</fullName>
+        <columns>NAME</columns>
+        <columns>Contact__c</columns>
+        <columns>User__c</columns>
+        <columns>OWNER.ALIAS</columns>
+        <columns>Learning__c</columns>
+        <columns>Learning_Version__c</columns>
+        <columns>Progress__c</columns>
+        <columns>Progress_Percentage__c</columns>
+        <columns>Last_Published_Learning_Version__c</columns>
+        <columns>Last_Published_Learning_Version_Decision__c</columns>
+        <filterScope>Mine</filterScope>
+        <label>My Assignments</label>
+    </listViews>
+    <listViews>
+        <fullName>Pending_Approval</fullName>
+        <columns>NAME</columns>
+        <columns>Contact__c</columns>
+        <columns>User__c</columns>
+        <columns>OWNER.ALIAS</columns>
+        <columns>Learning__c</columns>
+        <columns>Learning_Version__c</columns>
+        <columns>Progress__c</columns>
+        <columns>Progress_Percentage__c</columns>
+        <columns>Last_Published_Learning_Version__c</columns>
+        <columns>Last_Published_Learning_Version_Decision__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Progress__c</field>
+            <operation>equals</operation>
+            <value>In Review</value>
+        </filters>
+        <label>Pending Approval</label>
+    </listViews>
+    <nameField>
+        <displayFormat>LEA-{0000000}</displayFormat>
+        <label>Learning Assignment Name</label>
+        <trackHistory>true</trackHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Learning Assignments</pluralLabel>
+    <searchLayouts>
+        <customTabListAdditionalFields>Contact__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>User__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>OWNER.ALIAS</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Learning__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Learning_Version__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Progress__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Progress_Percentage__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Last_Published_Learning_Version__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Last_Published_Learning_Version_Decision__c</customTabListAdditionalFields>
+    </searchLayouts>
+    <sharingModel>Private</sharingModel>
+    <sharingReasons>
+        <fullName>LMS_Approval_Sharing__c</fullName>
+        <label>LMS Approval Sharing</label>
+    </sharingReasons>
+    <webLinks>
+        <fullName>Approve</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <height>600</height>
+        <linkType>page</linkType>
+        <masterLabel>Approve</masterLabel>
+        <openType>noSidebar</openType>
+        <page>LearningAssignmentApprove</page>
+        <protected>false</protected>
+    </webLinks>
+</CustomObject>

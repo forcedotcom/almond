@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Question template. Records in this object can be used to import questions to Question Lines</description>
+    <enableActivities>true</enableActivities>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <fields>
+        <fullName>Correct_Boolean__c</fullName>
+        <externalId>false</externalId>
+        <label>Correct Boolean</label>
+        <picklist>
+            <picklistValues>
+                <fullName>true</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>false</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Correct_Number__c</fullName>
+        <externalId>false</externalId>
+        <label>Correct Number</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Description_RTA__c</fullName>
+        <externalId>false</externalId>
+        <label>Description RTA</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Html</type>
+        <visibleLines>25</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Description__c</fullName>
+        <externalId>false</externalId>
+        <label>Description</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>TML_Answer_Sequence__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <externalId>false</externalId>
+        <label>TML Answer Sequence</label>
+        <referenceTo>TML_Answer_Sequence__c</referenceTo>
+        <relationshipLabel>TML Questions</relationshipLabel>
+        <relationshipName>TML_Questions</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Text</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Number</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>SelectOneQuestion</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>SelectMultipleQuestion</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Boolean</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <label>TML Question</label>
+    <listViews>
+        <fullName>All</fullName>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <displayFormat>TLQ-{0000000}</displayFormat>
+        <label>TML Question ID</label>
+        <trackHistory>false</trackHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>TML Questions</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>Private</sharingModel>
+    <validationRules>
+        <fullName>AnswerSequence_Required</fullName>
+        <active>true</active>
+        <description>Display an error message when a type that requires an answer sequence chose and no answer sequence is defined</description>
+        <errorConditionFormula>(TEXT( Type__c )==&quot;SelectOneQuestion&quot; || TEXT( Type__c )==&quot;SelectMultipleQuestion&quot;) &amp;&amp;  ISBLANK(TML_Answer_Sequence__c)</errorConditionFormula>
+        <errorMessage>You must specify an answer sequence for this type of question</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>CorrectBoolean_Required</fullName>
+        <active>true</active>
+        <errorConditionFormula>ISBLANK(TEXT(Correct_Boolean__c)) &amp;&amp;  TEXT(Type__c) == &quot;Boolean&quot;</errorConditionFormula>
+        <errorMessage>You must specify a correct boolean value when defining a Boolean type of question</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>CorrectNumber_Required</fullName>
+        <active>true</active>
+        <errorConditionFormula>ISBLANK(TEXT(Correct_Number__c)) &amp;&amp; TEXT(Type__c) == &quot;Number&quot;</errorConditionFormula>
+        <errorMessage>You must specify a correct number value when defining a Number type of question</errorMessage>
+    </validationRules>
+</CustomObject>

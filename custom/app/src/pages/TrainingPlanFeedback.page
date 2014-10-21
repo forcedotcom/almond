@@ -1,0 +1,60 @@
+<apex:page controller="TrainingPlanFeedbackController" docType="html-5.0" sidebar="false" showHeader="false" standardStylesheets="false" >
+
+    <apex:composition template="{!lmstemplate}">
+
+        <apex:define name="head">
+            <title>Training Plan Feedback</title>
+        </apex:define>
+
+		<apex:define name="container-header">
+            <h3>Feedback for {!tplanname}</h3>
+
+            <apex:outputPanel layout="block" styleClass="alert alert-danger" rendered="{!hasMessages}">
+                <script>
+                    forceHideStatus();
+                </script>
+                <apex:pageMessages />
+            </apex:outputPanel>
+        </apex:define>
+
+        <apex:define name="body">
+			<apex:form id="feedbackform">
+
+					<fieldset class="form-section">
+						<div class="form-item" >
+							<label>{!$ObjectType.LMS_Feedback__c.fields.Time_Spent_Preparing__c.Label}</label>
+							<apex:inputField value="{!lmsfeedback.Time_Spent_Preparing__c}"  id="timespent" />
+						</div>
+
+						<div class="form-item" >
+							<label>{!$ObjectType.LMS_Feedback__c.fields.Confidence_customizing__c.Label}</label>
+							<apex:inputField value="{!lmsfeedback.Confidence_customizing__c}"  id="customconfidence" />
+						</div>
+
+						<div class="form-item" >
+							<label>{!$ObjectType.LMS_Feedback__c.fields.Activity_value__c.Label}</label>
+							<apex:inputField value="{!lmsfeedback.Activity_value__c}"  id="actvalue" />
+						</div>
+
+						<div class="form-item" >
+							<label>{!$ObjectType.LMS_Feedback__c.fields.Support_Material_value__c.Label}</label>
+							<apex:inputField value="{!lmsfeedback.Support_Material_value__c}"  id="supportvalue" />
+						</div>
+
+						<div class="form-item" >
+							<label>{!$ObjectType.LMS_Feedback__c.fields.Participant_Comments__c.Label}</label>
+							<apex:inputField value="{!lmsfeedback.Participant_Comments__c}"  id="pcomment" />
+						</div>
+					</fieldset>
+
+					<fieldset class="form-buttons">
+						<apex:commandButton action="{!save}" value="Save" id="savebtn" styleClass="almond-primary-btn small-btn" />
+						<apex:commandButton action="{!cancel}" value="Cancel" id="cancelbtn" styleClass="almond-secondary-btn small-btn" />
+					</fieldset>
+
+            </apex:form>
+        </apex:define>
+
+    </apex:composition>
+
+</apex:page>

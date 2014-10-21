@@ -1,0 +1,114 @@
+<!--
+Copyright (c) 2014, salesforce.com, Inc.
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification,
+are permitted provided that the following conditions are met:
+
+    * Redistributions of source code must retain the above copyright notice,
+    this list of conditions and the following disclaimer.
+    * Redistributions in binary form must reproduce the above copyright notice,
+    this list of conditions and the following disclaimer in the documentation
+    and/or other materials provided with the distribution.
+    * Neither the name of the salesforce.com, Inc. nor the names of its contributors
+    may be used to endorse or promote products derived from this software
+    without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
+INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
+OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<apex:page standardController="Question__c" extensions="QuestionNewController" >
+	<style>
+		.qtxtinput{
+			width: 90% !important;
+		}
+
+		.qorder{
+			width: 20px;
+		}
+
+		.bPageBlock .detailList .labelCol {
+		    width: 7%;
+		}
+	</style>
+	<apex:form >
+
+		<apex:actionFunction action="{!answerseqenabler}" name="answerseqenablerJS" rerender="therepeater, qsection2" >
+			<apex:param name="qtype" assignTo="{!questiontype}" value="" />
+		</apex:actionFunction>
+
+		<apex:sectionHeader title="Question Line" subtitle="{!IF(question.Name != null, question.Name,'New Question')}"/>
+
+		<apex:pageBlock >
+			<apex:pageBlockButtons location="top" >
+                <apex:commandButton action="{!c_save}" value="Save" id="savebtn" />
+				<apex:commandButton action="{!cancel}" value="Cancel" id="cancelbtn" />
+            </apex:pageBlockButtons>
+
+			<apex:pageBlockSection id="qsection" columns="3" >
+
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Question" for="qdesc"  ></apex:outputLabel>
+					<apex:inputField value="{!question.Description__c}"  id="qdesc" styleClass="qtxtinput"/>
+				</apex:pageBlockSectionItem>
+
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Question Type" for="qtype"  ></apex:outputLabel>
+					<apex:inputField value="{!question.Type__c}" id="qtype" onchange="answerseqenablerJS(this.value)"/>
+				</apex:pageBlockSectionItem>
+
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Order" for="qorder"  ></apex:outputLabel>
+					<apex:inputField value="{!question.Order__c}" id="qorder" styleClass="qorder"/>
+				</apex:pageBlockSectionItem>
+
+			</apex:pageBlockSection>
+
+			<apex:pageBlockSection id="qsection2" columns="1">
+
+				<apex:pageBlockSectionItem rendered="{!banswernum}" >
+					<apex:outputLabel value="Number" for="qnum"  ></apex:outputLabel>
+					<apex:inputField value="{!question.Correct_Number__c}" id="qnum"/>
+				</apex:pageBlockSectionItem>
+
+				<apex:pageBlockSectionItem rendered="{!banswerbool}" >
+					<apex:outputLabel value="Boolean" for="qbool"  ></apex:outputLabel>
+					<apex:inputField value="{!question.Correct_Boolean__c}" id="qbool"/>
+				</apex:pageBlockSectionItem>
+
+
+			</apex:pageBlockSection>
+		</apex:pageBlock>
+
+		<apex:pageBlock id="therepeater">
+			<apex:pageBlockButtons location="top" rendered="{!banswerseq}" >
+                <apex:commandButton action="{!addanswerseqitem}" value="Add Answer Seq Item" id="theButton" rerender="therepeater" />
+            </apex:pageBlockButtons>
+
+			<apex:pageBlockSection columns="4" rendered="{!banswerseq}" >
+
+					<apex:repeat value="{!lanswerseqitems}" var="item" >
+
+						<apex:inputField value="{!item.Item_Id__c}" required="false" styleClass="qtxtinput" />
+						<apex:inputField value="{!item.Answer_Text__c}" styleClass="qtxtinput" />
+						<apex:inputField value="{!item.Order__c}" styleClass="qorder" />
+						<apex:inputField value="{!item.Is_Correct_Answer__c}" />
+
+
+					</apex:repeat>
+
+			</apex:pageBlockSection>
+
+		</apex:pageBlock>
+
+	</apex:form>
+
+</apex:page>

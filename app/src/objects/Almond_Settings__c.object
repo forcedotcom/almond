@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>Hierarchy</customSettingsType>
+    <customSettingsVisibility>Public</customSettingsVisibility>
+    <description>Settings used by the almond app</description>
+    <enableFeeds>false</enableFeeds>
+    <fields>
+        <fullName>Company_Logo__c</fullName>
+        <description>URL for your company logo</description>
+        <externalId>false</externalId>
+        <inlineHelpText>URL for your company logo</inlineHelpText>
+        <label>Company Logo</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Header_Background_Color__c</fullName>
+        <description>HEX value for the header background color. (e.g. #EEEEEE)</description>
+        <externalId>false</externalId>
+        <inlineHelpText>HEX value for the header background color. (e.g. #EEEEEE)</inlineHelpText>
+        <label>Header Background Color</label>
+        <length>10</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Header_Text_Color__c</fullName>
+        <description>HEX value for the header text color. (e.g. #EEEEEE)</description>
+        <externalId>false</externalId>
+        <inlineHelpText>HEX value for the header text color. (e.g. #EEEEEE)</inlineHelpText>
+        <label>Header Text Color</label>
+        <length>10</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Disable_Track_Achievements__c</fullName>
+        <inlineHelpText>Enable this option to prevent automatic achievement assignment for track achievements</inlineHelpText>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Disable Track Achievements</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Disable_Future_Progress_Calculation__c</fullName>
+        <inlineHelpText>Enable this option to force training plan progress calculation in a single transaction</inlineHelpText>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Disable Future Progress Calculation</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Enable_iOS_Tap_Fix__c</fullName>
+        <inlineHelpText>Enable this option if you're experiencing issues with taps in Salesforce1 + iOS8</inlineHelpText>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Enable iOS Tap Fix</label>
+        <type>Checkbox</type>
+    </fields>
+    <label>Almond Settings</label>
+</CustomObject>

@@ -1,0 +1,34 @@
+<apex:component >
+
+    <apex:attribute name="tplanObj" description="TrainingPlanWithAchievement object rendered by component" type="TrainingPlanWithAchievement[]" required="true"/>
+
+    <apex:outputPanel layout="none" rendered="{!tplanObj != null && tplanObj.size > 0}">
+        <div class="trainingplan-container row">
+            <apex:repeat value="{!tplanObj}" var="o" id="theRepeat">
+
+                <apex:variable var="hasBadge" value="{!o.mainAchievement.Acquired_Image__c != null || o.mainAchievement.Work_Badge_Image_URL__c != null}" />
+
+                <div class="col-xs-12 col-sm-6 col-md-4" onclick="almond.redirectHandlerWithStatus('{!JSENCODE(o.planDetailURL)}',true)">
+                    <div class="tplan_box">
+                        <apex:outputPanel layout="none" rendered="{!hasBadge}">
+                            <div class="tplan_img">
+                                <apex:outputField value="{!o.mainAchievement.Acquired_Image__c}"  rendered="{!o.mainAchievement.Work_Badge_Image_URL__c == null}"/>
+                                <apex:image url="{!o.mainAchievement.Work_Badge_Image_URL__c}" rendered="{!o.mainAchievement.Work_Badge_Image_URL__c != null}"/>
+                            </div>
+                        </apex:outputPanel>
+                        <div class="{!IF(hasBadge,'tplan_details','tplan_details_no_image')}" >
+                            <h4>{!o.planName}</h4>
+                        </div>
+                    </div>
+                </div>
+
+            </apex:repeat>
+        </div>
+    </apex:outputPanel>
+    <apex:outputPanel layout="none" rendered="{!tplanObj == null || tplanObj.size == 0}">
+        <div style="width:100%;text-align:center;padding:20px;0;">
+            <h2>{!$Label.LMSUI_Nothing_to_see}</h2>
+        </div>
+    </apex:outputPanel>
+
+</apex:component>

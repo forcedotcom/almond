@@ -1,0 +1,30 @@
+<apex:component >
+
+    <apex:attribute name="QuizItem" type="QuizItem" description="pass in a quiz item"  required="true"/>
+    <apex:variable var="qi" value="{!QuizItem}" ></apex:variable>
+    
+    <apex:repeat value="{!qi.answers.Answer_Sequence_Items__r}" var="l" >
+
+        <div class="checkbox">
+            <label>
+                <input onClick="multiset('{!$Component.mresource}','{!$Component.mselectresponse}',this);" 
+                    type="checkbox" 
+                    name="{!qi.question.id}" 
+                    id="{!qi.question.id}{!l.Item_Id__c}"
+                    value="{!l.Item_Id__c}" ></input>
+                    <label name="{!qi.question.id}label">{!l.Answer_Text__c}</label>      
+            </label>
+        </div>
+
+        <script>
+	        if( strcontains( '{!JSENCODE(qi.response.Response_Answer_Sequence_Long__c)}', '{!JSENCODE(l.Item_Id__c)}') ){
+	            document.getElementById('{!qi.question.id}{!l.Item_Id__c}').checked=true;
+	        };
+        </script>
+        
+    </apex:repeat>
+
+    <apex:inputHidden value="{!qi.response.Response_Answer_Sequence_Long__c}"  id="mresource" rendered="true" />
+    <apex:inputHidden value="{!qi.response.Response_Answer_Sequence_Label__c}" id="mselectresponse" rendered="true" />
+
+</apex:component>

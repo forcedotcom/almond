@@ -1,0 +1,101 @@
+<project name="App build file" default="deploy" basedir="." xmlns:sf="antlib:com.salesforce">
+
+	<!-- Properties -->
+	<property environment="env"/>
+	<property name="build_props" value="sfdc-build.properties"/>
+	<property file="${build_props}"/>
+	<property name="destructive.dir" value="../build/destructive"/>
+	<property name="src.dir" value="../app/src"/>
+	<property name="staticres.src.dir" value="../static-resources"/>
+	<property name="app.deploy.tmp.dir" value="../build/tmp/src"/>
+	<property name="packageVersionTag" value="&lt;packageVersions&gt;"/>
+
+	<!-- Set default value in property if not present -->
+	<property name="checkOnly" value="true" />
+	<property name ="runAllTests" value="true" />
+	<property name ="sf.package.apiVersion" value="29.0" />
+
+	<!-- Ant doesn't like < in replace tokens or values so set a property with < via cdata for reuse later -->
+	<property name="lt"><![CDATA[<]]></property>
+
+	<!-- Import additional macros-->
+    <import file="${basedir}/tools/ant-salesforce.xml"/>
+
+	<!-- Output timestamp -->
+	<target name="timestamp">
+		<tstamp prefix="start">
+			<format property="touch.time" pattern="MM/dd/yyyy hh:mm aa" />
+		</tstamp>
+		<echo message="${start.touch.time}" />
+	</target>
+
+	<!-- Check if meta xml contains unnecessary version tags and throw exception if tag is found-->
+	<target name="checkMetaHasPackageVersions">
+		<fileset id="meta.file" dir="${src.dir}" includes="**/*meta.xml">
+			<contains text="${packageVersionTag}"/>
+		</fileset>
+		<fail message="meta files contain '${packageVersionTag}' tag! Please remove before build">
+			<condition>
+				<resourcecount when="greater" count="0" refid="meta.file" />
+			</condition>
+		</fail>
+	</target>
+
+	<!-- Resolves password for target environment.  Read from properties file, if it's not available read it from prompt -->
+	<target name="resolvePasswordForTargetEnv">
+		<antcallback target="readPasswordFromPrompt" return="passwordFromPrompt">
+			<param name="targetEnvFile" value="${build_props}"/>
+		</antcallback>
+		<condition property="targetPassword" value="${sf.target.password}">
+			<and>
+				<isset property="sf.target.password"/>
+				<not>
+					<equals arg1="${sf.target.password}" arg2="" trim="true"/>
+				</not>
+			</and>
+		</condition>
+		<condition property="targetPassword" value="${passwordFromPrompt}">
+			<isset property="passwordFromPrompt"/>
+		</condition>
+	</target>
+
+	<!-- Read password from prompt  if it's not available in properties file -->
+	<target name="readPasswordFromPrompt" unless="isPasswordPropertySet" depends="checkIfPasswordPropertyIsSet">
+		<input message="Password for target org not found in ${targetEnvFile}.  Please enter password here>" addproperty="passwordFromPrompt">
+			<handler classname="org.apache.tools.ant.input.SecureInputHandler" />
+		</input>
+	</target>
+
+	<!-- Check if password was set in properties file -->
+	<target name="checkIfPasswordPropertyIsSet">
+		<condition property="isPasswordPropertySet" value="true">
+			<and>
+				<isset property="sf.target.password"/>
+				<not>
+					<equals arg1="${sf.target.password}" arg2="" trim="true"/>
+				</not>
+			</and>
+		</condition>
+	</target>
+
+	<!-- Deploy the unpackaged set of metadata retrieved with retrieveUnpackaged -->
+	<target name="deploy">
+		<sf:deploy username="${sf.target.username}" password="${sf.target.password}" serverurl="${sf.target.serverurl}" 
+        deployRoot="${src.dir}" checkOnly="${checkOnly}" logType="Debugonly" pollWaitMillis="20000"  maxPoll="50" runAllTests="false">
+		</sf:deploy>
+	</target>
+
+	<!-- Only Deploy destructive changes -->
+	<target name="deploy-destructive" depends="timestamp,resolvePasswordForTargetEnv">
+		<sf:deploy username="${sf.target.username}" password="${targetPassword}" serverurl="${sf.target.serverurl}" 
+        deployRoot="${destructive.dir}" checkOnly="${checkOnly}" logType="Debugonly" pollWaitMillis="20000"  maxPoll="50" runAllTests="false">
+		</sf:deploy>
+	</target>
+
+	<!-- Deploy with destructive changes -->
+	<target name="deploy-with-destructive-changes">
+		<antcall target="deploy"/>
+		<antcall target="deploy-destructive"/>
+	</target>
+				
+</project>

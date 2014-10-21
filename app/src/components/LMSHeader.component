@@ -1,0 +1,65 @@
+<apex:component controller="LMSHeaderController">
+
+    <style>
+        .lms-nav{
+            background-color: {!JSENCODE(backgroundColor)} !important;
+        }
+        .navbar-inverse .navbar-nav > li > a {
+            color: {!JSENCODE(textColor)};
+        }
+    </style>
+
+    <header id="lms-nav-header" class="navbar navbar-inverse bs-docs-nav lms-nav" role="banner">
+        <div class="container">
+            <div class="navbar-header">
+                <button class="navbar-toggle collapsed" data-target=".bs-navbar-collapse" data-toggle="collapse" type="button">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="{!$Page.MyTraining}">
+                    <apex:image value="{!IF(customLogo == null,URLFOR($Resource.almond_uilib, '/img/su_logo.png'),customLogo)}" />
+                </a>
+            </div>
+
+            <nav class="navbar-collapse bs-navbar-collapse collapse" role="navigation" >
+                <ul class="nav navbar-nav">
+                    <!-- li class="active" -->
+                    <li class="{!IF(section == 'tracks','active','')}">
+                        <a href="{!$Page.TrainingTracks}">{!$Label.LMSUI_TrainingTracks}</a>
+                    </li>
+                    <li class="{!IF(section == 'catalog','active','')}">
+                        <a href="{!$Page.TrainingCatalogHome}">{!$Label.LMSUI_PublicCatalog}</a>
+                    </li>
+                    <li class="{!IF(section == 'mytraining','active','')}">
+                        <a href="{!$Page.MyTraining}">{!$Label.LMSUI_MyTraining}</a>
+                    </li>
+                    <li class="{!IF(section == 'myprofile','active','')}">
+                        <a href="{!$Page.MyProfile}">{!$Label.LMSUI_MyProfile}</a>
+                    </li>
+                    <li>
+                    	<apex:image value="{!URLFOR($Resource.almond_uilib, '/img/white_cloud_embossed.png')}" styleClass="sfdc-logo" />
+                        <a href="/home/home.jsp">&nbsp;</a>
+                    </li>
+                </ul>
+
+                <p class="navbar-text pull-right">
+                	<!-- span class="notification-head"> <em>3</em> </span -->
+                    <apex:image value="{!loggedUsernameImageUrl}" styleClass="profilePic-header"/>
+                    <a href="{!$Page.MyProfile}" class="navbar-link">{!loggedUsername}</a>
+                </p>
+            </nav>
+        </div>
+    </header>
+
+    <script>
+        jQuery(document).ready(function($){
+            if(almond.isSF1()){
+                $('#lms-nav-header').hide();
+            }
+            FastClick.attach(document.body);
+        });
+    </script>
+
+</apex:component>

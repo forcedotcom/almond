@@ -1,0 +1,44 @@
+<apex:component layout="none">
+
+    <apex:attribute name="currentSearchTerm" type="String" description="current page search term" required="false" default=""/>
+    <apex:attribute name="retainInHistory" type="String" description="retain the current page in search history" required="false" default="false"/>
+    <apex:attribute name="searchBarSize" type="String" description="size of the search bar" required="false" default="lg"/>
+    <apex:attribute name="searchBarColLengthClass" type="String" description="css class for the search bar length" required="false" default="col-xs-12 col-sm-12 col-md-12 col-lg-offset-3 col-lg-6"/>
+
+    <div class="row">
+        <div class="{!searchBarColLengthClass} lms-user-search-group">
+            <div class="input-group input-group-{!searchBarSize}">
+                <input type="text" class="form-control" id="lms-search-input" autocomplete="off" maxlength="100" placeholder="Search Users"/>
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button" id="lms-search-button"><span class="glyphicon glyphicon-search"></span></button>
+                </span>
+            </div>
+         </div>
+    </div>
+
+    <script>
+        jQuery(document).ready(function($){
+            $("#lms-search-input").val("{!JSENCODE(currentSearchTerm)}");
+            $( document ).on( "click", "#lms-search-button", function() {
+                doAchievementsUserSearch();
+            });
+            $( document ).on( "keypress", "#lms-search-input", function(e) {
+                if(e.which == 13){
+                    e.preventDefault();
+                    doAchievementsUserSearch();
+                }
+            });
+        });
+
+        function doAchievementsUserSearch(){
+            var searchTerm = jQuery('#lms-search-input').val();
+            var searchURL = '{!$Page.AchievementsUserSearch}?q='+encodeURIComponent(searchTerm);
+            console.log(searchURL);
+            if(searchURL){
+                //Do not retain navigation history for searches
+                almond.redirectHandlerWithStatus(searchURL,'{!JSENCODE(retainInHistory)}'=='true');
+            }
+        }
+    </script>
+
+</apex:component>

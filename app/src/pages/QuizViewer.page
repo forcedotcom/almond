@@ -1,0 +1,153 @@
+<!--
+Copyright (c) 2014, salesforce.com, Inc.
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification,
+are permitted provided that the following conditions are met:
+
+    * Redistributions of source code must retain the above copyright notice,
+    this list of conditions and the following disclaimer.
+    * Redistributions in binary form must reproduce the above copyright notice,
+    this list of conditions and the following disclaimer in the documentation
+    and/or other materials provided with the distribution.
+    * Neither the name of the salesforce.com, Inc. nor the names of its contributors
+    may be used to endorse or promote products derived from this software
+    without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
+INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
+OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<apex:page controller="QuizViewerController" action="{!initializeQuestions}" docType="html-5.0" sidebar="false" showHeader="false" standardStylesheets="false" cache="false">
+
+    <apex:form >
+
+        <apex:composition template="LMS_Template">
+
+            <apex:define name="head">
+                <title>{!questionLine.Quiz__r.Name}</title>
+            </apex:define>
+
+            <apex:define name="body">
+
+                <apex:outputPanel id="quizBody">
+
+                    <apex:actionStatus id="status">
+                        <apex:facet name="start">
+                            <c:LMSStatus statusComponentId="{!$Component.status}"/>
+                        </apex:facet>
+                    </apex:actionStatus>
+
+                    <apex:outputPanel layout="block" styleClass="alert alert-danger" rendered="{!hasMessages}">
+                        <apex:pageMessages />
+                    </apex:outputPanel>
+
+                    <apex:outputPanel layout="block" styleClass="alert alert-info" rendered="{!showBackNoSaveMessage}">
+                        Click <apex:commandLink value="here" action="{!previousNoSave}" styleClass="alert-link" rendered="{!showPreviousButton}" onclick="if(!confirm('Are you sure? Responses made for this page will be lost')){return false};"/> if you'd like to go back without saving changes for this page
+                    </apex:outputPanel>
+
+                    <style>
+                        table.htmlDetailElementTable td{
+                            border:0 !important;
+                        }
+                    </style>
+
+                    <apex:outputPanel id="mainPanel" rendered="{!assignment.id != null}">
+
+                        <script>
+
+                            function setFocusOnLoad(){}
+
+                            function strcontains(aa,bbb) {
+                                var a = aa.split(';');
+                                for ( var i = 0;i<a.length; i++){
+                                    if (a[i] == bbb){
+                                        return true;
+                                    }
+                                }
+                                return false;
+                            }
+
+                            function multiset( which,selectresponse, ele ) {
+                                var target = document.getElementsByName(which)[0];
+                                var targetSelectResponse = document.getElementsByName(selectresponse)[0];
+                                var source = document.getElementsByName(ele.name); // list of checkboxes
+                                var sourceLabels = document.getElementsByName(ele.name+'label'); // list of labels
+
+                                var st ='';
+                                var stLabel = '';
+                                for (var i =0; i < source.length; i++) {
+                                    if (source[i].checked){
+                                        st = st+source[i].value+';';
+                                        stLabel = stLabel+sourceLabels[i].innerHTML+';';
+                                    }
+                                }
+
+                                target.value = st;
+                                targetSelectResponse.value = stLabel;
+                            }
+
+                        </script>
+
+                        <h3>{!questionLine.Quiz__r.Name} - {!questionLine.Name}</h3>
+                        <apex:outputPanel layout="none" rendered="{!questionLine.Description__c != null}">
+                            <blockquote>
+                                 {!questionLine.Description__c}
+                            </blockquote>
+                        </apex:outputPanel>
+
+
+                        <apex:repeat value="{!quizItemList}" var="qi">
+                            <div class="quiz-question-wrapper">
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-12 col-md-12 quiz-question-panel">
+                                        <apex:outputField value="{!qi.question.Description__c}" rendered="{!qi.question.Description__c != null}"/>
+                                        <apex:outputField value="{!qi.question.Description_RTA__c}" rendered="{!qi.question.Description__c != null}"/>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-12 quiz-response-panel">
+                                        <c:SelectOneQuestion QuizItem="{!qi}" rendered="{!qi.question.Type__c == 'SelectOneQuestion'}"/>
+                                        <c:SelectMultipleQuestion QuizItem="{!qi}" rendered="{!qi.question.Type__c == 'SelectMultipleQuestion'}"/>
+                                        <c:SelectBooleanQuestion QuizItem="{!qi}" rendered="{!qi.question.Type__c == 'Boolean'}"/>
+
+                                        <apex:inputField value="{!qi.response.Number_Response__c}" rendered="{!qi.question.Type__c == 'Number'}" />
+                                        <apex:inputField value="{!qi.response.Response_Text_Long__c}" rendered="{!qi.question.Type__c == 'Text'}" />
+                                    </div>
+                                </div>
+                            </div>
+                        </apex:repeat>
+
+
+
+                        <apex:outputPanel styleClass="almond-button-wrap">
+
+                            <apex:commandButton value="Reset" action="{!reset}" rendered="{!showStartButton}" styleClass="almond-warning-btn small-btn" style="margin-right: 10px;" onclick="if(!confirm('Are you sure? Responses made for this page will be lost')){return false};" />
+
+                            <apex:commandButton value="Back" action="{!previous}" styleClass="almond-secondary-btn small-btn" style="margin-right: 10px;" rendered="{!showPreviousButton}" onclick="forceShowStatus()" />
+
+                            <apex:commandButton value="Next" action="{!next}" styleClass="almond-secondary-btn small-btn" style="margin-right: 10px;" rendered="{!showNextButton}" onclick="forceShowStatus()"/>
+
+                            <apex:commandButton value="Submit" action="{!done}" styleClass="almond-default-btn small-btn" style="margin-right: 10px;" rendered="{!showDoneButton}" onclick="if(!confirm('Are you sure?')){return false};" />
+
+                            <apex:commandButton value="Cancel" action="{!backToTrainingPlan}" styleClass="almond-danger-btn small-btn" />
+
+                        </apex:outputPanel>
+
+                    </apex:outputPanel>
+
+
+                </apex:outputPanel>
+
+            </apex:define>
+
+        </apex:composition>
+
+    </apex:form>
+
+</apex:page>

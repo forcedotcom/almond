@@ -1,0 +1,53 @@
+<apex:component >
+
+    <apex:attribute name="statusComponentId" description="This is the id of the wrapper action status" type="String" required="false"/>
+
+    <style>
+        .componentMask {
+            position:fixed;
+            left: 0;
+            top: 0;
+            width:100%;
+            height:100%;
+            overflow: hidden;
+            margin:0;
+            padding:0 !important;
+            border:0;
+            background-color:#FFFFFF;
+            z-index: 1200;
+            filter: alpha(opacity=70);
+            -moz-opacity:0.7;
+            opacity: 0.7;
+            text-align:center;
+        }
+        .componentMask-overlay img{
+            position: fixed;
+	        top: 0; left: 0; right: 0; bottom: 0;
+	        margin: auto;
+            z-index: 1500;
+        }
+    </style>
+    <div class="componentMask-overlay">
+         <apex:image value="{!$Resource.almond_loading_generic}"/>
+    </div>
+    <div class="componentMask"></div>
+
+    <!-- Scripts used to force showing the status components, useful when we cannot use the rerender attribute -->
+    <apex:outputPanel layout="none" rendered="{!statusComponentId != null}">
+    	<script>
+			function forceShowStatus(){
+				var stats = document.getElementById('{!JSENCODE(statusComponentId)}.start');
+				if(stats){
+					stats.style.display = '';
+				}
+			}
+			function forceHideStatus(){
+				var stats = document.getElementById('{!JSENCODE(statusComponentId)}.start');
+				if(stats){
+					stats.style.display = 'none';
+				}
+			}
+	    </script>
+    </apex:outputPanel>
+
+</apex:component>

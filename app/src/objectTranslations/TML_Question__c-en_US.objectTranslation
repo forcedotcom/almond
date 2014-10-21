@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>TML Question</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>TML Questions</value>
+    </caseValues>
+    <fields>
+        <label><!-- Correct Boolean --></label>
+        <name>Correct_Boolean__c</name>
+        <picklistValues>
+            <masterLabel>false</masterLabel>
+            <translation><!-- false --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>true</masterLabel>
+            <translation><!-- true --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Correct Number --></label>
+        <name>Correct_Number__c</name>
+    </fields>
+    <fields>
+        <label><!-- Description RTA --></label>
+        <name>Description_RTA__c</name>
+    </fields>
+    <fields>
+        <label><!-- Description --></label>
+        <name>Description__c</name>
+    </fields>
+    <fields>
+        <label><!-- TML Answer Sequence --></label>
+        <name>TML_Answer_Sequence__c</name>
+        <relationshipLabel><!-- TML Questions --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Type --></label>
+        <name>Type__c</name>
+        <picklistValues>
+            <masterLabel>Boolean</masterLabel>
+            <translation><!-- Boolean --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Number</masterLabel>
+            <translation><!-- Number --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>SelectMultipleQuestion</masterLabel>
+            <translation><!-- SelectMultipleQuestion --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>SelectOneQuestion</masterLabel>
+            <translation><!-- SelectOneQuestion --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Text</masterLabel>
+            <translation><!-- Text --></translation>
+        </picklistValues>
+    </fields>
+    <layouts>
+        <layout>TML Question Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Question Information --></label>
+            <section>Question Information</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

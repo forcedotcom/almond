@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Quiz</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Quizzes</value>
+    </caseValues>
+    <layouts>
+        <layout>Quiz Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Optional Information --></label>
+            <section>Optional Information</section>
+        </sections>
+        <sections>
+            <label><!-- Score Information --></label>
+            <section>Score Information</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

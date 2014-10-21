@@ -1,0 +1,162 @@
+<!--
+Copyright (c) 2014, salesforce.com, Inc.
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification,
+are permitted provided that the following conditions are met:
+
+    * Redistributions of source code must retain the above copyright notice,
+    this list of conditions and the following disclaimer.
+    * Redistributions in binary form must reproduce the above copyright notice,
+    this list of conditions and the following disclaimer in the documentation
+    and/or other materials provided with the distribution.
+    * Neither the name of the salesforce.com, Inc. nor the names of its contributors
+    may be used to endorse or promote products derived from this software
+    without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
+INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
+OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<apex:page docType="html-5.0" controller="TaskViewerController" sidebar="false" showHeader="false" standardStylesheets="false" cache="false">
+
+    <apex:composition template="LMS_Template">
+
+        <apex:define name="head">
+            <title>{!task.Name}</title>
+            <link rel="stylesheet" href="{!$Resource.almond_jasnyBootstrapCSS}" />
+            <script src="{!$Resource.almond_jasnyBootstrapJS}"></script>
+        </apex:define>
+
+        <apex:define name="body">
+
+            <apex:form id="taskViewerForm">
+
+                <apex:actionStatus id="status">
+                    <apex:facet name="start">
+                        <c:LMSStatus statusComponentId="{!$Component.status}"/>
+                    </apex:facet>
+                </apex:actionStatus>
+
+                <apex:outputPanel layout="none" id="resultsPanel">
+                    <apex:inputHidden id="redirectURL" value="{!redirectURL}"/>
+                </apex:outputPanel>
+
+                <apex:outputPanel id="pmessages" layout="none">
+                    <apex:outputPanel layout="block" styleClass="alert alert-danger" rendered="{!hasMessages}">
+                        <script>
+                            forceHideStatus();
+                        </script>
+                        <apex:pageMessages />
+                    </apex:outputPanel>
+                </apex:outputPanel>
+
+                <div class="row">
+                    <div class="col-md-12"><h3>{!task.Name}</h3></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12"><p>{!task.Description__c}</p></div>
+                </div>
+
+                <apex:outputPanel layout="none" rendered="{!externalResourceURL != null}">
+                    <div class="panel panel-default">
+                      <div class="panel-heading"><b>Additional information</b></div>
+                      <div class="panel-body">
+                          <a href="javascript:almond.redirectHandlerWithTarget('{!externalResourceURL}','_{!task.External_Resource_Target__c}',true)">{!IF(task.External_Resource_Name__c!=null,task.External_Resource_Name__c,externalResourceURL)}</a>
+                      </div>
+                    </div>
+                </apex:outputPanel>
+
+                <apex:outputPanel layout="none" rendered="{!!taskCompleted}">
+
+                    <apex:outputPanel layout="none" rendered="{!task.Enable_Image_Upload__c}">
+                        <div class="panel panel-default">
+                              <div class="panel-body">
+
+                                <div class="fileinput fileinput-new taskviewer-wrap" data-provides="fileinput" >
+                                    <div class="fileinput-preview thumbnail taskviewer-thumbnail-preview" data-trigger="fileinput" ></div>
+                                    <div>
+                                        <span class="btn btn-file btn-lg btn-block">
+                                            <span class="almond-secondary-btn large-btn">Select image</span>
+                                            <span class="almond-warning-btn large-btn fileinput-exists">Change</span>
+                                            <apex:inputFile value="{!attachment.body}" filename="{!attachment.name}" id="file"/>
+                                        </span>
+                                        <a href="javascript:void();" class="almond-danger-btn large-btn fileinput-exists" data-dismiss="fileinput">Remove</a>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </apex:outputPanel>
+
+                    <a href="javascript:doCancel()" class="almond-primary-btn large-btn" style="margin-bottom:10px;">Still working on it</a>
+
+                    <apex:outputPanel layout="none" rendered="{!task.Enable_Image_Upload__c}">
+                      <apex:commandButton value="Done!" action="{!markCompletedAndRedirect}" styleClass="almond-default-btn large-btn" onclick="forceShowStatus();"/>
+                    </apex:outputPanel>
+                    <apex:outputPanel layout="none" rendered="{!!task.Enable_Image_Upload__c}">
+                      <apex:commandButton value="Done!" action="{!markCompleted}" styleClass="almond-default-btn large-btn" onclick="forceShowStatus();" rerender="resultsPanel,pmessages" oncomplete="doRedirection()"/>
+                    </apex:outputPanel>
+
+                </apex:outputPanel>
+
+                <apex:outputPanel layout="none" rendered="{!taskInReview}">
+                    <div class="alert alert-info">
+                        <h4>You've marked this task as completed and it's currently being reviewed</h4>
+                    </div>
+                </apex:outputPanel>
+
+                <apex:outputPanel layout="none" rendered="{!assignment.Approver_Notes__c != null}">
+                    <div class="alert alert-success">
+                        <h4> Note from approver : </h4>
+                        <p>{!assignment.Approver_Notes__c}</p>
+                    </div>
+                </apex:outputPanel>
+
+                <apex:outputPanel layout="none" rendered="{!taskCompleted}">
+
+                    <apex:outputPanel rendered="{!latestImageAttachment != null}">
+                        <apex:outputPanel layout="block" style="text-align:center;">
+                            <div class="panel panel-default">
+                              <div class="panel-body">
+                                    <apex:image url="{!URLFOR($Action.Attachment.Download,latestImageAttachment)}" styleClass="taskviewer-thumbnail"/>
+                                </div>
+                            </div>
+                        </apex:outputPanel>
+                    </apex:outputPanel>
+
+
+                    <apex:commandButton value="Back" action="{!cancelTask}" styleClass="almond-danger-btn large-btn" onclick="forceShowStatus();" rerender="resultsPanel" oncomplete="doRedirection()"/>
+
+                </apex:outputPanel>
+
+                <script>
+                    function doRedirection(){
+                        var retUrl = document.getElementById('{!$Component.redirectURL}').value;
+                        if(retUrl && retUrl.length > 0){
+                            almond.redirectHandlerWithStatus(retUrl,false);
+                        }
+                    }
+                    function doCancel(){
+                        forceShowStatus();
+                        var retUrl = '{!JSENCODE(cancelURL)}';
+                        if(retUrl && retUrl.length > 0){
+                            almond.redirectHandlerWithStatus(retUrl,false);
+                        }
+                    }
+                </script>
+
+            </apex:form>
+
+        </apex:define>
+
+      </apex:composition>
+
+</apex:page>

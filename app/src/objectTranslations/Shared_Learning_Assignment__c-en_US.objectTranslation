@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Shared Learning Assignment</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Shared Learning Assignments</value>
+    </caseValues>
+    <layouts>
+        <layout>Shared Learning Assignment Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Evaluation Information --></label>
+            <section>Evaluation Information</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

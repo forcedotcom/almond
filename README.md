@@ -7,8 +7,6 @@ Almond is a Learning Management app for the Salesforce1 platform. It allows user
 
 ---
 
-###Developers :
-
 #### How to deploy the application :
 
 1. Make sure ant is installed in your local box

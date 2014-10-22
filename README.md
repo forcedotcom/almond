@@ -20,8 +20,6 @@ Almond is a Learning Management app for the Salesforce1 platform. It allows user
 
 ### Package configuration:
 
-You can find the latest configuration and user guides in the appexchange listing:
-
-https://appexchange.salesforce.com/listingDetail?listingId=a0N3000000B5V2gEAF
+You can find the latest configuration and user guides in the [appexchange listing](https://appexchange.salesforce.com/listingDetail?listingId=a0N3000000B5V2gEAF).
 
 ---

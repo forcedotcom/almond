@@ -7,16 +7,20 @@ Almond is a Learning Management app for the Salesforce1 platform. It allows user
 
 ---
 
-###Developers :
-
 #### How to deploy the application :
 
-1. Make sure ant is installed in your local box
-2. Update your credentials by making a copy of the sample-sfdc-build.properties file and rename it to "sfdc-build.properties".
-3. Update the sfdc-build.properties with your credentials.
-4. Navigate to the build folder using the terminal or command prompt
-5. If you want to run the ant target directly use the following command : `ant deploy -DrunAllTests=false -DcheckOnly=false`
-6. You can also run the following script from the terminal : `sh build.sh`
+1. Make sure [ant is installed](http://ant.apache.org/manual/install.html) in your local box
+2. Open your terminal or command prompt
+3. Get the latest code for the app by using the following command :
+
+   `git clone https://github.com/forcedotcom/almond.git`
+
+4. Go into the almond directory
+5. Update your credentials by making a copy of the sample-sfdc-build.properties file and rename it to "sfdc-build.properties".
+6. Update the sfdc-build.properties with your credentials and login endpoint.
+7. Navigate to the build folder using the terminal or command prompt
+8. Run the deploy target by using the following command : `ant deploy -DrunAllTests=false -DcheckOnly=false`
+
 
 ### Package configuration:
 

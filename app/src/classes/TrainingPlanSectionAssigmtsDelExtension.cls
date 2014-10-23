@@ -41,6 +41,13 @@ public with sharing class TrainingPlanSectionAssigmtsDelExtension{
 
     public PageReference deleteAllSectionAssignments(){
         try{
+
+            //BEGIN Access Check
+                List<Schema.sObjectType> objectTypesToDelete = new List<Schema.sObjectType>();
+                objectTypesToDelete.add(Training_Plan_Section_Assignment__c.sObjectType);
+                LMS_ESAPI.isAuthorizedToDelete(objectTypesToDelete);
+            //END Access Check
+
             Id batchInstanceId = Database.executeBatch(new TrainingPlanSectionsAssigmtsDeleteBatch(trainingPlanSectionId),20);
             LMSUtils.addSuccessMessage('Batch delete process has been queued successfully');
         }catch(Exception e){

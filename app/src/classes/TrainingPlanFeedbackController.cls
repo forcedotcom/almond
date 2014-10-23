@@ -28,138 +28,142 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 public with sharing class TrainingPlanFeedbackController{
 
-	public ApexPages.StandardSetController setCon;
+    public ApexPages.StandardSetController setCon;
     public Training_Plan_Feedback__c feedback{get;set;}
-	public List<User> lUsersWithAchievement {get;set;}
+    public List<User> lUsersWithAchievement {get;set;}
     public User currentUser{get;private set;}
     public String tplanId{get;private set;}
-	public TrainingPlan tPlan{get;private set;}
-	public Boolean isPreview{get;private set;}
-	public Training_Plan_Feedback__c existingFeedback{get;private set;}
-	public Boolean isAllowedToView{get;private set;}
+    public TrainingPlan tPlan{get;private set;}
+    public Boolean isPreview{get;private set;}
+    public Training_Plan_Feedback__c existingFeedback{get;private set;}
+    public Boolean isAllowedToView{get;private set;}
 
     public Boolean hasMessages{get{return ApexPages.hasMessages();}}
 
     public TrainingPlanFeedbackController(){
         tplanId = ApexPages.currentPage().getParameters().get('id');
-		isPreview = false;
-		if(!String.isBlank(ApexPages.currentPage().getParameters().get('preview'))){
-			isPreview = true;
-		}
+        isPreview = false;
+        if(!String.isBlank(ApexPages.currentPage().getParameters().get('preview'))){
+            isPreview = true;
+        }
 
-		isAllowedToView = LMSService.isAllowedToViewTrainingPlan(tplanId,UserInfo.getUserId());
+        isAllowedToView = LMSService.isAllowedToViewTrainingPlan(tplanId,UserInfo.getUserId());
 
-		if(isAllowedToView){
-        	init();
-		}else{
-			LMSUtils.addErrorMessage('You don\'t have access to view this training plan.');
-		}
+        if(isAllowedToView){
+            init();
+        }else{
+            LMSUtils.addErrorMessage('You don\'t have access to view this training plan.');
+        }
     }
 
     private void init(){
-		loadTrainingPlanInfo();
+        loadTrainingPlanInfo();
         feedback = new Training_Plan_Feedback__c();
-		existingFeedback = getExistingRating();
+        existingFeedback = getExistingRating();
         feedback.Training_Plan__c = tplanId;
         feedback.User__c = UserInfo.getUserId();
         currentUser = [select id,Name,SmallPhotoUrl from User where id = :UserInfo.getUserId()];
-		setCon = getSetCon(tplanId);
+        setCon = getSetCon(tplanId);
         if(tPlan != null){
-			if(tPlan.mainAchievement != null){
-            	lUsersWithAchievement = LMSService.getUsersForAchievement(tPlan.mainAchievement.Id, LMSConstants.AA_ACQUIRED_STATUS, 12);
-			}
+            if(tPlan.mainAchievement != null){
+                lUsersWithAchievement = LMSService.getUsersForAchievement(tPlan.mainAchievement.Id, LMSConstants.AA_ACQUIRED_STATUS, 12);
+            }
         }
     }
 
     private void loadTrainingPlanInfo(){
-		if(isPreview){
-			this.tPlan = LMSWrappersService.getTrainingPlanDetails(tplanId,UserInfo.getUserId(),true);
-		}else{
-			this.tPlan = LMSWrappersService.getTrainingPlanDetails(tplanId,UserInfo.getUserId(),false);
-		}
+        if(isPreview){
+            this.tPlan = LMSWrappersService.getTrainingPlanDetails(tplanId,UserInfo.getUserId(),true);
+        }else{
+            this.tPlan = LMSWrappersService.getTrainingPlanDetails(tplanId,UserInfo.getUserId(),false);
+        }
     }
 
     public PageReference submitFeedback(){
-		if(String.isBlank(feedback.Comments__c)){
-			LMSUtils.addErrorMessage('You must provide comments to submit feedback');
-		}else if (feedback.Rating__c  != null && feedback.Rating__c != 0 && existingFeedback != null){
-			LMSUtils.addErrorMessage('You\'ve already given a rating to this training plan');
-		}else{
-			LMSService.insertTrainingPlanFeedback(feedback);
-        	init();
-		}
-    	return null;
+        if(String.isBlank(feedback.Comments__c)){
+            LMSUtils.addErrorMessage('You must provide comments to submit feedback');
+        }else if (feedback.Rating__c  != null && feedback.Rating__c != 0 && existingFeedback != null){
+            LMSUtils.addErrorMessage('You\'ve already given a rating to this training plan');
+        }else{
+            try{
+                LMSService.insertTrainingPlanFeedback(feedback);
+                init();
+            }catch(Exception e){
+                LMSUtils.addErrorMessage(e.getMessage());
+            }
+        }
+        return null;
     }
 
-	private Training_Plan_Feedback__c getExistingRating(){
+    private Training_Plan_Feedback__c getExistingRating(){
 
-		List<Training_Plan_Feedback__c> result =  LMSService.getTrainingPlanFeedback(UserInfo.getUserId(),tplanId,true);
+        List<Training_Plan_Feedback__c> result =  LMSService.getTrainingPlanFeedback(UserInfo.getUserId(),tplanId,true);
 
-		if(result.size()>0){
-			return result.get(0);
-		}else{
-			return null;
-		}
-	}
+        if(result.size()>0){
+            return result.get(0);
+        }else{
+            return null;
+        }
+    }
 
     public List<Training_Plan_Feedback__c> getComments() {
         return (List<Training_Plan_Feedback__c>) setCon.getRecords();
     }
 
-	public void doNext(){
-		if(this.setCon.getHasNext()){
-			this.setCon.next();
-		}
+    public void doNext(){
+        if(this.setCon.getHasNext()){
+            this.setCon.next();
+        }
     }
 
-	public void doPrevious(){
-		if(this.setCon.getHasPrevious()){
-			this.setCon.previous();
-		}
+    public void doPrevious(){
+        if(this.setCon.getHasPrevious()){
+            this.setCon.previous();
+        }
     }
 
     public Boolean getHasPrevious(){
-		return this.setCon.getHasPrevious();
+        return this.setCon.getHasPrevious();
     }
 
     public Boolean getHasNext(){
-		return this.setCon.getHasNext();
+        return this.setCon.getHasNext();
     }
 
     public Integer getPageNumber(){
-		return this.setCon.getPageNumber();
+        return this.setCon.getPageNumber();
     }
 
     public Integer getTotalPages(){
-		Decimal totalSize = this.setCon.getResultSize();
-		Decimal pageSize = this.setCon.getPageSize();
-		Decimal pages = totalSize/pageSize;
-		return (Integer)pages.round(System.RoundingMode.CEILING);
+        Decimal totalSize = this.setCon.getResultSize();
+        Decimal pageSize = this.setCon.getPageSize();
+        Decimal pages = totalSize/pageSize;
+        return (Integer)pages.round(System.RoundingMode.CEILING);
     }
 
-	public Boolean getIsAssignedToTrainingPlan(){
-	    List<Training_Plan_Assignment__c> tplanAssignments = [select id
-	                                                                ,name
-	                                                                from Training_Plan_Assignment__c
-	                                                                where User__c = :UserInfo.getUserId()
-	                                                                and Training_Plan__c = :tplanId];
-		return tplanAssignments.size()>0;
-	}
+    public Boolean getIsAssignedToTrainingPlan(){
+        List<Training_Plan_Assignment__c> tplanAssignments = [select id
+                                                                    ,name
+                                                                    from Training_Plan_Assignment__c
+                                                                    where User__c = :UserInfo.getUserId()
+                                                                    and Training_Plan__c = :tplanId];
+       return tplanAssignments.size()>0;
+    }
 
-	private ApexPages.StandardSetController getSetCon(Id tplanId){
-		ApexPages.StandardSetController setCon = new ApexPages.StandardSetController(Database.getQueryLocator(
+    private ApexPages.StandardSetController getSetCon(Id tplanId){
+        ApexPages.StandardSetController setCon = new ApexPages.StandardSetController(Database.getQueryLocator(
                 [select Id
-                 		,Name
-                 		,Rating__c
-                 		,Comments__c
-                 		,User__c
-                 		,User__r.Name
-                 		,User__r.SmallPhotoUrl
-                 		from Training_Plan_Feedback__c
-                 		where Training_Plan__c = :tplanId
-                 		order by CreatedDate desc]));
-		setCon.setPageSize(5);
-		return setCon;
-	}
+                        ,Name
+                        ,Rating__c
+                        ,Comments__c
+                        ,User__c
+                        ,User__r.Name
+                        ,User__r.SmallPhotoUrl
+                        from Training_Plan_Feedback__c
+                        where Training_Plan__c = :tplanId
+                        order by CreatedDate desc]));
+        setCon.setPageSize(5);
+        return setCon;
+    }
 
 }

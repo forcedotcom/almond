@@ -41,6 +41,13 @@ public with sharing class LearningDeleteSharedAssignmentsExt {
 
     public PageReference deleteUnusuedSharedAssignments(){
         try{
+
+            //BEGIN Access Check
+                List<Schema.sObjectType> objectTypesToDelete = new List<Schema.sObjectType>();
+                objectTypesToDelete.add(Shared_Learning_Assignment__c.sObjectType);
+                LMS_ESAPI.isAuthorizedToDelete(objectTypesToDelete);
+            //END Access Check
+
             Id batchInstanceId = Database.executeBatch(new LearningDeleteSharedAsgmtsBatch(learningId),20);
             LMSUtils.addSuccessMessage('Batch delete process has been queued successfully');
         }catch(Exception e){

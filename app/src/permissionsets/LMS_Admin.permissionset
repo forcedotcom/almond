@@ -1743,6 +1743,14 @@
         <apexPage>AchievementsUserSearch</apexPage>
         <enabled>true</enabled>
     </pageAccesses>
+    <pageAccesses>
+        <apexPage>AchievementWorkBadgeView</apexPage>
+        <enabled>true</enabled>
+    </pageAccesses>
+    <pageAccesses>
+        <apexPage>AchievementWorkCom</apexPage>
+        <enabled>true</enabled>
+    </pageAccesses>
     <recordTypeVisibilities>
         <recordType>Learning__c.Quiz</recordType>
         <visible>true</visible>

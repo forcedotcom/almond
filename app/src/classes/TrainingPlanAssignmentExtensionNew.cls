@@ -63,7 +63,7 @@ public with sharing class TrainingPlanAssignmentExtensionNew{
     public List<SelectOption> getProfiles() {
         List<SelectOption> options = new List<SelectOption>();
         options.add(new SelectOption('','--None--'));
-        for(Profile p : [select id,Name from Profile limit 2000]){
+        for(Profile p : [select id,Name from Profile where UserType IN ('Standard','CsnOnly') limit 1000]){
             options.add(new SelectOption(p.Id,p.Name));
         }
         return options;
@@ -72,7 +72,7 @@ public with sharing class TrainingPlanAssignmentExtensionNew{
     public List<SelectOption> getRoles() {
         List<SelectOption> options = new List<SelectOption>();
         options.add(new SelectOption('','--None--'));
-        for(UserRole ur : [select id,Name from UserRole limit 5000]){
+        for(UserRole ur : [select id,Name from UserRole where PortalType = 'None' limit 1000]){
             options.add(new SelectOption(ur.Id,ur.Name));
         }
         return options;
@@ -82,9 +82,10 @@ public with sharing class TrainingPlanAssignmentExtensionNew{
 
         Set<Id> validPermSets = LMSUtils.getLMSPermSets();
 
-
         Set<Id> existingUserIds = new Set<Id>();
+
         //Get existing assignments
+        //TODO : Filter assignments based on the returned user ids
         for(Training_Plan_Assignment__c tpa : [select id
                                                     ,User__c
                                                     from Training_Plan_Assignment__c
@@ -121,19 +122,32 @@ public with sharing class TrainingPlanAssignmentExtensionNew{
 
         soql+=' limit 1000';
 
-        Set<Id> validUsers = new Set<Id>();
-        for(PermissionSetAssignment psa : [SELECT AssigneeId FROM PermissionSetAssignment where PermissionSetId in :validPermSets]){
-        	validUsers.add(psa.AssigneeId);
+        Map<Id,User> userMap = new Map<Id,User>();
+        for(User u : (List<User>)Database.query(soql)){
+            userMap.put(u.Id,u);
         }
 
-        for(User u : (List<User>)Database.query(soql)){
-        	if(validUsers.contains(u.Id)){
-	            UserWrapper uw = new UserWrapper();
-	            uw.isSelected = false;
-	            uw.userId = u.Id;
-	            uw.userRecord = u;
-	            users.add(uw);
-        	}
+        if(userMap.size() == 0){
+            return null;
+        }
+
+        Set<Id> validUsers = new Set<Id>();
+        for(PermissionSetAssignment psa : [select Id
+                                              ,AssigneeId
+                                              from PermissionSetAssignment
+                                              where PermissionSetId in :validPermSets
+                                              and AssigneeId in :userMap.keySet()]){
+            validUsers.add(psa.AssigneeId);
+        }
+
+        for(User u : userMap.values()){
+            if(validUsers.contains(u.Id)){
+                UserWrapper uw = new UserWrapper();
+                uw.isSelected = false;
+                uw.userId = u.Id;
+                uw.userRecord = u;
+                users.add(uw);
+            }
         }
 
         return null;

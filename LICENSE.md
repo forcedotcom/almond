@@ -23,3 +23,13 @@ DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
 LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
 OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
 OF THE POSSIBILITY OF SUCH DAMAGE.
+
+The following Third Party components are licensed as follows:
+
+ * Bootstrap - Apache 2.0
+ * jasnyBootstrap - Apache 2.0
+ * fastclick - MIT
+ * jQuery - MIT
+ * jQuery Hammer - MIT
+ * jQuery RateIT - MIT
+ * Scrollfix - MIT

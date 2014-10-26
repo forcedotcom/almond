@@ -35,14 +35,14 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 
     <apex:form >
 
-	    <apex:pageBlock >
+        <apex:pageBlock >
 
-	    	<apex:pageMessages />
+            <apex:pageMessages />
 
-	    	<apex:pageBlockButtons location="top">
-	    		<apex:commandButton value="Approve" action="{!approveAssignment}" />
-	    		<apex:commandButton value="Cancel" action="{!cancel}" />
-	    	</apex:pageBlockButtons>
+            <apex:pageBlockButtons location="top">
+                <apex:commandButton value="Approve" action="{!approveAssignment}" />
+                <apex:commandButton value="Cancel" action="{!cancel}" />
+            </apex:pageBlockButtons>
 
             <apex:pageMessage summary="Click the Approve button to give your approval for this assignment" severity="info" strength="3" />
 
@@ -55,7 +55,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                 </apex:pageBlockSectionItem>
             </apex:pageBlockSection>
 
-	    </apex:pageBlock>
+        </apex:pageBlock>
     </apex:form>
 
 </apex:page>

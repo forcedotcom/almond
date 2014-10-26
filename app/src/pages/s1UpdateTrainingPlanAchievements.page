@@ -29,7 +29,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 
     <apex:composition template="LMS_Template">
         <apex:define name="body">
-        	<apex:form id="aaAssignmentFormBatch">
+            <apex:form id="aaAssignmentFormBatch">
                 <apex:commandButton value="Update Achievements"
                        action="{!upsertAchievementAssignments}"
                        onclick="if(!confirm('Are you sure?')){return};"
@@ -41,8 +41,8 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                     <apex:pageMessages />
                 </apex:outputPanel>
 
-        	</apex:form>
-    	</apex:define>
+            </apex:form>
+        </apex:define>
     </apex:composition>
 
 </apex:page>

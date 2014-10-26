@@ -28,14 +28,14 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 public with sharing class TrainingCatalogHomeController {
 
-	public List<Learning_Category__c> lcategories {get;private set;}
+    public List<Learning_Category__c> lcategories {get;private set;}
 
-	public TrainingCatalogHomeController(){
-		init();
-	}
+    public TrainingCatalogHomeController(){
+        init();
+    }
 
-	private void init(){
-		lcategories = LMSService.getLearningCategories(null);
-	}
+    private void init(){
+        lcategories = LMSService.getLearningCategories(null);
+    }
 
 }

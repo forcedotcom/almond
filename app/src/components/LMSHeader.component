@@ -39,13 +39,12 @@
                         <a href="{!$Page.MyProfile}">{!$Label.LMSUI_MyProfile}</a>
                     </li>
                     <li>
-                    	<apex:image value="{!URLFOR($Resource.almond_uilib, '/img/white_cloud_embossed.png')}" styleClass="sfdc-logo" />
+                        <apex:image value="{!URLFOR($Resource.almond_uilib, '/img/white_cloud_embossed.png')}" styleClass="sfdc-logo" />
                         <a href="/home/home.jsp">&nbsp;</a>
                     </li>
                 </ul>
 
                 <p class="navbar-text pull-right">
-                	<!-- span class="notification-head"> <em>3</em> </span -->
                     <apex:image value="{!loggedUsernameImageUrl}" styleClass="profilePic-header"/>
                     <a href="{!$Page.MyProfile}" class="navbar-link">{!loggedUsername}</a>
                 </p>

@@ -166,10 +166,10 @@ public with sharing class TrainingPlanAssignmentHelper{
 
         if(mapTrainingPlanAssignments.size()>0){
             for(Training_Plan__c tp : [select id
-            								,Name
-            								,Chatter_Notifications_Enabled__c
-            								from Training_Plan__c
-            								where id in :mapTrainingPlanAssignments.keySet()]){
+                                            ,Name
+                                            ,Chatter_Notifications_Enabled__c
+                                            from Training_Plan__c
+                                            where id in :mapTrainingPlanAssignments.keySet()]){
                 mapTrainingPlanInfo.put(tp.Id,tp);
             }
         }
@@ -179,47 +179,47 @@ public with sharing class TrainingPlanAssignmentHelper{
             Training_Plan__c tPlanInfo = mapTrainingPlanInfo.get(tplanId);
 
             if(tPlanInfo != null && tPlanInfo.Chatter_Notifications_Enabled__c){
-	            for(Id uId : mapTrainingPlanAssignments.get(tplanId)){
+                for(Id uId : mapTrainingPlanAssignments.get(tplanId)){
 
                     try{
-    	                //Create message body input
-    	                ConnectApi.MessageBodyInput messageInput = new ConnectApi.MessageBodyInput();
-    	                //initalize message body segements
-    	                messageInput.messageSegments = new List<ConnectApi.MessageSegmentInput>();
+                        //Create message body input
+                        ConnectApi.MessageBodyInput messageInput = new ConnectApi.MessageBodyInput();
+                        //initalize message body segements
+                        messageInput.messageSegments = new List<ConnectApi.MessageSegmentInput>();
 
-    	                //Create a text segment
-    	                ConnectApi.TextSegmentInput textSegment = new ConnectApi.TextSegmentInput();
-    	                textSegment.text = 'Hi ';
-    	                messageInput.messageSegments.add(textSegment);
+                        //Create a text segment
+                        ConnectApi.TextSegmentInput textSegment = new ConnectApi.TextSegmentInput();
+                        textSegment.text = 'Hi ';
+                        messageInput.messageSegments.add(textSegment);
 
-    	                //Create a mention segment
-    	                ConnectApi.MentionSegmentInput mentionSegment = new ConnectApi.MentionSegmentInput();
-    	                mentionSegment.id = uId;
-    	                messageInput.messageSegments.add(mentionSegment);
+                        //Create a mention segment
+                        ConnectApi.MentionSegmentInput mentionSegment = new ConnectApi.MentionSegmentInput();
+                        mentionSegment.id = uId;
+                        messageInput.messageSegments.add(mentionSegment);
 
-    	                //Create a text segement
-    	                textSegment = new ConnectApi.TextSegmentInput();
-    	                textSegment.text = ' You\'ve been assigned to the '+tPlanInfo.Name+' training plan. Click the following link to launch it : ';
-    	                messageInput.messageSegments.add(textSegment);
+                        //Create a text segement
+                        textSegment = new ConnectApi.TextSegmentInput();
+                        textSegment.text = ' You\'ve been assigned to the '+tPlanInfo.Name+' training plan. Click the following link to launch it : ';
+                        messageInput.messageSegments.add(textSegment);
 
-    	                ConnectApi.LinkAttachmentInput linkSegment = new ConnectApi.LinkAttachmentInput();
-    	                String sfUrl=URL.getSalesforceBaseUrl().getHost();
+                        ConnectApi.LinkAttachmentInput linkSegment = new ConnectApi.LinkAttachmentInput();
+                        String sfUrl=URL.getSalesforceBaseUrl().getHost();
                         PageReference tPlanDetailPageRef = Page.TrainingPlanDetail;
-    	                String tPlanURL = 'https://'+sfUrl+''+tPlanDetailPageRef.getUrl()+'?id='+tplanId;
-    	                linkSegment.url = tPlanURL;
+                        String tPlanURL = 'https://'+sfUrl+''+tPlanDetailPageRef.getUrl()+'?id='+tplanId;
+                        linkSegment.url = tPlanURL;
                         linkSegment.urlName = tPlanInfo.Name;
 
-    	                //Finally create the feed item
-    	                ConnectApi.FeedItemInput input = new ConnectApi.FeedItemInput();
-    	                input.body = messageInput;
+                        //Finally create the feed item
+                        ConnectApi.FeedItemInput input = new ConnectApi.FeedItemInput();
+                        input.body = messageInput;
                         input.attachment = linkSegment;
-    	                //params(communityId, feedType, subjectId, input,filebody);
-    	                ConnectApi.ChatterFeeds.postFeedItem(null,ConnectApi.FeedType.Record,uId,Input,null);
+                        //params(communityId, feedType, subjectId, input,filebody);
+                        ConnectApi.ChatterFeeds.postFeedItem(null,ConnectApi.FeedType.Record,uId,Input,null);
                     }catch(Exception e){
                         LMSUtils.logException(e,'TrainingPlanAssignmentHelper');
                     }
 
-	            }
+                }
             }
         }
 
@@ -256,7 +256,7 @@ public with sharing class TrainingPlanAssignmentHelper{
         wosHelper.calculateTrainingTrackProgressWOS(uIds,trackIds);
     }
 
-	public without sharing class WithoutSharingOps{
+    public without sharing class WithoutSharingOps{
 
         // We need to run this without sharing to make sure we clean related assignment record even if the records are not available to the running user
         public void deleteAssociatedLearningAssignmentsWOS(List<Training_Plan_Assignment__c> assignments,Map<Id,Set<Id>> mapTPlanUserIds){

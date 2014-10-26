@@ -28,67 +28,67 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 public with sharing class TrainingPlanSectionsHelper {
 
-	public static void processBeforeUpdate(Map<Id,Training_Plan_Section__c> oldSectionsMap,Map<Id,Training_Plan_Section__c> newSectionsMap){
-		validateRequiredItemsInOptionalSections(newSectionsMap.values(),oldSectionsMap);
-	}
+    public static void processBeforeUpdate(Map<Id,Training_Plan_Section__c> oldSectionsMap,Map<Id,Training_Plan_Section__c> newSectionsMap){
+        validateRequiredItemsInOptionalSections(newSectionsMap.values(),oldSectionsMap);
+    }
 
-	//This method validates that an optional section doesn't have required items
-	private static void validateRequiredItemsInOptionalSections(List<Training_Plan_Section__c> sections, Map<Id,Training_Plan_Section__c> oldSections){
+    //This method validates that an optional section doesn't have required items
+    private static void validateRequiredItemsInOptionalSections(List<Training_Plan_Section__c> sections, Map<Id,Training_Plan_Section__c> oldSections){
 
-		List<Training_Plan_Section__c> optionalSections = new List<Training_Plan_Section__c>();
+        List<Training_Plan_Section__c> optionalSections = new List<Training_Plan_Section__c>();
 
-		for(Training_Plan_Section__c sec : sections){
+        for(Training_Plan_Section__c sec : sections){
 
-			Training_Plan_Section__c oldSec = null;
+            Training_Plan_Section__c oldSec = null;
 
-			if(oldSections != null){
-				oldSec = oldSections.get(sec.Id);
-			}
+            if(oldSections != null){
+                oldSec = oldSections.get(sec.Id);
+            }
 
-			//Only do validations for optional sections
-			if(sec.Optional__c){
+            //Only do validations for optional sections
+            if(sec.Optional__c){
 
-				if(oldSec == null){
-					//Inserts are ignored for now
-				}else{
-					if(!oldSec.Optional__c){
-						//Only validate if value is changing from required to Optional
-						optionalSections.add(sec);
-					}
-				}
+            if(oldSec == null){
+                    //Inserts are ignored for now
+                }else{
+                    if(!oldSec.Optional__c){
+                        //Only validate if value is changing from required to Optional
+                        optionalSections.add(sec);
+                    }
+                }
 
-			}
-		}
+            }
+        }
 
-		//Continue only if we have optional sections to validate
-		if(optionalSections.size()>0){
+        //Continue only if we have optional sections to validate
+        if(optionalSections.size()>0){
 
-			Set<Id> sectionsWithRequiredItems = new Set<Id>();
-			String ns = LMSUtils.getPackageNamespace();
-			//Get all required items in the referenced sections
-			AggregateResult[] groupedResults = [select Training_Plan_Section__c
-														,count(Id) cnt
-														from Training_Plan_Section_Item__c
-														where Training_Plan_Section__c in :optionalSections
-														and Optional__c = false
-														group by Training_Plan_Section__c];
+            Set<Id> sectionsWithRequiredItems = new Set<Id>();
+            String ns = LMSUtils.getPackageNamespace();
+            //Get all required items in the referenced sections
+            AggregateResult[] groupedResults = [select Training_Plan_Section__c
+                                                        ,count(Id) cnt
+                                                        from Training_Plan_Section_Item__c
+                                                        where Training_Plan_Section__c in :optionalSections
+                                                        and Optional__c = false
+                                                        group by Training_Plan_Section__c];
 
-			//If one of the sections has at least 1 required item we add it to a map
-			for (AggregateResult ar : groupedResults)  {
-	            if((Integer)ar.get('cnt') > 0){
-	                sectionsWithRequiredItems.add((String)ar.get(ns+'Training_Plan_Section__c'));
-	            }
-	        }
+            //If one of the sections has at least 1 required item we add it to a map
+            for (AggregateResult ar : groupedResults)  {
+                if((Integer)ar.get('cnt') > 0){
+                    sectionsWithRequiredItems.add((String)ar.get(ns+'Training_Plan_Section__c'));
+                }
+            }
 
-	        //Add an error for all of those optional sections with required items
-	        for(Training_Plan_Section__c optSec : optionalSections){
-	        	if(sectionsWithRequiredItems.contains(optSec.Id)){
-	        		optSec.addError('Sections with required items cannot be made optional');
-	        	}
-	        }
+            //Add an error for all of those optional sections with required items
+            for(Training_Plan_Section__c optSec : optionalSections){
+                if(sectionsWithRequiredItems.contains(optSec.Id)){
+                    optSec.addError('Sections with required items cannot be made optional');
+                }
+            }
 
-		}
+        }
 
-	}
+    }
 
 }

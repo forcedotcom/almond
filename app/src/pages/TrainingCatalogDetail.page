@@ -27,28 +27,28 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 <apex:page controller="TrainingCatalogDetailController" docType="html-5.0" sidebar="false" showHeader="false" standardStylesheets="false" >
 
-	<style>
-		#hero-banner {
-			background: url({!JSENCODE(learningcategory.Background_Image_URL__c)});
-			color : {!JSENCODE(learningcategory.Text_Color__c)};
-		}
-	</style>
+    <style>
+        #hero-banner {
+            background: url({!JSENCODE(learningcategory.Background_Image_URL__c)});
+            color : {!JSENCODE(learningcategory.Text_Color__c)};
+        }
+    </style>
     <apex:composition template="LMS_HeroTemplate">
 
         <apex:define name="head">
             <title>{!$Label.LMSUI_Training_Catalog}</title>
         </apex:define>
 
-		<apex:define name="hero-banner-badge">
-			<div class="banner-title-left" style="color:{!JSENCODE(learningcategory.Text_Color__c)}">
-				<span>{!$Label.LMSUI_Category}</span>
-	           <h1>{!learningcategory.Name}</h1>
+        <apex:define name="hero-banner-badge">
+            <div class="banner-title-left" style="color:{!JSENCODE(learningcategory.Text_Color__c)}">
+                <span>{!$Label.LMSUI_Category}</span>
+                <h1>{!learningcategory.Name}</h1>
            </div>
 
         </apex:define>
 
         <apex:define name="hero-banner-footer">
-        	<span>{!$Label.LMSUI_Total_Plans} : {!IF(tPlans != null, tPlans.size, '0')}</span>
+            <span>{!$Label.LMSUI_Total_Plans} : {!IF(tPlans != null, tPlans.size, '0')}</span>
         </apex:define>
 
         <apex:define name="body">
@@ -59,60 +59,60 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                 </apex:facet>
             </apex:actionStatus>
 
-		    <apex:outputPanel layout="none" rendered="{!tPlans != null && tPlans.size > 0}">
-		        <div class="trainingplan-container row">
-		            <apex:repeat value="{!tPlans}" var="o" id="theRepeat">
+            <apex:outputPanel layout="none" rendered="{!tPlans != null && tPlans.size > 0}">
+                <div class="trainingplan-container row">
+                    <apex:repeat value="{!tPlans}" var="o" id="theRepeat">
 
-							<apex:variable var="hasBadge" value="{!o.mainAchievement.Acquired_Image__c != null || o.mainAchievement.Work_Badge_Image_URL__c != null}" />
-							<apex:variable var="validAssignment" value="{!o.hasAssignment || o.selfRegistrationEnabled}"/>
+                        <apex:variable var="hasBadge" value="{!o.mainAchievement.Acquired_Image__c != null || o.mainAchievement.Work_Badge_Image_URL__c != null}" />
+                        <apex:variable var="validAssignment" value="{!o.hasAssignment || o.selfRegistrationEnabled}"/>
 
-			                <div class="col-xs-12 col-sm-6 col-md-4 catalog-plan-item" item-url="{!IF(o.hasAssignment,$Page.TrainingPlanDetail,$Page.TrainingPlanPreview)}?id={!o.planId}" valid-item="{!validAssignment}">
-			                	<div class="tplan_box {!IF(validAssignment,'','tplan_box_disabled')}">
-									<apex:outputPanel layout="none" rendered="{!hasBadge}">
-				                        <div class="tplan_img">
-				                            <apex:outputField value="{!o.mainAchievement.Acquired_Image__c}"  rendered="{!o.mainAchievement.Work_Badge_Image_URL__c == null}"/>
-	                                        <apex:image url="{!o.mainAchievement.Work_Badge_Image_URL__c}" rendered="{!o.mainAchievement.Work_Badge_Image_URL__c != null}"/>
-				                        </div>
-									</apex:outputPanel>
-			                        <div class="{!IF(hasBadge,'tplan_details','tplan_details_no_image')}" >
-			                            <h4>{!o.planName}</h4>
-										<apex:outputPanel layout="block" rendered="{!o.assignmentStatus != null}">
-											<label class="label {!IF(o.assignmentStatus=='Completed','label-success',IF(o.assignmentStatus=='In Progress','label-primary','label-default'))}">
-												{!o.assignmentStatus}
-											</label>
-										</apex:outputPanel>
-                                        <apex:outputPanel layout="block" rendered="{!validAssignment && !o.hasAssignment}">
-                                            <label class="label label-info">Not Registered</label>
-                                        </apex:outputPanel>
-                                        <apex:outputPanel layout="block" rendered="{!!validAssignment}">
-                                            <label class="label label-default">Requires Assignment</label>
-                                        </apex:outputPanel>
-			                        </div>
-		                        </div>
-			                </div>
+                        <div class="col-xs-12 col-sm-6 col-md-4 catalog-plan-item" item-url="{!IF(o.hasAssignment,$Page.TrainingPlanDetail,$Page.TrainingPlanPreview)}?id={!o.planId}" valid-item="{!validAssignment}">
+                            <div class="tplan_box {!IF(validAssignment,'','tplan_box_disabled')}">
+                                <apex:outputPanel layout="none" rendered="{!hasBadge}">
+                                    <div class="tplan_img">
+                                        <apex:outputField value="{!o.mainAchievement.Acquired_Image__c}"  rendered="{!o.mainAchievement.Work_Badge_Image_URL__c == null}"/>
+                                        <apex:image url="{!o.mainAchievement.Work_Badge_Image_URL__c}" rendered="{!o.mainAchievement.Work_Badge_Image_URL__c != null}"/>
+                                    </div>
+                                </apex:outputPanel>
+                                <div class="{!IF(hasBadge,'tplan_details','tplan_details_no_image')}" >
+                                    <h4>{!o.planName}</h4>
+                                    <apex:outputPanel layout="block" rendered="{!o.assignmentStatus != null}">
+                                        <label class="label {!IF(o.assignmentStatus=='Completed','label-success',IF(o.assignmentStatus=='In Progress','label-primary','label-default'))}">
+                                            {!o.assignmentStatus}
+                                        </label>
+                                    </apex:outputPanel>
+                                    <apex:outputPanel layout="block" rendered="{!validAssignment && !o.hasAssignment}">
+                                        <label class="label label-info">Not Registered</label>
+                                    </apex:outputPanel>
+                                    <apex:outputPanel layout="block" rendered="{!!validAssignment}">
+                                        <label class="label label-default">Requires Assignment</label>
+                                    </apex:outputPanel>
+                                </div>
+                            </div>
+                        </div>
 
-		            </apex:repeat>
-		        </div>
-		    </apex:outputPanel>
+                </apex:repeat>
+            </div>
+        </apex:outputPanel>
 
-		    <apex:outputPanel layout="none" rendered="{!tPlans == null || tPlans.size == 0}">
-		        <div style="width:100%;text-align:center;padding:20px;0;">
-		            <h2>{!$Label.LMSUI_Nothing_to_see}</h2>
-		        </div>
-		    </apex:outputPanel>
+            <apex:outputPanel layout="none" rendered="{!tPlans == null || tPlans.size == 0}">
+                <div style="width:100%;text-align:center;padding:20px;0;">
+                    <h2>{!$Label.LMSUI_Nothing_to_see}</h2>
+                </div>
+            </apex:outputPanel>
 
-			<script>
-				jQuery(document).ready(function($){
-					$(document.body).delegate('.catalog-plan-item', 'click', function(){
+            <script>
+                jQuery(document).ready(function($){
+                    $(document.body).delegate('.catalog-plan-item', 'click', function(){
                         var planUrl = $(this).attr('item-url');
                         var validItem = $(this).attr('valid-item');
                         if(planUrl && validItem == 'true'){
                             //Retain navigation history
                             almond.redirectHandlerWithStatus(planUrl,true);
                         }
-					});
-				});
-			</script>
+                    });
+                });
+            </script>
 
         </apex:define>
 

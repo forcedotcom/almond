@@ -79,31 +79,31 @@ public with sharing class LMSWrappersService{
                 }
             }
 
-			//If we couldn't find an achievement at the training plan level then look for one at the section level
+            //If we couldn't find an achievement at the training plan level then look for one at the section level
             if(result.mainAchievement == null){
 
-	            Map<Id,List<Training_Plan_Achievement__c>> trainingPlanSectionAchievementsMap = LMSService.getTrainingPlanAchievements(new Set<Id>{trainingPlanId},'Section');
-	            if(trainingPlanSectionAchievementsMap.size()>0){
+                Map<Id,List<Training_Plan_Achievement__c>> trainingPlanSectionAchievementsMap = LMSService.getTrainingPlanAchievements(new Set<Id>{trainingPlanId},'Section');
+                if(trainingPlanSectionAchievementsMap.size()>0){
 
-	                List<Training_Plan_Achievement__c> tpAchievements = trainingPlanSectionAchievementsMap.get(trainingPlanId);
+                    List<Training_Plan_Achievement__c> tpAchievements = trainingPlanSectionAchievementsMap.get(trainingPlanId);
 
-	                if(tpAchievements != null && tpAchievements.size()>0){
+                    if(tpAchievements != null && tpAchievements.size()>0){
 
-	                    //Set main achievement, default to the first entry
-	                    Achievement__c mainAchievement = tpAchievements.get(0).Achievement__r;
+                        //Set main achievement, default to the first entry
+                        Achievement__c mainAchievement = tpAchievements.get(0).Achievement__r;
 
-	                    if(tpAchievements.size()>1){
-	                        for(Training_Plan_Achievement__c tpa : tpAchievements){
-	                            if(tpa.Main_Achievement__c){
-	                                mainAchievement = tpa.Achievement__r;
-	                                break;
-	                            }
-	                        }
-	                    }
+                        if(tpAchievements.size()>1){
+                            for(Training_Plan_Achievement__c tpa : tpAchievements){
+                                if(tpa.Main_Achievement__c){
+                                    mainAchievement = tpa.Achievement__r;
+                                    break;
+                                }
+                            }
+                        }
 
-	                    result.mainAchievement = mainAchievement;
-	                }
-	            }
+                        result.mainAchievement = mainAchievement;
+                    }
+                }
             }
         }
 
@@ -272,9 +272,9 @@ public with sharing class LMSWrappersService{
 
                                             //Only count non-optional for progress
                                             if(!sItem.trainingPlanSectionItem.Optional__c){
-    	                                        if(sItem.latestAssignment != null && sItem.latestAssignment.Progress_Percentage__c != null){
-    	                                            totalProgress+=sItem.latestAssignment.Progress_Percentage__c;
-    	                                        }
+                                                if(sItem.latestAssignment != null && sItem.latestAssignment.Progress_Percentage__c != null){
+                                                    totalProgress+=sItem.latestAssignment.Progress_Percentage__c;
+                                                }
                                             }
 
 

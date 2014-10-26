@@ -52,15 +52,15 @@ public with sharing class AchievementWorkComExt{
 
         selectedBadge = this.achievement.Work_Badge_Id__c;
 
-    	badges = [select Id
-                  		,ImageUrl
-                  		,IsActive
-                  		,IsCompanyWide
-                  		,Name
-                  		FROM WorkBadgeDefinition
-                  		where IsActive = true
-                 		order by CreatedDate desc
-                         limit 2000];
+        badges = [select Id
+                        ,ImageUrl
+                        ,IsActive
+                        ,IsCompanyWide
+                        ,Name
+                        FROM WorkBadgeDefinition
+                        where IsActive = true
+                        order by CreatedDate desc
+                        limit 2000];
     }
 
     public PageReference saveBadgeInfo(){
@@ -78,16 +78,15 @@ public with sharing class AchievementWorkComExt{
                                 where Id = :selectedBadge
                                 limit 1];
 
-
             this.achievement.Work_Badge_Id__c  = selectedBadge;
             this.achievement.Work_Badge_Image_URL__c = b.ImageUrl;
             update this.achievement;
             PageReference ref = new PageReference('/'+achievementId);
             ref.setRedirect(true);
-        	return ref;
+            return ref;
         }catch(Exception e){
-         	LMSUtils.logException(e,'AchievementWorkComExt');
-         	LMSUtils.addGenericUnknownErrorMessage('AchievementWorkComExt - addBadge (1)');
+            LMSUtils.logException(e,'AchievementWorkComExt');
+            LMSUtils.addGenericUnknownErrorMessage('AchievementWorkComExt - addBadge (1)');
             return null;
         }
     }

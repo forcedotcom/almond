@@ -43,9 +43,9 @@ public with sharing class TrainingPlanSectionItemAssigmtsDelExt{
         try{
 
             //BEGIN Access Check
-                List<Schema.sObjectType> objectTypesToDelete = new List<Schema.sObjectType>();
-                objectTypesToDelete.add(Learning_Assignment__c.sObjectType);
-                LMS_ESAPI.isAuthorizedToDelete(objectTypesToDelete);
+            List<Schema.sObjectType> objectTypesToDelete = new List<Schema.sObjectType>();
+            objectTypesToDelete.add(Learning_Assignment__c.sObjectType);
+            LMS_ESAPI.isAuthorizedToDelete(objectTypesToDelete);
             //END Access Check
 
             Id batchInstanceId = Database.executeBatch(new TrainingPlanSectionItAssigmtsDeleteBatch(trainingPlanSectionItemId),20);

@@ -41,17 +41,17 @@ public with sharing class TrainingPlanDetailController{
     public TrainingPlanSectionItem selectedItem{get;set;}
 
     public String selectedItemStatusLabel{get{
-    	if(selectedItem != null && selectedItem.latestAssignment != null && selectedItem.latestAssignment.Progress__c != null){
-    		if(selectedItem.latestAssignment.Progress__c == LMSConstants.ASSIGNMENT_STATUS_COMPLETED){
-    			return 'label-success';
-    		}else if(selectedItem.latestAssignment.Progress__c == LMSConstants.ASSIGNMENT_STATUS_IN_PROGRESS){
-				return 'label-warning';
-    		}else{
-				return 'label-default';
-    		}
-    	}else{
-    		return 'label-default';
-    	}
+        if(selectedItem != null && selectedItem.latestAssignment != null && selectedItem.latestAssignment.Progress__c != null){
+            if(selectedItem.latestAssignment.Progress__c == LMSConstants.ASSIGNMENT_STATUS_COMPLETED){
+                return 'label-success';
+            }else if(selectedItem.latestAssignment.Progress__c == LMSConstants.ASSIGNMENT_STATUS_IN_PROGRESS){
+                return 'label-warning';
+            }else{
+                return 'label-default';
+            }
+        }else{
+            return 'label-default';
+        }
     }}
 
     private Id trainingPlanId;
@@ -66,22 +66,22 @@ public with sharing class TrainingPlanDetailController{
 
     @TestVisible
     private void init(){
-    	try{
-	    	learningLaunchURL = null;
-	    	learningTarget = '_self';
-	        selectedItem = null;
-	        byPassLaunchModal = false;
-	        hasPreRequisite = false;
-	        loadTrainingPlanInfo();
-	        if(tPlan != null){
-				if(tPlan.mainAchievement != null){
-	            	lUsersWithAchievement = LMSService.getUsersForAchievement(tPlan.mainAchievement.Id, LMSConstants.AA_ACQUIRED_STATUS, 12);
-				}
-	        }
-    	}catch(Exception e){
-         	LMSUtils.logException(e,'TrainingPlanDetailController');
-         	LMSUtils.addGenericUnknownErrorMessage('TrainingPlanDetailController - init (1)');
-    	}
+        try{
+            learningLaunchURL = null;
+            learningTarget = '_self';
+            selectedItem = null;
+            byPassLaunchModal = false;
+            hasPreRequisite = false;
+            loadTrainingPlanInfo();
+            if(tPlan != null){
+                if(tPlan.mainAchievement != null){
+                    lUsersWithAchievement = LMSService.getUsersForAchievement(tPlan.mainAchievement.Id, LMSConstants.AA_ACQUIRED_STATUS, 12);
+                }
+            }
+        }catch(Exception e){
+            LMSUtils.logException(e,'TrainingPlanDetailController');
+            LMSUtils.addGenericUnknownErrorMessage('TrainingPlanDetailController - init (1)');
+        }
     }
 
     private void loadTrainingPlanInfo(){
@@ -98,16 +98,16 @@ public with sharing class TrainingPlanDetailController{
                 throw new TrainingPlanDetailException('Invalid parameters');
             }else{
 
-				Set<Id> previousSectionIds = new Set<Id>();
+                Set<Id> previousSectionIds = new Set<Id>();
 
                 TrainingPlanSectionItem currentItem = null;
                 List<TrainingPlanSection> planSections  = tPlan.sections;
 
                 for(TrainingPlanSection s :planSections){
 
-					if(s.previousSectionId != null && !s.previousSectionOptional){
-						previousSectionIds.add(s.previousSectionId);
-					}
+                    if(s.previousSectionId != null && !s.previousSectionOptional){
+                        previousSectionIds.add(s.previousSectionId);
+                    }
 
                     if(s.TrainingPlanSection.Id == selectedSectionId){
 
@@ -133,24 +133,24 @@ public with sharing class TrainingPlanDetailController{
                     //Validate sequence if applicable
                     if(tPlan.trainingPlan.Enforce_Sequence__c){
 
-                    	hasPreRequisite = false;
+                        hasPreRequisite = false;
 
-                    	//Validate previous section item, if applicable
-                    	if(selectedItem.previousSectionItemId != null){
-							if(hasIncompleteLearningAssignment(selectedItem.previousSectionItemId)){
-								hasPreRequisite = true;
-							}
-                    	}
+                        //Validate previous section item, if applicable
+                        if(selectedItem.previousSectionItemId != null){
+                            if(hasIncompleteLearningAssignment(selectedItem.previousSectionItemId)){
+                                hasPreRequisite = true;
+                            }
+                        }
 
-                    	//Always validate that the previous sections have been completed, if applicable
-                		if(!hasPreRequisite && previousSectionIds.size()>0){
+                        //Always validate that the previous sections have been completed, if applicable
+                        if(!hasPreRequisite && previousSectionIds.size()>0){
 
-							//Verify status of the assignment for the previous sections
-							if(hasIncompleteTPlanSectionAssignments(previousSectionIds)){
-								hasPreRequisite = true;
-							}
+                            //Verify status of the assignment for the previous sections
+                            if(hasIncompleteTPlanSectionAssignments(previousSectionIds)){
+                                hasPreRequisite = true;
+                            }
 
-                		}
+                        }
 
                     }
 
@@ -159,16 +159,16 @@ public with sharing class TrainingPlanDetailController{
                 }
 
                 if(!hasPreRequisite && !(selectedItem.launchBehavior=='ask_user' || selectedItem.launchBehavior=='update_version')){
-                	launchLearning();
-                	byPassLaunchModal = true;
+                    launchLearning();
+                    byPassLaunchModal = true;
                 }
 
             }
 
 
         }catch(Exception e){
-         	LMSUtils.logException(e,'TrainingPlanDetailController');
-         	LMSUtils.addGenericUnknownErrorMessage('TrainingPlanDetailController - retrieveItemDetails (2)');
+            LMSUtils.logException(e,'TrainingPlanDetailController');
+            LMSUtils.addGenericUnknownErrorMessage('TrainingPlanDetailController - retrieveItemDetails (2)');
         }
     }
 
@@ -187,18 +187,18 @@ public with sharing class TrainingPlanDetailController{
 
             learningTarget = '_self';
         }else if(currentRecordType == LMSConstants.RT_TRAINING_RESOURCE){
-        	//Not necessary to enforce CRUD/FLS here, this is just to determine how to handle the content no data is exposed to the user
-        	Learning__c l = [select id
-        						,Current_Published_Version__r.Training_Resource__r.Display_in_Iframe__c
+            //Not necessary to enforce CRUD/FLS here, this is just to determine how to handle the content no data is exposed to the user
+            Learning__c l = [select id
+                                ,Current_Published_Version__r.Training_Resource__r.Display_in_Iframe__c
                                 ,Current_Published_Version__r.Training_Resource__r.Resource_URL__c
-        						from Learning__c
-        						where id = :learning.Id];
+                                from Learning__c
+                                where id = :learning.Id];
             lPR = Page.ResourceViewer;
 
             if(l.Current_Published_Version__r.Training_Resource__r.Display_in_Iframe__c){
-            	learningTarget = 'iframe';
+                learningTarget = 'iframe';
             }else{
-            	learningTarget = '_blank';
+                learningTarget = '_blank';
                 String resourceURL = l.Current_Published_Version__r.Training_Resource__r.Resource_URL__c;
                 if(resourceURL != null && resourceURL.contains('.visual.force.com/apex/')){
                     learningTarget = '_internal';
@@ -226,7 +226,7 @@ public with sharing class TrainingPlanDetailController{
         }
 
         learningLaunchURL = ref.getUrl();
-		return null;
+        return null;
 
     }
 
@@ -243,33 +243,33 @@ public with sharing class TrainingPlanDetailController{
     }
 
     private Boolean hasIncompleteTPlanSectionAssignments(Set<Id> tPlanSectionIds){
-		List<Training_Plan_Section_Assignment__c> tpsas = [select Status__c
-																from Training_Plan_Section_Assignment__c
-																where Training_Plan_Section__c in :tPlanSectionIds
-																and User__c = :UserInfo.getUserId()
-																and Status__c != 'Completed'
-																order by CreatedDate desc
-																limit 1];
-		if(tpsas.size()>0){
-			return true;
-		}else{
-			return false;
-		}
+        List<Training_Plan_Section_Assignment__c> tpsas = [select Status__c
+                                                                from Training_Plan_Section_Assignment__c
+                                                                where Training_Plan_Section__c in :tPlanSectionIds
+                                                                and User__c = :UserInfo.getUserId()
+                                                                and Status__c != 'Completed'
+                                                                order by CreatedDate desc
+                                                                limit 1];
+        if(tpsas.size()>0){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     private Boolean hasIncompleteLearningAssignment(Id tPlanSectionItemId){
-		List<Learning_Assignment__c> lass = [select Progress__c
-												from Learning_Assignment__c
-												where Training_Plan_Section_Item__c = :tPlanSectionItemId
-												and User__c = :UserInfo.getUserId()
-												order by CreatedDate desc
-												limit 1];
+        List<Learning_Assignment__c> lass = [select Progress__c
+                                                    from Learning_Assignment__c
+                                                    where Training_Plan_Section_Item__c = :tPlanSectionItemId
+                                                    and User__c = :UserInfo.getUserId()
+                                                    order by CreatedDate desc
+                                                    limit 1];
 
-		if(lass.size() > 0 && lass.get(0).Progress__c != LMSConstants.TPLAN_STATUS_COMPLETED){
-			return true;
-		}else{
-			return false;
-		}
+        if(lass.size() > 0 && lass.get(0).Progress__c != LMSConstants.TPLAN_STATUS_COMPLETED){
+            return true;
+        }else{
+            return false;
+        }
     }
 
 }

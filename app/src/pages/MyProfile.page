@@ -59,11 +59,10 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
         </apex:define>
 
         <apex:define name="hero-banner-footer">
-        	<span>Total Acquired Achievements : {!totalAchievements}</span>
+            <span>Total Acquired Achievements : {!totalAchievements}</span>
         </apex:define>
 
         <apex:define name="body">
-
 
             <apex:form id="theForm">
 
@@ -83,7 +82,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                     </div>
                 </div>
 
-			</apex:form>
+            </apex:form>
 
             <apex:outputPanel layout="none" rendered="{!lcategories != null && lcategories.size > 0}">
                 <c:AchievementsList achievements="{!lcategories}" badgeContainerClass="col-xs-6 col-sm-6 col-md-3"/>

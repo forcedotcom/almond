@@ -27,21 +27,21 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 <apex:page docType="html-5.0" standardController="Training_Plan__c" extensions="TrainingPlanAssignmentExtensionBatch" sidebar="false" showHeader="false" standardStylesheets="false">
 
-	<apex:composition template="LMS_Template">
-		<apex:define name="body">
-	    	<apex:form id="aaAssignmentFormBatch">
-	            <apex:commandButton value="Update Assignments"
-	                    action="{!updateAllAssignments}"
-	                    onclick="if(!confirm('Are you sure?')){return};"
-	           			styleClass="btn btn-success btn-lg btn-block"
-	                	rerender="aaAssignmentFormBatch"
-	                	status="status"/>
+    <apex:composition template="LMS_Template">
+        <apex:define name="body">
+            <apex:form id="aaAssignmentFormBatch">
+                <apex:commandButton value="Update Assignments"
+                        action="{!updateAllAssignments}"
+                        onclick="if(!confirm('Are you sure?')){return};"
+                        styleClass="btn btn-success btn-lg btn-block"
+                        rerender="aaAssignmentFormBatch"
+                        status="status"/>
 
-	             <apex:outputPanel layout="block" styleClass="alert alert-info" rendered="{!hasMessages}">
-	             	<apex:pageMessages />
-	        	</apex:outputPanel>
-			</apex:form>
-		</apex:define>
-	</apex:composition>
+                 <apex:outputPanel layout="block" styleClass="alert alert-info" rendered="{!hasMessages}">
+                    <apex:pageMessages />
+                </apex:outputPanel>
+            </apex:form>
+        </apex:define>
+    </apex:composition>
 
 </apex:page>

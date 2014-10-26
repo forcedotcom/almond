@@ -40,10 +40,10 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                 <ul>
                     <li class="profile-title">{!oUser.Title}</li>
                     <apex:outputPanel layout="none" rendered="{!oManager != null}">
-                        <li class="profile-manager"><a href="javascript:almond.redirectHandlerWithStatus('{!$Page.MyProfile}?id={!oManager.Id}')" ><apex:image value="{!URLFOR($Resource.almond_uilib, '/img/manager.png')}" /> {!oManager.Name}</a></li>
+                        <li class="profile-manager"><span class="glyphicon glyphicon-chevron-up"></span><a href="javascript:almond.redirectHandlerWithStatus('{!$Page.MyProfile}?id={!oManager.Id}')"> {!oManager.Name}</a></li>
                     </apex:outputPanel>
-                    <li class="profile-mail"><apex:image value="{!URLFOR($Resource.almond_uilib, '/img/envelope.png')}" /> {!oUser.Email}</li>
-                    <li class="profile-mail"><a href="javascript:almond.redirectHandler('/{!oUser.Id}')" ><apex:image value="{!URLFOR($Resource.almond_uilib, '/img/chat@2x.png')}" /> @chatter</a></li>
+                    <li class="profile-mail"><span class="glyphicon glyphicon-envelope"></span> {!oUser.Email}</li>
+                    <li class="profile-mail"><span class="glyphicon glyphicon-comment"></span><a href="javascript:almond.redirectHandler('/{!oUser.Id}')"> @chatter</a></li>
                 </ul>
             </div>
 

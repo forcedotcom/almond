@@ -145,9 +145,9 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                             <div class="activity-section-learning row" >
 
                                 <div class="col-xs-1 col-sm-1 col-md-1 learn-icon">
-                                    <apex:image value="{!URLFOR($Resource.almond_uilib, '/img/pushpin.png')}" rendered="{!i.learning.RecordType.DeveloperName == 'Task'}"  />
-                                    <apex:image value="{!URLFOR($Resource.almond_uilib, '/img/calculator.png')}" rendered="{!i.learning.RecordType.DeveloperName == 'Quiz'}" style="height: 15px; width: auto;" />
-                                    <apex:image value="{!URLFOR($Resource.almond_uilib, '/img/globe.png')}" rendered="{!i.learning.RecordType.DeveloperName == 'Resource'}"  />
+                                    <apex:outputPanel layout="none" rendered="{!i.learning.RecordType.DeveloperName == 'Task'}"><span class="glyphicon glyphicon-pushpin"></span></apex:outputPanel>
+                                    <apex:outputPanel layout="none" rendered="{!i.learning.RecordType.DeveloperName == 'Quiz'}"><span class="glyphicon glyphicon-question-sign"></span></apex:outputPanel>
+                                    <apex:outputPanel layout="none" rendered="{!i.learning.RecordType.DeveloperName == 'Resource'}"><span class="glyphicon glyphicon-globe"></span></apex:outputPanel>
                                 </div>
 
                                 <div class="col-xs-10 col-sm-4 col-md-4 title ls-learning-wrapper">
@@ -178,7 +178,9 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                                     <!-- Button trigger modal -->
                                     <apex:outputPanel rendered="{!i.assignments != null}" layout="none">
                                         <a href="javascript:void(0)" lms-data-sectionId="{!o.trainingPlanSection.Id}" lms-data-itemId="{!i.trainingPlanSectionItem.Id}" class="almond-primary-btn small-btn" >{!$Label.LMSUI_Launch}</a>
-                                        <a href="javascript:void(0)" class="unchecked_img" ></a>
+                                        <a href="javascript:void(0)" class="launch-btn-mobile">
+                                            <span class="glyphicon glyphicon-unchecked"></span>
+                                        </a>
                                     </apex:outputPanel>
 
                                 </div>

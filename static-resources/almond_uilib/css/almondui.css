@@ -1,3 +1,33 @@
+/*
+* Copyright (c) 2014, salesforce.com, Inc.
+* All rights reserved.
+*
+* Redistribution and use in source and binary forms, with or without modification,
+* are permitted provided that the following conditions are met:
+*
+* * Redistributions of source code must retain the above copyright notice,
+* this list of conditions and the following disclaimer.
+* Redistributions in binary form must reproduce the above copyright notice,
+* this list of conditions and the following disclaimer in the documentation
+* and/or other materials provided with the distribution.
+* * Neither the name of the salesforce.com, Inc. nor the names of its contributors
+* may be used to endorse or promote products derived from this software
+* without specific prior written permission.
+*
+* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+* ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+* WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+* IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
+* INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+* BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+* DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+* LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+* OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
+* OF THE POSSIBILITY OF SUCH DAMAGE.
+*
+*/
+
+
 /**
 *   dark text   --> #404040
 *   light text  --> #A1A1A1
@@ -15,15 +45,8 @@
 	display: none;
 }
 
-@font-face {
-    font-family: "ProximaNova-Light";
-    src: url('../fonts/ProximaNova-Light.otf') format("opentype");
-}
-
 body {
-	font-family: "ProximaNova-Light", Calibri,
-		"Gill Sans", "Gill Sans MT", Candara, Segoe,
-		"Segoe UI", Arial, sans-serif;
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 	font-size: 14px;
 	font-weight: 300;
 	line-height: 1.42857;
@@ -31,7 +54,7 @@ body {
 
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 	color: inherit;
-	font-family: "ProximaNova-Light","Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 	font-weight: 300;
 	line-height: 1.1;
 }
@@ -686,7 +709,7 @@ li.profile-mail{
 	margin-top: 9px;
 }
 
-.activity-section-learning .learn-icon img{
+.activity-section-learning .learn-icon span.glyphicon{
 	margin-left: 10px;
 	margin-top: 12px;
 }
@@ -729,31 +752,16 @@ li.profile-mail{
   display: none;
 }
 
-.unchecked_img {
-  background: url('../img/unchecked@2x.png') no-repeat;
+.launch-btn-mobile{
   display: inline-block;
   width: 20px;
   height: 20px;
-  background-size: 17px 16px;
   margin-top: 1px;
 }
 
-.unchecked_pending {
-  background: url('../img/glyph_clock@2x.png') no-repeat;
-  display: inline-block;
-  width: 20px;
-  height: 20px;
-  background-size: 18px 17px;
-  margin-top: 1px;
-}
-
-.checked_img {
-  background: url('../img/glyph_check@2x.png') no-repeat;
-  display: inline-block;
-  width: 20px;
-  height: 20px;
-  background-size: 20px 17px;
-  margin-top: 1px;
+.launch-btn-mobile .glyphicon{
+  text-decoration:none;
+  color: #000;
 }
 
 /* LMS Search styles */
@@ -798,9 +806,7 @@ li.profile-mail{
     display: block;
   }
 
-  .checked_img,
-  .unchecked_img,
-  .unchecked_pending{
+  .launch-btn-mobile{
     display: none;
   }
 
@@ -968,7 +974,7 @@ h1 {
 
 .categoryItemWrap {
 	display: block;
-	font-family: 'ProximaNova-Light', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 .categoryItem {

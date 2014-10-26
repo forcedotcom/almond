@@ -36,3 +36,5 @@ The following Third Party components are licensed as follows:
  * jQuery Hammer - MIT
  * jQuery RateIT - MIT
  * Scrollfix - MIT
+
+This project makes use of [GLYPHICONS](http://glyphicons.com/) provided as part of the bootstrap framework.

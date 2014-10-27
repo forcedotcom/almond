@@ -28,10 +28,10 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 public with sharing class TrainingPlanAchievementManagementExt{
 
-	private String trainingPlanId;
-	public Boolean hasMessages{get{return ApexPages.hasMessages();}}
+    private String trainingPlanId;
+    public Boolean hasMessages{get{return ApexPages.hasMessages();}}
 
-  	public TrainingPlanAchievementManagementExt(ApexPages.StandardController cont){
+    public TrainingPlanAchievementManagementExt(ApexPages.StandardController cont){
         trainingPlanId = cont.getRecord().Id;
         init();
     }
@@ -40,38 +40,38 @@ public with sharing class TrainingPlanAchievementManagementExt{
 
     public PageReference upsertAchievementAssignments(){
 
-		//TODO : DRY up these access checks, move them to a base class
-		//BEGIN Access Check
-			Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
-	        relatedFieldsObjects.put(Training_Plan_Batch_Operation__c.sObjectType,new List<String>{
-				'Type__c'
-				,'Successes__c'
-				,'Status__c'
-				,'Errors__c'
-				,'Additional_Information__c'
-	        });
-			LMS_ESAPI.isAuthorizedToUpdate(relatedFieldsObjects);
-		//END Access Check
+        //TODO : DRY up these access checks, move them to a base class
+        //BEGIN Access Check
+        Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
+        relatedFieldsObjects.put(Training_Plan_Batch_Operation__c.sObjectType,new List<String>{
+            'Type__c'
+            ,'Successes__c'
+            ,'Status__c'
+            ,'Errors__c'
+            ,'Additional_Information__c'
+        });
+        LMS_ESAPI.isAuthorizedToUpdate(relatedFieldsObjects);
+        //END Access Check
 
-    	Training_Plan_Batch_Operation__c tpbo;
+        Training_Plan_Batch_Operation__c tpbo;
         try{
 
-        	tpbo = new Training_Plan_Batch_Operation__c();
-			tpbo.Training_Plan__c = trainingPlanId;
-			tpbo.Type__c = 'Update Achievements';
-			tpbo.Successes__c = 0;
-			tpbo.Status__c = 'New';
-			tpbo.Errors__c = 0;
-			tpbo.Additional_Information__c = null;
-			insert tpbo;
+            tpbo = new Training_Plan_Batch_Operation__c();
+            tpbo.Training_Plan__c = trainingPlanId;
+            tpbo.Type__c = 'Update Achievements';
+            tpbo.Successes__c = 0;
+            tpbo.Status__c = 'New';
+            tpbo.Errors__c = 0;
+            tpbo.Additional_Information__c = null;
+            insert tpbo;
 
             Id batchInstanceId = Database.executeBatch(new TPlanAchievementAssignmentsUpdateBatch(trainingPlanId,tpbo.Id),20);
             LMSUtils.addSuccessMessage('Batch update process has been queued successfully');
 
         }catch(Exception e){
-			tpbo.Status__c = 'Failed';
-			tpbo.Additional_Information__c = e.getMessage();
-			update tpbo;
+            tpbo.Status__c = 'Failed';
+            tpbo.Additional_Information__c = e.getMessage();
+            update tpbo;
             ApexPages.addMessages(e);
         }
 

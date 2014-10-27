@@ -63,8 +63,8 @@ global with sharing class ResourceViewerController{
             }
 
         }catch(Exception e){
-	     	LMSUtils.logException(e,'ResourceViewerController');
-	     	LMSUtils.addGenericUnknownErrorMessage('ResourceViewerController - init (1)');
+            LMSUtils.logException(e,'ResourceViewerController');
+            LMSUtils.addGenericUnknownErrorMessage('ResourceViewerController - init (1)');
         }
     }
 
@@ -74,13 +74,13 @@ global with sharing class ResourceViewerController{
         Learning_Assignment__c assignment = getAssignment(aid);
         Training_Resource__c resource = assignment.Learning_Version__r.Training_Resource__r;
 
-    	//CRUD/FLS not enforced here as we don't want to give update create or edit access to the learning assignment object to LMS Users
+        //CRUD/FLS not enforced here as we don't want to give update create or edit access to the learning assignment object to LMS Users
         //Update assignment status
         if(!assignment.Learning_Version__r.Training_Resource__r.Prevent_completion_on_launch__c){
-	        assignment.Progress__c = LMSConstants.ASSIGNMENT_STATUS_COMPLETED;
-	        assignment.Progress_Percentage__c = 100;
-	        assignment.Evaluation_Result__c = 'N/A';
-	        update assignment;
+            assignment.Progress__c = LMSConstants.ASSIGNMENT_STATUS_COMPLETED;
+            assignment.Progress_Percentage__c = 100;
+            assignment.Evaluation_Result__c = 'N/A';
+            update assignment;
         }
 
         //Redirect to external resource
@@ -103,26 +103,26 @@ global with sharing class ResourceViewerController{
 
     private static Learning_Assignment__c getAssignment(String aid){
 
-		//BEGIN Access Check
-			Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
-	        relatedFieldsObjects.put(Learning_Assignment__c.sObjectType,new List<String>{
-				'Id'
-				,'Name'
-				,'User__c'
-				,'Contact__c'
-				,'Learning__c'
-				,'Progress__c'
-				,'Training_Plan__c'
-				,'Shared_Learning_Assignment__c'
-	        });
-	        relatedFieldsObjects.put(Training_Resource__c.sObjectType,new List<String>{
-				'Id'
-				,'Name'
-				,'Resource_URL__c'
-				,'Add_training_parameters_to_URL__c'
-	        });
-			LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
-		//END Access Check
+        //BEGIN Access Check
+        Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
+        relatedFieldsObjects.put(Learning_Assignment__c.sObjectType,new List<String>{
+            'Id'
+            ,'Name'
+            ,'User__c'
+            ,'Contact__c'
+            ,'Learning__c'
+            ,'Progress__c'
+            ,'Training_Plan__c'
+            ,'Shared_Learning_Assignment__c'
+        });
+        relatedFieldsObjects.put(Training_Resource__c.sObjectType,new List<String>{
+            'Id'
+            ,'Name'
+            ,'Resource_URL__c'
+            ,'Add_training_parameters_to_URL__c'
+        });
+        LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
+        //END Access Check
 
         Learning_Assignment__c assignment = [select id
                                                     ,User__c

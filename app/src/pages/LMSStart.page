@@ -42,7 +42,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
             <apex:pageMessages />
 
             <apex:pageBlockSection title="Sample Data" columns="1" collapsible="false">
-            	<apex:pageMessage summary="Click the 'Create Sample Data' button to load some data to get you started. Once you've loaded data, go to the training plan tab and assign the created plan to your users." severity="info" strength="3" />
+                <apex:pageMessage summary="Click the 'Create Sample Data' button to load some data to get you started. Once you've loaded data, go to the training plan tab and assign the created plan to your users." severity="info" strength="3" />
                 <apex:pageBlockSectionItem dataStyle="text-align:center;width:100%;">
                     <apex:commandButton value="Create Sample Data" action="{!initSampleData}" rerender="theForm" status="status" styleClass="btnImportant"/>
                 </apex:pageBlockSectionItem>

@@ -22,8 +22,8 @@
         }
         .componentMask-overlay img{
             position: fixed;
-	        top: 0; left: 0; right: 0; bottom: 0;
-	        margin: auto;
+            top: 0; left: 0; right: 0; bottom: 0;
+            margin: auto;
             z-index: 1500;
         }
     </style>
@@ -34,20 +34,20 @@
 
     <!-- Scripts used to force showing the status components, useful when we cannot use the rerender attribute -->
     <apex:outputPanel layout="none" rendered="{!statusComponentId != null}">
-    	<script>
-			function forceShowStatus(){
-				var stats = document.getElementById('{!JSENCODE(statusComponentId)}.start');
-				if(stats){
-					stats.style.display = '';
-				}
-			}
-			function forceHideStatus(){
-				var stats = document.getElementById('{!JSENCODE(statusComponentId)}.start');
-				if(stats){
-					stats.style.display = 'none';
-				}
-			}
-	    </script>
+        <script>
+            function forceShowStatus(){
+                var stats = document.getElementById('{!JSENCODE(statusComponentId)}.start');
+                if(stats){
+                    stats.style.display = '';
+                }
+            }
+            function forceHideStatus(){
+                var stats = document.getElementById('{!JSENCODE(statusComponentId)}.start');
+                if(stats){
+                    stats.style.display = 'none';
+                }
+            }
+        </script>
     </apex:outputPanel>
 
 </apex:component>

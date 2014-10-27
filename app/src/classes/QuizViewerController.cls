@@ -80,31 +80,31 @@ public with sharing class QuizViewerController{
         try{
 
             //BEGIN Access Check
-                // Note: we're excluding the following fields from the FLS check since some installations may want to remove view permissions
-                // Learning Assignment : 'Evaluation_Score__c','Evaluation_Result__c','Evaluation_Times_Taken__c'
-                // Quiz : 'Passing_Score__c','Total_Questions__c','Max_Attempts__c'
-                Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
-                relatedFieldsObjects.put(Learning_Assignment__c.sObjectType,new List<String>{
-                    'Id'
-                    ,'User__c'
-                    ,'Contact__c'
-                    ,'Learning__c'
-                    ,'Learning_Version__c'
-                    ,'Progress__c'
-                    ,'Progress_Percentage__c'
-                    ,'Training_Plan__c'
-                    ,'Shared_Learning_Assignment__c'
-                });
-                relatedFieldsObjects.put(Learning__c.sObjectType,new List<String>{
-                    'Description__c'
-                });
-                relatedFieldsObjects.put(Quiz__c.sObjectType,new List<String>{
-                    'Id'
-                    ,'Name'
-                    ,'Description__c'
-                    ,'Total_Questions__c'
-                });
-                LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
+            // Note: we're excluding the following fields from the FLS check since some installations may want to remove view permissions
+            // Learning Assignment : 'Evaluation_Score__c','Evaluation_Result__c','Evaluation_Times_Taken__c'
+            // Quiz : 'Passing_Score__c','Total_Questions__c','Max_Attempts__c'
+            Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
+            relatedFieldsObjects.put(Learning_Assignment__c.sObjectType,new List<String>{
+                'Id'
+                ,'User__c'
+                ,'Contact__c'
+                ,'Learning__c'
+                ,'Learning_Version__c'
+                ,'Progress__c'
+                ,'Progress_Percentage__c'
+                ,'Training_Plan__c'
+                ,'Shared_Learning_Assignment__c'
+            });
+            relatedFieldsObjects.put(Learning__c.sObjectType,new List<String>{
+                'Description__c'
+            });
+            relatedFieldsObjects.put(Quiz__c.sObjectType,new List<String>{
+                'Id'
+                ,'Name'
+                ,'Description__c'
+                ,'Total_Questions__c'
+            });
+            LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
             //END Access Check
 
             if(String.isNotBlank(aid)){
@@ -182,14 +182,14 @@ public with sharing class QuizViewerController{
         try{
 
             //BEGIN Access Check
-                Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
-                relatedFieldsObjects.put(Question_Line__c.sObjectType,new List<String>{
-                    'Id'
-                    ,'Name'
-                    ,'Order__c'
-                    ,'Description__c'
-                });
-                LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
+            Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
+            relatedFieldsObjects.put(Question_Line__c.sObjectType,new List<String>{
+                'Id'
+                ,'Name'
+                ,'Order__c'
+                ,'Description__c'
+            });
+            LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
             //END Access Check
 
             //Retrieve question line information
@@ -304,14 +304,14 @@ public with sharing class QuizViewerController{
         try {
 
             //BEGIN Access Check
-                Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
-                relatedFieldsObjects.put(Question_Line__c.sObjectType,new List<String>{
-                    'Id'
-                    ,'Name'
-                    ,'Order__c'
-                    ,'Quiz__c'
-                });
-                LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
+            Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
+            relatedFieldsObjects.put(Question_Line__c.sObjectType,new List<String>{
+                'Id'
+                ,'Name'
+                ,'Order__c'
+                ,'Quiz__c'
+            });
+            LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
             //END Access Check
 
             saveResponses(true);
@@ -386,17 +386,17 @@ public with sharing class QuizViewerController{
     //Save the responses captured in the current questionline
     public PageReference saveResponses(Boolean updateProgress) {
 
-		//BEGIN Access Check
-			Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
-	        relatedFieldsObjects.put(Response__c.sObjectType,new List<String>{
-	            'Response_Answer_Sequence_Long__c'
-                ,'Response_Answer_Sequence_Label__c'
-	            ,'Number_Response__c'
-                ,'Response_Text_Long__c'
-                ,'Boolean_Response__c'
-	        });
-			LMS_ESAPI.isAuthorizedToUpdate(relatedFieldsObjects);
-		//END Access Check
+        //BEGIN Access Check
+        Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
+        relatedFieldsObjects.put(Response__c.sObjectType,new List<String>{
+            'Response_Answer_Sequence_Long__c'
+            ,'Response_Answer_Sequence_Label__c'
+            ,'Number_Response__c'
+            ,'Response_Text_Long__c'
+            ,'Boolean_Response__c'
+        });
+        LMS_ESAPI.isAuthorizedToUpdate(relatedFieldsObjects);
+        //END Access Check
 
         List<Response__c> tosave = new List<Response__c>();
 
@@ -572,21 +572,21 @@ public with sharing class QuizViewerController{
     private Map<Id,Response__c> fetchExistingResponses(Id assignmentId, Id sharedAssignmentId,Id questionLineId,Id quizId){
 
         //BEGIN Access Check
-            Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
-            relatedFieldsObjects.put(Response__c.sObjectType,new List<String>{
-                'Id'
-                ,'Name'
-                ,'Question__c'
-                ,'Question_Type__c'
-                ,'User__c'
-                ,'Contact__c'
-                ,'Number_Response__c'
-                ,'Boolean_Response__c'
-                ,'Response_Answer_Sequence_Long__c'
-                ,'Response_Answer_Sequence_Label__c'
-                ,'Response_Text_Long__c'
-            });
-            LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
+        Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
+        relatedFieldsObjects.put(Response__c.sObjectType,new List<String>{
+            'Id'
+            ,'Name'
+            ,'Question__c'
+            ,'Question_Type__c'
+            ,'User__c'
+            ,'Contact__c'
+            ,'Number_Response__c'
+            ,'Boolean_Response__c'
+            ,'Response_Answer_Sequence_Long__c'
+            ,'Response_Answer_Sequence_Label__c'
+            ,'Response_Text_Long__c'
+        });
+        LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
         //END Access Check
 
         Map<Id,Response__c> responseMap = new Map<Id, Response__c>();
@@ -638,14 +638,14 @@ public with sharing class QuizViewerController{
     private List<Question_Line__c> fetchQuizQuestionLines(Id quizId){
 
         //BEGIN Access Check
-            Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
-            relatedFieldsObjects.put(Question_Line__c.sObjectType,new List<String>{
-                'Id'
-                ,'Name'
-                ,'Order__c'
-                ,'Description__c'
-            });
-            LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
+        Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
+        relatedFieldsObjects.put(Question_Line__c.sObjectType,new List<String>{
+            'Id'
+            ,'Name'
+            ,'Order__c'
+            ,'Description__c'
+        });
+        LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
         //END Access Check
 
         List<Question_Line__c> results = new List<Question_Line__c>();
@@ -695,13 +695,13 @@ public with sharing class QuizViewerController{
     public Map<Id,Question__c> fetchQuestionsForQuiz(Id quizId){
 
         //BEGIN Access Check
-            Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
-            relatedFieldsObjects.put(Question__c.sObjectType,new List<String>{
-                'Id'
-                ,'Name'
-                ,'Type__c'
-            });
-            LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
+        Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
+        relatedFieldsObjects.put(Question__c.sObjectType,new List<String>{
+            'Id'
+            ,'Name'
+            ,'Type__c'
+        });
+        LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
         //END Access Check
 
         Map<Id,Question__c> results = new Map<Id,Question__c>();

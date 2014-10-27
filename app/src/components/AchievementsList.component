@@ -4,13 +4,13 @@
     <apex:attribute name="badgeContainerClass" type="String" description="Set to true to apply css fixes for chatter subtab"  required="false" default="col-xs-12 col-sm-6 col-md-3" />
 
 
-	<apex:repeat value="{!achievements}" var="c">
+    <apex:repeat value="{!achievements}" var="c">
 
         <div class="achievements-wrapper">
-    		<div class="row">
+            <div class="row">
 
             <div class="col-xs-12 col-sm-12 col-md-12">
-    				<h3>{!c.name}</h3>
+                <h3>{!c.name}</h3>
                 <hr />
             </div>
 

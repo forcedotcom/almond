@@ -47,38 +47,38 @@ public with sharing class TrainingPlanAssignmentExtensionExisting{
 
     private void init(){
 
-    	try{
-			//BEGIN Access Check
-				Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
-		        relatedFieldsObjects.put(Training_Plan_Assignment__c.sObjectType,new List<String>{
-		        	'Name'
-		            ,'Status__c'
-		            ,'User__c'
-		            ,'Last_Updated__c'
-		        });
-				LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
-			//END Access Check
+        try{
+            //BEGIN Access Check
+            Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
+            relatedFieldsObjects.put(Training_Plan_Assignment__c.sObjectType,new List<String>{
+                'Name'
+                ,'Status__c'
+                ,'User__c'
+                ,'Last_Updated__c'
+            });
+            LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
+            //END Access Check
 
-	        this.setCon= new ApexPages.StandardSetController(Database.getQueryLocator(
-	            [SELECT Id
-	                    ,Name
-	                    ,Status__c
-	                    ,User__c
-	                    ,User__r.ProfileId
-	                    ,User__r.UserRoleId
-	                    ,User__r.Email
-	                    ,Last_Updated__c
-	                    FROM Training_Plan_Assignment__c
-	                    WHERE Training_Plan__c = :trainingPlanId
-	                    LIMIT 10000]
-	        ));
-	        this.setCon.setpageNumber(1);
-	        this.setCon.setPageSize(20);
-	        setRows();
-    	}catch(Exception e){
-         	LMSUtils.logException(e,'TrainingPlanAssignmentExtensionExisting');
-         	LMSUtils.addGenericUnknownErrorMessage('TrainingPlanAssignmentExtensionExisting - init (1)');
-    	}
+            this.setCon= new ApexPages.StandardSetController(Database.getQueryLocator(
+                [SELECT Id
+                        ,Name
+                        ,Status__c
+                        ,User__c
+                        ,User__r.ProfileId
+                        ,User__r.UserRoleId
+                        ,User__r.Email
+                        ,Last_Updated__c
+                        FROM Training_Plan_Assignment__c
+                        WHERE Training_Plan__c = :trainingPlanId
+                        LIMIT 10000]
+            ));
+            this.setCon.setpageNumber(1);
+            this.setCon.setPageSize(20);
+            setRows();
+        }catch(Exception e){
+            LMSUtils.logException(e,'TrainingPlanAssignmentExtensionExisting');
+            LMSUtils.addGenericUnknownErrorMessage('TrainingPlanAssignmentExtensionExisting - init (1)');
+        }
     }
 
     public List<TPlanAssignmentWrapper> setRows(){
@@ -138,20 +138,20 @@ public with sharing class TrainingPlanAssignmentExtensionExisting{
 
         try{
 
-			//BEGIN Access Check
-				Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
-		        relatedFieldsObjects.put(Learning_Assignment__c.sObjectType,new List<String>{
-					'User__c'
-					,'Contact__c'
-					,'Learning__c'
-					,'Learning_Version__c'
-					,'Training_Plan__c'
-					,'Training_Plan_Section__c'
-					,'Training_Plan_Section_Item__c'
-		        });
-				LMS_ESAPI.isAuthorizedToCreate(relatedFieldsObjects);
-				LMS_ESAPI.isAuthorizedToUpdate(relatedFieldsObjects);
-			//END Access Check
+            //BEGIN Access Check
+            Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
+            relatedFieldsObjects.put(Learning_Assignment__c.sObjectType,new List<String>{
+                'User__c'
+                ,'Contact__c'
+                ,'Learning__c'
+                ,'Learning_Version__c'
+                ,'Training_Plan__c'
+                ,'Training_Plan_Section__c'
+                ,'Training_Plan_Section_Item__c'
+            });
+            LMS_ESAPI.isAuthorizedToCreate(relatedFieldsObjects);
+            LMS_ESAPI.isAuthorizedToUpdate(relatedFieldsObjects);
+            //END Access Check
 
             Set<Id> selectedUserIds = new Set<Id>();
             for(TPlanAssignmentWrapper cRow : rows){
@@ -169,8 +169,8 @@ public with sharing class TrainingPlanAssignmentExtensionExisting{
             }
 
         }catch(Exception e){
-         	LMSUtils.logException(e,'TrainingPlanAssignmentExtensionExisting');
-         	LMSUtils.addGenericUnknownErrorMessage('TrainingPlanAssignmentExtensionExisting - updateAssignments (1)');
+            LMSUtils.logException(e,'TrainingPlanAssignmentExtensionExisting');
+            LMSUtils.addGenericUnknownErrorMessage('TrainingPlanAssignmentExtensionExisting - updateAssignments (1)');
         }
 
         return null;
@@ -180,11 +180,11 @@ public with sharing class TrainingPlanAssignmentExtensionExisting{
 
         try{
 
-	        //BEGIN Access Check
-		        List<Schema.sObjectType> objectTypesToDelete = new List<Schema.sObjectType>();
-		        objectTypesToDelete.add(Training_Plan_Assignment__c.sObjectType);
-		        LMS_ESAPI.isAuthorizedToDelete(objectTypesToDelete);
-	        //END Access Check
+            //BEGIN Access Check
+            List<Schema.sObjectType> objectTypesToDelete = new List<Schema.sObjectType>();
+            objectTypesToDelete.add(Training_Plan_Assignment__c.sObjectType);
+            LMS_ESAPI.isAuthorizedToDelete(objectTypesToDelete);
+            //END Access Check
 
             List<Training_Plan_Assignment__c> selectedAssignments = new List<Training_Plan_Assignment__c> ();
             for(TPlanAssignmentWrapper cRow : rows){
@@ -200,8 +200,8 @@ public with sharing class TrainingPlanAssignmentExtensionExisting{
             }
 
         }catch(Exception e){
-         	LMSUtils.logException(e,'TrainingPlanAssignmentExtensionExisting');
-         	LMSUtils.addGenericUnknownErrorMessage('TrainingPlanAssignmentExtensionExisting - deleteAssignments (1)');
+            LMSUtils.logException(e,'TrainingPlanAssignmentExtensionExisting');
+            LMSUtils.addGenericUnknownErrorMessage('TrainingPlanAssignmentExtensionExisting - deleteAssignments (1)');
         }
 
         return null;

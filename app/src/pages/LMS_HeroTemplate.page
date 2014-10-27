@@ -80,7 +80,6 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                 <div class="container">
                     <div class="herotmpl-body-container" >
 
-
                         <div id="container-header">
                             <apex:insert name="container-header" />
                         </div>
@@ -109,7 +108,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
             //Prevent Header & Footer From Showing Browser Chrome
             document.addEventListener('touchmove', function(event) {
                if(event.target.parentNode.className.indexOf('noBounce') != -1 || event.target.className.indexOf('noBounce') != -1 ) {
-            	event.preventDefault(); }
+                   event.preventDefault(); }
             }, false);
 
             // Add ScrollFix

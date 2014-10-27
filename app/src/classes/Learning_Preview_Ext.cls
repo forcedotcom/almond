@@ -40,35 +40,35 @@ public with sharing class Learning_Preview_Ext{
 
     public Learning_Preview_Ext(ApexPages.StandardController cont){
 
-		try{
+        try{
 
-			//BEGIN Access Check
-				Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
-		        relatedFieldsObjects.put(Learning__c.sObjectType,new List<String>{
-		        	'Id'
-		        	,'Name'
-		            ,'Published__c'
-					,'Current_Published_Version__c'
-					,'Custom_Preview_URL__c'
-		        });
-				LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
-			//END Access Check
+            //BEGIN Access Check
+            Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
+            relatedFieldsObjects.put(Learning__c.sObjectType,new List<String>{
+                'Id'
+                ,'Name'
+                ,'Published__c'
+                ,'Current_Published_Version__c'
+                ,'Custom_Preview_URL__c'
+            });
+            LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
+            //END Access Check
 
-        	//Fetch current learning information
-	        learning = [select id
-	                            ,name
-	                            ,published__c
-	                            ,current_published_version__c
-	                            ,recordtype.developerName
-	                            ,Custom_Preview_URL__c
-	                            from Learning__c
-	                            where id = :cont.getId()];
+            //Fetch current learning information
+            learning = [select id
+                                ,name
+                                ,published__c
+                                ,current_published_version__c
+                                ,recordtype.developerName
+                                ,Custom_Preview_URL__c
+                                from Learning__c
+                                where id = :cont.getId()];
 
-			init();
+            init();
 
          }catch(Exception e){
-         	LMSUtils.logException(e,'Learning_Preview_Ext');
-         	LMSUtils.addGenericUnknownErrorMessage('Learning_Preview_Ext - init (1)');
+             LMSUtils.logException(e,'Learning_Preview_Ext');
+             LMSUtils.addGenericUnknownErrorMessage('Learning_Preview_Ext - init (1)');
          }
 
     }
@@ -100,14 +100,14 @@ public with sharing class Learning_Preview_Ext{
             ,'CreatedDate'
         };
 
-		//BEGIN Access Check
-	        Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
-	        relatedFieldsObjects.put(Task__c.sObjectType,listSOQLFields);
-			relatedFieldsObjects.put(Quiz__c.sObjectType,listSOQLFields);
-			relatedFieldsObjects.put(Training_Resource__c.sObjectType,listSOQLFields);
+        //BEGIN Access Check
+        Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
+        relatedFieldsObjects.put(Task__c.sObjectType,listSOQLFields);
+        relatedFieldsObjects.put(Quiz__c.sObjectType,listSOQLFields);
+        relatedFieldsObjects.put(Training_Resource__c.sObjectType,listSOQLFields);
 
-			LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
-		//END Access Check
+        LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
+        //END Access Check
 
         //Init Standard set controller
         Id lid = learning.Id;
@@ -115,12 +115,12 @@ public with sharing class Learning_Preview_Ext{
         contentsSSC = new ApexPages.StandardSetController(Database.getQueryLocator(soql));
     }
 
-	//Get records from the standard set controller
+    //Get records from the standard set controller
     public List<SObject> getContents() {
         return contentsSSC.getRecords();
     }
 
-	//Metho that creates a preview learning version for the selected learning
+    //Metho that creates a preview learning version for the selected learning
     public PageReference previewContent(){
 
         try{
@@ -134,15 +134,15 @@ public with sharing class Learning_Preview_Ext{
                 String selectedContentId = selectedContent;
 
                 //BEGIN Access Check
-	                List<String> lvFields =  new List<String>{'Learning__c','Version__c','Type__c'};
-			        Map<Schema.sObjectType,List<String>> relatedFieldsObjectsView = new Map<Schema.sObjectType,List<String>>();
-			        relatedFieldsObjectsView.put(Learning_Version__c.sObjectType,lvFields);
-			        Map<Schema.sObjectType,List<String>> relatedFieldsObjectsCreate = new Map<Schema.sObjectType,List<String>>();
-			        relatedFieldsObjectsCreate.put(Learning_Version__c.sObjectType,lvFields);
+                List<String> lvFields =  new List<String>{'Learning__c','Version__c','Type__c'};
+                Map<Schema.sObjectType,List<String>> relatedFieldsObjectsView = new Map<Schema.sObjectType,List<String>>();
+                relatedFieldsObjectsView.put(Learning_Version__c.sObjectType,lvFields);
+                Map<Schema.sObjectType,List<String>> relatedFieldsObjectsCreate = new Map<Schema.sObjectType,List<String>>();
+                relatedFieldsObjectsCreate.put(Learning_Version__c.sObjectType,lvFields);
 
-					LMS_ESAPI.isAuthorizedToView(relatedFieldsObjectsView);
-					LMS_ESAPI.isAuthorizedToCreate(relatedFieldsObjectsCreate);
-				//END Access Check
+                LMS_ESAPI.isAuthorizedToView(relatedFieldsObjectsView);
+                LMS_ESAPI.isAuthorizedToCreate(relatedFieldsObjectsCreate);
+                //END Access Check
 
                 //Fetch existing learning version for current content
                 String soql = 'select id from Learning_Version__c where Type__c = \'Preview\' and Learning__c = :learningId';
@@ -160,7 +160,7 @@ public with sharing class Learning_Preview_Ext{
                 if(existingPreviewLVs.size()>0){
                     previewlVersion = existingPreviewLVs.get(0);
                 }else{
-                	//Nope, there's no version create a new preview version
+                    //Nope, there's no version create a new preview version
                     upsert previewlVersion;
                 }
 
@@ -172,8 +172,8 @@ public with sharing class Learning_Preview_Ext{
             }
 
         }catch(Exception e){
-         	LMSUtils.logException(e,'Learning_Preview_Ext');
-         	LMSUtils.addGenericUnknownErrorMessage('Learning_Preview_Ext - previewContent (2)');
+            LMSUtils.logException(e,'Learning_Preview_Ext');
+            LMSUtils.addGenericUnknownErrorMessage('Learning_Preview_Ext - previewContent (2)');
             return null;
         }
 
@@ -182,73 +182,73 @@ public with sharing class Learning_Preview_Ext{
     //This method creates an assignment for the preview learning version and redirects to the preview page
     public PageReference doRedirection(){
 
-		try{
+        try{
 
-	        Learning_Assignment__c previewAssignment = new Learning_Assignment__c();
+            Learning_Assignment__c previewAssignment = new Learning_Assignment__c();
 
             //BEGIN Access Check
-	            List<String> laFields =  new List<String>{'Learning__c'
-	            											,'Learning_Version__c'
-	            											,'Is_Test_Assignment__c'
-	            											,'User__c'
-				};
-		        Map<Schema.sObjectType,List<String>> relatedFieldsObjectsView = new Map<Schema.sObjectType,List<String>>();
-		        relatedFieldsObjectsView.put(Learning_Assignment__c.sObjectType,laFields);
-		        Map<Schema.sObjectType,List<String>> relatedFieldsObjectsCreate = new Map<Schema.sObjectType,List<String>>();
-		        relatedFieldsObjectsCreate.put(Learning_Assignment__c.sObjectType,laFields);
+            List<String> laFields =  new List<String>{'Learning__c'
+                                                        ,'Learning_Version__c'
+                                                        ,'Is_Test_Assignment__c'
+                                                        ,'User__c'
+            };
+            Map<Schema.sObjectType,List<String>> relatedFieldsObjectsView = new Map<Schema.sObjectType,List<String>>();
+            relatedFieldsObjectsView.put(Learning_Assignment__c.sObjectType,laFields);
+            Map<Schema.sObjectType,List<String>> relatedFieldsObjectsCreate = new Map<Schema.sObjectType,List<String>>();
+            relatedFieldsObjectsCreate.put(Learning_Assignment__c.sObjectType,laFields);
 
-				LMS_ESAPI.isAuthorizedToView(relatedFieldsObjectsView);
-				LMS_ESAPI.isAuthorizedToCreate(relatedFieldsObjectsCreate);
-			//END Access Check
+            LMS_ESAPI.isAuthorizedToView(relatedFieldsObjectsView);
+            LMS_ESAPI.isAuthorizedToCreate(relatedFieldsObjectsCreate);
+            //END Access Check
 
-	        //Fetch existing preview assignments
-	        List<Learning_Assignment__c> previewAssignments = [select id
-	                                                                ,name
-	                                                                from Learning_Assignment__c
-	                                                                where Learning__c = :learning.Id
-	                                                                and Learning_Version__c = :previewlVersion.Id
-	                                                                and Is_Test_Assignment__c = true];
+            //Fetch existing preview assignments
+            List<Learning_Assignment__c> previewAssignments = [select id
+                                                                    ,name
+                                                                    from Learning_Assignment__c
+                                                                    where Learning__c = :learning.Id
+                                                                    and Learning_Version__c = :previewlVersion.Id
+                                                                    and Is_Test_Assignment__c = true];
 
-	        if(previewAssignments.size()>0){
-	            //We found an existing test assignment, no need to create a new one, use this one instead
-	            previewAssignment = previewAssignments.get(0);
-	        }else{
-	            //There's no preview assignment, let's create one
-	            previewAssignment.Learning__c = learning.Id;
-	            previewAssignment.Learning_Version__c = previewlVersion.Id;
-	            previewAssignment.Is_Test_Assignment__c = true;
-	            previewAssignment.User__c = UserInfo.getUserId();
-	            insert previewAssignment;
-	        }
+            if(previewAssignments.size()>0){
+                //We found an existing test assignment, no need to create a new one, use this one instead
+                previewAssignment = previewAssignments.get(0);
+            }else{
+                //There's no preview assignment, let's create one
+                previewAssignment.Learning__c = learning.Id;
+                previewAssignment.Learning_Version__c = previewlVersion.Id;
+                previewAssignment.Is_Test_Assignment__c = true;
+                previewAssignment.User__c = UserInfo.getUserId();
+                insert previewAssignment;
+            }
 
-	        //Redirect to content launcher
-	        PageReference ref = null;
+            //Redirect to content launcher
+            PageReference ref = null;
 
-	        if(learning.Custom_Preview_URL__c != null){
-	            ref = new PageReference(learning.Custom_Preview_URL__c);
-	        }else{
+            if(learning.Custom_Preview_URL__c != null){
+                ref = new PageReference(learning.Custom_Preview_URL__c);
+            }else{
 
-	            if(currentRecordType == LMSConstants.RT_TASK){
-	                ref = Page.TaskViewer;
-	            }else if(currentRecordType == LMSConstants.RT_TRAINING_RESOURCE){
-	                ref = Page.ResourceViewer;
-	            }else if(currentRecordType == LMSConstants.RT_QUIZ){
-	                ref = Page.QuizViewer;
-	            }
+                if(currentRecordType == LMSConstants.RT_TASK){
+                    ref = Page.TaskViewer;
+                }else if(currentRecordType == LMSConstants.RT_TRAINING_RESOURCE){
+                    ref = Page.ResourceViewer;
+                }else if(currentRecordType == LMSConstants.RT_QUIZ){
+                    ref = Page.QuizViewer;
+                }
 
-	        }
+            }
 
-	        //Add common parameters to content launcher page
-	        ref.setRedirect(true);
-	        ref.getParameters().put('aid',previewAssignment.Id);
-	        ref.getParameters().put('pMode','true');
+            //Add common parameters to content launcher page
+            ref.setRedirect(true);
+            ref.getParameters().put('aid',previewAssignment.Id);
+            ref.getParameters().put('pMode','true');
 
-	        return ref;
-		}catch(Exception e){
-         	LMSUtils.logException(e,'Learning_Preview_Ext');
-         	LMSUtils.addGenericUnknownErrorMessage('Learning_Preview_Ext - doRedirection (3)');
+            return ref;
+        }catch(Exception e){
+            LMSUtils.logException(e,'Learning_Preview_Ext');
+            LMSUtils.addGenericUnknownErrorMessage('Learning_Preview_Ext - doRedirection (3)');
             return null;
-		}
+        }
 
     }
 

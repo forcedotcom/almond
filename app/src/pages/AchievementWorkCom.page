@@ -36,20 +36,20 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
     </apex:sectionHeader>
 
     <style>
-    	.workBadgeWrapper{
+        .workBadgeWrapper{
             display: inline-block;
             width: 120px;
             height:120px;
             zoom: 1;         /* for IE */
             display*:inline; /* for IE */
         }
-    	.workBadgeWrapper a{
+        .workBadgeWrapper a{
             display:block;
         	padding:10px;
         }
         .workBadgeWrapper img{
-        	height:100px;
-        	width:auto;
+            height:100px;
+            width:auto;
         }
         .workBadgeWrapper .badge-active{
             background-color:#FFFFC0;
@@ -90,7 +90,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
             <apex:pageBlockSection columns="1" title="Badge Selection">
                 <apex:pageBlock>
 
-                	<apex:repeat value="{!badges}" var="b">
+                    <apex:repeat value="{!badges}" var="b">
 
                         <div class="workBadgeWrapper">
 
@@ -137,6 +137,6 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
         </script>
 
 
-	</apex:form>
+    </apex:form>
 
 </apex:page>

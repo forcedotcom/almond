@@ -156,20 +156,20 @@ public with sharing class TrainingPlanAssignmentExtensionNew{
     public PageReference assignUsers(){
         try{
 
-			//BEGIN Access Check
-				Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
-		        relatedFieldsObjects.put(Learning_Assignment__c.sObjectType,new List<String>{
-					'User__c'
-					,'Contact__c'
-					,'Learning__c'
-					,'Learning_Version__c'
-					,'Training_Plan__c'
-					,'Training_Plan_Section__c'
-					,'Training_Plan_Section_Item__c'
-		        });
-				LMS_ESAPI.isAuthorizedToCreate(relatedFieldsObjects);
-				LMS_ESAPI.isAuthorizedToUpdate(relatedFieldsObjects);
-			//END Access Check
+            //BEGIN Access Check
+            Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
+            relatedFieldsObjects.put(Learning_Assignment__c.sObjectType,new List<String>{
+                'User__c'
+                ,'Contact__c'
+                ,'Learning__c'
+                ,'Learning_Version__c'
+                ,'Training_Plan__c'
+                ,'Training_Plan_Section__c'
+                ,'Training_Plan_Section_Item__c'
+            });
+            LMS_ESAPI.isAuthorizedToCreate(relatedFieldsObjects);
+            LMS_ESAPI.isAuthorizedToUpdate(relatedFieldsObjects);
+            //END Access Check
 
             Set<Id> selectedUserIds = new Set<Id>();
 
@@ -183,8 +183,8 @@ public with sharing class TrainingPlanAssignmentExtensionNew{
                 LMSService.upsertAssignments(selectedUserIds,trainingPlanId);
             }
         }catch(Exception e){
-         	LMSUtils.logException(e,'TrainingPlanAssignmentExtensionNew');
-         	LMSUtils.addGenericUnknownErrorMessage('TrainingPlanAssignmentExtensionNew - assignUsers (1)');
+            LMSUtils.logException(e,'TrainingPlanAssignmentExtensionNew');
+            LMSUtils.addGenericUnknownErrorMessage('TrainingPlanAssignmentExtensionNew - assignUsers (1)');
             return null;
         }
         //Redirect to view page
@@ -193,10 +193,10 @@ public with sharing class TrainingPlanAssignmentExtensionNew{
     }
 
     public PageReference goToImportAssignments(){
-    	PageReference ref = Page.TrainingPlanImportAssignments;
-    	ref.getParameters().put('id',trainingPlanId);
-    	ref.getParameters().put('retURL','/'+trainingPlanId);
-    	return ref;
+        PageReference ref = Page.TrainingPlanImportAssignments;
+        ref.getParameters().put('id',trainingPlanId);
+        ref.getParameters().put('retURL','/'+trainingPlanId);
+        return ref;
     }
 
 }

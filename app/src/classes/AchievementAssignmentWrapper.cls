@@ -33,28 +33,28 @@ public with sharing class AchievementAssignmentWrapper{
     public transient String status{get;set;}
 
     public AchievementAssignmentWrapper(Achievement_Assignment__c a){
-    	this.assignment = a;
-    	if(a != null){
+        this.assignment = a;
+        if(a != null){
 
-    		if(a.Status__c == LMSConstants.AA_ELIGIBLE_STATUS){
-    			this.status = LMSConstants.AA_ELIGIBLE_STATUS;
-    		}else if(a.Status__c == LMSConstants.AA_ACQUIRED_STATUS){
-    			this.status = LMSConstants.AA_ACQUIRED_STATUS;
-    		}else{
-    			if(UserInfo.getUserId() == a.User__c){
-    				this.status = LMSConstants.AA_OVERRIDE_STATUS;
-    			}else{
-    				this.status = LMSConstants.AA_ELIGIBLE_STATUS;
-    			}
-    		}
+            if(a.Status__c == LMSConstants.AA_ELIGIBLE_STATUS){
+                this.status = LMSConstants.AA_ELIGIBLE_STATUS;
+            }else if(a.Status__c == LMSConstants.AA_ACQUIRED_STATUS){
+                this.status = LMSConstants.AA_ACQUIRED_STATUS;
+            }else{
+                if(UserInfo.getUserId() == a.User__c){
+                    this.status = LMSConstants.AA_OVERRIDE_STATUS;
+                }else{
+                    this.status = LMSConstants.AA_ELIGIBLE_STATUS;
+                }
+            }
 
-    		if(a.Achievement__r.Override_URL__c != null){
-    			PageReference ref = new PageReference(a.Achievement__r.Override_URL__c);
-    			ref.getParameters().put('aaid',a.Id);
-    			ref.getParameters().put('uid',a.User__c);
-    			overrideURL = ref.getUrl();
-    		}
-    	}
+            if(a.Achievement__r.Override_URL__c != null){
+                PageReference ref = new PageReference(a.Achievement__r.Override_URL__c);
+                ref.getParameters().put('aaid',a.Id);
+                ref.getParameters().put('uid',a.User__c);
+                overrideURL = ref.getUrl();
+            }
+        }
     }
 
 }

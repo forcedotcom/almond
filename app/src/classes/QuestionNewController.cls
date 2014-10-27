@@ -78,27 +78,27 @@ public with sharing class QuestionNewController{
     public void editmode(){
 
         //BEGIN Access Check
-            Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
-            relatedFieldsObjects.put(Question__c.sObjectType,new List<String>{
-                'Description__c'
-                ,'Type__c'
-                ,'Order__c'
-                ,'Correct_Number__c'
-                ,'Correct_Boolean__c'
-            });
-            relatedFieldsObjects.put(Answer_Sequence__c.sObjectType,new List<String>{
-                'Id'
-                ,'Internal_Notes__c'
-            });
-            relatedFieldsObjects.put(Answer_Sequence_Item__c.sObjectType,new List<String>{
-                'Id'
-                ,'Item_Id__c'
-                ,'Answer_Text__c'
-                ,'Is_Correct_Answer__c'
-                ,'Order__c'
-                ,'Answer_Sequence__c'
-            });
-            LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
+        Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
+        relatedFieldsObjects.put(Question__c.sObjectType,new List<String>{
+            'Description__c'
+            ,'Type__c'
+            ,'Order__c'
+            ,'Correct_Number__c'
+            ,'Correct_Boolean__c'
+        });
+        relatedFieldsObjects.put(Answer_Sequence__c.sObjectType,new List<String>{
+            'Id'
+            ,'Internal_Notes__c'
+        });
+        relatedFieldsObjects.put(Answer_Sequence_Item__c.sObjectType,new List<String>{
+            'Id'
+            ,'Item_Id__c'
+            ,'Answer_Text__c'
+            ,'Is_Correct_Answer__c'
+            ,'Order__c'
+            ,'Answer_Sequence__c'
+        });
+        LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
         //END Access Check
 
         banswerseq = question.Answer_Sequence__c != null ? true : false;
@@ -170,31 +170,29 @@ public with sharing class QuestionNewController{
         try{
 
             //BEGIN Access Check
-                Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
-                relatedFieldsObjects.put(Question__c.sObjectType,new List<String>{
-                    'Description__c'
-                    ,'Type__c'
-                    ,'Order__c'
-                    ,'Correct_Number__c'
-                    ,'Correct_Boolean__c'
-                });
-                relatedFieldsObjects.put(Answer_Sequence_Item__c.sObjectType,new List<String>{
-                    'Answer_Text__c'
-                    ,'Is_Correct_Answer__c'
-                    ,'Order__c'
-                    ,'Answer_Sequence__c'
-                });
-                relatedFieldsObjects.put(Question__c.sObjectType,new List<String>{
-                    'Answer_Sequence__c'
-                    ,'Type__c'
-                });
-                LMS_ESAPI.isAuthorizedToCreate(relatedFieldsObjects);
-                LMS_ESAPI.isAuthorizedToUpdate(relatedFieldsObjects);
+            Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
+            relatedFieldsObjects.put(Question__c.sObjectType,new List<String>{
+                'Description__c'
+                ,'Type__c'
+                ,'Order__c'
+                ,'Correct_Number__c'
+                ,'Correct_Boolean__c'
+            });
+            relatedFieldsObjects.put(Answer_Sequence_Item__c.sObjectType,new List<String>{
+                'Answer_Text__c'
+                ,'Is_Correct_Answer__c'
+                ,'Order__c'
+                ,'Answer_Sequence__c'
+            });
+            relatedFieldsObjects.put(Question__c.sObjectType,new List<String>{
+                'Answer_Sequence__c'
+                ,'Type__c'
+            });
+            LMS_ESAPI.isAuthorizedToCreate(relatedFieldsObjects);
+            LMS_ESAPI.isAuthorizedToUpdate(relatedFieldsObjects);
             //END Access Check
 
             if(banswerseq){
-                //Answer_Sequence__c aseq = new Answer_Sequence__c();
-                //answersequence.Internal_Notes__c = 'test builder vf page';
                 upsert answerSequence;
 
                 for(Answer_Sequence_Item__c asi : lanswerseqitems){

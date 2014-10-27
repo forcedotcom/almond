@@ -36,16 +36,16 @@ global with sharing class TrainingPlanSectionItAssigmtsDeleteBatch implements Da
 
     global Database.QueryLocator start(Database.BatchableContext BC){
 
-		//BEGIN Access Check
-			Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
-	        relatedFieldsObjects.put(Learning_Assignment__c.sObjectType,new List<String>{
-	        	'Id'
-				,'User__c'
-				,'Training_Plan_Section_Item__c'
-				,'Progress__c'
-	        });
-			LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
-		//END Access Check
+        //BEGIN Access Check
+        Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
+        relatedFieldsObjects.put(Learning_Assignment__c.sObjectType,new List<String>{
+            'Id'
+            ,'User__c'
+            ,'Training_Plan_Section_Item__c'
+            ,'Progress__c'
+        });
+        LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
+        //END Access Check
 
         String currentTPlanSectionItem = trainingPlanSectionItemId;
         String soql = 'select id,User__c,Training_Plan_Section_Item__c,Progress__c from Learning_Assignment__c where Training_Plan_Section_Item__c = :currentTPlanSectionItem';
@@ -55,9 +55,9 @@ global with sharing class TrainingPlanSectionItAssigmtsDeleteBatch implements Da
     global void execute(Database.BatchableContext BC, List<sObject> scope){
 
         //BEGIN Access Check
-	        List<Schema.sObjectType> objectTypesToDelete = new List<Schema.sObjectType>();
-	        objectTypesToDelete.add(Learning_Assignment__c.sObjectType);
-	        LMS_ESAPI.isAuthorizedToDelete(objectTypesToDelete);
+        List<Schema.sObjectType> objectTypesToDelete = new List<Schema.sObjectType>();
+        objectTypesToDelete.add(Learning_Assignment__c.sObjectType);
+        LMS_ESAPI.isAuthorizedToDelete(objectTypesToDelete);
         //END Access Check
 
         if(scope != null && scope.size()>0){

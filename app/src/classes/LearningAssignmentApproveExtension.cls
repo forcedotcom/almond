@@ -28,31 +28,31 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 public with sharing class LearningAssignmentApproveExtension {
 
-	private Learning_Assignment__c assignment;
-	private Id laId;
-	private Set<Id> taskApprovers;
-	public String approverNotes{get;set;}
+    private Learning_Assignment__c assignment;
+    private Id laId;
+    private Set<Id> taskApprovers;
+    public String approverNotes{get;set;}
 
-	public LearningAssignmentApproveExtension(ApexPages.StandardController cont){
-		try{
-			laId = cont.getRecord().Id;
-			init();
-		}catch(Exception e){
-         	LMSUtils.logException(e,'LearningAssignmentApproveExtension');
-         	LMSUtils.addGenericUnknownErrorMessage('LearningAssignmentApproveExtension - init (1)');
-		}
-	}
+    public LearningAssignmentApproveExtension(ApexPages.StandardController cont){
+        try{
+            laId = cont.getRecord().Id;
+            init();
+        }catch(Exception e){
+            LMSUtils.logException(e,'LearningAssignmentApproveExtension');
+            LMSUtils.addGenericUnknownErrorMessage('LearningAssignmentApproveExtension - init (1)');
+        }
+    }
 
-	private void init(){
+    private void init(){
 
-		Id assignmentId = laId;
-		taskApprovers = new Set<Id>();
+        Id assignmentId = laId;
+        taskApprovers = new Set<Id>();
 
         List<String> listSOQLFields = new List<String>{
             'Id'
             ,'Approved__c'
             ,'Approved_By__c'
-			,'Approver_Notes__c'
+            ,'Approver_Notes__c'
             ,'Learning_Version__c'
             ,'Learning_Version__r.Task__c'
             ,'Learning_Version__r.Task__r.Requires_Manager_Approval__c'
@@ -60,112 +60,112 @@ public with sharing class LearningAssignmentApproveExtension {
             ,'User__r.ManagerId'
         };
 
-		//BEGIN Access Check
-			Map<Schema.sObjectType,List<String>> relatedFieldsObjectsView = new Map<Schema.sObjectType,List<String>>();
-	        relatedFieldsObjectsView.put(Learning_Assignment__c.sObjectType,new List<String>{
-	        	'Approved__c'
-	        	,'Approved_By__c'
-				,'Approver_Notes__c'
-	            ,'Learning_Version__c'
-				,'User__c'
-	        });
-	        relatedFieldsObjectsView.put(Task__c.sObjectType,new List<String>{
-	        	'Requires_Manager_Approval__c'
-	        });
-	        relatedFieldsObjectsView.put(Task_Approver__c.sObjectType,new List<String>{
-	        	'User__c'
-	        	,'Task__c'
-	        });
-			LMS_ESAPI.isAuthorizedToView(relatedFieldsObjectsView);
-		//END Access Check
+        //BEGIN Access Check
+        Map<Schema.sObjectType,List<String>> relatedFieldsObjectsView = new Map<Schema.sObjectType,List<String>>();
+        relatedFieldsObjectsView.put(Learning_Assignment__c.sObjectType,new List<String>{
+            'Approved__c'
+            ,'Approved_By__c'
+            ,'Approver_Notes__c'
+            ,'Learning_Version__c'
+            ,'User__c'
+            });
+            relatedFieldsObjectsView.put(Task__c.sObjectType,new List<String>{
+                'Requires_Manager_Approval__c'
+            });
+            relatedFieldsObjectsView.put(Task_Approver__c.sObjectType,new List<String>{
+                'User__c'
+                ,'Task__c'
+            });
+        LMS_ESAPI.isAuthorizedToView(relatedFieldsObjectsView);
+        //END Access Check
 
         String soqlQuery = 'select '+String.join(listSOQLFields,',')+' from Learning_Assignment__c where Id = :assignmentId';
 
-		List<Learning_Assignment__c> assignments = (List<Learning_Assignment__c>)Database.query(soqlQuery);
-		if(assignments.size()>0){
-			assignment = assignments.get(0);
-		}
+        List<Learning_Assignment__c> assignments = (List<Learning_Assignment__c>)Database.query(soqlQuery);
+        if(assignments.size()>0){
+            assignment = assignments.get(0);
+        }
 
-		//Get a list of task approvers
-		if(assignment.Learning_Version__r.Task__c != null){
+        //Get a list of task approvers
+        if(assignment.Learning_Version__r.Task__c != null){
 
-			Id taskId = assignment.Learning_Version__r.Task__c;
+            Id taskId = assignment.Learning_Version__r.Task__c;
 
-			for(Task_Approver__c ta : [select id
-											,User__c
-											,Task__c
-											from Task_Approver__c
-											where Task__c = :taskId]){
+            for(Task_Approver__c ta : [select id
+                                            ,User__c
+                                            ,Task__c
+                                            from Task_Approver__c
+                                            where Task__c = :taskId]){
 
-				if(ta.User__c != null){
-					taskApprovers.add(ta.User__c);
-				}
-			}
+                if(ta.User__c != null){
+                    taskApprovers.add(ta.User__c);
+                }
+            }
 
-		}
+        }
 
-	}
+    }
 
-	public PageReference approveAssignment(){
+    public PageReference approveAssignment(){
 
-		try{
+        try{
 
-			if(approverNotes != null && approverNotes.length() > 255){
-				LMSUtils.addErrorMessage('Only 255 characters are allowed for approver notes');
-				return null;
-			}
+            if(approverNotes != null && approverNotes.length() > 255){
+                LMSUtils.addErrorMessage('Only 255 characters are allowed for approver notes');
+                return null;
+            }
 
-			if(LMSUtils.isAdminUser()){
+            if(LMSUtils.isAdminUser()){
 
-				updateAssignment();
+                updateAssignment();
 
-			}else{
+            }else{
 
-				if(assignment.Learning_Version__r.Task__r != null){
+                if(assignment.Learning_Version__r.Task__r != null){
 
-					Boolean requiresManagerAproval = assignment.Learning_Version__r.Task__r.Requires_Manager_Approval__c;
+                    Boolean requiresManagerAproval = assignment.Learning_Version__r.Task__r.Requires_Manager_Approval__c;
 
-					//Verify if the current user has access to approve the task
-					if((requiresManagerAproval == true && isRunningUserAManager())
-					|| (taskApprovers.size()>0 && taskApprovers.contains(UserInfo.getUserId()))){
+                    //Verify if the current user has access to approve the task
+                    if((requiresManagerAproval == true && isRunningUserAManager())
+                    || (taskApprovers.size()>0 && taskApprovers.contains(UserInfo.getUserId()))){
 
-						//Bypass FLS permissions in the extension and update the approved checkbox
-						//Learning assignment will take care of the rest
-						updateAssignment();
+                        //Bypass FLS permissions in the extension and update the approved checkbox
+                        //Learning assignment will take care of the rest
+                        updateAssignment();
 
-					}else{
-						LMSUtils.addErrorMessage('You are not authorized to approve this task.');
-						return null;
-					}
-				}
+                    }else{
+                        LMSUtils.addErrorMessage('You are not authorized to approve this task.');
+                        return null;
+                    }
+                }
 
-			}
+            }
 
-			PageReference ref = new PageReference('/'+assignment.id);
-			ref.setRedirect(true);
-			return ref;
+            PageReference ref = new PageReference('/'+assignment.id);
+            ref.setRedirect(true);
+            return ref;
 
-		}catch(Exception e){
-         	LMSUtils.logException(e,'LearningAssignmentApproveExtension');
-         	LMSUtils.addGenericUnknownErrorMessage('LearningAssignmentApproveExtension - approveAssignment (2)');
-			return null;
-		}
+        }catch(Exception e){
+            LMSUtils.logException(e,'LearningAssignmentApproveExtension');
+            LMSUtils.addGenericUnknownErrorMessage('LearningAssignmentApproveExtension - approveAssignment (2)');
+            return null;
+        }
 
-	}
+    }
 
-	private Boolean isRunningUserAManager(){
-		if(assignment != null && assignment.User__r.ManagerId == UserInfo.getUserId()){
-			return true;
-		}
-		return false;
-	}
+    private Boolean isRunningUserAManager(){
+        if(assignment != null && assignment.User__r.ManagerId == UserInfo.getUserId()){
+            return true;
+        }
+        return false;
+    }
 
-	private void updateAssignment(){
-		//We don't enforce CRUD/FLS here as we don't know what users can be assigned as task approvers
-		//Thereforce, we can't assume all users will be admin and have permissions to update the Approved field
-		assignment.approved__c = true;
-		assignment.approver_notes__c = approverNotes;
-		update assignment;
-	}
+    private void updateAssignment(){
+        //We don't enforce CRUD/FLS here as we don't know what users can be assigned as task approvers
+        //Thereforce, we can't assume all users will be admin and have permissions to update the Approved field
+        assignment.approved__c = true;
+        assignment.approver_notes__c = approverNotes;
+        update assignment;
+    }
 
 }

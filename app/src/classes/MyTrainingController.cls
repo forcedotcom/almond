@@ -37,7 +37,7 @@ public with sharing class MyTrainingController {
     }
 
     private void init(){
- 		tPlans = new List<TrainingPlanWithAchievement>();
+        tPlans = new List<TrainingPlanWithAchievement>();
         selectedType = LMSConstants.TPLAN_STATUS_NOT_STARTED;
         loadTrainingPlans();
     }
@@ -51,7 +51,7 @@ public with sharing class MyTrainingController {
         }else if(selectedType == LMSConstants.TPLAN_STATUS_NOT_STARTED){
             trainingPlans = LMSService.getNewTrainingPlans(UserInfo.getUserId());
         }else{
-        	trainingPlans = new List<Training_Plan__c>();
+            trainingPlans = new List<Training_Plan__c>();
         }
 
         createWrapperObjects(trainingPlans);
@@ -60,18 +60,18 @@ public with sharing class MyTrainingController {
 
     private void createWrapperObjects(List<Training_Plan__c> trainingPlans){
 
-		tPlans = new List<TrainingPlanWithAchievement>();
+        tPlans = new List<TrainingPlanWithAchievement>();
         //Create wrapper objects that include main reward information
         if(trainingPlans.size()>0){
 
-        	PageReference tempRef = Page.TrainingPlanDetail;
+            PageReference tempRef = Page.TrainingPlanDetail;
 
             Map<Id,Achievement__c> tmp = LMSService.getTrainingMainAchievements(LMSUtils.objectListToIdSet(trainingPlans));
 
             for(Training_Plan__c tp : trainingPlans){
-            	if(tp.Status__c == LMSConstants.TPLAN_STATUS_ACTIVE || LMSUtils.isAdminUser()){
-                	tPlans.add(new TrainingPlanWithAchievement(tp, tmp.get(tp.Id),tempRef.getUrl(), true));
-            	}
+                if(tp.Status__c == LMSConstants.TPLAN_STATUS_ACTIVE || LMSUtils.isAdminUser()){
+                    tPlans.add(new TrainingPlanWithAchievement(tp, tmp.get(tp.Id),tempRef.getUrl(), true));
+                }
             }
         }
     }

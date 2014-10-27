@@ -108,8 +108,8 @@ public with sharing class QuizResultsController{
                 showErrorMessage();
             }
         }catch(Exception e){
-	     	LMSUtils.logException(e,'QuizResultsController');
-	     	LMSUtils.addGenericUnknownErrorMessage('QuizResultsController - init (1)');
+            LMSUtils.logException(e,'QuizResultsController');
+            LMSUtils.addGenericUnknownErrorMessage('QuizResultsController - init (1)');
             showErrorMessage();
         }
     }

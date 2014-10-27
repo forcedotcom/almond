@@ -28,16 +28,16 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 public with sharing class LMSService{
 
-	//Return a list of aggregate plan progress results for the specified progress filters and user based on Plan Assignments
+    //Return a list of aggregate plan progress results for the specified progress filters and user based on Plan Assignments
     public static List<AggregateResult> getTrainingPlansAssignmentStatus(Set<String> statusFilter,String userId){
 
-		//BEGIN Access Check
-			Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
-	        relatedFieldsObjects.put(Training_Plan_Assignment__c.sObjectType,new List<String>{
-	        	'Training_Plan__c'
-	        });
-			LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
-		//END Access Check
+        //BEGIN Access Check
+        Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
+            relatedFieldsObjects.put(Training_Plan_Assignment__c.sObjectType,new List<String>{
+                'Training_Plan__c'
+            });
+            LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
+        //END Access Check
         AggregateResult[] groupedResults = [select Training_Plan__c
                                                     ,count(Id) cnt
                                                     from Training_Plan_Assignment__c
@@ -154,26 +154,26 @@ public with sharing class LMSService{
     //Return a list of training plans for the specified training plan ids
     public static List<Training_Plan__c> getTrainingPlans(Set<Id> trainingPlanIds){
 
-		//BEGIN Access Check
-			Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
-	        relatedFieldsObjects.put(Training_Plan__c.sObjectType,new List<String>{
-	            'Id'
-	            ,'Name'
-	            ,'Description__c'
-				,'Enable_Self_Registration__c'
-				,'Self_Registration_Access__c'
-				,'Enforce_Sequence__c'
-				,'Status__c'
-				,'Start_Date__c'
-				,'End_Date__c'
-                ,'Background_Image_URL__c'
-                ,'Intro_Video_URL__c'
-                ,'Background_Color__c'
-                ,'Text_Color__c'
-                ,'Training_Plan_Rating__c'
-	        });
-			LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
-		//END Access Check
+        //BEGIN Access Check
+        Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
+        relatedFieldsObjects.put(Training_Plan__c.sObjectType,new List<String>{
+            'Id'
+            ,'Name'
+            ,'Description__c'
+            ,'Enable_Self_Registration__c'
+            ,'Self_Registration_Access__c'
+            ,'Enforce_Sequence__c'
+            ,'Status__c'
+            ,'Start_Date__c'
+            ,'End_Date__c'
+            ,'Background_Image_URL__c'
+            ,'Intro_Video_URL__c'
+            ,'Background_Color__c'
+            ,'Text_Color__c'
+            ,'Training_Plan_Rating__c'
+        });
+        LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
+        //END Access Check
 
         List<Training_Plan__c> results = new List<Training_Plan__c>();
 
@@ -184,12 +184,12 @@ public with sharing class LMSService{
             'Id'
             ,'Name'
             ,'Description__c'
-			,'Enable_Self_Registration__c'
-			,'Self_Registration_Access__c'
-			,'Enforce_Sequence__c'
-			,'Status__c'
-			,'Start_Date__c'
-			,'End_Date__c'
+            ,'Enable_Self_Registration__c'
+            ,'Self_Registration_Access__c'
+            ,'Enforce_Sequence__c'
+            ,'Status__c'
+            ,'Start_Date__c'
+            ,'End_Date__c'
             ,'Intro_Video_URL__c'
             ,'Background_Image_URL__c'
             ,'Background_Color__c'
@@ -209,26 +209,26 @@ public with sharing class LMSService{
     //Return a list of training plans enabled for preview for the specified training plan ids
     public static List<Training_Plan__c> getPreviewTrainingPlans(Set<Id> trainingPlanIds){
 
-		//BEGIN Access Check
-			Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
-	        relatedFieldsObjects.put(Training_Plan__c.sObjectType,new List<String>{
-	            'Id'
-	            ,'Name'
-	            ,'Description__c'
-				,'Enable_Self_Registration__c'
-				,'Self_Registration_Access__c'
-				,'Enforce_Sequence__c'
-				,'Status__c'
-				,'Start_Date__c'
-				,'End_Date__c'
-                ,'Background_Image_URL__c'
-                ,'Intro_Video_URL__c'
-                ,'Background_Color__c'
-                ,'Text_Color__c'
-                ,'Training_Plan_Rating__c'
-	        });
-			LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
-		//END Access Check
+        //BEGIN Access Check
+        Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
+        relatedFieldsObjects.put(Training_Plan__c.sObjectType,new List<String>{
+            'Id'
+            ,'Name'
+            ,'Description__c'
+            ,'Enable_Self_Registration__c'
+            ,'Self_Registration_Access__c'
+            ,'Enforce_Sequence__c'
+            ,'Status__c'
+            ,'Start_Date__c'
+            ,'End_Date__c'
+            ,'Background_Image_URL__c'
+            ,'Intro_Video_URL__c'
+            ,'Background_Color__c'
+            ,'Text_Color__c'
+            ,'Training_Plan_Rating__c'
+        });
+        LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
+        //END Access Check
 
         List<Training_Plan__c> results = new List<Training_Plan__c>();
 
@@ -239,12 +239,12 @@ public with sharing class LMSService{
             'Id'
             ,'Name'
             ,'Description__c'
-			,'Enable_Self_Registration__c'
-			,'Self_Registration_Access__c'
-			,'Enforce_Sequence__c'
-			,'Status__c'
-			,'Start_Date__c'
-			,'End_Date__c'
+            ,'Enable_Self_Registration__c'
+            ,'Self_Registration_Access__c'
+            ,'Enforce_Sequence__c'
+            ,'Status__c'
+            ,'Start_Date__c'
+            ,'End_Date__c'
             ,'Intro_Video_URL__c'
             ,'Background_Image_URL__c'
             ,'Background_Color__c'
@@ -265,14 +265,14 @@ public with sharing class LMSService{
     //Get a list of training plan ids that are linked to the specified learning category ids
     public static List<Id> getTrainingPlanIdsForCategory(Set<Id> categoryIds){
 
-		//BEGIN Access Check
-			Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
-	        relatedFieldsObjects.put(Training_Plan__c.sObjectType,new List<String>{
-	            'Id'
-	            ,'Name'
-	        });
-			LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
-		//END Access Check
+        //BEGIN Access Check
+        Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
+        relatedFieldsObjects.put(Training_Plan__c.sObjectType,new List<String>{
+            'Id'
+            ,'Name'
+        });
+        LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
+        //END Access Check
 
         List<String> listSOQLFields = new List<String>{
             'Id'
@@ -341,34 +341,34 @@ public with sharing class LMSService{
                     }
                 }
 
-				//If we couldn't find an achievement at the training plan level then look for one at the section level
- 				if(mainAchievement == null){
+                //If we couldn't find an achievement at the training plan level then look for one at the section level
+                if(mainAchievement == null){
 
-					if(trainingPlanSectionAchievementsMap.size()>0){
+                    if(trainingPlanSectionAchievementsMap.size()>0){
 
-		                tpAchievements = trainingPlanSectionAchievementsMap.get(trainingPlanId);
+                        tpAchievements = trainingPlanSectionAchievementsMap.get(trainingPlanId);
 
-		                if(tpAchievements != null && tpAchievements.size()>0){
+                        if(tpAchievements != null && tpAchievements.size()>0){
 
-		                    //Set main achievement, default to the first entry
-		                    mainAchievement = tpAchievements.get(0).Achievement__r;
+                            //Set main achievement, default to the first entry
+                            mainAchievement = tpAchievements.get(0).Achievement__r;
 
-		                    if(tpAchievements.size()>1){
-		                        for(Training_Plan_Achievement__c tpa : tpAchievements){
-		                            if(tpa.Main_Achievement__c){
-		                                mainAchievement = tpa.Achievement__r;
-		                                break;
-		                            }
-		                        }
-		                    }
+                            if(tpAchievements.size()>1){
+                                for(Training_Plan_Achievement__c tpa : tpAchievements){
+                                    if(tpa.Main_Achievement__c){
+                                        mainAchievement = tpa.Achievement__r;
+                                        break;
+                                    }
+                                }
+                            }
 
-		                }
-					}
+                        }
+                    }
 
-				}
+                }
 
                 if(mainAchievement != null){
-					results.put(trainingPlanId,mainAchievement);
+                    results.put(trainingPlanId,mainAchievement);
                 }
 
             }
@@ -379,23 +379,23 @@ public with sharing class LMSService{
 
     public static Map<Id,Set<Id>> getTrainingPlanLearningIds(Set<Id> trainingPlanIds){
 
-		//BEGIN Access Check
-			Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
-	        relatedFieldsObjects.put(Training_Plan_Section_Item__c.sObjectType,new List<String>{
-	            'Id'
-	            ,'Name'
-	            ,'Learning__c'
-				,'Training_Plan_Section__c'
-	        });
-	        relatedFieldsObjects.put(Learning__c.sObjectType,new List<String>{
-	            'Id'
-	            ,'Name'
-	        });
-	        relatedFieldsObjects.put(Training_Plan_Section__c.sObjectType,new List<String>{
-				'Training_Plan__c'
-	        });
-			LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
-		//END Access Check
+        //BEGIN Access Check
+        Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
+        relatedFieldsObjects.put(Training_Plan_Section_Item__c.sObjectType,new List<String>{
+            'Id'
+            ,'Name'
+            ,'Learning__c'
+            ,'Training_Plan_Section__c'
+        });
+        relatedFieldsObjects.put(Learning__c.sObjectType,new List<String>{
+            'Id'
+            ,'Name'
+        });
+        relatedFieldsObjects.put(Training_Plan_Section__c.sObjectType,new List<String>{
+            'Training_Plan__c'
+        });
+        LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
+        //END Access Check
 
         Map<Id,Set<Id>> results = new Map<Id,Set<Id>>();
 
@@ -431,17 +431,17 @@ public with sharing class LMSService{
     //Return a map of training plan sections for the specified training plan ids
     public static Map<Id,List<Training_Plan_Section__c>> getTrainingPlanSections(Set<Id> trainingPlanIds){
 
-		//BEGIN Access Check
-			Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
-	        relatedFieldsObjects.put(Training_Plan_Section__c.sObjectType,new List<String>{
-	            'Id'
-	            ,'Name'
-	            ,'Order__c'
-	            ,'Optional__c'
-	            ,'Training_Plan__c'
-	        });
-			LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
-		//END Access Check
+        //BEGIN Access Check
+        Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
+        relatedFieldsObjects.put(Training_Plan_Section__c.sObjectType,new List<String>{
+            'Id'
+            ,'Name'
+            ,'Order__c'
+            ,'Optional__c'
+            ,'Training_Plan__c'
+        });
+        LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
+        //END Access Check
 
         Map<Id,List<Training_Plan_Section__c>> results = new Map<Id,List<Training_Plan_Section__c>>();
 
@@ -476,42 +476,42 @@ public with sharing class LMSService{
     //Return a map of assignments for the specified learnings + user ids
     public static Map<Id,List<Learning_Assignment__c>> getAssignmentsForLearnings(Set<Id> learningIds, Id trainingPlanFilter,Set<Id> userIds){
 
-		//BEGIN Access Check
-			Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
-	        relatedFieldsObjects.put(Learning_Assignment__c.sObjectType,new List<String>{
-	            'Id'
-	            ,'Name'
-	            ,'Contact__c'
-	            ,'User__c'
-	            ,'OwnerId'
-	            ,'Learning__c'
-	            ,'Learning_Version__c'
-	            ,'Progress__c'
-	            ,'Progress_Percentage__c'
-	            ,'Approved__c'
-	            ,'Approved_By__c'
-	            ,'Evaluation_Result__c'
-	            ,'Evaluation_Score__c'
-	            ,'Evaluation_Times_Taken__c'
-	            ,'Training_Plan__c'
-	            ,'Training_Plan_Section__c'
-	            ,'Training_Plan_Section_Item__c'
-	            ,'Last_Published_Learning_Version__c'
-	            ,'Last_Published_Learning_Version_Decision__c'
-	            ,'Shared_Learning_Assignment__c'
-	        });
-	        relatedFieldsObjects.put(Learning_Version__c.sObjectType,new List<String>{
-	            'Version__c'
-	            ,'Learning_Content_ID__c'
-	        });
-	        relatedFieldsObjects.put(Shared_Learning_Assignment__c.sObjectType,new List<String>{
-	            'Progress__c'
-	            ,'Progress_Percentage__c'
-	            ,'Learning_Version__c'
-	        });
+        //BEGIN Access Check
+        Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
+        relatedFieldsObjects.put(Learning_Assignment__c.sObjectType,new List<String>{
+            'Id'
+            ,'Name'
+            ,'Contact__c'
+            ,'User__c'
+            ,'OwnerId'
+            ,'Learning__c'
+            ,'Learning_Version__c'
+            ,'Progress__c'
+            ,'Progress_Percentage__c'
+            ,'Approved__c'
+            ,'Approved_By__c'
+            ,'Evaluation_Result__c'
+            ,'Evaluation_Score__c'
+            ,'Evaluation_Times_Taken__c'
+            ,'Training_Plan__c'
+            ,'Training_Plan_Section__c'
+            ,'Training_Plan_Section_Item__c'
+            ,'Last_Published_Learning_Version__c'
+            ,'Last_Published_Learning_Version_Decision__c'
+            ,'Shared_Learning_Assignment__c'
+        });
+        relatedFieldsObjects.put(Learning_Version__c.sObjectType,new List<String>{
+            'Version__c'
+            ,'Learning_Content_ID__c'
+        });
+        relatedFieldsObjects.put(Shared_Learning_Assignment__c.sObjectType,new List<String>{
+            'Progress__c'
+            ,'Progress_Percentage__c'
+            ,'Learning_Version__c'
+        });
 
-			LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
-		//END Access Check
+        LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
+        //END Access Check
 
         Map<Id,List<Learning_Assignment__c>> results = new Map<Id,List<Learning_Assignment__c>>();
 
@@ -573,32 +573,32 @@ public with sharing class LMSService{
 
         Map<Id,Map<Id,Shared_Learning_Assignment__c>> results = new Map<Id,Map<Id,Shared_Learning_Assignment__c>>();
 
-		//BEGIN Access Check
-			Map<Schema.sObjectType,List<String>> relatedFieldsObjectsView = new Map<Schema.sObjectType,List<String>>();
-	        relatedFieldsObjectsView.put(Shared_Learning_Assignment__c.sObjectType,new List<String>{
-	        	'Id'
-	        	,'Name'
-	            ,'Contact__c'
-				,'OwnerId'
-				,'User__c'
-				,'Learning__c'
-				,'Learning_Version__c'
-	            ,'Progress__c'
-	            ,'Progress_Percentage__c'
-	            ,'Evaluation_Result__c'
-	            ,'Evaluation_Score__c'
-	            ,'Evaluation_Times_Taken__c'
-	            ,'Approved__c'
-	            ,'Approved_By__c'
-	            ,'Last_Published_Learning_Version__c'
-	            ,'Last_Published_Learning_Version_Decision__c'
-	        });
-	        relatedFieldsObjectsView.put(Learning_Version__c.sObjectType,new List<String>{
-	        	'Version__c'
-	        	,'Learning_Content_ID__c'
-	        });
-			LMS_ESAPI.isAuthorizedToView(relatedFieldsObjectsView);
-		//END Access Check
+        //BEGIN Access Check
+        Map<Schema.sObjectType,List<String>> relatedFieldsObjectsView = new Map<Schema.sObjectType,List<String>>();
+        relatedFieldsObjectsView.put(Shared_Learning_Assignment__c.sObjectType,new List<String>{
+            'Id'
+            ,'Name'
+            ,'Contact__c'
+            ,'OwnerId'
+            ,'User__c'
+            ,'Learning__c'
+            ,'Learning_Version__c'
+            ,'Progress__c'
+            ,'Progress_Percentage__c'
+            ,'Evaluation_Result__c'
+            ,'Evaluation_Score__c'
+            ,'Evaluation_Times_Taken__c'
+            ,'Approved__c'
+            ,'Approved_By__c'
+            ,'Last_Published_Learning_Version__c'
+            ,'Last_Published_Learning_Version_Decision__c'
+        });
+        relatedFieldsObjectsView.put(Learning_Version__c.sObjectType,new List<String>{
+            'Version__c'
+            ,'Learning_Content_ID__c'
+        });
+        LMS_ESAPI.isAuthorizedToView(relatedFieldsObjectsView);
+        //END Access Check
 
         //Create local scope vars for Dynamic SOQL binding
         Set<Id> lIds = learningIds;
@@ -643,16 +643,16 @@ public with sharing class LMSService{
     //Return the plan assignment for users + training plan  specified
     public static Map<Id,Map<Id,Training_Plan_Assignment__c>> getTrainingPlanAssignments(Set<Id> userIds, Set<Id> tPlans){
 
-		//BEGIN Access Check
-			Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
-	        relatedFieldsObjects.put(Training_Plan_Assignment__c.sObjectType,new List<String>{
-	            'Id'
-	            ,'User__c'
-	            ,'Status__c'
-	            ,'Training_Plan__c'
-	        });
-			LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
-		//END Access Check
+        //BEGIN Access Check
+        Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
+        relatedFieldsObjects.put(Training_Plan_Assignment__c.sObjectType,new List<String>{
+            'Id'
+            ,'User__c'
+            ,'Status__c'
+            ,'Training_Plan__c'
+        });
+        LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
+        //END Access Check
 
         Map<Id,Map<Id,Training_Plan_Assignment__c>> results = new Map<Id,Map<Id,Training_Plan_Assignment__c>>();
 
@@ -688,16 +688,16 @@ public with sharing class LMSService{
     //Return the section assignment for users + training plan sections specified
     public static Map<Id,Map<Id,Training_Plan_Section_Assignment__c>> getTrainingPlanSectionAssignments(Set<Id> userIds, Set<Id> tPlanSections){
 
-		//BEGIN Access Check
-			Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
-	        relatedFieldsObjects.put(Training_Plan_Section_Assignment__c.sObjectType,new List<String>{
-	            'Id'
-	            ,'User__c'
-	            ,'Status__c'
-	            ,'Training_Plan_Section__c'
-	        });
-			LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
-		//END Access Check
+        //BEGIN Access Check
+        Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
+        relatedFieldsObjects.put(Training_Plan_Section_Assignment__c.sObjectType,new List<String>{
+            'Id'
+            ,'User__c'
+            ,'Status__c'
+            ,'Training_Plan_Section__c'
+        });
+        LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
+        //END Access Check
 
         Map<Id,Map<Id,Training_Plan_Section_Assignment__c>> results = new Map<Id,Map<Id,Training_Plan_Section_Assignment__c>>();
 
@@ -733,26 +733,26 @@ public with sharing class LMSService{
     //Return a map that contains training plan achievements of type for the specified training plans
     public static Map<Id,List<Training_Plan_Achievement__c>> getTrainingPlanAchievements(Set<Id> trainingPlanIds,String planAchievementType){
 
-		//BEGIN Access Check
-			Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
-	        relatedFieldsObjects.put(Training_Plan_Achievement__c.sObjectType,new List<String>{
-	            'Id'
-	            ,'Name'
-	            ,'Training_Plan__c'
-	            ,'Training_Plan_Section__c'
-	            ,'Type__c'
-	            ,'Main_Achievement__c'
-	            ,'Achievement__c'
-	        });
-	        relatedFieldsObjects.put(Achievement__c.sObjectType,new List<String>{
-	            'Id'
-	            ,'Acquired_Image__c'
-	            ,'Eligible_Image__c'
-                ,'Work_Badge_Id__c'
-                ,'Work_Badge_Image_URL__c'
-	        });
-			LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
-		//END Access Check
+        //BEGIN Access Check
+        Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
+        relatedFieldsObjects.put(Training_Plan_Achievement__c.sObjectType,new List<String>{
+            'Id'
+            ,'Name'
+            ,'Training_Plan__c'
+            ,'Training_Plan_Section__c'
+            ,'Type__c'
+            ,'Main_Achievement__c'
+            ,'Achievement__c'
+        });
+        relatedFieldsObjects.put(Achievement__c.sObjectType,new List<String>{
+            'Id'
+            ,'Acquired_Image__c'
+            ,'Eligible_Image__c'
+            ,'Work_Badge_Id__c'
+            ,'Work_Badge_Image_URL__c'
+        });
+        LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
+        //END Access Check
 
         Map<Id,List<Training_Plan_Achievement__c>> results = new Map<Id,List<Training_Plan_Achievement__c>>();
 
@@ -796,26 +796,26 @@ public with sharing class LMSService{
     //Return a map that contains training plan achievements of type for the specified training plan sections
     public static Map<Id,List<Training_Plan_Achievement__c>> getTrainingPlanSectionAchievements(Set<Id> trainingPlanSectionIds,String planAchievementType){
 
-		//BEGIN Access Check
-			Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
-	        relatedFieldsObjects.put(Training_Plan_Achievement__c.sObjectType,new List<String>{
-	            'Id'
-	            ,'Name'
-	            ,'Training_Plan__c'
-	            ,'Training_Plan_Section__c'
-	            ,'Type__c'
-	            ,'Main_Achievement__c'
-	            ,'Achievement__c'
-	        });
-	        relatedFieldsObjects.put(Achievement__c.sObjectType,new List<String>{
-	            'Id'
-	            ,'Acquired_Image__c'
-	            ,'Eligible_Image__c'
-                ,'Work_Badge_Id__c'
-                ,'Work_Badge_Image_URL__c'
-	        });
-			LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
-		//END Access Check
+        //BEGIN Access Check
+        Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
+        relatedFieldsObjects.put(Training_Plan_Achievement__c.sObjectType,new List<String>{
+            'Id'
+            ,'Name'
+            ,'Training_Plan__c'
+            ,'Training_Plan_Section__c'
+            ,'Type__c'
+            ,'Main_Achievement__c'
+            ,'Achievement__c'
+        });
+        relatedFieldsObjects.put(Achievement__c.sObjectType,new List<String>{
+            'Id'
+            ,'Acquired_Image__c'
+            ,'Eligible_Image__c'
+            ,'Work_Badge_Id__c'
+            ,'Work_Badge_Image_URL__c'
+        });
+        LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
+        //END Access Check
 
         Map<Id,List<Training_Plan_Achievement__c>> results = new Map<Id,List<Training_Plan_Achievement__c>>();
 
@@ -859,26 +859,26 @@ public with sharing class LMSService{
     //Return a map that contains achievement assignments for the specified users + plan achievements
     public static Map<String,List<Achievement_Assignment__c>> getAchievementAssignmentforTrainingPlanAchievements(Set<Id> userIds,Set<Id> tplanIds){
 
-		//BEGIN Access Check
-			Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
-	        relatedFieldsObjects.put(Achievement_Assignment__c.sObjectType,new List<String>{
-	            'Id'
-	            ,'Name'
-	            ,'Status__c'
-	            ,'User__c'
-	            ,'Contact__c'
-	            ,'Training_Plan_Achievement__c'
-	            ,'Achievement__c'
-	        });
-	        relatedFieldsObjects.put(Training_Plan_Achievement__c.sObjectType,new List<String>{
-	            'Training_Plan__c'
-	            ,'Training_Plan_Section__c'
-	        });
-	        relatedFieldsObjects.put(Achievement__c.sObjectType,new List<String>{
-	            'Override_Completed_Status__c'
-	        });
-			LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
-		//END Access Check
+        //BEGIN Access Check
+        Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
+        relatedFieldsObjects.put(Achievement_Assignment__c.sObjectType,new List<String>{
+            'Id'
+            ,'Name'
+            ,'Status__c'
+            ,'User__c'
+            ,'Contact__c'
+            ,'Training_Plan_Achievement__c'
+            ,'Achievement__c'
+        });
+        relatedFieldsObjects.put(Training_Plan_Achievement__c.sObjectType,new List<String>{
+            'Training_Plan__c'
+            ,'Training_Plan_Section__c'
+        });
+        relatedFieldsObjects.put(Achievement__c.sObjectType,new List<String>{
+            'Override_Completed_Status__c'
+        });
+        LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
+        //END Access Check
 
         Map<String,List<Achievement_Assignment__c>> results = new Map<String,List<Achievement_Assignment__c>>();
 
@@ -933,12 +933,12 @@ public with sharing class LMSService{
         Map<Id,User> results = new Map<Id,User>();
 
         for(User u : [select Id
-        					,ContactId
-        					,Email
-        					,isActive
-        					,ProfileId
-        					from User
-        					where Id in :userIds]){
+                            ,ContactId
+                            ,Email
+                            ,isActive
+                            ,ProfileId
+                            from User
+                            where Id in :userIds]){
             results.put(u.Id,u);
         }
         return results;
@@ -947,14 +947,14 @@ public with sharing class LMSService{
     //Return the ids of users that have achievement assignments for the specified achievement Id
     public static List<User> getUsersForAchievement(Id achievementId,String status,Integer maxRecords){
 
-		//BEGIN Access Check
-			Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
-	        relatedFieldsObjects.put(Achievement_Assignment__c.sObjectType,new List<String>{
-	            'Id'
-	            ,'User__c'
-	        });
-			LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
-		//END Access Check
+        //BEGIN Access Check
+        Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
+        relatedFieldsObjects.put(Achievement_Assignment__c.sObjectType,new List<String>{
+            'Id'
+            ,'User__c'
+        });
+        LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
+        //END Access Check
 
         List<User> results = new List<User>();
         Set<Id> uIds = new Set<Id>();
@@ -975,11 +975,11 @@ public with sharing class LMSService{
 
         //Get user info
         results = [select Id
-        				,Name
-        				,FullPhotoUrl
-        				,SmallPhotoUrl
-        				from User
-        				where id in :uIds];
+                        ,Name
+                        ,FullPhotoUrl
+                        ,SmallPhotoUrl
+                        from User
+                        where id in :uIds];
         return results;
     }
 
@@ -1001,24 +1001,24 @@ public with sharing class LMSService{
         //Get existing assignments for the user + learnings under the training plan, and add them to excluded learnings
         if(trainingPlanLearnings.get(trainingPlanId) != null){
 
-        	//Fetch additional information for related trainign plan section items
+            //Fetch additional information for related trainign plan section items
             LMSService.WithoutSharingOps wsops = new LMSService.WithoutSharingOps();
             Map<Id,List<Training_Plan_Section_Item__c>> tPlanSectionItems = wsops.getTrainingPlanSectionItemsFromTrainingPlans(new Set<Id>{trainingPlanId});
 
-	        //Fetch optional attribute from related training plan section and section items
-	        Map<Id,Boolean> tPlanSectionItemMap = new Map<Id,Boolean>();
-	        if(tPlanSectionItems.get(trainingPlanId) != null){
-	        	List<Training_Plan_Section_Item__c> sectionItems = tPlanSectionItems.get(trainingPlanId);
-		        for(Training_Plan_Section_Item__c tpsi : sectionItems){
-					Boolean isOptional = false;
-					if(tpsi.Training_Plan_Section__r != null && tpsi.Training_Plan_Section__r.Optional__c){
-						isOptional = true;
-					}else{
-						isOptional = tpsi.Optional__c;
-					}
-		        	tPlanSectionItemMap.put(tpsi.id,isOptional);
-		        }
-	        }
+            //Fetch optional attribute from related training plan section and section items
+            Map<Id,Boolean> tPlanSectionItemMap = new Map<Id,Boolean>();
+            if(tPlanSectionItems.get(trainingPlanId) != null){
+                List<Training_Plan_Section_Item__c> sectionItems = tPlanSectionItems.get(trainingPlanId);
+                for(Training_Plan_Section_Item__c tpsi : sectionItems){
+                    Boolean isOptional = false;
+                    if(tpsi.Training_Plan_Section__r != null && tpsi.Training_Plan_Section__r.Optional__c){
+                        isOptional = true;
+                    }else{
+                        isOptional = tpsi.Optional__c;
+                    }
+                    tPlanSectionItemMap.put(tpsi.id,isOptional);
+                }
+            }
 
             Set<Id> learnings = trainingPlanLearnings.get(trainingPlanId);
 
@@ -1046,10 +1046,10 @@ public with sharing class LMSService{
 
                     //Update optional attributes if related section or section item has changed
                     if(tPlanSectionItemMap.containsKey(la.Training_Plan_Section_Item__c)){
-                    	if(la.Optional__c != tPlanSectionItemMap.get(la.Training_Plan_Section_Item__c)){
-                    		la.Optional__c = tPlanSectionItemMap.get(la.Training_Plan_Section_Item__c);
-                    		updatedOptionalAssignments.put(la.Id,la);
-                    	}
+                        if(la.Optional__c != tPlanSectionItemMap.get(la.Training_Plan_Section_Item__c)){
+                            la.Optional__c = tPlanSectionItemMap.get(la.Training_Plan_Section_Item__c);
+                            updatedOptionalAssignments.put(la.Id,la);
+                        }
                     }
 
                 }
@@ -1195,50 +1195,50 @@ public with sharing class LMSService{
 
     }
 
-	//Return true if the specified training plan is public and if the user has access to this dev plan
+    //Return true if the specified training plan is public and if the user has access to this dev plan
     public static Boolean isPublicTrainingPlanAvailable(String trainingPlanId, String userId){
 
-		//BEGIN Access Check
-			Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
-	        relatedFieldsObjects.put(Training_Plan__c.sObjectType,new List<String>{
-	            'Id'
-	        });
-			LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
-		//END Access Check
+        //BEGIN Access Check
+        Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
+        relatedFieldsObjects.put(Training_Plan__c.sObjectType,new List<String>{
+            'Id'
+        });
+        LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
+        //END Access Check
 
-    	//Get training plans marked as public, but exclude the ones that are contained in the previous set
-    	List<Training_Plan__c> tplans = [select id
-    									from Training_Plan__c
-    									where id = :trainingPlanId
-    									and  Enable_Self_Registration__c = true
-    									and Total_Section_Items__c > 0];
+        //Get training plans marked as public, but exclude the ones that are contained in the previous set
+        List<Training_Plan__c> tplans = [select id
+                                                from Training_Plan__c
+                                                where id = :trainingPlanId
+                                                and  Enable_Self_Registration__c = true
+                                                and Total_Section_Items__c > 0];
 
-		if(tplans.size()>0){
-			return true;
-		}else{
-			return false;
-		}
+        if(tplans.size()>0){
+            return true;
+        }else{
+            return false;
+        }
 
     }
 
-	//Return a list of all public training plans that are not associated to the current user
+    //Return a list of all public training plans that are not associated to the current user
     public static List<Training_Plan__c> getTrainingPlansWithItems(String userId,Set<Id> trainingPlanIds, Boolean publicOnly){
 
-		//BEGIN Access Check
-			Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
-	        relatedFieldsObjects.put(Training_Plan_Assignment__c.sObjectType,new List<String>{
-	            'Id'
-	            ,'Training_Plan__c'
-	        });
-	        relatedFieldsObjects.put(Training_Plan__c.sObjectType,new List<String>{
-	            'Id'
-	        });
-			LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
-		//END Access Check
+        //BEGIN Access Check
+        Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
+        relatedFieldsObjects.put(Training_Plan_Assignment__c.sObjectType,new List<String>{
+            'Id'
+            ,'Training_Plan__c'
+        });
+        relatedFieldsObjects.put(Training_Plan__c.sObjectType,new List<String>{
+            'Id'
+        });
+        LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
+        //END Access Check
 
-    	Set<Id> availableTrainingPlans = new Set<Id>();
+        Set<Id> availableTrainingPlans = new Set<Id>();
 
-    	//Get training plans marked as public, but exclude the ones that are contained in the previous set
+        //Get training plans marked as public, but exclude the ones that are contained in the previous set
         Set<Id> tplanIds = trainingPlanIds;
         String soqlQuery = 'select id from Training_Plan__c where Total_Section_Items__c > 0';
         if(publicOnly){
@@ -1248,32 +1248,32 @@ public with sharing class LMSService{
             soqlQuery+=' and id in :tplanIds';
         }
 
-    	for(Training_Plan__c tp : (List<Training_Plan__c>)Database.query(soqlQuery)){
+        for(Training_Plan__c tp : (List<Training_Plan__c>)Database.query(soqlQuery)){
             availableTrainingPlans.add(tp.Id);
-    	}
+        }
 
-    	return getTrainingPlans(availableTrainingPlans);
+        return getTrainingPlans(availableTrainingPlans);
 
     }
 
-	//Return a list of training plan access request for the specified user + training plan + statuses
+    //Return a list of training plan access request for the specified user + training plan + statuses
     public static List<Training_Plan_Access_Request__c> fetchTrainingPlanAccessRequest(Id userId, Id tplanId, Set<String> statuses){
 
-		//BEGIN Access Check
-			Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
-	        relatedFieldsObjects.put(Training_Plan_Access_Request__c.sObjectType,new List<String>{
-	            'Id'
-	            ,'Status__c'
-	            ,'Comments__c'
-	        });
-			LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
-		//END Access Check
+        //BEGIN Access Check
+        Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
+        relatedFieldsObjects.put(Training_Plan_Access_Request__c.sObjectType,new List<String>{
+            'Id'
+            ,'Status__c'
+            ,'Comments__c'
+        });
+        LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
+        //END Access Check
 
-		List<Training_Plan_Access_Request__c> results;
+        List<Training_Plan_Access_Request__c> results;
 
-		//Create local scope vars
-		Id uId = userId;
-		Id tpId = tplanId;
+        //Create local scope vars
+        Id uId = userId;
+        Id tpId = tplanId;
 
         List<String> listSOQLFields = new List<String>{
             'Id'
@@ -1284,64 +1284,64 @@ public with sharing class LMSService{
         String soqlQuery = 'select '+String.join(listSOQLFields,',')+' from Training_Plan_Access_Request__c where User__c = :uId and Training_Plan__c = :tplanId';
 
         if(statuses != null && statuses.size()>0){
-        	soqlQuery += ' and Status__c in :statuses';
+            soqlQuery += ' and Status__c in :statuses';
         }
         soqlQuery += ' order by CreatedDate desc';
 
         results = (List<Training_Plan_Access_Request__c>)Database.query(soqlQuery);
-		return results;
+        return results;
 
     }
 
-	//Insert a Training Plan Access Request for the specified user + training plan combination
+    //Insert a Training Plan Access Request for the specified user + training plan combination
     public static Training_Plan_Access_Request__c createTrainingPlanAccessRequest(Id userId, Id tplanId,String comments){
 
-		//BEGIN Access Check
-			Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
-	        relatedFieldsObjects.put(Training_Plan_Access_Request__c.sObjectType,new List<String>{
-	        	'Training_Plan__c'
-	            ,'Comments__c'
-	        });
-			LMS_ESAPI.isAuthorizedToCreate(relatedFieldsObjects);
-		//END Access Check
+        //BEGIN Access Check
+        Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
+        relatedFieldsObjects.put(Training_Plan_Access_Request__c.sObjectType,new List<String>{
+            'Training_Plan__c'
+            ,'Comments__c'
+        });
+        LMS_ESAPI.isAuthorizedToCreate(relatedFieldsObjects);
+        //END Access Check
 
-    	List<Training_Plan_Access_Request__c> existingRequests = fetchTrainingPlanAccessRequest(userId,tplanId,new Set<String>{'Pending'});
+        List<Training_Plan_Access_Request__c> existingRequests = fetchTrainingPlanAccessRequest(userId,tplanId,new Set<String>{'Pending'});
 
-    	if(existingRequests.size()>0){
-    		return existingRequests.get(0);
-    	}else{
-	    	Training_Plan_Access_Request__c tpar = new Training_Plan_Access_Request__c();
-	    	tpar.User__c = userId;
-	    	tpar.OwnerId = userId;
-	    	tpar.Training_Plan__c = tplanId;
-	    	tpar.Comments__c = comments;
-	    	tpar.Status__c = 'Pending';
-	    	insert tpar;
-	    	return tpar;
-    	}
+        if(existingRequests.size()>0){
+            return existingRequests.get(0);
+        }else{
+            Training_Plan_Access_Request__c tpar = new Training_Plan_Access_Request__c();
+            tpar.User__c = userId;
+            tpar.OwnerId = userId;
+            tpar.Training_Plan__c = tplanId;
+            tpar.Comments__c = comments;
+            tpar.Status__c = 'Pending';
+            insert tpar;
+            return tpar;
+        }
 
     }
 
     //Get the latest feedack for the specified user
     public static List<Training_Plan_Feedback__c> getTrainingPlanFeedback(Id userId, Id tPlanId, Boolean ratingOnly){
 
-		//BEGIN Access Check
-			Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
-	        relatedFieldsObjects.put(Training_Plan_Feedback__c.sObjectType,new List<String>{
-	            'Id'
-	            ,'Name'
-                ,'Rating__c'
-	            ,'Comments__c'
-                ,'User__c'
-	        });
-			LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
-		//END Access Check
+        //BEGIN Access Check
+        Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
+        relatedFieldsObjects.put(Training_Plan_Feedback__c.sObjectType,new List<String>{
+            'Id'
+            ,'Name'
+            ,'Rating__c'
+            ,'Comments__c'
+            ,'User__c'
+        });
+        LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
+        //END Access Check
 
-		List<Training_Plan_Feedback__c> results;
+        List<Training_Plan_Feedback__c> results;
 
-		//Create local scope vars
-		Id uId = userId;
-		Id tpId = tplanId;
+        //Create local scope vars
+        Id uId = userId;
+        Id tpId = tplanId;
 
         List<String> listSOQLFields = new List<String>{
             'Id'
@@ -1362,7 +1362,7 @@ public with sharing class LMSService{
         soqlQuery+=' order by CreatedDate desc';
 
         results = (List<Training_Plan_Feedback__c>)Database.query(soqlQuery);
-		return results;
+        return results;
 
     }
 
@@ -1409,12 +1409,12 @@ public with sharing class LMSService{
     public static void insertTrainingPlanFeedback(Training_Plan_Feedback__c feedback){
 
         //BEGIN Access Check
-            List<String> lvFields =  new List<String>{'Rating__c','Comments__c'};
-            Map<Schema.sObjectType,List<String>> relatedFieldsObjectsCreate = new Map<Schema.sObjectType,List<String>>();
-            relatedFieldsObjectsCreate.put(Training_Plan_Feedback__c.sObjectType,lvFields);
+        List<String> lvFields =  new List<String>{'Rating__c','Comments__c'};
+        Map<Schema.sObjectType,List<String>> relatedFieldsObjectsCreate = new Map<Schema.sObjectType,List<String>>();
+        relatedFieldsObjectsCreate.put(Training_Plan_Feedback__c.sObjectType,lvFields);
 
-    		LMS_ESAPI.isAuthorizedToCreate(relatedFieldsObjectsCreate);
-    	//END Access Check
+        LMS_ESAPI.isAuthorizedToCreate(relatedFieldsObjectsCreate);
+        //END Access Check
 
         insert feedback;
 
@@ -1426,17 +1426,17 @@ public with sharing class LMSService{
         List<Learning_Category__c> results = new List<Learning_Category__c>();
         String catId = categoryId;
 
-		//BEGIN Access Check
-			Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
-	        relatedFieldsObjects.put(Learning_Category__c.sObjectType,new List<String>{
-	            'Id'
-	            ,'Name'
-                ,'Background_Image_URL__c'
-	            ,'Logo__c'
-                ,'Text_Color__c'
-	        });
-			LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
-		//END Access Check
+        //BEGIN Access Check
+        Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
+        relatedFieldsObjects.put(Learning_Category__c.sObjectType,new List<String>{
+            'Id'
+            ,'Name'
+            ,'Background_Image_URL__c'
+            ,'Logo__c'
+            ,'Text_Color__c'
+        });
+        LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
+        //END Access Check
 
         List<String> listSOQLFields = new List<String>{
             'Id'
@@ -1466,25 +1466,25 @@ public with sharing class LMSService{
         String filterStatus = String.isBlank(status)?'Active':status;
         String tId = trackFilter;
 
-		//BEGIN Access Check
-			Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
-	        relatedFieldsObjects.put(Training_Track__c.sObjectType,new List<String>{
-	            'Id'
-	            ,'Name'
-                ,'Background_Color__c'
-	            ,'Background_Image_URL__c'
-                ,'Description__c'
-                ,'Text_Color__c'
-                ,'Status__c'
-	        });
-            relatedFieldsObjects.put(Achievement__c.sObjectType,new List<String>{
-                'Acquired_Image__c'
-                ,'Eligible_Image__c'
-                ,'Work_Badge_Id__c'
-                ,'Work_Badge_Image_URL__c'
-            });
-			LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
-		//END Access Check
+        //BEGIN Access Check
+        Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
+        relatedFieldsObjects.put(Training_Track__c.sObjectType,new List<String>{
+            'Id'
+            ,'Name'
+            ,'Background_Color__c'
+            ,'Background_Image_URL__c'
+            ,'Description__c'
+            ,'Text_Color__c'
+            ,'Status__c'
+        });
+        relatedFieldsObjects.put(Achievement__c.sObjectType,new List<String>{
+            'Acquired_Image__c'
+            ,'Eligible_Image__c'
+            ,'Work_Badge_Id__c'
+            ,'Work_Badge_Image_URL__c'
+        });
+        LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
+        //END Access Check
 
         List<String> listSOQLFields = new List<String>{
             'Id'
@@ -1508,7 +1508,7 @@ public with sharing class LMSService{
         soqlQuery+=' order by Order__c asc NULLS LAST';
 
         results = (List<Training_Track__c>)Database.query(soqlQuery);
-		return results;
+        return results;
 
     }
 
@@ -1517,34 +1517,34 @@ public with sharing class LMSService{
 
         List<Training_Track_Level__c> results = new List<Training_Track_Level__c>();
 
-		//BEGIN Access Check
-			Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
-	        relatedFieldsObjects.put(Training_Track_Level__c.sObjectType,new List<String>{
-	            'Id'
-	            ,'Name'
-                ,'Order__c'
-                ,'Description__c'
-	        });
-	        relatedFieldsObjects.put(Training_Track_Level_Item__c.sObjectType,new List<String>{
-	            'Id'
-	            ,'Name'
-	            ,'Training_Plan__c'
-	        });
-	        relatedFieldsObjects.put(Training_Plan__c.sObjectType,new List<String>{
-	            'Name'
-	            ,'Description__c'
-    			,'Enable_Self_Registration__c'
-    			,'Self_Registration_Access__c'
-				,'Status__c'
-				,'Start_Date__c'
-				,'End_Date__c'
-                ,'Background_Image_URL__c'
-                ,'Intro_Video_URL__c'
-                ,'Background_Color__c'
-                ,'Text_Color__c'
-	        });
-			LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
-		//END Access Check
+        //BEGIN Access Check
+        Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
+        relatedFieldsObjects.put(Training_Track_Level__c.sObjectType,new List<String>{
+            'Id'
+            ,'Name'
+            ,'Order__c'
+            ,'Description__c'
+        });
+        relatedFieldsObjects.put(Training_Track_Level_Item__c.sObjectType,new List<String>{
+            'Id'
+            ,'Name'
+            ,'Training_Plan__c'
+        });
+        relatedFieldsObjects.put(Training_Plan__c.sObjectType,new List<String>{
+            'Name'
+            ,'Description__c'
+            ,'Enable_Self_Registration__c'
+            ,'Self_Registration_Access__c'
+            ,'Status__c'
+            ,'Start_Date__c'
+            ,'End_Date__c'
+            ,'Background_Image_URL__c'
+            ,'Intro_Video_URL__c'
+            ,'Background_Color__c'
+            ,'Text_Color__c'
+        });
+        LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
+        //END Access Check
 
         List<String> listLevelSOQLFields = new List<String>{
             'Id'
@@ -1561,15 +1561,15 @@ public with sharing class LMSService{
             ,'Training_Track_Level__c'
             ,'Training_Plan__r.Name'
             ,'Training_Plan__r.Description__c'
-			,'Training_Plan__r.Status__c'
-			,'Training_Plan__r.Start_Date__c'
-			,'Training_Plan__r.End_Date__c'
+            ,'Training_Plan__r.Status__c'
+            ,'Training_Plan__r.Start_Date__c'
+            ,'Training_Plan__r.End_Date__c'
             ,'Training_Plan__r.Background_Image_URL__c'
             ,'Training_Plan__r.Intro_Video_URL__c'
             ,'Training_Plan__r.Background_Color__c'
             ,'Training_Plan__r.Text_Color__c'
-			,'Training_Plan__r.Enable_Self_Registration__c'
-			,'Training_Plan__r.Self_Registration_Access__c'
+            ,'Training_Plan__r.Enable_Self_Registration__c'
+            ,'Training_Plan__r.Self_Registration_Access__c'
         };
 
         Id trId = trackId;
@@ -1579,96 +1579,96 @@ public with sharing class LMSService{
 
         results = (List<Training_Track_Level__c>)Database.query(soqlQuery);
 
-		return results;
+        return results;
 
     }
 
-	//Without sharing operations, see justifications below
-	public without sharing class WithoutSharingOps{
+    //Without sharing operations, see justifications below
+    public without sharing class WithoutSharingOps{
 
         //Needs to run without sharing otherwise we get field not writable exceptions
-	    //Create sharing entries for the specifies users + training plans
-	    public void shareTrainingPlanWithUsers(Set<Id> userIds, Set<Id> trainingPlanIds){
-	        List<Training_Plan__Share> results = new List<Training_Plan__Share>();
-	        for(Id tPlanId : trainingPlanIds){
-	            for(Id uId : userIds){
-	                Training_Plan__Share tPlanShare = new Training_Plan__Share();
-	                tPlanShare.UserOrGroupId = uId;
-	                tPlanShare.ParentId = tPlanId;
-	                tPlanShare.AccessLevel = 'read';
-	                tPlanShare.RowCause = Schema.Training_Plan__Share.RowCause.LMS_Sharing__c;
-	                results.add(tPlanShare);
-	            }
-	        }
+        //Create sharing entries for the specifies users + training plans
+        public void shareTrainingPlanWithUsers(Set<Id> userIds, Set<Id> trainingPlanIds){
+            List<Training_Plan__Share> results = new List<Training_Plan__Share>();
+            for(Id tPlanId : trainingPlanIds){
+                for(Id uId : userIds){
+                    Training_Plan__Share tPlanShare = new Training_Plan__Share();
+                    tPlanShare.UserOrGroupId = uId;
+                    tPlanShare.ParentId = tPlanId;
+                    tPlanShare.AccessLevel = 'read';
+                    tPlanShare.RowCause = Schema.Training_Plan__Share.RowCause.LMS_Sharing__c;
+                    results.add(tPlanShare);
+                }
+            }
 
-	        if(results.size()>0){
-				insert results;
-	        }
-	    }
-
-        //Needs to run without sharing otherwise we get field not writable exceptions
-	    //Create sharing entries for the specifies users + learnings
-	    public void shareLearningsWithUsers(Map<Id,Set<Id>> learningsUserSharing){
-	        List<Learning__Share> results = new List<Learning__Share>();
-	        //Iterate over learnings and create apex sharing for the corresponding users
-	        for(Id learningId : learningsUserSharing.keySet()){
-	            for(Id uId : learningsUserSharing.get(learningId)){
-	                Learning__Share learningShare = new Learning__Share();
-	                learningShare.UserOrGroupId = uId;
-	                learningShare.ParentId = learningId;
-	                learningShare.AccessLevel = 'read';
-	                learningShare.RowCause = Schema.Learning__Share.RowCause.LMS_Sharing__c;
-	                results.add(learningShare);
-	            }
-	        }
-	        if(results.size()>0){
+            if(results.size()>0){
                 insert results;
-	        }
-	    }
+            }
+        }
 
         //Needs to run without sharing otherwise we get field not writable exceptions
-	    //Create sharing entries for the specifies users + learnings
-	    public void shareLearningsWithApprovers(Map<Id,Set<Id>> learningsUserSharing){
-	        List<Learning__Share> results = new List<Learning__Share>();
-	        //Iterate over learnings and create apex sharing for the corresponding users
-	        for(Id learningId : learningsUserSharing.keySet()){
-	            for(Id uId : learningsUserSharing.get(learningId)){
-	                Learning__Share learningShare = new Learning__Share();
-	                learningShare.UserOrGroupId = uId;
-	                learningShare.ParentId = learningId;
-	                learningShare.AccessLevel = 'read';
-	                learningShare.RowCause = Schema.Learning__Share.RowCause.LMS_Approval_Sharing__c;
-	                results.add(learningShare);
-	            }
-	        }
-	        if(results.size()>0){
+        //Create sharing entries for the specifies users + learnings
+        public void shareLearningsWithUsers(Map<Id,Set<Id>> learningsUserSharing){
+            List<Learning__Share> results = new List<Learning__Share>();
+            //Iterate over learnings and create apex sharing for the corresponding users
+            for(Id learningId : learningsUserSharing.keySet()){
+                for(Id uId : learningsUserSharing.get(learningId)){
+                    Learning__Share learningShare = new Learning__Share();
+                    learningShare.UserOrGroupId = uId;
+                    learningShare.ParentId = learningId;
+                    learningShare.AccessLevel = 'read';
+                    learningShare.RowCause = Schema.Learning__Share.RowCause.LMS_Sharing__c;
+                    results.add(learningShare);
+                }
+            }
+            if(results.size()>0){
                 insert results;
-	        }
-	    }
+            }
+        }
+
+        //Needs to run without sharing otherwise we get field not writable exceptions
+        //Create sharing entries for the specifies users + learnings
+        public void shareLearningsWithApprovers(Map<Id,Set<Id>> learningsUserSharing){
+            List<Learning__Share> results = new List<Learning__Share>();
+            //Iterate over learnings and create apex sharing for the corresponding users
+            for(Id learningId : learningsUserSharing.keySet()){
+                for(Id uId : learningsUserSharing.get(learningId)){
+                    Learning__Share learningShare = new Learning__Share();
+                    learningShare.UserOrGroupId = uId;
+                    learningShare.ParentId = learningId;
+                    learningShare.AccessLevel = 'read';
+                    learningShare.RowCause = Schema.Learning__Share.RowCause.LMS_Approval_Sharing__c;
+                    results.add(learningShare);
+                }
+            }
+            if(results.size()>0){
+                insert results;
+            }
+        }
 
         //Needs to run without sharing otherwise we get field not writable exceptionss
-		//Share the specified learning with the corresponding approvers
-		public void shareLearningAssignmentsWithApprovers(Set<Id> approverIds, Set<Id> learningAssignmentIds){
+        //Share the specified learning with the corresponding approvers
+        public void shareLearningAssignmentsWithApprovers(Set<Id> approverIds, Set<Id> learningAssignmentIds){
 
-			if(approverIds.size()>0 && learningAssignmentIds.size()>0){
+            if(approverIds.size()>0 && learningAssignmentIds.size()>0){
 
-				List<Learning_Assignment__Share> sharingRecords = new List<Learning_Assignment__Share>();
+                List<Learning_Assignment__Share> sharingRecords = new List<Learning_Assignment__Share>();
 
-				for(Id learningAssignmentId : learningAssignmentIds){
-					for(Id approverId : approverIds){
-						Learning_Assignment__Share laShare = new Learning_Assignment__Share();
-	                	laShare.UserOrGroupId = approverId;
-	                	laShare.ParentId = learningAssignmentId;
-	                	laShare.AccessLevel = 'edit';
-	                	laShare.RowCause = Schema.Learning_Assignment__Share.RowCause.LMS_Approval_Sharing__c;
-	                	sharingRecords.add(laShare);
-					}
-				}
+                for(Id learningAssignmentId : learningAssignmentIds){
+                    for(Id approverId : approverIds){
+                        Learning_Assignment__Share laShare = new Learning_Assignment__Share();
+                        laShare.UserOrGroupId = approverId;
+                        laShare.ParentId = learningAssignmentId;
+                        laShare.AccessLevel = 'edit';
+                        laShare.RowCause = Schema.Learning_Assignment__Share.RowCause.LMS_Approval_Sharing__c;
+                        sharingRecords.add(laShare);
+                    }
+                }
 
                 //By-passing CRUD/FLS checks here as user's trigger this operation and they don't have access to create share records
-				if(sharingRecords.size()>0){
-					insert sharingRecords;
-				}
+                if(sharingRecords.size()>0){
+                    insert sharingRecords;
+                }
 
                 //Make sure that the approvers also have access to the learnings
                 Set<Id> learningIds = new Set<Id>();
@@ -1686,15 +1686,15 @@ public with sharing class LMSService{
 
                     Map<Id,Set<Id>> learningsUserSharing = new Map<Id,Set<Id>>();
 
-    				for(Id lid : learningIds){
-    					for(Id approverId : approverIds){
+                    for(Id lid : learningIds){
+                        for(Id approverId : approverIds){
                             if(!learningsUserSharing.containsKey(lid)){
                                 learningsUserSharing.put(lid,new Set<Id>{approverId});
                             }else{
                                 learningsUserSharing.get(lid).add(approverId);
                             }
-    					}
-    				}
+                        }
+                    }
 
                     if(learningsUserSharing.size()>0){
                         shareLearningsWithApprovers(learningsUserSharing);
@@ -1702,44 +1702,44 @@ public with sharing class LMSService{
 
                 }
 
-			}
+            }
 
-		}
+        }
 
-    	/*
-    	* We're running this query without sharing due to our data model design
-    	* We need to fetch data from learnings that still haven't been shared with the user. If we run this query with sharing
-    	* we won't get all the necessary data used to create the corresponding assignment records
+        /*
+        * We're running this query without sharing due to our data model design
+        * We need to fetch data from learnings that still haven't been shared with the user. If we run this query with sharing
+        * we won't get all the necessary data used to create the corresponding assignment records
         */
         //Return a map of training plan section items for the specified training plan section ids
         public Map<Id,List<Training_Plan_Section_Item__c>> getTrainingPlanSectionItems(Set<Id> trainingPlanSectionIds){
 
-    		//BEGIN Access Check
-    			Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
-    	        relatedFieldsObjects.put(Training_Plan_Section_Item__c.sObjectType,new List<String>{
-    	            'Id'
-    	            ,'Name'
-    	            ,'Training_Plan_Section__c'
-    	            ,'Order__c'
-    	            ,'Optional__c'
-    	            ,'Duration__c'
-    	            ,'Duration_hours__c'
-    	            ,'Learning__c'
-    	        });
-    	        relatedFieldsObjects.put(Learning__c.sObjectType,new List<String>{
-    	            'Name'
-    	            ,'Description__c'
-    	            ,'Custom_Preview_URL__c'
-    	            ,'Sync_progress__c'
-    	            ,'Current_Published_Version__c'
-    	        });
-    	        relatedFieldsObjects.put(Learning_Version__c.sObjectType,new List<String>{
-    	            'Version__c'
-    	            ,'Learning_Content_ID__c'
-    	            ,'Version_selection_behavior__c'
-    	        });
-    			LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
-    		//END Access Check
+            //BEGIN Access Check
+            Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
+            relatedFieldsObjects.put(Training_Plan_Section_Item__c.sObjectType,new List<String>{
+                'Id'
+                ,'Name'
+                ,'Training_Plan_Section__c'
+                ,'Order__c'
+                ,'Optional__c'
+                ,'Duration__c'
+                ,'Duration_hours__c'
+                ,'Learning__c'
+            });
+            relatedFieldsObjects.put(Learning__c.sObjectType,new List<String>{
+                'Name'
+                ,'Description__c'
+                ,'Custom_Preview_URL__c'
+                ,'Sync_progress__c'
+                ,'Current_Published_Version__c'
+            });
+            relatedFieldsObjects.put(Learning_Version__c.sObjectType,new List<String>{
+                'Version__c'
+                ,'Learning_Content_ID__c'
+                ,'Version_selection_behavior__c'
+            });
+            LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
+            //END Access Check
 
             Map<Id,List<Training_Plan_Section_Item__c>> results = new Map<Id,List<Training_Plan_Section_Item__c>>();
 
@@ -1782,42 +1782,42 @@ public with sharing class LMSService{
             return results;
         }
 
-    	/*
-    	* We're running this query without sharing due to our data model design
-    	* We need to fetch data from learnings that still haven't been shared with the user. If we run this query with sharing
-    	* we won't get all the necessary data used to create the corresponding assignment records
+        /*
+        * We're running this query without sharing due to our data model design
+        * We need to fetch data from learnings that still haven't been shared with the user. If we run this query with sharing
+        * we won't get all the necessary data used to create the corresponding assignment records
         */
         //Return a list of training plan section items for the specified training plan Ids
         public Map<Id,List<Training_Plan_Section_Item__c>> getTrainingPlanSectionItemsFromTrainingPlans(Set<Id> trainingPlanIds){
 
-    		//BEGIN Access Check
-    			Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
-    	        relatedFieldsObjects.put(Training_Plan_Section_Item__c.sObjectType,new List<String>{
-    	            'Id'
-    	            ,'Name'
-    	            ,'Training_Plan_Section__c'
-    	            ,'Order__c'
-    	            ,'Duration__c'
-    	            ,'Learning__c'
-    	            ,'Optional__c'
-    	        });
-    	        relatedFieldsObjects.put(Training_Plan_Section__c.sObjectType,new List<String>{
-    	            'Training_Plan__c'
-    	            ,'Optional__c'
-    	        });
-    	        relatedFieldsObjects.put(Learning__c.sObjectType,new List<String>{
-    	            'Name'
-    	            ,'Description__c'
-    	            ,'Custom_Preview_URL__c'
-    	            ,'Sync_progress__c'
-    	            ,'Current_Published_Version__c'
-    	        });
-    	        relatedFieldsObjects.put(Learning_Version__c.sObjectType,new List<String>{
-    	            'Version__c'
-    	            ,'Learning_Content_ID__c'
-    	        });
-    			LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
-    		//END Access Check
+            //BEGIN Access Check
+            Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
+            relatedFieldsObjects.put(Training_Plan_Section_Item__c.sObjectType,new List<String>{
+                'Id'
+                ,'Name'
+                ,'Training_Plan_Section__c'
+                ,'Order__c'
+                ,'Duration__c'
+                ,'Learning__c'
+                ,'Optional__c'
+            });
+            relatedFieldsObjects.put(Training_Plan_Section__c.sObjectType,new List<String>{
+                'Training_Plan__c'
+                ,'Optional__c'
+            });
+            relatedFieldsObjects.put(Learning__c.sObjectType,new List<String>{
+                'Name'
+                ,'Description__c'
+                ,'Custom_Preview_URL__c'
+                ,'Sync_progress__c'
+                ,'Current_Published_Version__c'
+            });
+            relatedFieldsObjects.put(Learning_Version__c.sObjectType,new List<String>{
+                'Version__c'
+                ,'Learning_Content_ID__c'
+            });
+            LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
+            //END Access Check
 
             Map<Id,List<Training_Plan_Section_Item__c>> results = new Map<Id,List<Training_Plan_Section_Item__c>>();
 
@@ -1858,32 +1858,32 @@ public with sharing class LMSService{
             return results;
         }
 
-    	/*
-    	* We're running this query without sharing due to our data model design
-    	* answer sequence is not a child of question, this is due to the limit of max M-D relations has already been reached
-    	* instead, question has a lookup field to answer sequence and we don't want to create sharing for these records
-    	* additionally, we dont want end-users to be looking at the answer options through any other entry points so
-    	* giving "view-all" access is also not acceptable
-    	*/
-    	//Fetch the list of sequences for the specified questions
+        /*
+        * We're running this query without sharing due to our data model design
+        * answer sequence is not a child of question, this is due to the limit of max M-D relations has already been reached
+        * instead, question has a lookup field to answer sequence and we don't want to create sharing for these records
+        * additionally, we dont want end-users to be looking at the answer options through any other entry points so
+        * giving "view-all" access is also not acceptable
+        */
+        //Fetch the list of sequences for the specified questions
         public Map<Id,Answer_Sequence__c> fetchAnswerSequences(Set<Id> answerQuestionIds){
 
-    		//BEGIN Access Check
-    			Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
-    	        relatedFieldsObjects.put(Answer_Sequence__c.sObjectType,new List<String>{
-    	            'Id'
-    	            ,'Name'
-    	        });
-    	        relatedFieldsObjects.put(Answer_Sequence_Item__c.sObjectType,new List<String>{
-    	            'Id'
-    	            ,'Name'
-    	            ,'Answer_Sequence__c'
-    	            ,'Item_Id__c'
-    	        });
-    	        //NOTE: We know users don't have access to see the "Is Correct Answer" field so we're excluding it from the FLS check
-    	        //This field should only be used at the controller level to validate answer
-    			LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
-    		//END Access Check
+            //BEGIN Access Check
+            Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
+            relatedFieldsObjects.put(Answer_Sequence__c.sObjectType,new List<String>{
+                'Id'
+                ,'Name'
+            });
+            relatedFieldsObjects.put(Answer_Sequence_Item__c.sObjectType,new List<String>{
+                'Id'
+                ,'Name'
+                ,'Answer_Sequence__c'
+                ,'Item_Id__c'
+            });
+            //NOTE: We know users don't have access to see the "Is Correct Answer" field so we're excluding it from the FLS check
+            //This field should only be used at the controller level to validate answer
+            LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
+            //END Access Check
 
             if(answerQuestionIds != null && answerQuestionIds.size()>0){
                 Map<id,Answer_Sequence__c> resultsMap = new map<id,Answer_Sequence__c>(
@@ -1905,6 +1905,6 @@ public with sharing class LMSService{
             }
         }
 
-	}
+    }
 
 }

@@ -139,11 +139,11 @@ public with sharing class TrainingPlanSectionAssignmentHelper{
                     List<Achievement_Assignment__c> aas = userSectionAchievementAssignments.get(tpsa.User__c+'_'+tpsa.Training_Plan_Section__c);
                     if(aas != null){
                         for(Achievement_Assignment__c aa : aas){
-                        	if(aa.Achievement__r.Override_Completed_Status__c != null){
-								aa.Status__c = aa.Achievement__r.Override_Completed_Status__c;
-                        	}else{
-                            	aa.Status__c = LMSConstants.AA_ACQUIRED_STATUS;
-                        	}
+                            if(aa.Achievement__r.Override_Completed_Status__c != null){
+                                aa.Status__c = aa.Achievement__r.Override_Completed_Status__c;
+                            }else{
+                                aa.Status__c = LMSConstants.AA_ACQUIRED_STATUS;
+                            }
                             achievementAssignmentsToUpdate.add(aa);
                         }
                     }
@@ -165,9 +165,9 @@ public with sharing class TrainingPlanSectionAssignmentHelper{
         public void deleteAssociatedLearningAssignmentsWOS(List<Training_Plan_Section_Assignment__c> assignments){
 
             //BEGIN Access Check
-    	        List<Schema.sObjectType> objectTypesToDelete = new List<Schema.sObjectType>();
-    	        objectTypesToDelete.add(Learning_Assignment__c.sObjectType);
-    	        LMS_ESAPI.isAuthorizedToDelete(objectTypesToDelete);
+            List<Schema.sObjectType> objectTypesToDelete = new List<Schema.sObjectType>();
+            objectTypesToDelete.add(Learning_Assignment__c.sObjectType);
+            LMS_ESAPI.isAuthorizedToDelete(objectTypesToDelete);
             //END Access Check
 
             Set<Id> trainingPlanSectionAssignments = new Set<Id>();

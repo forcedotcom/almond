@@ -41,33 +41,33 @@ public with sharing class Learning_Publish_Ext {
 
     public Learning_Publish_Ext(ApexPages.standardController cont){
 
-		try{
-			//BEGIN Access Check
-				Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
-		        relatedFieldsObjects.put(Learning__c.sObjectType,new List<String>{
-		        	'Id'
-		        	,'Name'
-		            ,'Published__c'
-					,'Current_Published_Version__c'
-					,'Custom_Preview_URL__c'
-		        });
-				LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
-			//END Access Check
+        try{
+            //BEGIN Access Check
+            Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
+            relatedFieldsObjects.put(Learning__c.sObjectType,new List<String>{
+                    'Id'
+                    ,'Name'
+                    ,'Published__c'
+                    ,'Current_Published_Version__c'
+                    ,'Custom_Preview_URL__c'
+            });
+            LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
+            //END Access Check
 
-	        //Fetch current learning information
-	        learning = [select Id
-	                            ,Name
-	                            ,Published__c
-	                            ,Current_published_version__c
-	                            ,Recordtype.DeveloperName
-	                            from Learning__c
-	                            where Id = :cont.getId()];
-	        init();
+            //Fetch current learning information
+            learning = [select Id
+                                ,Name
+                                ,Published__c
+                                ,Current_published_version__c
+                                ,Recordtype.DeveloperName
+                                from Learning__c
+                                where Id = :cont.getId()];
+            init();
 
-		}catch(Exception e){
-         	LMSUtils.logException(e,'Learning_Publish_Ext');
-         	LMSUtils.addGenericUnknownErrorMessage('Learning_Publish_Ext - init (1)');
-		}
+        }catch(Exception e){
+            LMSUtils.logException(e,'Learning_Publish_Ext');
+            LMSUtils.addGenericUnknownErrorMessage('Learning_Publish_Ext - init (1)');
+        }
     }
 
     private void init(){
@@ -91,14 +91,14 @@ public with sharing class Learning_Publish_Ext {
             ,'CreatedDate'
         };
 
-		//BEGIN Access Check
-	        Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
-	        relatedFieldsObjects.put(Task__c.sObjectType,listSOQLFields);
-			relatedFieldsObjects.put(Quiz__c.sObjectType,listSOQLFields);
-			relatedFieldsObjects.put(Training_Resource__c.sObjectType,listSOQLFields);
+        //BEGIN Access Check
+        Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
+        relatedFieldsObjects.put(Task__c.sObjectType,listSOQLFields);
+        relatedFieldsObjects.put(Quiz__c.sObjectType,listSOQLFields);
+        relatedFieldsObjects.put(Training_Resource__c.sObjectType,listSOQLFields);
 
-			LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
-		//END Access Check
+        LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
+        //END Access Check
 
         //Decide wheter we should enable versioning, e.g. not necessary if this is the first version
         enableVersionBehavior = true;
@@ -128,18 +128,18 @@ public with sharing class Learning_Publish_Ext {
 
         try{
 
-			//BEGIN Access Check
-		        Map<Schema.sObjectType,List<String>> relatedFieldsObjectsView = new Map<Schema.sObjectType,List<String>>();
-		        relatedFieldsObjectsView.put(Learning_Version__c.sObjectType,new List<String>{'Version__c'});
-		        Map<Schema.sObjectType,List<String>> relatedFieldsObjectsCreate = new Map<Schema.sObjectType,List<String>>();
-		        relatedFieldsObjectsCreate.put(Learning_Version__c.sObjectType,new List<String>{'Learning__c','Type__c','Version__c','Version_Selection_Behavior__c'});
-		        Map<Schema.sObjectType,List<String>> relatedFieldsObjectsUpdate = new Map<Schema.sObjectType,List<String>>();
-		        relatedFieldsObjectsUpdate.put(Learning__c.sObjectType,new List<String>{'Published__c','Current_Published_Version__c'});
+            //BEGIN Access Check
+            Map<Schema.sObjectType,List<String>> relatedFieldsObjectsView = new Map<Schema.sObjectType,List<String>>();
+            relatedFieldsObjectsView.put(Learning_Version__c.sObjectType,new List<String>{'Version__c'});
+            Map<Schema.sObjectType,List<String>> relatedFieldsObjectsCreate = new Map<Schema.sObjectType,List<String>>();
+            relatedFieldsObjectsCreate.put(Learning_Version__c.sObjectType,new List<String>{'Learning__c','Type__c','Version__c','Version_Selection_Behavior__c'});
+            Map<Schema.sObjectType,List<String>> relatedFieldsObjectsUpdate = new Map<Schema.sObjectType,List<String>>();
+            relatedFieldsObjectsUpdate.put(Learning__c.sObjectType,new List<String>{'Published__c','Current_Published_Version__c'});
 
-				LMS_ESAPI.isAuthorizedToView(relatedFieldsObjectsView);
-				LMS_ESAPI.isAuthorizedToCreate(relatedFieldsObjectsCreate);
-				LMS_ESAPI.isAuthorizedToUpdate(relatedFieldsObjectsUpdate);
-			//END Access Check
+            LMS_ESAPI.isAuthorizedToView(relatedFieldsObjectsView);
+            LMS_ESAPI.isAuthorizedToCreate(relatedFieldsObjectsCreate);
+            LMS_ESAPI.isAuthorizedToUpdate(relatedFieldsObjectsUpdate);
+            //END Access Check
 
             //Get latest version for the current learning
             Decimal latestVersion = 0;
@@ -167,8 +167,8 @@ public with sharing class Learning_Publish_Ext {
             return new PageReference('/'+learning.Id);
 
         }catch(Exception e){
-         	LMSUtils.logException(e,'Learning_Publish_Ext');
-         	LMSUtils.addGenericUnknownErrorMessage('Learning_Publish_Ext - init (1)');
+            LMSUtils.logException(e,'Learning_Publish_Ext');
+            LMSUtils.addGenericUnknownErrorMessage('Learning_Publish_Ext - init (1)');
             return null;
         }
 

@@ -35,16 +35,16 @@ public with sharing class LMSInit{
         return body.toString();
     }
 
-	private static String getTimeStamp(){
-		DateTime dtimenow = DateTime.now();
-		String ts = dtimenow.second()+''+dtimenow.millisecond();
-		return ts;
-	}
+    private static String getTimeStamp(){
+        DateTime dtimenow = DateTime.now();
+        String ts = dtimenow.second()+''+dtimenow.millisecond();
+        return ts;
+    }
 
     public static void initData(Boolean addTimeStamp,String achievementCategoryName){
 
         //BEGIN Access Check
-		Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
+        Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
         relatedFieldsObjects.put(Learning__c.sObjectType,new List<String>{'Name'});
         relatedFieldsObjects.put(Training_Resource__c.sObjectType,new List<String>{'Name'});
         relatedFieldsObjects.put(Task__c.sObjectType,new List<String>{'Name'});
@@ -54,8 +54,8 @@ public with sharing class LMSInit{
         relatedFieldsObjects.put(Training_Plan_Section__c.sObjectType,new List<String>{'Name','Training_Plan__c'});
         relatedFieldsObjects.put(Training_Plan_Section_Item__c.sObjectType,new List<String>{'Training_Plan_Section__c'});
         relatedFieldsObjects.put(Training_Plan_Achievement__c.sObjectType,new List<String>{'Training_Plan__c'});
-		LMS_ESAPI.isAuthorizedToCreate(relatedFieldsObjects);
-		//END Access Check
+        LMS_ESAPI.isAuthorizedToCreate(relatedFieldsObjects);
+        //END Access Check
 
         Savepoint sp = Database.setSavepoint();
 

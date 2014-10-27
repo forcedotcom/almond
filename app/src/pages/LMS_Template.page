@@ -87,7 +87,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
             //Prevent Header & Footer From Showing Browser Chrome
             document.addEventListener('touchmove', function(event) {
                if(event.target.parentNode.className.indexOf('noBounce') != -1 || event.target.className.indexOf('noBounce') != -1 ) {
-            	event.preventDefault(); }
+                   event.preventDefault(); }
             }, false);
             // Add ScrollFix
             var scrollingContent = document.getElementById("lms-template-wrapper");

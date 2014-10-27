@@ -28,8 +28,8 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 public with sharing class TrainingPlanAchievementsHelper{
 
-	public static void processBeforeInserts(List<Training_Plan_Achievement__c> tplanachievements){
-		setType(tplanachievements);
+    public static void processBeforeInserts(List<Training_Plan_Achievement__c> tplanachievements){
+        setType(tplanachievements);
     }
 
     public static void processBeforeUpdates(Map<Id,Training_Plan_Achievement__c> oldMap,Map<Id,Training_Plan_Achievement__c> newMap){
@@ -38,11 +38,11 @@ public with sharing class TrainingPlanAchievementsHelper{
         for(Training_Plan_Achievement__c newTPA : newMap.values()){
             Training_Plan_Achievement__c oldTPA = oldMap.get(newTPA.Id);
             if(newTPA.Training_Plan_Section__c != oldTPA.Training_Plan_Section__c){
-            	updatedTPAs.add(newTPA);
+                updatedTPAs.add(newTPA);
             }
         }
         if(updatedTPAs.size()>0){
-        	setType(updatedTPAs);
+            setType(updatedTPAs);
         }
     }
 

@@ -44,24 +44,24 @@ public with sharing class TrainingPlanAssignmentExtensionBatch{
 
         checkBatchOperationAccess();
 
-    	Training_Plan_Batch_Operation__c tpbo;
+        Training_Plan_Batch_Operation__c tpbo;
         try{
 
-        	tpbo = new Training_Plan_Batch_Operation__c();
-			tpbo.Training_Plan__c = trainingPlanId;
-			tpbo.Type__c = 'Update Assignments';
-			tpbo.Successes__c = 0;
-			tpbo.Status__c = 'New';
-			tpbo.Errors__c = 0;
-			tpbo.Additional_Information__c = null;
-			insert tpbo;
+            tpbo = new Training_Plan_Batch_Operation__c();
+            tpbo.Training_Plan__c = trainingPlanId;
+            tpbo.Type__c = 'Update Assignments';
+            tpbo.Successes__c = 0;
+            tpbo.Status__c = 'New';
+            tpbo.Errors__c = 0;
+            tpbo.Additional_Information__c = null;
+            insert tpbo;
 
             Id batchInstanceId = Database.executeBatch(new TrainingPlanAssignmentsUpdateBatch(trainingPlanId,tpbo.Id),20);
             LMSUtils.addSuccessMessage('Batch update process has been queued successfully');
         }catch(Exception e){
-			tpbo.Status__c = 'Failed';
-			tpbo.Additional_Information__c = e.getMessage();
-			update tpbo;
+            tpbo.Status__c = 'Failed';
+            tpbo.Additional_Information__c = e.getMessage();
+            update tpbo;
             ApexPages.addMessages(e);
         }
         return null;
@@ -71,24 +71,24 @@ public with sharing class TrainingPlanAssignmentExtensionBatch{
 
         checkBatchOperationAccess();
 
-    	Training_Plan_Batch_Operation__c tpbo;
+        Training_Plan_Batch_Operation__c tpbo;
         try{
 
-        	tpbo = new Training_Plan_Batch_Operation__c();
-			tpbo.Training_Plan__c = trainingPlanId;
-			tpbo.Type__c = 'Delete Assignments';
-			tpbo.Successes__c = 0;
-			tpbo.Status__c = 'New';
-			tpbo.Errors__c = 0;
-			tpbo.Additional_Information__c = null;
-			insert tpbo;
+            tpbo = new Training_Plan_Batch_Operation__c();
+            tpbo.Training_Plan__c = trainingPlanId;
+            tpbo.Type__c = 'Delete Assignments';
+            tpbo.Successes__c = 0;
+            tpbo.Status__c = 'New';
+            tpbo.Errors__c = 0;
+            tpbo.Additional_Information__c = null;
+            insert tpbo;
 
             Id batchInstanceId = Database.executeBatch(new TrainingPlanAssignmentsDeleteBatch(trainingPlanId,tpbo.Id),20);
             LMSUtils.addSuccessMessage('Batch delete process has been queued successfully');
         }catch(Exception e){
-			tpbo.Status__c = 'Failed';
-			tpbo.Additional_Information__c = e.getMessage();
-			update tpbo;
+            tpbo.Status__c = 'Failed';
+            tpbo.Additional_Information__c = e.getMessage();
+            update tpbo;
             ApexPages.addMessages(e);
         }
         return null;
@@ -96,17 +96,17 @@ public with sharing class TrainingPlanAssignmentExtensionBatch{
 
     //TODO : DRY up these access checks, move them to a base class
     private void checkBatchOperationAccess(){
-		//BEGIN Access Check
-			Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
-	        relatedFieldsObjects.put(Training_Plan_Batch_Operation__c.sObjectType,new List<String>{
-				'Type__c'
-				,'Successes__c'
-				,'Status__c'
-				,'Errors__c'
-				,'Additional_Information__c'
-	        });
-			LMS_ESAPI.isAuthorizedToUpdate(relatedFieldsObjects);
-		//END Access Check
+        //BEGIN Access Check
+        Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
+        relatedFieldsObjects.put(Training_Plan_Batch_Operation__c.sObjectType,new List<String>{
+            'Type__c'
+            ,'Successes__c'
+            ,'Status__c'
+            ,'Errors__c'
+            ,'Additional_Information__c'
+        });
+        LMS_ESAPI.isAuthorizedToUpdate(relatedFieldsObjects);
+        //END Access Check
     }
 
 }

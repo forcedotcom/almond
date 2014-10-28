@@ -80,7 +80,7 @@ public class TestTrainingTrackData {
 		//create question line
 		List<Question_Line__c> qline = TestLearningData.createTestQuestionLine(quiz, 3);
 		//create question
-		List<Question__c> question = TestLearningData.createTestQuestions(qline, 4);
+		List<Question__c> question = TestLearningData.createTestQuestions(qline, 4, null);
 		//create training resources
 		List<Training_Resource__c> tresources = TestLearningData.createTestTrainingResource(resourceLearnings);
 		//create task resources

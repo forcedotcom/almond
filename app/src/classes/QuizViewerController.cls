@@ -506,31 +506,22 @@ public with sharing class QuizViewerController{
                     }
 
                     if(correctAnswers.size()>0){
-
                         //Get answers for the current response
                         if(resp.Question_Type__c == 'SelectOneQuestion' || resp.Question_Type__c== 'SelectMultipleQuestion'){
-
                             String selectedAnswerSequence = resp.Response_Answer_Sequence_Long__c;
-
                             if(selectedAnswerSequence != null){
-                                List<String> selectedAnswers = selectedAnswerSequence.split(';',0);
-
-                                //We start by assuming that no one is right :)
-                                Boolean isCorrect = false;
-
+                                Set<String> selectedAnswersSet = new Set<String>();
+                                selectedAnswersSet.addAll(selectedAnswerSequence.split(';',0));
                                 if(resp.Question_Type__c == 'SelectOneQuestion'){
-                                    if(correctAnswers.removeAll(selectedAnswers)){
+                                    if(correctAnswers.removeAll(selectedAnswersSet)){
                                         correctQuestionCounter++;
                                     }
                                 }else if(resp.Question_Type__c== 'SelectMultipleQuestion'){
-                                    if(correctAnswers.containsAll(selectedAnswers)){
+                                    if(selectedAnswersSet.containsAll(correctAnswers)){
                                         correctQuestionCounter++;
                                     }
                                 }
-
                             }
-
-
                         }
                     }
 

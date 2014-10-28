@@ -67,6 +67,9 @@ public with sharing class TrainingPlansHelper {
             List<Group> groups = [SELECT Id FROM Group WHERE DeveloperName = :ALL_USERS_GROUP];
 
             if(groups.size()>0){
+
+                TrainingPlansHelper.WithoutSharingOps wosHelper = new TrainingPlansHelper.WithoutSharingOps();
+
                 Group allInternalGroup = groups.get(0);
                 //Create sharing for additions
                 if(publicSharingAdditions.size()>0){
@@ -79,7 +82,7 @@ public with sharing class TrainingPlansHelper {
                         tPlanShare.RowCause = Schema.Training_Plan__Share.RowCause.LMS_Sharing__c;
                         newShares.add(tPlanShare);
                     }
-                    insert newShares;
+                    wosHelper.insertTPlanSharesWOS(newShares);
                 }
 
                 //Delete existing shares for deletions
@@ -90,7 +93,7 @@ public with sharing class TrainingPlansHelper {
                                                                         AND UserOrGroupId = :allInternalGroup.id];
 
                     if(existingShares.size()>0){
-                        delete existingShares;
+                        wosHelper.deleteTPlanSharesWOS(existingShares);
                     }
 
                 }
@@ -98,6 +101,17 @@ public with sharing class TrainingPlansHelper {
 
         }
 
+    }
+
+    public without sharing class WithoutSharingOps{
+        //We need to insert custom apex shares in the without sharing context to avoid granting MAD permissions for LMS Admins
+        public void insertTPlanSharesWOS(List<Training_Plan__Share> newShares){
+            insert newShares;
+        }
+        //We need to delete custom apex shares in the without sharing context to avoid granting MAD permissions for LMS Admins
+        public void deleteTPlanSharesWOS(List<Training_Plan__Share> existingShares){
+            delete existingShares;
+        }
     }
 
 }

@@ -40,7 +40,7 @@ public class TestLearning {
 		List<Question_Line__c> qline = TestLearningData.createTestQuestionLine(quiz, 3);
 
 		//create question
-		List<Question__c> question = TestLearningData.createTestQuestions(qline, 4);
+		List<Question__c> question = TestLearningData.createTestQuestions(qline, 4, null);
 
 		//create users
 		List<User> systemUsers = TestUtilClass.createUsers(1,'System Administrator');
@@ -304,7 +304,7 @@ public class TestLearning {
 		List<Question_Line__c> qline = TestLearningData.createTestQuestionLine(quiz, 3);
 
 		//create question
-		List<Question__c> question = TestLearningData.createTestQuestions(qline, 4);
+		List<Question__c> question = TestLearningData.createTestQuestions(qline, 4, null);
 
 		//create users
 		List<User> systemUsers = TestUtilClass.createUsers(1,'System Administrator');

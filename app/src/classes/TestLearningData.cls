@@ -78,6 +78,22 @@ public class TestLearningData {
 		return lResult;
 	}
 
+	public static List<Quiz__c> createTestQuiz(List<Learning__c> learnings, Map<String,Object> params){
+		List<Quiz__c> lResult = new List<Quiz__c>();
+
+		for(Learning__c ol : learnings){
+			Quiz__c oquiz = new Quiz__c();
+			oquiz.Description__c = 'dummy description';
+			oquiz.Learning__c = ol.Id;
+			oquiz.Max_Attempts__c = TestUtilClass.getRandomInteger(0, 20);
+			oquiz.Passing_Score__c = (Decimal)params.get('Passing_Score__c');
+			lResult.add(oquiz);
+		}
+
+		insert lResult;
+		return lResult;
+	}
+
 	public static List<Question_Line__c> createTestQuestionLine(List<Quiz__c> lquiz, Integer iNum){
 		List<Question_Line__c> lResult = new List<Question_Line__c>();
 
@@ -96,14 +112,14 @@ public class TestLearningData {
 		return lResult;
 	}
 
-	public static List<Question__c> createTestQuestions(List<Question_Line__c> qlines, Integer iNum){
+	public static List<Question__c> createTestQuestions(List<Question_Line__c> qlines, Integer iNum, String questionType){
 		List<Question__c> lResult = new List<Question__c>();
 		Map<String,List<Question__c>> mResult = new Map<String,List<Question__c>>();
 
 		for(Question_Line__c oql : qlines){
 			for(Integer i = 0; i < iNum; i++){
 				Question__c oq = new Question__c();
-				String qtype = TestUtilClass.getRandomQuestionType();
+				String qtype = String.isBlank(questionType) ? TestUtilClass.getRandomQuestionType() : questionType;
 
 				if(!mResult.containsKey(qtype)){
 					mResult.put(qtype, new List<Question__c>());

@@ -31,138 +31,312 @@ private class TestQuizResultsController{
 
     static testMethod void testPassingResults(){
 
-		//Create admin users
-		List<User> adminUsers = TestUtilClass.createUsers(1,'System Administrator');
-		List<User> lmsUsers = TestUtilClass.createUsers(1,'Standard User');
+        //Create admin users
+        List<User> adminUsers = TestUtilClass.createUsers(1,'System Administrator');
+        List<User> lmsUsers = TestUtilClass.createUsers(1,'Standard User');
 
-		System.runAs(adminUsers.get(0)){
-			//Assign corresponding perm sets
-			TestUtilClass.addPermissionSet(adminUsers,'LMS_Admin');
-			TestUtilClass.addPermissionSet(lmsUsers,'LMS_User');
-		}
+        System.runAs(adminUsers.get(0)){
+            //Assign corresponding perm sets
+            TestUtilClass.addPermissionSet(adminUsers,'LMS_Admin');
+            TestUtilClass.addPermissionSet(lmsUsers,'LMS_User');
+        }
 
-        Id learningAssignmentId = createSampleData(adminUsers,lmsUsers);
+        Id learningAssignmentId = createSampleData(adminUsers,lmsUsers,createQuizLearnings());
 
-		List<Learning_Assignment__c> lassignment = [select Id,
-														Learning__c, Learning_Version__r.Quiz__c from Learning_Assignment__c
-														where Id = :learningAssignmentId];
+        List<Learning_Assignment__c> lassignment = [select Id,
+                                                            Learning__c, Learning_Version__r.Quiz__c from Learning_Assignment__c
+                                                            where Id = :learningAssignmentId];
 
-		System.assert(lassignment.size() == 1, 'Learning Assignment issues, size = ' + lassignment.size());
-		System.assert(lassignment.get(0).Learning_Version__r.Quiz__c != null, 'Learning Assignment is not for Quiz');
+        System.assert(lassignment.size() == 1, 'Learning Assignment issues, size = ' + lassignment.size());
+        System.assert(lassignment.get(0).Learning_Version__r.Quiz__c != null, 'Learning Assignment is not for Quiz');
 
         //Answer all the quiz questions
-		Set<Id> qlineIds = new Set<Id>();
-		for(Question_Line__c oql : [select Id from Question_Line__c where Quiz__c =: lassignment.get(0).Learning_Version__r.Quiz__c]){
-			qlineIds.add(oql.Id);
-		}
+        Set<Id> qlineIds = new Set<Id>();
+        for(Question_Line__c oql : [select Id from Question_Line__c where Quiz__c =: lassignment.get(0).Learning_Version__r.Quiz__c]){
+            qlineIds.add(oql.Id);
+        }
 
-		Map<String, Response__c> mResponses = TestLearningData.createTestQuestionResponses(qlineIds, lmsUsers.get(0).Id, lassignment.get(0).Id);
+        Map<String, Response__c> mResponses = TestLearningData.createTestQuestionResponses(qlineIds, lmsUsers.get(0).Id, lassignment.get(0).Id);
 
         Test.startTest();
-    		System.runAs(lmsUsers.get(0)){
-    			PageReference pageRef = Page.QuizViewer;
-    			Test.setCurrentPage(pageRef);
-    			pageRef.getHeaders().put('User-Agent', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.6; rv:25.0) Gecko/20100101 Firefox/25.0');
-    			pageRef.getParameters().put('aid', learningAssignmentId);
-    			QuizViewerController controller = new QuizViewerController();
-    			controller.initializeQuestions();
-
-    			//first section
-    			List<QuizItem> lqi = controller.quizItemList;
-
-    			for(QuizItem qi : lqi){
-    				qi.response = mResponses.get(qi.question.Id);
-    			}
-    			controller.next();
+            System.runAs(lmsUsers.get(0)){
+                PageReference pageRef = Page.QuizViewer;
+                Test.setCurrentPage(pageRef);
+                pageRef.getHeaders().put('User-Agent', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.6; rv:25.0) Gecko/20100101 Firefox/25.0');
+                pageRef.getParameters().put('aid', learningAssignmentId);
+                QuizViewerController controller = new QuizViewerController();
                 controller.initializeQuestions();
 
-    			//second section
-    			List<QuizItem> lqi2 = controller.quizItemList;
+                //first section
+                List<QuizItem> lqi = controller.quizItemList;
 
-    			for(QuizItem qi : lqi2){
-    				qi.response	 = mResponses.get(qi.question.Id);
-    			}
-    			controller.next();
+                for(QuizItem qi : lqi){
+                	qi.response = mResponses.get(qi.question.Id);
+                }
+                controller.next();
                 controller.initializeQuestions();
 
-    			//third & final section
-    			List<QuizItem> lqi3 = controller.quizItemList;
+                //second section
+                List<QuizItem> lqi2 = controller.quizItemList;
 
-    			for(QuizItem qi : lqi3){
-    				qi.response	 = mResponses.get(qi.question.Id);
-    			}
-    			controller.done();
+                for(QuizItem qi : lqi2){
+                	qi.response	 = mResponses.get(qi.question.Id);
+                }
+                controller.next();
+                controller.initializeQuestions();
 
+                //third & final section
+                List<QuizItem> lqi3 = controller.quizItemList;
 
-    		}
+                for(QuizItem qi : lqi3){
+                    qi.response	 = mResponses.get(qi.question.Id);
+                }
+                controller.done();
+
+            }
         Test.stopTest();
-
-		List<Learning_Assignment__c> lassignment2 = [select Id,
-														Learning__c,
-                                                        Learning_Version__r.Quiz__c,
-                                                        Evaluation_Result__c,
-                                                        Evaluation_Result_Text__c,
-                                                        Evaluation_Score__c,
-                                                        Evaluation_Times_Taken__c
-                                                        from Learning_Assignment__c
-														where Id = :learningAssignmentId];
 
         System.runAs(lmsUsers.get(0)){
             //Switch to quiz results page
-    		PageReference pageRef = Page.QuizResults;
+            PageReference pageRef = Page.QuizResults;
             pageRef.getParameters().put('aid',learningAssignmentId);
-    		Test.setCurrentPage(pageRef);
+            Test.setCurrentPage(pageRef);
             QuizResultsController cont = new QuizResultsController();
             System.assertEquals(LMSConstants.ASSIGNMENT_EVAL_PASSED,cont.evalResult);
             PageReference contRef = cont.quizContinue();
             PageReference dummyRef = new PageReference(cont.redirectURL);
             System.assert(dummyRef.getParameters().get('id') != null,'Result does not contain assignment id');
-
         }
-
 
     }
 
-    private static Id createSampleData(List<User> adminUsers, List<User> lmsUsers){
+    static testMethod void testMissingSelectMultipleValues(){
 
+        //Create admin users
+        List<User> adminUsers = TestUtilClass.createUsers(1,'System Administrator');
+        List<User> lmsUsers = TestUtilClass.createUsers(1,'Standard User');
+
+        System.runAs(adminUsers.get(0)){
+            //Assign corresponding perm sets
+            TestUtilClass.addPermissionSet(adminUsers,'LMS_Admin');
+            TestUtilClass.addPermissionSet(lmsUsers,'LMS_User');
+        }
+
+        List<Learning__c> quizLearnings = createMultipleQuestionQuizLearnings();
+        Id learningAssignmentId = createSampleData(adminUsers,lmsUsers,quizLearnings);
+
+        List<Learning_Assignment__c> lassignment = [select Id,
+                                                            Learning__c, Learning_Version__r.Quiz__c from Learning_Assignment__c
+                                                            where Id = :learningAssignmentId];
+
+        System.assert(lassignment.size() == 1, 'Learning Assignment issues, size = ' + lassignment.size());
+        System.assert(lassignment.get(0).Learning_Version__r.Quiz__c != null, 'Learning Assignment is not for Quiz');
+
+        //Create a new answer sequence item for testing purposes
+        Answer_Sequence__c oaseq = new Answer_Sequence__c();
+        oaseq.Internal_Notes__c = 'dummy internal notes';
+        insert oaseq;
+
+        //Create answer sequence items
+        List<Answer_Sequence_Item__c> lanswerSequence = new List<Answer_Sequence_Item__c>();
+
+        for(Integer i = 0; i < 3; i++){
+            Answer_Sequence_Item__c oasi = new Answer_Sequence_Item__c();
+            oasi.Item_Id__c = 'testMPQ'+i;
+            oasi.Answer_Sequence__c = oaseq.Id;
+            oasi.Answer_Text__c = 'testMPQ'+i;
+            oasi.Is_Correct_Answer__c = true;
+            oasi.Order__c = i;
+            lanswerSequence.add(oasi);
+        }
+        insert lanswerSequence;
+
+        //Associate the new answer sequence to the quiz question
+        List<Question__c> questions = [select id,Answer_Sequence__c from Question__c where Question_Line__r.Quiz__r.Learning__c = :quizLearnings.get(0).id];
+        Question__c selectMultipleQ = questions.get(0);
+        selectMultipleQ.Answer_Sequence__c = oaseq.Id;
+        update selectMultipleQ;
+
+        //Answer the multiple choice question
+        Response__c response = new Response__c();
+        response.Learning_Assignment__c = lassignment.get(0).Id;
+        response.Question__c = selectMultipleQ.Id;
+        response.User__c =  lmsUsers.get(0).Id;
+        //Respond with only two of the options
+        response.Response_Answer_Sequence_Label__c = 'testMPQ0;testMPQ1;';
+        response.Response_Answer_Sequence_Long__c = 'testMPQ0;testMPQ1;';
+
+        Test.startTest();
+            System.runAs(lmsUsers.get(0)){
+                PageReference pageRef = Page.QuizViewer;
+                Test.setCurrentPage(pageRef);
+                pageRef.getParameters().put('aid', learningAssignmentId);
+                QuizViewerController controller = new QuizViewerController();
+                controller.initializeQuestions();
+                //first section
+                List<QuizItem> lqi = controller.quizItemList;
+                for(QuizItem qi : lqi){
+                	qi.response = response;
+                }
+                controller.done();
+            }
+        Test.stopTest();
+
+        System.runAs(lmsUsers.get(0)){
+            //Switch to quiz results page
+            PageReference pageRef = Page.QuizResults;
+            pageRef.getParameters().put('aid',learningAssignmentId);
+            Test.setCurrentPage(pageRef);
+            QuizResultsController cont = new QuizResultsController();
+            System.assertEquals(LMSConstants.ASSIGNMENT_EVAL_FAILED,cont.evalResult);
+            PageReference contRef = cont.quizContinue();
+            PageReference dummyRef = new PageReference(cont.redirectURL);
+            System.assert(dummyRef.getParameters().get('id') != null,'Result does not contain assignment id');
+        }
+    }
+
+    static testMethod void testCorrectSelectMultipleValues(){
+
+        //Create admin users
+        List<User> adminUsers = TestUtilClass.createUsers(1,'System Administrator');
+        List<User> lmsUsers = TestUtilClass.createUsers(1,'Standard User');
+
+        System.runAs(adminUsers.get(0)){
+            //Assign corresponding perm sets
+            TestUtilClass.addPermissionSet(adminUsers,'LMS_Admin');
+            TestUtilClass.addPermissionSet(lmsUsers,'LMS_User');
+        }
+
+        List<Learning__c> quizLearnings = createMultipleQuestionQuizLearnings();
+        Id learningAssignmentId = createSampleData(adminUsers,lmsUsers,quizLearnings);
+
+        List<Learning_Assignment__c> lassignment = [select Id,
+                                                            Learning__c, Learning_Version__r.Quiz__c from Learning_Assignment__c
+                                                            where Id = :learningAssignmentId];
+
+        System.assert(lassignment.size() == 1, 'Learning Assignment issues, size = ' + lassignment.size());
+        System.assert(lassignment.get(0).Learning_Version__r.Quiz__c != null, 'Learning Assignment is not for Quiz');
+
+        //Create a new answer sequence item for testing purposes
+        Answer_Sequence__c oaseq = new Answer_Sequence__c();
+        oaseq.Internal_Notes__c = 'dummy internal notes';
+        insert oaseq;
+
+        //Create answer sequence items
+        List<Answer_Sequence_Item__c> lanswerSequence = new List<Answer_Sequence_Item__c>();
+
+        for(Integer i = 0; i < 3; i++){
+            Answer_Sequence_Item__c oasi = new Answer_Sequence_Item__c();
+            oasi.Item_Id__c = 'testMPQ'+i;
+            oasi.Answer_Sequence__c = oaseq.Id;
+            oasi.Answer_Text__c = 'testMPQ'+i;
+            oasi.Is_Correct_Answer__c = true;
+            oasi.Order__c = i;
+            lanswerSequence.add(oasi);
+        }
+        insert lanswerSequence;
+
+        //Associate the new answer sequence to the quiz question
+        List<Question__c> questions = [select id,Answer_Sequence__c from Question__c where Question_Line__r.Quiz__r.Learning__c = :quizLearnings.get(0).id];
+        Question__c selectMultipleQ = questions.get(0);
+        selectMultipleQ.Answer_Sequence__c = oaseq.Id;
+        update selectMultipleQ;
+
+        //Answer the multiple choice question
+        Response__c response = new Response__c();
+        response.Learning_Assignment__c = lassignment.get(0).Id;
+        response.Question__c = selectMultipleQ.Id;
+        response.User__c =  lmsUsers.get(0).Id;
+        //Respond with only two of the options
+        response.Response_Answer_Sequence_Label__c = 'testMPQ0;testMPQ1;testMPQ2;';
+        response.Response_Answer_Sequence_Long__c = 'testMPQ0;testMPQ1;testMPQ2;';
+
+        Test.startTest();
+            System.runAs(lmsUsers.get(0)){
+                PageReference pageRef = Page.QuizViewer;
+                Test.setCurrentPage(pageRef);
+                pageRef.getParameters().put('aid', learningAssignmentId);
+                QuizViewerController controller = new QuizViewerController();
+                controller.initializeQuestions();
+
+                //first section
+                List<QuizItem> lqi = controller.quizItemList;
+
+                for(QuizItem qi : lqi){
+                	qi.response = response;
+                }
+                controller.done();
+            }
+        Test.stopTest();
+
+        System.runAs(lmsUsers.get(0)){
+            //Switch to quiz results page
+            PageReference pageRef = Page.QuizResults;
+            pageRef.getParameters().put('aid',learningAssignmentId);
+            Test.setCurrentPage(pageRef);
+            QuizResultsController cont = new QuizResultsController();
+            System.assertEquals(LMSConstants.ASSIGNMENT_EVAL_PASSED,cont.evalResult);
+            PageReference contRef = cont.quizContinue();
+            PageReference dummyRef = new PageReference(cont.redirectURL);
+            System.assert(dummyRef.getParameters().get('id') != null,'Result does not contain assignment id');
+        }
+    }
+
+    private static List<Learning__c> createMultipleQuestionQuizLearnings(){
         //create quiz learnings
-		List<Learning__c> quizLearnings = TestLearningData.createTestLearning(1, 'Quiz', false);
-		//create quiz
-		List<Quiz__c> quiz = TestLearningData.createTestQuiz(quizLearnings);
-		//create question line
-		List<Question_Line__c> qline = TestLearningData.createTestQuestionLine(quiz, 3);
-		//create question
-		List<Question__c> question = TestLearningData.createTestQuestions(qline, 4);
+        List<Learning__c> quizLearnings = TestLearningData.createTestLearning(1, 'Quiz', false);
+        //create quiz
+        List<Quiz__c> quiz = TestLearningData.createTestQuiz(quizLearnings, new Map<String,Object>{'Passing_Score__c'=>100.0});
+        //create question line
+        List<Question_Line__c> qline = TestLearningData.createTestQuestionLine(quiz, 1);
+        //create question
+        List<Question__c> question = TestLearningData.createTestQuestions(qline, 1, 'SelectMultipleQuestion');
+        for(Integer i = 0;i < quizLearnings.size();i++){
+            TestLearningData.publishLearning(quizLearnings.get(i).Id,'quiz',quiz.get(i).Id,false);
+        }
+        return quizLearnings;
+    }
 
-		for(Integer i = 0;i < quizLearnings.size();i++){
-			TestLearningData.publishLearning(quizLearnings.get(i).Id,'quiz',quiz.get(i).Id,false);
-		}
+    private static List<Learning__c> createQuizLearnings(){
+        //create quiz learnings
+        List<Learning__c> quizLearnings = TestLearningData.createTestLearning(1, 'Quiz', false);
+        //create quiz
+        List<Quiz__c> quiz = TestLearningData.createTestQuiz(quizLearnings);
+        //create question line
+        List<Question_Line__c> qline = TestLearningData.createTestQuestionLine(quiz, 2);
+        //create question
+        List<Question__c> question = TestLearningData.createTestQuestions(qline, 4, null);
+        for(Integer i = 0;i < quizLearnings.size();i++){
+            TestLearningData.publishLearning(quizLearnings.get(i).Id,'quiz',quiz.get(i).Id,false);
+        }
+        return quizLearnings;
+    }
 
-		//Create training plans
-		List<Training_Plan__c> tplans = TestTrainingPlanData.createTrainingPlans(new List<TestParams.TrainingPlanParam>{new TestParams.TrainingPlanParam()});
-		//Create training plan sections
-		List<Training_Plan_Section__c> tplanSections1 = TestTrainingPlanData.createTrainingPlanSections(tplans.get(0).Id,1);
-		//Create training plan section items for quizzes
-		List<Training_Plan_Section_Item__c> tplan1SectionItems1 = TestTrainingPlanData.createTrainingPlanSectionItems(tplanSections1.get(0).Id,quizLearnings);
+    private static Id createSampleData(List<User> adminUsers, List<User> lmsUsers,List<Learning__c> quizLearnings){
+        //Create training plans
+        List<Training_Plan__c> tplans = TestTrainingPlanData.createTrainingPlans(new List<TestParams.TrainingPlanParam>{new TestParams.TrainingPlanParam()});
+        //Create training plan sections
+        List<Training_Plan_Section__c> tplanSections1 = TestTrainingPlanData.createTrainingPlanSections(tplans.get(0).Id,1);
+        //Create training plan section items for quizzes
+        List<Training_Plan_Section_Item__c> tplan1SectionItems1 = TestTrainingPlanData.createTrainingPlanSectionItems(tplanSections1.get(0).Id,quizLearnings);
 
         List<Training_Plan__c> tplan = [select id from Training_Plan__c];
-		System.assertEquals(1,tplan.size());
-		Id tplanId = tplan.get(0).Id;
+        System.assertEquals(1,tplan.size());
+        Id tplanId = tplan.get(0).Id;
 
-		Set<Id> selectedUserIds = new Set<Id>();
+        Set<Id> selectedUserIds = new Set<Id>();
 
-		for(User u : lmsUsers){
-			selectedUserIds.add(u.Id);
-		}
+        for(User u : lmsUsers){
+            selectedUserIds.add(u.Id);
+        }
 
-		System.runAs(adminUsers.get(0)){
-			LMSService.upsertAssignments(selectedUserIds,tplanId);
-		}
+        System.runAs(adminUsers.get(0)){
+            LMSService.upsertAssignments(selectedUserIds,tplanId);
+        }
 
         List<Learning_Assignment__c> assignments = [select id from Learning_Assignment__c where Training_Plan__c = :tplanId];
         System.assertEquals(1,assignments.size());
         return assignments.get(0).Id;
-
     }
 
 }

@@ -30,15 +30,15 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
     <apex:composition template="LMS_Template">
 
         <apex:define name="head">
-            <title>{!$Label.LMSUI_My_Training}</title>
+            <title>{!$Label.ALMS_My_Training}</title>
         </apex:define>
 
         <apex:define name="container-header">
             <div class="row almond-nav" >
                 <div class="btn-group col-xs-12 col-sm-12 col-md-12">
-                  <a class="btn btn-default col-xs-4 col-sm-3 col-md-3 almond-nav-item almond-nav-active" href="javascript:void(0)" onclick="almond.myTrainingMenuHandler(this);" lms-status-id="Not Started">{!$Label.LMSUI_NotStarted}</a>
-                  <a class="btn btn-default col-xs-4 col-sm-3 col-md-3 almond-nav-item" href="javascript:void(0)" onclick="almond.myTrainingMenuHandler(this);" lms-status-id="In Progress">{!$Label.LMSUI_InProgress}</a>
-                  <a class="btn btn-default col-xs-4 col-sm-3 col-md-3 almond-nav-item" href="javascript:void(0)" onclick="almond.myTrainingMenuHandler(this);" lms-status-id="Completed">{!$Label.LMSUI_Completed}</a>
+                  <a class="btn btn-default col-xs-4 col-sm-3 col-md-3 almond-nav-item almond-nav-active" href="javascript:void(0)" onclick="almond.myTrainingMenuHandler(this);" lms-status-id="Not Started">{!$Label.ALMS_NotStarted}</a>
+                  <a class="btn btn-default col-xs-4 col-sm-3 col-md-3 almond-nav-item" href="javascript:void(0)" onclick="almond.myTrainingMenuHandler(this);" lms-status-id="In Progress">{!$Label.ALMS_InProgress}</a>
+                  <a class="btn btn-default col-xs-4 col-sm-3 col-md-3 almond-nav-item" href="javascript:void(0)" onclick="almond.myTrainingMenuHandler(this);" lms-status-id="Completed">{!$Label.ALMS_Completed}</a>
                 </div>
             </div>
         </apex:define>

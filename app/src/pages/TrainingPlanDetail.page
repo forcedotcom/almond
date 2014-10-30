@@ -57,7 +57,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 
         <apex:define name="hero-banner-footer">
           <apex:outputPanel layout="none" rendered="{!tPlan.totalMins > 0}">
-            <span>{!$Label.LMSUI_Duration} : {!tPlan.TotalDuration}</span>
+            <span>{!$Label.ALMS_Duration} : {!tPlan.TotalDuration}</span>
           </apex:outputPanel>
         </apex:define>
 
@@ -65,11 +65,11 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 
             <div class="row almond-nav" >
                 <div class="btn-group col-xs-12 col-sm-12 col-md-12">
-                    <a href="javascript:void()" class="btn btn-default col-xs-4 col-sm-3 col-md-3 almond-nav-active">{!$Label.LMSUI_Detail}</a>
+                    <a href="javascript:void()" class="btn btn-default col-xs-4 col-sm-3 col-md-3 almond-nav-active">{!$Label.ALMS_Detail}</a>
                     <apex:outputPanel layout="none" rendered="{!tPlan.trainingPlan.Intro_Video_URL__c != null}">
-                        <a href="javascript:launchLearning('{!tPlan.trainingPlan.Intro_Video_URL__c}','iframe')" class="btn btn-default col-xs-4 col-sm-3 col-md-3">{!$Label.LMSUI_Intro_Video}</a>
+                        <a href="javascript:launchLearning('{!tPlan.trainingPlan.Intro_Video_URL__c}','iframe')" class="btn btn-default col-xs-4 col-sm-3 col-md-3">{!$Label.ALMS_Intro_Video}</a>
                     </apex:outputPanel>
-                    <a href="javascript:almond.redirectHandlerWithStatus('{!$Page.TrainingPlanFeedback}?id={!tplan.trainingPlan.Id}')" class="btn btn-default col-xs-4 col-sm-3 col-md-3">{!$Label.LMSUI_Feedback}</a>
+                    <a href="javascript:almond.redirectHandlerWithStatus('{!$Page.TrainingPlanFeedback}?id={!tplan.trainingPlan.Id}')" class="btn btn-default col-xs-4 col-sm-3 col-md-3">{!$Label.ALMS_Feedback}</a>
                 </div>
             </div>
 
@@ -92,9 +92,9 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 
                 </apex:outputPanel>
 
-                <h3>{!$Label.LMSUI_Activities}</h3>
+                <h3>{!$Label.ALMS_Activities}</h3>
 
-                <div class="required-asterisk-panel"><span class="required_asterisk">*</span> = Required</div>
+                <div class="required-asterisk-panel"><span class="required_asterisk">*</span> = {!$Label.ALMS_Required}</div>
 
                 <apex:repeat value="{!tPlan.sections}" var="o" >
                     <div class="activity-section-wrap" >
@@ -119,7 +119,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                         <div class="col-xs-5 col-sm-5 col-md-5 prog-status">
                             <div class="progress">
                               <div class="progress-bar {!IF(o.totalProgress == 100, 'progress-bar-success', '')}" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width:{!o.totalProgress}%">
-                                <span class="sr-only"><apex:outputText value="{!o.totalProgress}"  />% {!$Label.LMSUI_Complete_Success}</span>
+                                <span class="sr-only"><apex:outputText value="{!o.totalProgress}"  />% {!$Label.ALMS_Complete_Success}</span>
                               </div>
                             </div>
 
@@ -158,7 +158,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                             <div class="col-xs-5 col-sm-5 col-md-5 prog-status">
                                 <div class="progress">
                                   <div class="progress-bar {!IF(i.learning.RecordType.DeveloperName == 'Quiz' && i.latestAssignment.Evaluation_Result__c == 'Failed','progress-bar-danger','')}" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width:{!i.latestAssignment.Progress_Percentage__c}%">
-                                    <span class="sr-only"><apex:outputText value="{!i.latestAssignment.Progress_Percentage__c}"  /> {!$Label.LMSUI_Complete_Success}</span>
+                                    <span class="sr-only"><apex:outputText value="{!i.latestAssignment.Progress_Percentage__c}"  /> {!$Label.ALMS_Complete_Success}</span>
                                   </div>
                                 </div>
                                 <div class="progresshours">
@@ -169,7 +169,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                             <div class="col-xs-2 col-sm-2 col-md-2 learn-action">
                                 <!-- Button trigger modal -->
                                 <apex:outputPanel rendered="{!i.assignments != null}" layout="none">
-                                    <a href="javascript:void(0)" lms-data-sectionId="{!o.trainingPlanSection.Id}" lms-data-itemId="{!i.trainingPlanSectionItem.Id}" class="launch-learning-btn almond-primary-btn small-btn" >{!$Label.LMSUI_Launch}</a>
+                                    <a href="javascript:void(0)" lms-data-sectionId="{!o.trainingPlanSection.Id}" lms-data-itemId="{!i.trainingPlanSectionItem.Id}" class="launch-learning-btn almond-primary-btn small-btn" >{!$Label.ALMS_Launch}</a>
 
                                     <a href="javascript:void(0)" class="launch-btn-mobile">
                                         <span class="glyphicon glyphicon-{!IF(i.latestAssignment.Progress__c != 'Completed',IF(i.latestAssignment.Progress__c == 'In Review','time','unchecked'),'check')}"></span>
@@ -200,7 +200,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                                     <span class="label {!selectedItemStatusLabel}">{!selectedItem.latestAssignment.Progress__c}</span>
 
                                     <apex:outputPanel layout="none" rendered="{!selectedItem.outdatedAssignment}">
-                                        <span class="label label-info">{!$Label.LMSUI_New_Version_available}</span>
+                                        <span class="label label-info">{!$Label.ALMS_New_Version_available}</span>
                                     </apex:outputPanel>
                                 </div>
                                 <h4 class="modal-title" style="display:inline-block;">{!selectedItem.learning.Name}</h4>
@@ -215,24 +215,24 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                                       <p>{!selectedItem.learning.Description__c}</p>
 
                                       <apex:outputPanel layout="none" rendered="{!hasPreRequisite}">
-                                        <div class="alert alert-danger">{!$Label.LMSUI_Complete_Previous}</div>
+                                        <div class="alert alert-danger">{!$Label.ALMS_Complete_Previous}</div>
                                       </apex:outputPanel>
 
                                       <apex:outputPanel layout="none" rendered="{!!hasPreRequisite}">
 
                                          <apex:outputPanel layout="block" rendered="{!selectedItem.launchBehavior == 'ask_user'}">
-                                            <apex:commandButton value="{!$Label.LMSUI_Continue_Old_Version}" action="{!keepOldVersionAndLaunch}" styleClass="almond-warning-btn large-btn" status="status" rerender="resultsPanel" oncomplete="processSelectedItem()"/>
+                                            <apex:commandButton value="{!$Label.ALMS_Continue_Old_Version}" action="{!keepOldVersionAndLaunch}" styleClass="almond-warning-btn large-btn" status="status" rerender="resultsPanel" oncomplete="processSelectedItem()"/>
 
-                                            <apex:commandButton value="{!$Label.LMSUI_Take_New_Version}" action="{!updateToNewVersionAndLaunch}" styleClass="almond-default-btn large-btn" status="status" rerender="resultsPanel" oncomplete="processSelectedItem()"/>
+                                            <apex:commandButton value="{!$Label.ALMS_Take_New_Version}" action="{!updateToNewVersionAndLaunch}" styleClass="almond-default-btn large-btn" status="status" rerender="resultsPanel" oncomplete="processSelectedItem()"/>
                                           </apex:outputPanel>
 
                                           <apex:outputPanel layout="block" rendered="{!selectedItem.launchBehavior == 'update_version'}">
-                                              {!$Label.LMSUI_Launch_New_Version}
-                                              <apex:commandButton value="{!$Label.LMSUI_Continue}" action="{!updateToNewVersionAndLaunch}" styleClass="almond-default-btn large-btn" status="status" rerender="resultsPanel" oncomplete="processSelectedItem()"/>
+                                              {!$Label.ALMS_Launch_New_Version}
+                                              <apex:commandButton value="{!$Label.ALMS_Continue}" action="{!updateToNewVersionAndLaunch}" styleClass="almond-default-btn large-btn" status="status" rerender="resultsPanel" oncomplete="processSelectedItem()"/>
                                           </apex:outputPanel>
 
                                           <apex:outputPanel layout="block" rendered="{!selectedItem.launchBehavior == null}">
-                                              <apex:commandButton value="{!$Label.LMSUI_Continue}" action="{!launchLearning}" styleClass="almond-default-btn large-btn" status="status" rerender="resultsPanel" oncomplete="processSelectedItem()"/>
+                                              <apex:commandButton value="{!$Label.ALMS_Continue}" action="{!launchLearning}" styleClass="almond-default-btn large-btn" status="status" rerender="resultsPanel" oncomplete="processSelectedItem()"/>
                                           </apex:outputPanel>
 
                                     </apex:outputPanel>
@@ -243,7 +243,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="almond-secondary-btn small-btn" data-dismiss="modal">{!$Label.LMSUI_Close}</button>
+                                <button type="button" class="almond-secondary-btn small-btn" data-dismiss="modal">{!$Label.ALMS_Close}</button>
                             </div>
                         </div>
                     </div>
@@ -264,13 +264,13 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                                     <h4 class="modal-title" style="display:inline-block;">{!selectedItem.learning.Name}</h4>
                                 </div>
                                 <div class="modal-body" style="text-align:center;">
-                                    <a id="contentLink" href="javascript:void(0)">{!$Label.LMSUI_Open_New_Window}</a>
+                                    <a id="contentLink" href="javascript:void(0)">{!$Label.ALMS_Open_New_Window}</a>
                                     <div id="contentIframeWrapper" style="padding:10px 0;">
                                         <iframe id="contentIframe" style="width:100%;"/>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="almond-secondary-btn small-btn" data-dismiss="modal">{!$Label.LMSUI_Close}</button>
+                                    <button type="button" class="almond-secondary-btn small-btn" data-dismiss="modal">{!$Label.ALMS_Close}</button>
                                 </div>
                             </div>
 

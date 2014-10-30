@@ -1,227 +1,1315 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
     <labels>
-        <fullName>LMSUI_Activities</fullName>
-        <categories>LMS General, LMS UI</categories>
+        <fullName>ALMS_Completed</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>LMSUI Activities</shortDescription>
-        <value>Activities</value>
-    </labels>
-    <labels>
-        <fullName>LMSUI_Category</fullName>
-        <categories>LMS General, LMS UI</categories>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>LMSUI_Category</shortDescription>
-        <value>Category</value>
-    </labels>
-    <labels>
-        <fullName>LMSUI_Categories</fullName>
-        <categories>LMS General, LMS UI</categories>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>LMSUI_Categories</shortDescription>
-        <value>Categories</value>
-    </labels>
-    <labels>
-        <fullName>LMSUI_Close</fullName>
-        <categories>LMS General, LMS UI</categories>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>LMSUI Close</shortDescription>
-        <value>Close</value>
-    </labels>
-    <labels>
-        <fullName>LMSUI_Complete_Previous</fullName>
-        <categories>LMS General, LMS UI</categories>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>LMSUI Complete Previous</shortDescription>
-        <value>You must complete all previous activities in order to continue.</value>
-    </labels>
-    <labels>
-        <fullName>LMSUI_Complete_Success</fullName>
-        <categories>LMS General, LMS UI</categories>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>LMSUI Complete Success</shortDescription>
-        <value>Complete (success)</value>
-    </labels>
-    <labels>
-        <fullName>LMSUI_Completed</fullName>
-        <categories>LMS General, LMS UI</categories>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>LMSUI_Completed</shortDescription>
+        <shortDescription>ALMOND_Completed</shortDescription>
         <value>Completed</value>
     </labels>
     <labels>
-        <fullName>LMSUI_Continue</fullName>
-        <categories>LMS General, LMS UI</categories>
+        <fullName>ALMS_InProgress</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>LMSUI Continue</shortDescription>
-        <value>Continue</value>
-    </labels>
-    <labels>
-        <fullName>LMSUI_Continue_Old_Version</fullName>
-        <categories>LMS General, LMS UI</categories>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>LMSUI Continue Old Version</shortDescription>
-        <value>Continue with old vesion</value>
-    </labels>
-    <labels>
-        <fullName>LMSUI_Detail</fullName>
-        <categories>LMS General, LMS UI</categories>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>LMSUI Detail</shortDescription>
-        <value>Detail</value>
-    </labels>
-    <labels>
-        <fullName>LMSUI_Duration</fullName>
-        <categories>LMS General, LMS UI</categories>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>LMSUI Duration</shortDescription>
-        <value>Duration</value>
-    </labels>
-    <labels>
-        <fullName>LMSUI_Feedback</fullName>
-        <categories>LMS General, LMS UI</categories>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>LMSUI Feedback</shortDescription>
-        <value>Feedback</value>
-    </labels>
-    <labels>
-        <fullName>LMSUI_InProgress</fullName>
-        <categories>LMS General, LMS UI</categories>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>LMSUI_InProgress</shortDescription>
+        <shortDescription>ALMOND_InProgress</shortDescription>
         <value>In Progress</value>
     </labels>
     <labels>
-        <fullName>LMSUI_Intro_Video</fullName>
-        <categories>LMS General, LMS UI</categories>
+        <fullName>ALMS_MyProfile</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>LMSUI Intro Video</shortDescription>
-        <value>Intro Video</value>
-    </labels>
-    <labels>
-        <fullName>LMSUI_Launch</fullName>
-        <categories>LMS General, LMS UI</categories>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>LMSUI Launch</shortDescription>
-        <value>Launch</value>
-    </labels>
-    <labels>
-        <fullName>LMSUI_Launch_New_Version</fullName>
-        <categories>LMS General, LMS UI</categories>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>LMSUI Launch New Version</shortDescription>
-        <value>Click &quot;Continue&quot; to launch the new version</value>
-    </labels>
-    <labels>
-        <fullName>LMSUI_MyProfile</fullName>
-        <categories>LMS General, LMS UI</categories>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>LMSUI_MyProfile</shortDescription>
+        <shortDescription>ALMOND_MyProfile</shortDescription>
         <value>Achievements</value>
     </labels>
     <labels>
-        <fullName>LMSUI_MyTraining</fullName>
-        <categories>LMS General, LMS UI</categories>
+        <fullName>ALMS_NotStarted</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>LMSUI_MyTraining</shortDescription>
-        <value>My Training</value>
-    </labels>
-    <labels>
-        <fullName>LMSUI_My_Training</fullName>
-        <categories>LMS General, LMS UI</categories>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>LMSUI My Training</shortDescription>
-        <value>My Training</value>
-    </labels>
-    <labels>
-        <fullName>LMSUI_New_Version_available</fullName>
-        <categories>LMS General, LMS UI</categories>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>LMSUI New Version available</shortDescription>
-        <value>New version available!</value>
-    </labels>
-    <labels>
-        <fullName>LMSUI_NotStarted</fullName>
-        <categories>LMS General, LMS UI</categories>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>LMSUI_NotStarted</shortDescription>
+        <shortDescription>ALMOND_NotStarted</shortDescription>
         <value>Not Started</value>
     </labels>
     <labels>
-        <fullName>LMSUI_Nothing_to_see</fullName>
-        <categories>LMS General, LMS UI</categories>
+        <fullName>ALMS_PublicCatalog</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>LMSUI Nothing to see</shortDescription>
-        <value>Nothing to see here !</value>
-    </labels>
-    <labels>
-        <fullName>LMSUI_Open_New_Window</fullName>
-        <categories>LMS General, LMS UI</categories>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>LMSUI Open New Window</shortDescription>
-        <value>Open in new window</value>
-    </labels>
-    <labels>
-        <fullName>LMSUI_PublicCatalog</fullName>
-        <categories>LMS General, LMS UI</categories>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>LMSUI_PublicCatalog</shortDescription>
+        <shortDescription>ALMOND_PublicCatalog</shortDescription>
         <value>Catalog</value>
     </labels>
     <labels>
-        <fullName>LMSUI_Take_New_Version</fullName>
-        <categories>LMS General, LMS UI</categories>
+        <fullName>ALMS_TrainingTracks</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>LMSUI Take New Version</shortDescription>
-        <value>Take new version</value>
-    </labels>
-    <labels>
-        <fullName>LMSUI_Total_Plans</fullName>
-        <categories>LMS General, LMS UI</categories>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>LMSUI Total Plan Items</shortDescription>
-        <value>Total Items</value>
-    </labels>
-    <labels>
-        <fullName>LMSUI_TrainingTracks</fullName>
-        <categories>LMS General, LMS UI</categories>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>LMSUI_TrainingTracks</shortDescription>
+        <shortDescription>ALMOND_TrainingTracks</shortDescription>
         <value>Tracks</value>
     </labels>
     <labels>
-        <fullName>LMSUI_Training_Catalog</fullName>
-        <categories>LMS General, LMS UI</categories>
+        <fullName>ALMS_Open_New_Window</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>LMSUI Training Catalog</shortDescription>
-        <value>Training Catalog</value>
+        <shortDescription>Open New Window</shortDescription>
+        <value>Open in new window</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Close</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Close</shortDescription>
+        <value>Close</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Launch_New_Version</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Launch New Version</shortDescription>
+        <value>Click &quot;Continue&quot; to launch the new version</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Take_New_Version</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Take New Version</shortDescription>
+        <value>Take new version</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Continue_Old_Version</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Continue Old Version</shortDescription>
+        <value>Continue with old vesion</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Complete_Previous</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Complete Previous</shortDescription>
+        <value>You must complete all previous activities in order to continue.</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_New_Version_available</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>New Version available</shortDescription>
+        <value>New version available!</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Launch</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Launch</shortDescription>
+        <value>Launch</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Complete_Success</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Complete Success</shortDescription>
+        <value>Complete (success)</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Activities</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Activities</shortDescription>
+        <value>Activities</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Feedback</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Feedback</shortDescription>
+        <value>Feedback</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Intro_Video</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Intro Video</shortDescription>
+        <value>Intro Video</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Detail</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Detail</shortDescription>
+        <value>Detail</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Duration</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Duration</shortDescription>
+        <value>Duration</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Total_Plans</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Total Plan Items</shortDescription>
+        <value>Total Items</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Nothing_to_see</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Nothing to see</shortDescription>
+        <value>Nothing to see here!</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Category</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ALMOND_Category</shortDescription>
+        <value>Category</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_My_Training</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>My Training</shortDescription>
+        <value>My Training</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Save</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Save</shortDescription>
+        <value>Save</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Update</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Update</shortDescription>
+        <value>Update</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Delete</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Update</shortDescription>
+        <value>Delete</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Cancel</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Cancel</shortDescription>
+        <value>Cancel</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Assign</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Assign</shortDescription>
+        <value>Assign</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Filters</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Filters</shortDescription>
+        <value>Filters</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Import_From_Report</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Import from Report</shortDescription>
+        <value>Import from Report</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Publish</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Publish</shortDescription>
+        <value>Publish</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Approve</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Approve</shortDescription>
+        <value>Approve</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Action</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Action</shortDescription>
+        <value>Action</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Continue</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Continue</shortDescription>
+        <value>Continue</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Click</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Click</shortDescription>
+        <value>Click</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_here</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>here</shortDescription>
+        <value>here</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Confirm_Alert</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Confirmation Alert</shortDescription>
+        <value>Are you sure?</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Search</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Search</shortDescription>
+        <value>Search</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Select_All</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Select All</shortDescription>
+        <value>Select All</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Unselect_All</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Unselect All</shortDescription>
+        <value>Unselect All</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Search_No_Results_Found</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Search No Results</shortDescription>
+        <value>No Results Found</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Search_No_Results</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Search No Results</shortDescription>
+        <value>No Results</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Previous</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Previous</shortDescription>
+        <value>Previous</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Next</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Next</shortDescription>
+        <value>Next</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Search_Page</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Search page</shortDescription>
+        <value>page</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Search_Page_Separator</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Search page separator</shortDescription>
+        <value>of</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Linked_Work_Badge_Message</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Linked Work.com badge message</shortDescription>
+        <value>This achievement is now linked to a Work.com Badge. Your Custom Badge images will no longer be displayed.</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Missing_Work_Badge_Message</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Missing Work.com badge message</shortDescription>
+        <value>No Work.com Badge is associated to this achievement. Click the Add Work.com Badge button to associate a Work.com Badge.</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Badge_Info</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Badge Information section</shortDescription>
+        <value>Badge Information</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Badge_Selection</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Badge Selection section</shortDescription>
+        <value>Badge Selection</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Selection_Error</fullName>
+        <categories>ALMOND Error, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Badge Selection error</shortDescription>
+        <value>Unable to register selection.</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Achievements</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Achievements</shortDescription>
+        <value>Achievements</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Work_Badges</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Work.com Badges</shortDescription>
+        <value>Work.com Badges</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Achievement_Back</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Back to achievement link</shortDescription>
+        <value>Back to Achievement</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Training_Plan_Back</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Back to training plan link</shortDescription>
+        <value>Back to Training Plan</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Training_Plan_Back_Section</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Back to training plan section link</shortDescription>
+        <value>Back to Training Plan Section</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Training_Plan_Back_Section_Item</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Back to training plan section item link</shortDescription>
+        <value>Back to Training Plan Section Item</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Learning</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Learning</shortDescription>
+        <value>Learning</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Preview</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Preview</shortDescription>
+        <value>Preview</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Learning_Back</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Back to learning link</shortDescription>
+        <value>Back to Learning</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Content_Previewed</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Content Preview</shortDescription>
+        <value>Select content to be previewed:</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Publish_New_Learning_Version</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Publish new version</shortDescription>
+        <value>Publish a new version</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Select_Published_Content</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Select published content</shortDescription>
+        <value>Select content to be published</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Learning_Assignment</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Learning Assignment</shortDescription>
+        <value>Learning Assignment</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Learning_Assignment_Back</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Back to learning assignment link</shortDescription>
+        <value>Back to Learning Assignment</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Assignment_Approve_Message</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Learning Assignment approve message</shortDescription>
+        <value>Click the Approve button to give your approval for this assignment</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Additional_Information</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Additional Information</shortDescription>
+        <value>Additional Information</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Approver_Notes_Message</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Approver Notes Message</shortDescription>
+        <value>Approver notes will be visibile to the assignment user</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Approver_Notes_Field</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Approver Notes Field</shortDescription>
+        <value>Approver Notes</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Shared_Assignments_Delete_Unused</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Delete Unused Shared Assignments</shortDescription>
+        <value>Delete Unused Shared Assignments</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Shared_Assignments_Delete_Button</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Delete Unused Shared Assignments Button</shortDescription>
+        <value>Delete all unused shared assignments</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Shared_Assignments_Delete_Warning</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Delete Unused Shared Assignments Warning</shortDescription>
+        <value>The following operation will delete all unused shared assignments for users under the Learning</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Start_Here_Title</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Start Here title</shortDescription>
+        <value>LMS</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Start_Here_SubTitle</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Start Here title</shortDescription>
+        <value>Start Here</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Start_Sample_Data_Section</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Start Here Sample Data Section</shortDescription>
+        <value>Sample Data</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Start_Here_Message</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Start Here Sample Data Message</shortDescription>
+        <value>Click the &apos;Create Sample Data&apos; button to load some data to get you started. Once you&apos;ve loaded data, go to the training plan tab and assign the created plan to your users.</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Start_Sample_Data_Button</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Start Here Sample Data Button</shortDescription>
+        <value>Create Sample Data</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Total_Acquired_Achievements</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Total Acquired Achievements</shortDescription>
+        <value>Total Acquired Achievements</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Question_Line</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Question Line</shortDescription>
+        <value>Question Line</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_New_Question</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>New Question</shortDescription>
+        <value>New Question</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Question</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Question</shortDescription>
+        <value>Question</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Question_Type</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Question Type</shortDescription>
+        <value>Question Type</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Question_Order</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Question Order</shortDescription>
+        <value>Order</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Number_Question</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Number Question</shortDescription>
+        <value>Number</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Boolean_Question</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Boolean Question</shortDescription>
+        <value>Boolean</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Add_Answer_Sequence_Item</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Add Answer Sequence Item Button</shortDescription>
+        <value>Add Answer Sequence Item</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Quiz_Results</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Quiz Results</shortDescription>
+        <value>Quiz Results</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Quiz_Results_Eval_Message</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Quiz Results Evaluation Message</shortDescription>
+        <value>The result for your evaluation is</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Quiz_Max_Attempts_Reached</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Max num of attempts reached</shortDescription>
+        <value>You&apos;ve reached the max number of attempts allowed by this quiz</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Quiz_Score</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Quiz Score</shortDescription>
+        <value>Score</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Quiz_Back_Warning</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Quiz Back Warning</shortDescription>
+        <value>Are you sure? Responses made for this page will be lost</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Quiz_Back_Warning_Message</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Quiz Back Message</shortDescription>
+        <value>if you'd like to go back without saving changes for this page</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Quiz_Reset</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Quiz Reset</shortDescription>
+        <value>Reset</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Quiz_Reset_Warning</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Quiz Reset Warning</shortDescription>
+        <value>Are you sure? Responses made for this page will be lost</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Quiz_Back</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Quiz Back</shortDescription>
+        <value>Back</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Quiz_Next</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Quiz Next</shortDescription>
+        <value>Next</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Quiz_Submit</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Quiz Submit</shortDescription>
+        <value>Submit</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Quiz_Cancel</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Quiz Cancel</shortDescription>
+        <value>Cancel</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Resource_Redirect</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Resource Redirect</shortDescription>
+        <value>You&apos;re being redirected, please wait...</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Resource_Redirect_Title</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Resource Redirect Title</shortDescription>
+        <value>LMS - Redirection</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Update_Achievements</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Update Achievements</shortDescription>
+        <value>Update Achievements</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Update_Assignments</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Update Assignments</shortDescription>
+        <value>Update Assignments</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Select_Image</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Task Viewer Select Image</shortDescription>
+        <value>Select Image</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Change_Image</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Task Viewer Change Image</shortDescription>
+        <value>Change</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Remove_Image</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Task Viewer Remove Image</shortDescription>
+        <value>Remove</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Task_Working_Button</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Task Working on it</shortDescription>
+        <value>Still working on it</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Task_Done_Button</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Task Done button</shortDescription>
+        <value>Done!</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Task_In_Review_Message</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Task In Review message</shortDescription>
+        <value>You&apos;ve marked this task as completed and it&apos;s currently being reviewed</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Note_From_Approver</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Task note from approver</shortDescription>
+        <value>Note from approver :</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Task_Back_Button</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Task back button</shortDescription>
+        <value>Back</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_TPlan_Not_Registered</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Training Plan Not Registered</shortDescription>
+        <value>Not Registered</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_TPlan_Requires_Assignment</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Training Plan Requires Assignment</shortDescription>
+        <value>Requires Assignment</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Learning_Home</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Training Plan Learning Home</shortDescription>
+        <value>Learning Home</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Training_Tracks</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Training Tracks</shortDescription>
+        <value>Training Tracks</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Training_Catalog</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Training Catalog</shortDescription>
+        <value>Catalog</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Manage_Achievements</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Manage Achievements</shortDescription>
+        <value>Manage Achievements</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Update_Achievements_Assignments</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Update Achievements Assignments button</shortDescription>
+        <value>Update all Achievement Assignments</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Message_Achievements_Assignments</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Update Achievements Assignments Message</shortDescription>
+        <value>The following operations will affect all Achievement Assignments related to Training Plan Achievements under the following Training Plan</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Manage_Assignments</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Manage Assignments</shortDescription>
+        <value>Manage Assignments</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Create_Assignments</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Create Assignments</shortDescription>
+        <value>Create Assignments</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Update_Delete_Assignments</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Update/Delete Assignments</shortDescription>
+        <value>Update/Delete assignments</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Assignments_Batch_Operations</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Assignments Batch Operations</shortDescription>
+        <value>Batch operations</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Update_All_Assignments</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Update all Assignments</shortDescription>
+        <value>Update all Assignments</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Delete_All_Assignments</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Delete all Assignments</shortDescription>
+        <value>Delete all Assignments</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Update_All_Assignments_Message</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Update all Assignments message</shortDescription>
+        <value>The following operations will affect all Learning Assignments under the following Training Plan</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_First_Name</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Assignment Page First Name</shortDescription>
+        <value>First Name</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Last_Name</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Assignment Page Last Name</shortDescription>
+        <value>Last Name</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Email</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Assignment Page Email</shortDescription>
+        <value>Email</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Profile</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Assignment Page Profile</shortDescription>
+        <value>Profile</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Role</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Assignment Page Role</shortDescription>
+        <value>Role</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Manager</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Assignment Page Manager</shortDescription>
+        <value>Manager</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Search_Button</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Search Button</shortDescription>
+        <value>Search</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Assignments_Results</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Assignment Results</shortDescription>
+        <value>Results</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Assignments_No_Results_Message</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Assignment No Results Message</shortDescription>
+        <value>No results. Please make sure the users you&apos;re looking for have the LMS Admin or LMS User permission set.</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Required</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Plan detail required label</shortDescription>
+        <value>Required</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Overall_Rating</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Feedback Overall Rating</shortDescription>
+        <value>Overall Rating</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Feedback_Rating</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Feedback Rating</shortDescription>
+        <value>Rating</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Feedback_Comments</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Feedback Comments</shortDescription>
+        <value>Comments</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Feedback_Submit</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Feedback Submit</shortDescription>
+        <value>Submit</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Import_Assignments</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Import Assignments</shortDescription>
+        <value>Import Assignments</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Import_Report_Message</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Import Assignments from Report Message</shortDescription>
+        <value>Select a report from the list below and click Import. Please note that only tabular reports are available for data import</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Import_Button</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Import Assignments from Report Button</shortDescription>
+        <value>Import</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Report_Information</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Report Information</shortDescription>
+        <value>Report Information</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Report_Folder</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Report Folder</shortDescription>
+        <value>Folder</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_No_Reports_Found</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>No reports found message</shortDescription>
+        <value>No tabular reports found under the selected folder.</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Additional_Report_Options</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Additional Report Options title</shortDescription>
+        <value>Additional Options</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Additional_Report_Options_Msg</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Additional Report Options message</shortDescription>
+        <value>By default, the import process will try to find the column index with the USER_ID key. If you'd like to to change this behavior, please provide the column index that has users ids in your report.</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Report_Custom_Column_Index</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Report custom column index</shortDescription>
+        <value>Custom Column Index</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Register_Button</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Training Plan Register Button</shortDescription>
+        <value>Register!</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_TPlan_Request_Comments</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Training Plan Access Comments</shortDescription>
+        <value>Comments</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_TPlan_Request_Access_Button</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Training Plan Request Access Button</shortDescription>
+        <value>Request Access</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_TPlan_Request_Submitted_Message</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Access request submitted message</shortDescription>
+        <value>Your request has already been submitted</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_TPlan_Access_Request_Status</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Training Plan Access Request Status</shortDescription>
+        <value>Status</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_TPlanSection_Delete_Assignments</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Training Plan Section Delete Assignments</shortDescription>
+        <value>Delete Assignments</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Section_Delete_Assignments_Button</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Training Plan Section Delete Assignments Button</shortDescription>
+        <value>Delete all Section Assignments</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Section_Assignments_Delete_Warning</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Delete TPlan Section Assignments Warning</shortDescription>
+        <value>The following operation will delete all Section Assignments for users under the following Section</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_TPlanItem_Delete_Assignments</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Training Plan Section Item Delete Assignments</shortDescription>
+        <value>Delete Assignments</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Item_Delete_Assignments_Button</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Training Plan Section Item Delete Assignments Button</shortDescription>
+        <value>Delete all Section Item Assignments</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Item_Assignments_Delete_Warning</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Delete TPlan Section Item Assignments Warning</shortDescription>
+        <value>The following operation will delete all Section Item Assignments for users under the following Section Item</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Search_Catalog</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Search Catalog</shortDescription>
+        <value>Search Catalog</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Search_Users</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Search Users</shortDescription>
+        <value>Search Users</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Boolean_True</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Boolean true value</shortDescription>
+        <value>True</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Boolean_False</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Boolean false value</shortDescription>
+        <value>False</value>
     </labels>
 </CustomLabels>

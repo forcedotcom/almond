@@ -27,7 +27,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 <apex:page controller="LMSStartController" sidebar="false">
 
-    <apex:sectionHeader title="LMS" subtitle="Start"/>
+    <apex:sectionHeader title="{!$Label.ALMS_Start_Here_Title}" subtitle="{!$Label.ALMS_Start_Here_SubTitle}"/>
 
     <apex:form id="theForm">
 
@@ -41,10 +41,10 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 
             <apex:pageMessages />
 
-            <apex:pageBlockSection title="Sample Data" columns="1" collapsible="false">
-                <apex:pageMessage summary="Click the 'Create Sample Data' button to load some data to get you started. Once you've loaded data, go to the training plan tab and assign the created plan to your users." severity="info" strength="3" />
+            <apex:pageBlockSection title="{!$Label.ALMS_Start_Sample_Data_Section}" columns="1" collapsible="false">
+                <apex:pageMessage summary="{!$Label.ALMS_Start_Here_Message}" severity="info" strength="3" />
                 <apex:pageBlockSectionItem dataStyle="text-align:center;width:100%;">
-                    <apex:commandButton value="Create Sample Data" action="{!initSampleData}" rerender="theForm" status="status" styleClass="btnImportant"/>
+                    <apex:commandButton value="{!$Label.ALMS_Start_Sample_Data_Button}" action="{!initSampleData}" rerender="theForm" status="status" styleClass="btnImportant"/>
                 </apex:pageBlockSectionItem>
             </apex:pageBlockSection>
 

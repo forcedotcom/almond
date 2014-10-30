@@ -67,7 +67,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 
                 <apex:outputPanel layout="none" rendered="{!externalResourceURL != null}">
                     <div class="panel panel-default">
-                      <div class="panel-heading"><b>Additional information</b></div>
+                      <div class="panel-heading"><b>{!$Label.ALMS_Additional_Information}</b></div>
                       <div class="panel-body">
                           <a href="javascript:almond.redirectHandlerWithTarget('{!externalResourceURL}','_{!task.External_Resource_Target__c}',true)">{!IF(task.External_Resource_Name__c!=null,task.External_Resource_Name__c,externalResourceURL)}</a>
                       </div>
@@ -84,11 +84,11 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                                     <div class="fileinput-preview thumbnail taskviewer-thumbnail-preview" data-trigger="fileinput" ></div>
                                     <div>
                                         <span class="btn btn-file btn-lg btn-block">
-                                            <span class="almond-secondary-btn large-btn">Select image</span>
-                                            <span class="almond-warning-btn large-btn fileinput-exists">Change</span>
+                                            <span class="almond-secondary-btn large-btn">{!$Label.ALMS_Select_Image}</span>
+                                            <span class="almond-warning-btn large-btn fileinput-exists">{!$Label.ALMS_Change_Image}</span>
                                             <apex:inputFile value="{!attachment.body}" filename="{!attachment.name}" id="file"/>
                                         </span>
-                                        <a href="javascript:void();" class="almond-danger-btn large-btn fileinput-exists" data-dismiss="fileinput">Remove</a>
+                                        <a href="javascript:void();" class="almond-danger-btn large-btn fileinput-exists" data-dismiss="fileinput">{!$Label.ALMS_Remove_Image}</a>
                                     </div>
                                 </div>
 
@@ -96,26 +96,26 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                         </div>
                     </apex:outputPanel>
 
-                    <a href="javascript:doCancel()" class="almond-primary-btn large-btn" style="margin-bottom:10px;">Still working on it</a>
+                    <a href="javascript:doCancel()" class="almond-primary-btn large-btn" style="margin-bottom:10px;">{!$Label.ALMS_Task_Working_Button}</a>
 
                     <apex:outputPanel layout="none" rendered="{!task.Enable_Image_Upload__c}">
-                      <apex:commandButton value="Done!" action="{!markCompletedAndRedirect}" styleClass="almond-default-btn large-btn" onclick="forceShowStatus();"/>
+                      <apex:commandButton value="{!$Label.ALMS_Task_Done_Button}" action="{!markCompletedAndRedirect}" styleClass="almond-default-btn large-btn" onclick="forceShowStatus();"/>
                     </apex:outputPanel>
                     <apex:outputPanel layout="none" rendered="{!!task.Enable_Image_Upload__c}">
-                      <apex:commandButton value="Done!" action="{!markCompleted}" styleClass="almond-default-btn large-btn" onclick="forceShowStatus();" rerender="resultsPanel,pmessages" oncomplete="doRedirection()"/>
+                      <apex:commandButton value="{!$Label.ALMS_Task_Done_Button}" action="{!markCompleted}" styleClass="almond-default-btn large-btn" onclick="forceShowStatus();" rerender="resultsPanel,pmessages" oncomplete="doRedirection()"/>
                     </apex:outputPanel>
 
                 </apex:outputPanel>
 
                 <apex:outputPanel layout="none" rendered="{!taskInReview}">
                     <div class="alert alert-info">
-                        <h4>You've marked this task as completed and it's currently being reviewed</h4>
+                        <h4>{!$Label.ALMS_Task_In_Review_Message}</h4>
                     </div>
                 </apex:outputPanel>
 
                 <apex:outputPanel layout="none" rendered="{!assignment.Approver_Notes__c != null}">
                     <div class="alert alert-success">
-                        <h4> Note from approver : </h4>
+                        <h4>{!$Label.ALMS_Note_From_Approver}</h4>
                         <p>{!assignment.Approver_Notes__c}</p>
                     </div>
                 </apex:outputPanel>
@@ -133,7 +133,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                     </apex:outputPanel>
 
 
-                    <apex:commandButton value="Back" action="{!cancelTask}" styleClass="almond-danger-btn large-btn" onclick="forceShowStatus();" rerender="resultsPanel" oncomplete="doRedirection()"/>
+                    <apex:commandButton value="{!$Label.ALMS_Task_Back_Button}" action="{!cancelTask}" styleClass="almond-danger-btn large-btn" onclick="forceShowStatus();" rerender="resultsPanel" oncomplete="doRedirection()"/>
 
                 </apex:outputPanel>
 

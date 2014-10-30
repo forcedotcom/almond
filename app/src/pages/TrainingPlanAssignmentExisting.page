@@ -34,22 +34,22 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
             <apex:pageMessages />
 
             <apex:pageBlockButtons location="top">
-                <apex:commandButton value="Update" action="{!updateAssignments}" status="status" rerender="assignmentFormExisting" onclick="if(!confirm('Are you sure?')){return};" />
-                <apex:commandButton value="Delete" action="{!deleteAssignments}" status="status" rerender="assignmentFormExisting" onclick="if(!confirm('Are you sure?')){return};"/>
-                <apex:commandButton value="Cancel" action="{!cancel}" />
+                <apex:commandButton value="{!$Label.ALMS_Update}" action="{!updateAssignments}" status="status" rerender="assignmentFormExisting" onclick="if(!confirm('{!JSENCODE($Label.ALMS_Confirm_Alert)}')){return};" />
+                <apex:commandButton value="{!$Label.ALMS_Delete}" action="{!deleteAssignments}" status="status" rerender="assignmentFormExisting" onclick="if(!confirm('{!JSENCODE($Label.ALMS_Confirm_Alert)}')){return};"/>
+                <apex:commandButton value="{!$Label.ALMS_Cancel}" action="{!cancel}" />
             </apex:pageBlockButtons>
 
             <apex:outputPanel layout="block" rendered="{!rows.size == 0}">
-                <apex:pageMessage summary="No results" severity="info" strength="3" />
+                <apex:pageMessage summary="{!$Label.ALMS_Search_No_Results}" severity="info" strength="3" />
             </apex:outputPanel>
 
             <apex:outputPanel layout="block" style="padding:10px 0;">
-                <a href="javascript:selectAllCBs('lmsCBSelectExt')">Select All</a> | <a href="javascript:unSelectAllCBs('lmsCBSelectExt')">Unselect All</a>
+                <a href="javascript:selectAllCBs('lmsCBSelectExt')">{!$Label.ALMS_Select_All}</a> | <a href="javascript:unSelectAllCBs('lmsCBSelectExt')">{!$Label.ALMS_Unselect_All}</a>
             </apex:outputPanel>
 
             <apex:outputPanel rendered="{!rows.size > 0}">
                 <apex:pageBlockTable value="{!rows}" var="r">
-                    <apex:column headerValue="Action">
+                    <apex:column headerValue="{!$Label.ALMS_Action}">
                         <apex:inputCheckbox value="{!r.isSelected}" styleClass="lmsCBSelectExt"/>
                     </apex:column>
                     <apex:column value="{!r.assignmentRecord.User__c}"/>
@@ -60,9 +60,9 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                 </apex:pageBlockTable>
 
                 <apex:outputPanel layout="block" style="width:100%;text-align:center;padding:10px 0;">
-                    <apex:commandLink action="{!doPrevious}" rendered="{!hasPrevious}" value="Previous"/>
-                    <apex:outputLabel value=" (page {!pageNumber} of {!totalPages}) " />
-                    <apex:commandLink action="{!doNext}" rendered="{!hasNext}" value="Next" />
+                    <apex:commandLink action="{!doPrevious}" rendered="{!hasPrevious}" value="{!$Label.ALMS_Previous}"/>
+                    <apex:outputLabel value=" ({!$Label.ALMS_Search_Page} {!pageNumber} {!$Label.ALMS_Search_Page_Separator} {!totalPages}) " />
+                    <apex:commandLink action="{!doNext}" rendered="{!hasNext}" value="{!$Label.ALMS_Next}" />
                 </apex:outputPanel>
 
             </apex:outputPanel>

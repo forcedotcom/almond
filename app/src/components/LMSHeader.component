@@ -27,16 +27,16 @@
                 <ul class="nav navbar-nav">
                     <!-- li class="active" -->
                     <li class="{!IF(section == 'tracks','active','')}">
-                        <a href="{!$Page.TrainingTracks}">{!$Label.LMSUI_TrainingTracks}</a>
+                        <a href="{!$Page.TrainingTracks}">{!$Label.ALMS_TrainingTracks}</a>
                     </li>
                     <li class="{!IF(section == 'catalog','active','')}">
-                        <a href="{!$Page.TrainingCatalogHome}">{!$Label.LMSUI_PublicCatalog}</a>
+                        <a href="{!$Page.TrainingCatalogHome}">{!$Label.ALMS_PublicCatalog}</a>
                     </li>
                     <li class="{!IF(section == 'mytraining','active','')}">
-                        <a href="{!$Page.MyTraining}">{!$Label.LMSUI_MyTraining}</a>
+                        <a href="{!$Page.MyTraining}">{!$Label.ALMS_My_Training}</a>
                     </li>
                     <li class="{!IF(section == 'myprofile','active','')}">
-                        <a href="{!$Page.MyProfile}">{!$Label.LMSUI_MyProfile}</a>
+                        <a href="{!$Page.MyProfile}">{!$Label.ALMS_MyProfile}</a>
                     </li>
                     <li>
                         <apex:image value="{!URLFOR($Resource.almond_uilib, '/img/white_cloud_embossed.png')}" styleClass="sfdc-logo" />

@@ -30,7 +30,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
     <apex:composition template="LMS_Template">
 
         <apex:define name="head">
-            <title>Training Tracks</title>
+            <title>{!$Label.ALMS_Training_Tracks}</title>
         </apex:define>
 
         <apex:define name="body">
@@ -62,7 +62,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 
             <apex:outputPanel layout="none" rendered="{!tTracks == null || tTracks.size == 0}">
                 <div style="width:100%;text-align:center;padding:20px;0;">
-                    <h2>Nothing to see here!</h2>
+                    <h2>{!$Label.ALMS_Nothing_to_see}</h2>
             </div>
             </apex:outputPanel>
 

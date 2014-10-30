@@ -27,32 +27,31 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 <apex:page standardController="Training_Plan__c" extensions="TrainingPlanAchievementManagementExt" sidebar="false">
 
-    <apex:sectionHeader title="Manage Achievements" subtitle="{!Training_Plan__c.Name}">
+    <apex:sectionHeader title="{!$Label.ALMS_Manage_Achievements}" subtitle="{!Training_Plan__c.Name}">
         <div class="bPageTitle" style="padding:0px;">
-            <div class="ptBreadcrumb">&nbsp;&lt;&lt;&nbsp;<a href="/{!Training_Plan__c.Id}">Back to Training Plan</a></div>
+            <div class="ptBreadcrumb">&nbsp;&lt;&lt;&nbsp;<a href="/{!Training_Plan__c.Id}">{!$Label.ALMS_Training_Plan_Back}</a></div>
         </div>
     </apex:sectionHeader>
 
     <apex:form id="aaAssignmentFormBatch">
-    <apex:pageBlock >
+        <apex:pageBlock >
 
             <apex:pageMessages />
 
             <apex:pageBlockButtons location="top">
-                <apex:commandButton value="Update all Achievement Assignments"
+                <apex:commandButton value="{!$Label.ALMS_Update_Achievements_Assignments}"
                         action="{!upsertAchievementAssignments}"
-                        onclick="if(!confirm('Are you sure?')){return};"
+                        onclick="if(!confirm('{!JSENCODE($Label.ALMS_Confirm_Alert)}')){return};"
                         styleClass="btnImportant"
                         rerender="aaAssignmentFormBatch"
                         status="status"
                 />
-                <apex:commandButton value="Cancel" action="{!cancel}"/>
+                <apex:commandButton value="{!$Label.ALMS_Cancel}" action="{!cancel}"/>
             </apex:pageBlockButtons>
 
-        <apex:pageMessage summary="The following operations will affect all Achievement Assignments related to Training Plan Achievements under the : {!Training_Plan__c.Name} Training Plan" severity="warning" strength="3" />
+            <apex:pageMessage summary="{!$Label.ALMS_Message_Achievements_Assignments} : {!Training_Plan__c.Name}" severity="warning" strength="3" />
 
-    </apex:pageBlock>
-
+        </apex:pageBlock>
     </apex:form>
 
 </apex:page>

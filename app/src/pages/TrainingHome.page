@@ -30,7 +30,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
     <apex:composition template="LMS_Template">
 
         <apex:define name="head">
-            <title>Learning Home</title>
+            <title>{!$Label.ALMS_Learning_Home}</title>
         </apex:define>
 
         <apex:define name="body">
@@ -42,7 +42,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                             <apex:image value="{!URLFOR($Resource.almond_uilib, '/img/mytraining.png')}"/>
                         </div>
                         <div class="tplan_details tplan_details_home">
-                            <h3>{!$Label.LMSUI_MyTraining}</h3>
+                            <h3>{!$Label.ALMS_My_Training}</h3>
                         </div>
                     </div>
                 </div>
@@ -52,7 +52,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                             <apex:image value="{!URLFOR($Resource.almond_uilib, '/img/achievements.png')}"/>
                         </div>
                         <div class="tplan_details tplan_details_home" >
-                            <h3>Achievements</h3>
+                            <h3>{!$Label.ALMS_Achievements}</h3>
                         </div>
                     </div>
                 </div>
@@ -62,7 +62,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                             <apex:image value="{!URLFOR($Resource.almond_uilib, '/img/catalogs.png')}"/>
                         </div>
                         <div class="tplan_details tplan_details_home" >
-                            <h3>Catalog</h3>
+                            <h3>{!$Label.ALMS_Training_Catalog}</h3>
                         </div>
                     </div>
                 </div>
@@ -72,7 +72,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                             <apex:image value="{!URLFOR($Resource.almond_uilib, '/img/tracks.png')}"/>
                         </div>
                         <div class="tplan_details tplan_details_home" >
-                            <h3>Training Tracks</h3>
+                            <h3>{!$Label.ALMS_Training_Tracks}</h3>
                         </div>
                     </div>
                 </div>

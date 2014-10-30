@@ -8,7 +8,7 @@
     <div class="row">
         <div class="{!searchBarColLengthClass} lms-user-search-group">
             <div class="input-group input-group-{!searchBarSize}">
-                <input type="text" class="form-control" id="lms-search-input" autocomplete="off" maxlength="100" placeholder="Search Users"/>
+                <input type="text" class="form-control" id="lms-search-input" autocomplete="off" maxlength="100" placeholder="{!$Label.ALMS_Search_Users}"/>
                 <span class="input-group-btn">
                     <button class="btn btn-default" type="button" id="lms-search-button"><span class="glyphicon glyphicon-search"></span></button>
                 </span>

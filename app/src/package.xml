@@ -87,6 +87,10 @@
         <name>StaticResource</name>
     </types>
     <types>
+        <members>*</members>
+        <name>Translations</name>
+    </types>
+    <types>
         <members>Achievement_Assignment__c</members>
         <members>Achievement_Category__c</members>
         <members>Achievement__c</members>

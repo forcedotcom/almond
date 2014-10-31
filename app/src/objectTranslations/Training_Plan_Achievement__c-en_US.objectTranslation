@@ -8,6 +8,40 @@
         <plural>true</plural>
         <value>Training Plan Achievements</value>
     </caseValues>
+    <fields>
+        <label><!-- Achievement --></label>
+        <name>Achievement__c</name>
+        <relationshipLabel><!-- Training Plan Achievements --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Main Achievement --></label>
+        <name>Main_Achievement__c</name>
+    </fields>
+    <fields>
+        <label><!-- Training Plan Section --></label>
+        <lookupFilter>
+            <errorMessage><!-- The section must belong to the current Training Plan --></errorMessage>
+        </lookupFilter>
+        <name>Training_Plan_Section__c</name>
+        <relationshipLabel><!-- Training Plan Achievements --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Training Plan --></label>
+        <name>Training_Plan__c</name>
+        <relationshipLabel><!-- Training Plan Achievements --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Type --></label>
+        <name>Type__c</name>
+        <picklistValues>
+            <masterLabel>Plan</masterLabel>
+            <translation><!-- Plan --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Section</masterLabel>
+            <translation><!-- Section --></translation>
+        </picklistValues>
+    </fields>
     <layouts>
         <layout>Training Plan Achievement Layout</layout>
         <sections>

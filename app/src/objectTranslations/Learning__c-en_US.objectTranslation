@@ -8,6 +8,47 @@
         <plural>true</plural>
         <value>Learnings</value>
     </caseValues>
+    <fields>
+        <label><!-- Current Published Version --></label>
+        <name>Current_Published_Version_Formula__c</name>
+    </fields>
+    <fields>
+        <label><!-- Current Published Version --></label>
+        <name>Current_Published_Version__c</name>
+        <relationshipLabel><!-- Learnings --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Custom Preview URL --></label>
+        <name>Custom_Preview_URL__c</name>
+    </fields>
+    <fields>
+        <label><!-- Description --></label>
+        <name>Description__c</name>
+    </fields>
+    <fields>
+        <label><!-- Duration (minutes) --></label>
+        <name>Duration__c</name>
+    </fields>
+    <fields>
+        <label><!-- Duration (hours) --></label>
+        <name>Duration_hours__c</name>
+    </fields>
+    <fields>
+        <label><!-- Is Published --></label>
+        <name>Is_Published_Formula__c</name>
+    </fields>
+    <fields>
+        <label><!-- Published --></label>
+        <name>Published__c</name>
+    </fields>
+    <fields>
+        <label><!-- Sync progress across assignments --></label>
+        <name>Sync_progress__c</name>
+    </fields>
+    <fields>
+        <label><!-- Type --></label>
+        <name>Type_Image__c</name>
+    </fields>
     <layouts>
         <layout>Learning-Quiz Layout</layout>
         <sections>
@@ -29,5 +70,37 @@
             <section>Custom Links</section>
         </sections>
     </layouts>
+    <recordTypes>
+        <label><!-- Quiz --></label>
+        <name>Quiz</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Resource --></label>
+        <name>Resource</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- Task --></label>
+        <name>Task</name>
+    </recordTypes>
+    <sharingReasons>
+        <label><!-- LMS Approval Sharing --></label>
+        <name>LMS_Approval_Sharing</name>
+    </sharingReasons>
+    <sharingReasons>
+        <label><!-- LMS Sharing --></label>
+        <name>LMS_Sharing</name>
+    </sharingReasons>
     <startsWith>Consonant</startsWith>
+    <webLinks>
+        <label><!-- Delete_Shared_Assignments --></label>
+        <name>Delete_Shared_Assignments</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Preview --></label>
+        <name>Preview</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Publish --></label>
+        <name>Publish</name>
+    </webLinks>
 </CustomObjectTranslation>

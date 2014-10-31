@@ -9,6 +9,10 @@
         <value>Training Track Level Items</value>
     </caseValues>
     <fields>
+        <label><!-- Order --></label>
+        <name>Order__c</name>
+    </fields>
+    <fields>
         <label><!-- Training Plan --></label>
         <name>Training_Plan__c</name>
         <relationshipLabel><!-- Training Track Level Items --></relationshipLabel>
@@ -17,10 +21,6 @@
         <label><!-- Training Track Level --></label>
         <name>Training_Track_Level__c</name>
         <relationshipLabel><!-- Training Track Level Items --></relationshipLabel>
-    </fields>
-    <fields>
-        <label><!-- Order --></label>
-        <name>Order__c</name>
     </fields>
     <layouts>
         <layout>Training Track Level Item Layout</layout>

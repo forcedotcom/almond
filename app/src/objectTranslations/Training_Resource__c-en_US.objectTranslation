@@ -8,6 +8,31 @@
         <plural>true</plural>
         <value>Training Resources</value>
     </caseValues>
+    <fields>
+        <label><!-- Add training parameters to URL --></label>
+        <name>Add_training_parameters_to_URL__c</name>
+    </fields>
+    <fields>
+        <label><!-- Description --></label>
+        <name>Description__c</name>
+    </fields>
+    <fields>
+        <label><!-- Display in Iframe --></label>
+        <name>Display_in_Iframe__c</name>
+    </fields>
+    <fields>
+        <label><!-- Learning --></label>
+        <name>Learning__c</name>
+        <relationshipLabel><!-- Training Resources --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Delegate assignment completion --></label>
+        <name>Prevent_completion_on_launch__c</name>
+    </fields>
+    <fields>
+        <label><!-- Resource URL --></label>
+        <name>Resource_URL__c</name>
+    </fields>
     <layouts>
         <layout>Training Resource Layout</layout>
         <sections>

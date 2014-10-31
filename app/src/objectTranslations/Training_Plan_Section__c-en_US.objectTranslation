@@ -8,6 +8,23 @@
         <plural>true</plural>
         <value>Training Plan Sections</value>
     </caseValues>
+    <fields>
+        <label><!-- Optional --></label>
+        <name>Optional__c</name>
+    </fields>
+    <fields>
+        <label><!-- Order --></label>
+        <name>Order__c</name>
+    </fields>
+    <fields>
+        <label><!-- Total Section Items --></label>
+        <name>Total_Section_Items__c</name>
+    </fields>
+    <fields>
+        <label><!-- Training Plan --></label>
+        <name>Training_Plan__c</name>
+        <relationshipLabel><!-- Training Plan Sections --></relationshipLabel>
+    </fields>
     <layouts>
         <layout>Training Plan Section Layout</layout>
         <sections>
@@ -15,5 +32,13 @@
             <section>Custom Links</section>
         </sections>
     </layouts>
+    <quickActions>
+        <label><!-- Add Section Item --></label>
+        <name>Add_Section_Item</name>
+    </quickActions>
     <startsWith>Consonant</startsWith>
+    <webLinks>
+        <label><!-- Delete_Assignments --></label>
+        <name>Delete_Assignments</name>
+    </webLinks>
 </CustomObjectTranslation>

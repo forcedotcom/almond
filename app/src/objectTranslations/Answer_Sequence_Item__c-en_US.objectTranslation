@@ -8,6 +8,27 @@
         <plural>true</plural>
         <value>Answer Sequence Items</value>
     </caseValues>
+    <fields>
+        <label><!-- Answer Sequence --></label>
+        <name>Answer_Sequence__c</name>
+        <relationshipLabel><!-- Answer Sequence Items --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Answer Text --></label>
+        <name>Answer_Text__c</name>
+    </fields>
+    <fields>
+        <label><!-- Is Correct Answer --></label>
+        <name>Is_Correct_Answer__c</name>
+    </fields>
+    <fields>
+        <label><!-- Answer Id --></label>
+        <name>Item_Id__c</name>
+    </fields>
+    <fields>
+        <label><!-- Order --></label>
+        <name>Order__c</name>
+    </fields>
     <layouts>
         <layout>Answer Sequence Item Layout</layout>
         <sections>
@@ -16,4 +37,8 @@
         </sections>
     </layouts>
     <startsWith>Consonant</startsWith>
+    <validationRules>
+        <errorMessage><!-- Item Id contains un-supported special characters, please update the item id --></errorMessage>
+        <name>item_id_specia_chars_validation</name>
+    </validationRules>
 </CustomObjectTranslation>

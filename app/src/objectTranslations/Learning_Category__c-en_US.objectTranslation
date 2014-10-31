@@ -8,11 +8,31 @@
         <plural>true</plural>
         <value>Learning Categories</value>
     </caseValues>
+    <fields>
+        <label><!-- Background Image URL --></label>
+        <name>Background_Image_URL__c</name>
+    </fields>
+    <fields>
+        <label><!-- Logo --></label>
+        <name>Logo__c</name>
+    </fields>
+    <fields>
+        <label><!-- Text Color --></label>
+        <name>Text_Color__c</name>
+    </fields>
+    <fields>
+        <label><!-- Total Training Plans --></label>
+        <name>Total_Training_Plans__c</name>
+    </fields>
     <layouts>
         <layout>Learning Category Layout</layout>
         <sections>
             <label><!-- Custom Links --></label>
             <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Look and Feel Information --></label>
+            <section>Look and Feel Information</section>
         </sections>
     </layouts>
     <startsWith>Consonant</startsWith>

@@ -80,7 +80,7 @@ public with sharing class AchievementAssignmentsHelper{
                         //Init values map
                         Map<String,String> workBadge = new Map<String,String>();
 
-                        String msg = ac.Work_Badge_Message__c != null ? ac.Work_Badge_Message__c : 'Congratulations! You\'ve earned a new Training Badge!';
+                        String msg = ac.Work_Badge_Message__c != null ? ac.Work_Badge_Message__c : System.Label.ALMS_Default_Achievement_Message;
                         workBadge.put('message',msg);
                         workBadge.put('giverid',ac.Work_Badge_Giver__c);
                         workBadge.put('recipientid',aa.User__c);
@@ -126,7 +126,7 @@ public with sharing class AchievementAssignmentsHelper{
                         feedItemInsert.add(fi);
 
                     }else{
-                        workThanksInsert[i].addError('Unable to insert work thanks record : '+sr.getErrors().get(0).getMessage());
+                        workThanksInsert[i].addError(System.Label.ALMS_Default_Error_Inserting_Thanks +' : '+sr.getErrors().get(0).getMessage());
                     }
                 }
 
@@ -138,14 +138,14 @@ public with sharing class AchievementAssignmentsHelper{
                     for(Integer i = 0; i < wBadgeResults.size(); i++) {
                         Database.SaveResult sr = wBadgeResults[i];
                         if(!sr.isSuccess()){
-                            workBadgeInsert[i].addError('Unable to insert work badge record : '+sr.getErrors().get(0).getMessage());
+                            workBadgeInsert[i].addError(System.Label.ALMS_Default_Error_Inserting_Badge +' : '+sr.getErrors().get(0).getMessage());
                         }
                     }
 
                     for(Integer i = 0; i < feedItemResults.size(); i++) {
                         Database.SaveResult sr = feedItemResults[i];
                         if(!sr.isSuccess()){
-                            feedItemInsert[i].addError('Unable to insert feed item record : '+sr.getErrors().get(0).getMessage());
+                            feedItemInsert[i].addError(System.Label.ALMS_Default_Error_Inserting_Feed +': '+sr.getErrors().get(0).getMessage());
                         }
                     }
 

@@ -111,7 +111,7 @@ public with sharing class LearningAssignmentApproveExtension {
         try{
 
             if(approverNotes != null && approverNotes.length() > 255){
-                LMSUtils.addErrorMessage('Only 255 characters are allowed for approver notes');
+                LMSUtils.addErrorMessage(System.Label.ALMS_Max_Approver_Notes_Error);
                 return null;
             }
 
@@ -134,7 +134,7 @@ public with sharing class LearningAssignmentApproveExtension {
                         updateAssignment();
 
                     }else{
-                        LMSUtils.addErrorMessage('You are not authorized to approve this task.');
+                        LMSUtils.addErrorMessage(System.Label.ALMS_Approver_Not_Authorized);
                         return null;
                     }
                 }

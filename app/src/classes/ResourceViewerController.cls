@@ -52,14 +52,14 @@ global with sharing class ResourceViewerController{
                 Learning_Assignment__c assignment = getAssignment(aid);
 
                 if(assignment.Learning_Version__r.Training_Resource__c == null){
-                    LMSUtils.addErrorMessage('Invalid Assignment Id');
+                    LMSUtils.addErrorMessage(System.Label.ALMS_Invalid_Assignment_Id);
                 }else{
                     continueRedirection = true;
                 }
 
 
             }else{
-                LMSUtils.addErrorMessage('Invalid Assignment Id');
+                LMSUtils.addErrorMessage(System.Label.ALMS_Invalid_Assignment_Id);
             }
 
         }catch(Exception e){

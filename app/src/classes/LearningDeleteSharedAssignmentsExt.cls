@@ -49,7 +49,7 @@ public with sharing class LearningDeleteSharedAssignmentsExt {
             //END Access Check
 
             Id batchInstanceId = Database.executeBatch(new LearningDeleteSharedAsgmtsBatch(learningId),20);
-            LMSUtils.addSuccessMessage('Batch delete process has been queued successfully');
+            LMSUtils.addSuccessMessage(System.Label.ALMS_Batch_Delete_Queued_Success);
         }catch(Exception e){
             ApexPages.addMessages(e);
         }

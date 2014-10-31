@@ -31,7 +31,7 @@ public with sharing class LMS_ESAPI {
     public static void isAuthorizedToView(Map<Schema.sObjectType,List<String>> objectMap){
         for(Schema.sObjectType oType : objectMap.keySet()){
             if(!ESAPI.accessController().isAuthorizedToView(oType,objectMap.get(oType))){
-                throw new LMSException('View - Insufficent CRUD/FLS permissions, please contact your system administrator.');
+                throw new LMSException(System.Label.ALMS_CRUD_FLS_View+' - '+System.Label.ALMS_Insufficient_CRUD_FLS);
             }
         }
     }
@@ -39,7 +39,7 @@ public with sharing class LMS_ESAPI {
     public static void isAuthorizedToCreate(Map<Schema.sObjectType,List<String>> objectMap){
         for(Schema.sObjectType oType : objectMap.keySet()){
             if(!ESAPI.accessController().isAuthorizedToCreate(oType,objectMap.get(oType))){
-                throw new LMSException('Create - Insufficent CRUD/FLS permissions, please contact your system administrator.');
+                throw new LMSException(System.Label.ALMS_CRUD_FLS_Create+' - '+System.Label.ALMS_Insufficient_CRUD_FLS);
             }
         }
     }
@@ -47,7 +47,7 @@ public with sharing class LMS_ESAPI {
     public static void isAuthorizedToUpdate(Map<Schema.sObjectType,List<String>> objectMap){
         for(Schema.sObjectType oType : objectMap.keySet()){
             if(!ESAPI.accessController().isAuthorizedToUpdate(oType,objectMap.get(oType))){
-                throw new LMSException('Update - Insufficent CRUD/FLS permissions, please contact your system administrator.');
+                throw new LMSException(System.Label.ALMS_CRUD_FLS_Update+' - '+System.Label.ALMS_Insufficient_CRUD_FLS);
             }
         }
     }
@@ -55,7 +55,7 @@ public with sharing class LMS_ESAPI {
     public static void isAuthorizedToDelete(List<Schema.sObjectType> sObjectTypes){
         for(Schema.sObjectType oType : sObjectTypes){
             if(!ESAPI.accessController().isAuthorizedToDelete(oType)){
-                throw new LMSException('Delete - Insufficent CRUD permissions, please contact your system administrator.');
+                throw new LMSException(System.Label.ALMS_CRUD_FLS_Delete+' - '+System.Label.ALMS_Insufficient_CRUD_FLS);
             }
         }
     }

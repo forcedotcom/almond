@@ -37,7 +37,7 @@ public with sharing class LMSUtils{
     }
 
     public static void addGenericUnknownErrorMessage(String message){
-        ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR,'An unknown error has occured, please contact your support team and show the following information : '+message));
+        ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR,System.Label.ALMS_Generic_Error_Message+' : '+message));
     }
 
     public static void logException(Exception e,String context){

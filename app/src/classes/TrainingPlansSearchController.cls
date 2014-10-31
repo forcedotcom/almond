@@ -71,7 +71,7 @@ public with sharing class TrainingPlansSearchController {
                 this.setCon.setpageNumber(1);
                 this.setCon.setPageSize(10);
             }else{
-                LMSUtils.addErrorMessage('You must provide a search term of at least 3 characters.');
+                LMSUtils.addErrorMessage(System.Label.ALMS_Search_Minimum_Characters);
             }
         }catch(Exception e){
             LMSUtils.logException(e,'TrainingPlansSearchController');

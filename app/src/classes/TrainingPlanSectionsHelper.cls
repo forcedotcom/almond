@@ -83,7 +83,7 @@ public with sharing class TrainingPlanSectionsHelper {
             //Add an error for all of those optional sections with required items
             for(Training_Plan_Section__c optSec : optionalSections){
                 if(sectionsWithRequiredItems.contains(optSec.Id)){
-                    optSec.addError('Sections with required items cannot be made optional');
+                    optSec.addError(System.Label.ALMS_Optional_Section_Error_Message);
                 }
             }
 

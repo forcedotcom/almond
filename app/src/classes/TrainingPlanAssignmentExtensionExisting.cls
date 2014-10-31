@@ -165,7 +165,7 @@ public with sharing class TrainingPlanAssignmentExtensionExisting{
             if(trainingPlanId != null && selectedUserIds.size()>0){
                 LMSService.upsertAssignments(selectedUserIds,trainingPlanId);
                 init();
-                LMSUtils.addSuccessMessage('Assignments were updated successfully');
+                LMSUtils.addSuccessMessage(System.Label.ALMS_Assignments_Updated_Success);
             }
 
         }catch(Exception e){
@@ -196,7 +196,7 @@ public with sharing class TrainingPlanAssignmentExtensionExisting{
             if(selectedAssignments.size()>0){
                 delete selectedAssignments;
                 init();
-                LMSUtils.addSuccessMessage('Assignments were deleted successfully');
+                LMSUtils.addSuccessMessage(System.Label.ALMS_Assignments_Deleted_Success);
             }
 
         }catch(Exception e){

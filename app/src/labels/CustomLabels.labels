@@ -1312,4 +1312,348 @@
         <shortDescription>Boolean false value</shortDescription>
         <value>False</value>
     </labels>
+    <labels>
+        <fullName>ALMS_Default_Achievement_Message</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Default chatter message for acquired achievements</shortDescription>
+        <value>Congratulations! You&apos;ve earned a new Training Badge!</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Default_Error_Inserting_Thanks</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Error message for inserting thanks records</shortDescription>
+        <value>Unable to insert work thanks record</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Default_Error_Inserting_Badge</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Error message for inserting badge records</shortDescription>
+        <value>Unable to insert work badge record</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Default_Error_Inserting_Feed</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Error message for inserting feed item</shortDescription>
+        <value>Unable to insert feed item record</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Search_Minimum_Characters</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Search minimum characters error message</shortDescription>
+        <value>You must provide a search term of at least 3 characters.</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Select_Work_Badge</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Missing badge selection error message</shortDescription>
+        <value>You must select a Badge from the list below.</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Preview_Version_Error</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Preview learning version error message</shortDescription>
+        <value>An error has occured while previewing the new version</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Max_Approver_Notes_Error</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Max chars reached for approver notes message</shortDescription>
+        <value>Only 255 characters are allowed for approver notes</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Approver_Not_Authorized</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Unauthorized approver error message</shortDescription>
+        <value>You are not authorized to approve this task.</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Batch_Delete_Queued_Success</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Success message for batch deletion</shortDescription>
+        <value>Batch delete process has been queued successfully</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Insufficient_CRUD_FLS</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Insufficient CRUD/FLS permissions</shortDescription>
+        <value>Insufficent CRUD/FLS permissions, please contact your system administrator.</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_CRUD_FLS_View</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>CRUD/FLS View</shortDescription>
+        <value>View</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_CRUD_FLS_Create</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>CRUD/FLS Create</shortDescription>
+        <value>Create</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_CRUD_FLS_Update</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>CRUD/FLS Update</shortDescription>
+        <value>Update</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_CRUD_FLS_Delete</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>CRUD/FLS Delete</shortDescription>
+        <value>Delete</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Sample_Data_Success</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Sample Data Created Success message</shortDescription>
+        <value>Sample data has been successfully created!</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Sample_Data_Error</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Sample Data Created Error message</shortDescription>
+        <value>Oops, something went wrong and we were not able to create sample data.</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Generic_Error_Message</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Generic Error message</shortDescription>
+        <value>An unknown error has occurred, please contact your support team and show the following information</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Quiz_Success_Pre_Message</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Positive message for quiz success result</shortDescription>
+        <value>Yes!</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Invalid_Assignment_Id</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Error message for invalid assignment id</shortDescription>
+        <value>Invalid Assignment Id</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Invalid_Category_Id</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Error message for invalid category id</shortDescription>
+        <value>Invalid Category Id</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_No_Remaining_Question_Lines</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>No remaining question lines found error message</shortDescription>
+        <value>No remaining question lines found</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Quiz_Missing_Answers</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Error message for missing answers in quiz</shortDescription>
+        <value>You must answer all of the questions to continue</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Task_Missing_Image</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Missing image on task error message</shortDescription>
+        <value>You must upload an image to complete this task.</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Batch_Updated_Queued_Success</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Batch update process queued successfully</shortDescription>
+        <value>Batch update process has been queued successfully</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Assignments_Updated_Success</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Assignment update success message</shortDescription>
+        <value>Assignments were updated successfully</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Assignments_Deleted_Success</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Assignment delete success message</shortDescription>
+        <value>Assignments were deleted successfully</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Chatter_Notification_Greeting</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Assignment chatter notification greeting</shortDescription>
+        <value>Hi</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Chatter_Notification_Message_1</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Chatter assignment notification message part 1</shortDescription>
+        <value>You&apos;ve been assigned to the following Training Plan</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Chatter_Notification_Message_2</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Chatter assignment notification message part 2</shortDescription>
+        <value>Click on the attached link to launch it</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Invalid_Parameters_Message</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Invalid Parameters error message</shortDescription>
+        <value>Invalid parameters</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Unable_Retrieve_Assignment_Info</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Unable to retrieve assignment info error message</shortDescription>
+        <value>Unable to retrieve assignment information</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Training_Plan_No_Access_Message</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Missing training plan access error message</shortDescription>
+        <value>You don&apos;t have access to view this training plan.</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Feedback_Missing_Comments</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Missing feedback comments error message</shortDescription>
+        <value>You must provide comments to submit feedback</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Feedback_Existing_Rating</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Feedback with existing rating error message</shortDescription>
+        <value>You&apos;ve already given a rating to this training plan</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Select_Report_Default_Option</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Default option for report selection</shortDescription>
+        <value>-- Select Folder --</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Missing_Report_Folder</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Missing folder selection error message</shortDescription>
+        <value>Please select a valid folder from the list</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Missing_Report_Item</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Missing report selection error message</shortDescription>
+        <value>Please select a report from the report list</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Report_No_Records_Error</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Report with no records error message</shortDescription>
+        <value>Report did not return any records or we were unable to retrieve valid users ids from the specified column</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Public_Plan_Assignment_Error</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Error message for public training plan assignment</shortDescription>
+        <value>Oops! We were unable to assign this training plan, please contact support</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Public_Plan_Request_Submitted</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Request submitted for training plan message</shortDescription>
+        <value>Your request has been submitted</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Optional_Section_Error_Message</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Error message for opt section with required items</shortDescription>
+        <value>Sections with required items cannot be made optional</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Training_Track_No_Access</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Missing access for training track error message</shortDescription>
+        <value>Sorry, you&apos;re not allowed to view this training track</value>
+    </labels>
 </CustomLabels>

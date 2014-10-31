@@ -60,7 +60,7 @@ public with sharing class TrainingTrackDetailCtrl{
             }
 
         }else{
-            LMSUtils.addErrorMessage('Sorry, you\'re not allowed to view this training track');
+            LMSUtils.addErrorMessage(System.Label.ALMS_Training_Track_No_Access);
         }
     }
 

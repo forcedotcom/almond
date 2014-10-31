@@ -144,7 +144,7 @@ public with sharing class TaskViewerController{
                 }
 
                 if(assignment.Learning_Version__r.Task__c == null){
-                    LMSUtils.addErrorMessage('Invalid Assignment Id');
+                    LMSUtils.addErrorMessage(System.Label.ALMS_Invalid_Assignment_Id);
                     return;
                 }else{
                     task = assignment.Learning_Version__r.Task__r;
@@ -171,7 +171,7 @@ public with sharing class TaskViewerController{
 
 
             }else{
-                LMSUtils.addErrorMessage('Invalid Assignment Id');
+                LMSUtils.addErrorMessage(System.Label.ALMS_Invalid_Assignment_Id);
                 return;
             }
 
@@ -235,7 +235,7 @@ public with sharing class TaskViewerController{
             }
 
             if(assignment.Learning_Version__r.Task__r.Enable_Image_Upload__c && (attachment == null || attachment.body == null)){
-                LMSUtils.addErrorMessage('You must upload an image to complete this task.');
+                LMSUtils.addErrorMessage(System.Label.ALMS_Task_Missing_Image);
                 return null;
             }
 

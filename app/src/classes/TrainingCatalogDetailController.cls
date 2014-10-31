@@ -45,7 +45,7 @@ public with sharing class TrainingCatalogDetailController {
         String categoryId = Apexpages.currentPage().getParameters().get('id');
         if(String.isBlank(categoryId)){
             tPlans = new List<TrainingPlanWithAchievement>();
-            LMSUtils.addErrorMessage('Invalid Category Id');
+            LMSUtils.addErrorMessage(System.Label.ALMS_Invalid_Category_Id);
         }else{
             List<Learning_Category__c> lcats = LMSService.getLearningCategories(categoryId);
             if(lcats.size()>0){

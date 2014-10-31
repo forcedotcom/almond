@@ -95,7 +95,7 @@ public with sharing class QuizResultsController{
 
                 if(evalResult == LMSConstants.ASSIGNMENT_EVAL_PASSED){
                     messageStyle = 'alert-success';
-                    resultPreMessage = 'Yes!';
+                    resultPreMessage = System.Label.ALMS_Quiz_Success_Pre_Message;
                 }
 
                 if(!isPreview && assignment.Learning_Version__r.Quiz__r.Max_Attempts__c != null && evalResult != LMSConstants.ASSIGNMENT_EVAL_PASSED){

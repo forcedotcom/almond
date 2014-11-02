@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Secuencia de Respuestas</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Secuencias de Respuestas</value>
+    </caseValues>
+    <fields>
+        <label>Notas Internas</label>
+        <name>Internal_Notes__c</name>
+    </fields>
+    <layouts>
+        <layout>Answer Sequence Layout</layout>
+        <sections>
+            <label>Enlaces Personalizados</label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label>Informacion Opcional</label>
+            <section>Optional Information</section>
+        </sections>
+    </layouts>
+    <gender>Feminine</gender>
+    <nameFieldLabel>ID de Secuencia de Respuestas</nameFieldLabel>
+</CustomObjectTranslation>

@@ -81,7 +81,8 @@ public class TestUtilClass {
     }
 
     public static List<User> createUsers(Integer iNum,String profileName){
-        Profile oProfile = [select Id, Name, PermissionsCustomizeApplication from Profile where Name = :profileName limit 1];
+        String localizedProfileName = getLocalizedProfileName(profileName);
+        Profile oProfile = [select Id, Name, PermissionsCustomizeApplication from Profile where Name = :localizedProfileName limit 1];
 
         List<User> lResults = new List<User>();
         for(Integer i = 0; i < iNum; i++){
@@ -106,6 +107,7 @@ public class TestUtilClass {
         return lResults;
     }
 
+
     /**
     *Method used to add Permission Sets to Test Users. NOTE: execute this method always inside of a System.runAs(...)
     *
@@ -123,5 +125,16 @@ public class TestUtilClass {
         }
 
         insert lpsa;
+    }
+
+    private static String getLocalizedProfileName(String profileName){
+        if(UserInfo.getLanguage() == 'en_US'){
+            return profileName;
+        }else if(profileName == 'System Administrator'){
+            return System.Label.ALMS_Sys_Admin_Profile;
+        }else if(profileName == 'Standard User'){
+            return System.Label.ALMS_Standard_User_Profile;
+        }
+        return profileName;
     }
 }

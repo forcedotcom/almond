@@ -19,7 +19,7 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="{!$Page.MyTraining}">
-                    <apex:image value="{!IF(customLogo == null,URLFOR($Resource.almond_uilib, '/img/su_logo.png'),customLogo)}" />
+                    <apex:image value="{!IF(customLogo == null,URLFOR($Resource.almond_uilib, '/img/almond_logo.png'),customLogo)}" />
                 </a>
             </div>
 

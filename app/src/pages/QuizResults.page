@@ -50,7 +50,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                 </apex:actionStatus>
 
                 <div class="alert {!messageStyle}">
-                    <h3>{!resultPreMessage} {!$Label.ALMS_Quiz_Results_Eval_Message} : <b>{!evalResult}</b></h3>
+                    <h3>{!resultPreMessage} {!$Label.ALMS_Quiz_Results_Eval_Message} : <b>{!evalResultLabel}</b></h3>
                 </div>
 
                 <apex:outputPanel layout="none" rendered="{!maxAttemptsReached}">

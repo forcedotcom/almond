@@ -29,6 +29,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 public with sharing class QuizResultsController{
 
     public String evalResult{get;private set;}
+    public String evalResultLabel{get;private set;}
     public String evalScore{get;private set;}
     public Boolean showErrorButtons{get;private set;}
     public String messageStyle{get;set;}
@@ -66,6 +67,7 @@ public with sharing class QuizResultsController{
             showErrorButtons = false;
             messageStyle = 'alert-danger';
             resultPreMessage = '';
+            evalResultLabel = '';
 
             //Retrieve assignment id
             String aid = Apexpages.currentPage().getParameters().get('aid');
@@ -96,6 +98,9 @@ public with sharing class QuizResultsController{
                 if(evalResult == LMSConstants.ASSIGNMENT_EVAL_PASSED){
                     messageStyle = 'alert-success';
                     resultPreMessage = System.Label.ALMS_Quiz_Success_Pre_Message;
+                    evalResultLabel = System.Label.ALMS_Quiz_Passed;
+                }else{
+                    evalResultLabel = System.Label.ALMS_Quiz_Failed;
                 }
 
                 if(!isPreview && assignment.Learning_Version__r.Quiz__r.Max_Attempts__c != null && evalResult != LMSConstants.ASSIGNMENT_EVAL_PASSED){

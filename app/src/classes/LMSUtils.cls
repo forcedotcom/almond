@@ -51,9 +51,9 @@ public with sharing class LMSUtils{
         String result = '';
         if(mins != null){
             if(mins > 59){
-                result = ((Integer)(Math.floor(mins/60)))+' hr(s) '+Math.round((dblMOD((mins/60.0).doubleValue(),(1.0).doubleValue())*60.0))+' mins';
+                result = ((Integer)(Math.floor(mins/60)))+' '+System.Label.ALMS_Hours_Abbreviation+' '+Math.round((dblMOD((mins/60.0).doubleValue(),(1.0).doubleValue())*60.0))+' '+System.Label.ALMS_Minutes_Abbreviation;
             }else{
-                result = mins+' mins';
+                result = mins+' '+System.Label.ALMS_Minutes_Abbreviation;
             }
         }
 

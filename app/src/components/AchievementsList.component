@@ -27,7 +27,7 @@
 
                     <apex:outputPanel layout="none" rendered="{!o.status == 'Override'}">
 
-                        <apex:outputPanel layout="block" style="position:absolute;width:60%;"><span class="label label-info">{!o.assignment.Status__c}</span></apex:outputPanel>
+                        <apex:outputPanel layout="block" style="position:absolute;width:60%;"><span class="label label-info">{!IF(o.assignment.Status__c=='In Review',$Label.ALMS_Achievement_In_Review,o.assignment.Status__c)}</span></apex:outputPanel>
 
                         <apex:outputPanel layout="none" rendered="{!o.assignment.Achievement__r.Work_Badge_Image_URL__c == null}">
                             <apex:outputPanel layout="none" rendered="{!o.overrideURL != null}">

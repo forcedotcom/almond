@@ -88,7 +88,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                                     <h4>{!ti.trackItem.Training_Plan__r.Name}</h4>
                                     <apex:outputPanel layout="block" rendered="{!ti.tplanAssignment != null}">
                                         <label class="label {!IF(ti.tplanAssignment.Status__c=='Completed','label-success',IF(ti.tplanAssignment.Status__c=='In Progress','label-primary','label-default'))}">
-                                            {!ti.tplanAssignment.Status__c}
+                                            {!IF(ti.tplanAssignment.Status__c == 'Completed',$Label.ALMS_Training_Status_Completed, IF(ti.tplanAssignment.Status__c == 'In Progress', $Label.ALMS_Training_Status_In_Progress, $Label.ALMS_Training_Status_Not_Started))}
                                         </label>
                                     </apex:outputPanel>
                                     <apex:outputPanel layout="block" rendered="{!itemURL != null && ti.tplanAssignment == null}">

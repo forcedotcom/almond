@@ -78,7 +78,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                                     <h4>{!o.planName}</h4>
                                     <apex:outputPanel layout="block" rendered="{!o.assignmentStatus != null}">
                                         <label class="label {!IF(o.assignmentStatus=='Completed','label-success',IF(o.assignmentStatus=='In Progress','label-primary','label-default'))}">
-                                            {!o.assignmentStatus}
+                                            {!IF(o.assignmentStatus == 'Completed',$Label.ALMS_Training_Status_Completed, IF(o.assignmentStatus == 'In Progress', $Label.ALMS_Training_Status_In_Progress, $Label.ALMS_Training_Status_Not_Started))}
                                         </label>
                                     </apex:outputPanel>
                                     <apex:outputPanel layout="block" rendered="{!validAssignment && !o.hasAssignment}">

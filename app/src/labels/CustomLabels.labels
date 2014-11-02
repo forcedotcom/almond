@@ -86,7 +86,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Continue Old Version</shortDescription>
-        <value>Continue with old vesion</value>
+        <value>Continue with old version</value>
     </labels>
     <labels>
         <fullName>ALMS_Complete_Previous</fullName>
@@ -806,7 +806,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Resource Redirect Title</shortDescription>
-        <value>LMS - Redirection</value>
+        <value>Redirection</value>
     </labels>
     <labels>
         <fullName>ALMS_Update_Achievements</fullName>
@@ -1366,7 +1366,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Preview learning version error message</shortDescription>
-        <value>An error has occured while previewing the new version</value>
+        <value>An error has occurred while previewing the new version</value>
     </labels>
     <labels>
         <fullName>ALMS_Max_Approver_Notes_Error</fullName>
@@ -1655,5 +1655,85 @@
         <protected>false</protected>
         <shortDescription>Missing access for training track error message</shortDescription>
         <value>Sorry, you&apos;re not allowed to view this training track</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Training_Status_Not_Started</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Not Started Status picklist value</shortDescription>
+        <value>Not Started</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Training_Status_In_Progress</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>In Progress Status picklist value</shortDescription>
+        <value>Not Started</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Training_Status_Completed</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Completed Status picklist value</shortDescription>
+        <value>Completed</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Achievement_In_Review</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Achievement In Review</shortDescription>
+        <value>In Review</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Quiz_Passed</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Quiz Passed</shortDescription>
+        <value>Passed</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Quiz_Failed</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Quiz Failed</shortDescription>
+        <value>Failed</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Hours_Abbreviation</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Hours Abbreviation</shortDescription>
+        <value>hr(s)</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Minutes_Abbreviation</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Minutes abbreviation</shortDescription>
+        <value>mins</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Sys_Admin_Profile</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>System Administrator Profile</shortDescription>
+        <value>System Administrator</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Standard_User_Profile</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Standard User Profile</shortDescription>
+        <value>Standard User</value>
     </labels>
 </CustomLabels>

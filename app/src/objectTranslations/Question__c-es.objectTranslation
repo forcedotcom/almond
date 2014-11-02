@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Pregunta</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Preguntas</value>
+    </caseValues>
+    <fields>
+        <label>Secuencia de Respuestas</label>
+        <name>Answer_Sequence__c</name>
+        <relationshipLabel>Preguntas</relationshipLabel>
+    </fields>
+    <fields>
+        <label>Verdadero/Falso (Respuesta Correcta)</label>
+        <name>Correct_Boolean__c</name>
+        <picklistValues>
+            <masterLabel>false</masterLabel>
+            <translation>Falso</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>true</masterLabel>
+            <translation>Verdadero</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label>Numero (Respuesta Correcta)</label>
+        <name>Correct_Number__c</name>
+    </fields>
+    <fields>
+        <label>Descripcion (texto enriquecido)</label>
+        <name>Description_RTA__c</name>
+    </fields>
+    <fields>
+        <label>Descripcion</label>
+        <name>Description__c</name>
+    </fields>
+    <fields>
+        <label>Orden</label>
+        <name>Order__c</name>
+    </fields>
+    <fields>
+        <label>Seccion de Evaluacion</label>
+        <name>Question_Line__c</name>
+        <relationshipLabel>Preguntas</relationshipLabel>
+    </fields>
+    <fields>
+        <label>Tipo</label>
+        <name>Type__c</name>
+        <picklistValues>
+            <masterLabel>Boolean</masterLabel>
+            <translation>Verdaero/Falso</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Number</masterLabel>
+            <translation>Numero</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>SelectMultipleQuestion</masterLabel>
+            <translation>Seleccion Multiple</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>SelectOneQuestion</masterLabel>
+            <translation>Seleccion Unica</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Text</masterLabel>
+            <translation>Texto</translation>
+        </picklistValues>
+    </fields>
+    <layouts>
+        <layout>Question Layout</layout>
+        <sections>
+            <label>Enlaces Personalizados</label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label>Informacion de Pregunta</label>
+            <section>Question Information</section>
+        </sections>
+    </layouts>
+    <gender>Feminine</gender>
+    <nameFieldLabel>ID de Pregunta</nameFieldLabel>
+    <validationRules>
+        <errorMessage>Debe especificar una Secuencia de Respuestas para este tipo de pregunta</errorMessage>
+        <name>AnswerSequence_Required</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage>Debe especificar una opcion correcta para preguntas de tipo Verdadero/Falso</errorMessage>
+        <name>CorrectBoolean_Required</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage>Debe especificar un numero correcto para preguntas de tipo Numericas</errorMessage>
+        <name>CorrectNumber_Required</name>
+    </validationRules>
+</CustomObjectTranslation>

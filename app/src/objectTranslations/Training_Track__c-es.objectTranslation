@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Trayectoria</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Trayectorias</value>
+    </caseValues>
+    <fields>
+        <label>Logro</label>
+        <name>Achievement__c</name>
+        <relationshipLabel>Trayectorias</relationshipLabel>
+    </fields>
+    <fields>
+        <label>Color de Fondo</label>
+        <name>Background_Color__c</name>
+    </fields>
+    <fields>
+        <label>Liga de Imagen de Fondo</label>
+        <name>Background_Image_URL__c</name>
+    </fields>
+    <fields>
+        <label>Descripcion</label>
+        <name>Description__c</name>
+    </fields>
+    <fields>
+        <label>Orden</label>
+        <name>Order__c</name>
+    </fields>
+    <fields>
+        <label>Estado</label>
+        <name>Status__c</name>
+        <picklistValues>
+            <masterLabel>Active</masterLabel>
+            <translation>Activo</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Draft</masterLabel>
+            <translation>Borrador</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label>Color de Texto</label>
+        <name>Text_Color__c</name>
+    </fields>
+    <layouts>
+        <layout>Training Track Layout</layout>
+        <sections>
+            <label>Enlaces Personalizados</label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label>Informacion de Interfaz Grafica</label>
+            <section>Look and Feel Information</section>
+        </sections>
+    </layouts>
+    <gender>Feminine</gender>
+    <nameFieldLabel>Nombre de Trayectoria</nameFieldLabel>
+</CustomObjectTranslation>

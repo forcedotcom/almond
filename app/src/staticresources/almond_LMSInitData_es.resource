@@ -255,7 +255,7 @@
             "self-registration-access" : null,
             "sections" : [
                 {
-                    "name" : "Seccion 1",
+                    "name" : "Sección 1",
                     "order" : 1,
                     "items" : [
                         {
@@ -270,7 +270,7 @@
 
                 },
                 {
-                    "name" : "Seccion 2",
+                    "name" : "Sección 2",
                     "order" : 2,
                     "items" : [
                         {
@@ -285,12 +285,12 @@
 
                 },
                 {
-                    "name" : "Seccion 3",
+                    "name" : "Sección 3",
                     "order" : 3,
                     "items" : [
                         {
                             "order" : 1,
-                            "learning" : "Evaluacion 1"
+                            "learning" : "Evaluación 1"
                         }
                     ]
 

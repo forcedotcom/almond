@@ -175,46 +175,46 @@
             }
         },
         {
-            "name" : "Evaluacion 1",
+            "name" : "Evaluación 1",
             "record-type" : "Quiz",
             "duration" : 60,
-            "description" : "Evaluacion de Muestra",
+            "description" : "Evaluación de Muestra",
             "sync-progress" : false,
             "content" : {
-                "name":"Evaluacion de Muestra",
+                "name":"Evaluación de Muestra",
                 "passing-score":70.0,
                 "max-attempts":20,
                 "description":null,
                 "question-lines" : [
                     {
-                        "name" : "Pagina 1",
+                        "name" : "Página 1",
                         "order" : 1,
-                        "description" :"Descripcion Pagina 1",
+                        "description" :"Descripción Página 1",
                         "questions" :[
                             {
                                 "order" : 1,
-                                "description" : "Cuantas montanas puedes encontrar en San Francisco?",
+                                "description" : "¿Cuantas montañas puedes encontrar en San Francisco?",
                                 "type" : "SelectOneQuestion",
                                 "answer-sequence" : "sf-hills"
                             },
                             {
                                 "order" : 2,
-                                "description" : "Cual de los siguientes puentes esta ubicado en San Francisco?",
+                                "description" : "¿Cuál de los siguientes puentes está ubicado en San Francisco?",
                                 "type" : "SelectOneQuestion",
                                 "answer-sequence" : "sf-bridges"
                             },
                             {
                                 "order" : 3,
-                                "description" : "Que tan grande es San Francisco?",
+                                "description" : "¿Que tan grande es San Francisco?",
                                 "type" : "SelectOneQuestion",
                                 "answer-sequence" : "sf-size"
                             }
                         ]
                     },
                     {
-                        "name" : "Pagina 2",
+                        "name" : "Página 2",
                         "order" : 2,
-                        "description" :"Descripcion Pagina 2",
+                        "description" :"Descripción Página 2",
                         "questions" :[
                             {
                                 "order" : 1,
@@ -224,7 +224,7 @@
                             },
                             {
                                 "order" : 2,
-                                "description" : "Estas feliz de estar aqui?",
+                                "description" : "¿Estas feliz de estar aqui?",
                                 "type" : "Boolean",
                                 "correct-boolean" : "true"
                             }
@@ -248,7 +248,7 @@
     "plan-objects":[
         {
             "name" : "Curso de muestra",
-            "description" : "Description de curso de muestra",
+            "description" : "Descripción de curso de muestra",
             "status" : "Active",
             "enforce-sequence" : true,
             "enable-self-registration" : false,

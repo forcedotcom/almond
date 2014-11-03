@@ -872,6 +872,10 @@
         <label>Usuario estándar</label>
         <name>ALMS_Standard_User_Profile</name>
     </customLabels>
+    <customLabels>
+        <label>Filtrar Asignados</label>
+        <name>ALMS_Filter_Existing_Assignments</name>
+    </customLabels>
     <customTabs>
         <label>Aprendizaje</label>
         <name>Learning</name>

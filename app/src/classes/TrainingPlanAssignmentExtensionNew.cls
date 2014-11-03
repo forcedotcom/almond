@@ -35,6 +35,7 @@ public with sharing class TrainingPlanAssignmentExtensionNew{
     public String roleId{get;set;}
     public Training_Plan_Assignment__c dummyAssignment{get;set;}
     private String trainingPlanId;
+    public Boolean filterExistingUsers{get;set;}
 
     public List<UserWrapper> users{get;set;}
 
@@ -48,6 +49,7 @@ public with sharing class TrainingPlanAssignmentExtensionNew{
     public TrainingPlanAssignmentExtensionNew(ApexPages.StandardController cont){
         init();
         trainingPlanId = cont.getRecord().Id;
+        filterExistingUsers = true;
     }
 
     private void init(){
@@ -85,12 +87,13 @@ public with sharing class TrainingPlanAssignmentExtensionNew{
         Set<Id> existingUserIds = new Set<Id>();
 
         //Get existing assignments
-        //TODO : Filter assignments based on the returned user ids
-        for(Training_Plan_Assignment__c tpa : [select id
-                                                    ,User__c
-                                                    from Training_Plan_Assignment__c
-                                                    where Training_Plan__c = :trainingPlanId]){
-            existingUserIds.add(tpa.User__c);
+        if(filterExistingUsers){
+            for(Training_Plan_Assignment__c tpa : [select id
+                                                        ,User__c
+                                                        from Training_Plan_Assignment__c
+                                                        where Training_Plan__c = :trainingPlanId]){
+                existingUserIds.add(tpa.User__c);
+            }
         }
 
         users = new List<UserWrapper>();

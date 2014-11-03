@@ -1736,4 +1736,13 @@
         <shortDescription>Standard User Profile</shortDescription>
         <value>Standard User</value>
     </labels>
+    <labels>
+        <fullName>ALMS_Filter_Existing_Assignments</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Checkbox for filtering existing assignments</shortDescription>
+        <value>Filter Assigned Users</value>
+    </labels>
+
 </CustomLabels>

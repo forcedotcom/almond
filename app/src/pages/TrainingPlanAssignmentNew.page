@@ -72,6 +72,10 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                                     <apex:outputLabel value="{!$Label.ALMS_Manager}" for="manager__Search"/>
                                     <apex:inputField id="manager__Search" value="{!dummyAssignment.User__c}" />
                                 </apex:pageBlockSectionItem>
+                                <apex:pageBlockSectionItem >
+                                    <apex:outputLabel value="{!$Label.ALMS_Filter_Existing_Assignments}" for="filterext__Search"/>
+                                    <apex:inputCheckBox id="filterext__Search" value="{!filterExistingUsers}" />
+                                </apex:pageBlockSectionItem>
                                 <apex:pageBlockSectionItem dataStyle="width:100%;text-align:center;">
                                     <apex:commandButton value="{!$Label.ALMS_Search_Button}" action="{!searchUsers}" styleClass="btnImportant" rerender="searchPB" status="status"/>
                                 </apex:pageBlockSectionItem>

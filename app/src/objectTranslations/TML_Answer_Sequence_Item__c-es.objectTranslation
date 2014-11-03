@@ -2,11 +2,11 @@
 <CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
     <caseValues>
         <plural>false</plural>
-        <value>Plantilla Opcion de Respuesta</value>
+        <value>Plantilla Opción de Respuesta</value>
     </caseValues>
     <caseValues>
         <plural>true</plural>
-        <value>Plantillas Opcion de Respuesta</value>
+        <value>Plantillas Opción de Respuesta</value>
     </caseValues>
     <fields>
         <label>Texto de Respuesta</label>
@@ -27,7 +27,7 @@
     <fields>
         <label>Plantilla Secuencia de Respuestas</label>
         <name>TML_Answer_Sequence__c</name>
-        <relationshipLabel>Plantillas Opcion de Respuesta</relationshipLabel>
+        <relationshipLabel>Plantillas Opción de Respuesta</relationshipLabel>
     </fields>
     <layouts>
         <layout>TML Answer Sequence Item Layout</layout>
@@ -39,7 +39,7 @@
     <gender>Feminine</gender>
     <nameFieldLabel>ID de Plantilla</nameFieldLabel>
     <validationRules>
-        <errorMessage>Id de Opcion de respuesta contiene caracteres especiales que no son soportados, favor de actualizar el Id</errorMessage>
+        <errorMessage>Id de Opción de respuesta contiene caracteres especiales que no son soportados, favor de actualizar el Id</errorMessage>
         <name>item_id_specia_chars_validation</name>
     </validationRules>
 </CustomObjectTranslation>

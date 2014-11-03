@@ -2,11 +2,11 @@
 <CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
     <caseValues>
         <plural>false</plural>
-        <value>Categoria de Logro</value>
+        <value>Categoría de Logro</value>
     </caseValues>
     <caseValues>
         <plural>true</plural>
-        <value>Categorias de Logros</value>
+        <value>Categorías de Logros</value>
     </caseValues>
     <layouts>
         <layout>Achivement Category Layout</layout>
@@ -16,5 +16,5 @@
         </sections>
     </layouts>
     <gender>Feminine</gender>
-    <nameFieldLabel>Nombre de Categoria de Logro</nameFieldLabel>
+    <nameFieldLabel>Nombre de Categoría de Logro</nameFieldLabel>
 </CustomObjectTranslation>

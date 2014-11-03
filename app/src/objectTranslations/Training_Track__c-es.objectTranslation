@@ -22,7 +22,7 @@
         <name>Background_Image_URL__c</name>
     </fields>
     <fields>
-        <label>Descripcion</label>
+        <label>Descripción</label>
         <name>Description__c</name>
     </fields>
     <fields>
@@ -52,7 +52,7 @@
             <section>Custom Links</section>
         </sections>
         <sections>
-            <label>Informacion de Interfaz Grafica</label>
+            <label>Información de Interfaz Grafica</label>
             <section>Look and Feel Information</section>
         </sections>
     </layouts>

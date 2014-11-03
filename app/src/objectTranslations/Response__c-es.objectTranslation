@@ -26,12 +26,12 @@
         <relationshipLabel>Respuestas</relationshipLabel>
     </fields>
     <fields>
-        <label>Asignacion de Aprendizaje</label>
+        <label>Asignación de Aprendizaje</label>
         <name>Learning_Assignment__c</name>
         <relationshipLabel>Respuestas</relationshipLabel>
     </fields>
     <fields>
-        <label>Respuesta Numerica</label>
+        <label>Respuesta Numérica</label>
         <name>Number_Response__c</name>
     </fields>
     <fields>
@@ -64,7 +64,7 @@
         <name>Response_Text__c</name>
     </fields>
     <fields>
-        <label>Asignacion Compartida de Aprendizaje</label>
+        <label>Asignación Compartida de Aprendizaje</label>
         <name>Shared_Learning_Assignment__c</name>
         <relationshipLabel>Respuestas</relationshipLabel>
     </fields>

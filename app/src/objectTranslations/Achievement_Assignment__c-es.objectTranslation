@@ -2,7 +2,7 @@
 <CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
     <caseValues>
         <plural>false</plural>
-        <value>Asignacion de Logro</value>
+        <value>Asignación de Logro</value>
     </caseValues>
     <caseValues>
         <plural>true</plural>
@@ -57,5 +57,5 @@
         </sections>
     </layouts>
     <gender>Feminine</gender>
-    <nameFieldLabel>ID de Asignacion de Logro</nameFieldLabel>
+    <nameFieldLabel>ID de Asignación de Logro</nameFieldLabel>
 </CustomObjectTranslation>

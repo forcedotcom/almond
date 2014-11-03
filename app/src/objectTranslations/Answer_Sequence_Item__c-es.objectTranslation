@@ -2,7 +2,7 @@
 <CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
     <caseValues>
         <plural>false</plural>
-        <value>Opcion de Respuesta</value>
+        <value>Opción de Respuesta</value>
     </caseValues>
     <caseValues>
         <plural>true</plural>
@@ -37,9 +37,9 @@
         </sections>
     </layouts>
     <gender>Feminine</gender>
-    <nameFieldLabel>ID de Opcion de Respuesta</nameFieldLabel>
+    <nameFieldLabel>ID de Opción de Respuesta</nameFieldLabel>
     <validationRules>
-        <errorMessage>Id de Opcion de respuesta contiene caracteres especiales que no son soportados, favor de actualizar el Id</errorMessage>
+        <errorMessage>Id de Opción de respuesta contiene caracteres especiales que no son soportados, favor de actualizar el Id</errorMessage>
         <name>item_id_specia_chars_validation</name>
     </validationRules>
 </CustomObjectTranslation>

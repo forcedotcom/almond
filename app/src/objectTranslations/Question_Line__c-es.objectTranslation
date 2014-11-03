@@ -2,14 +2,14 @@
 <CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
     <caseValues>
         <plural>false</plural>
-        <value>Seccion de Evaluacion</value>
+        <value>Sección de Evaluación</value>
     </caseValues>
     <caseValues>
         <plural>true</plural>
-        <value>Secciones de Evaluacion</value>
+        <value>Secciones de Evaluación</value>
     </caseValues>
     <fields>
-        <label>Description</label>
+        <label>Descripción</label>
         <name>Description__c</name>
     </fields>
     <fields>
@@ -17,9 +17,9 @@
         <name>Order__c</name>
     </fields>
     <fields>
-        <label>Evaluacion</label>
+        <label>Evaluación</label>
         <name>Quiz__c</name>
-        <relationshipLabel>Secciones de Evaluacion</relationshipLabel>
+        <relationshipLabel>Secciones de Evaluación</relationshipLabel>
     </fields>
     <fields>
         <label>Total de Preguntas</label>
@@ -32,10 +32,10 @@
             <section>Custom Links</section>
         </sections>
         <sections>
-            <label>Informacion Opcional</label>
+            <label>Información Opcional</label>
             <section>Optional Information</section>
         </sections>
     </layouts>
     <gender>Feminine</gender>
-    <nameFieldLabel>ID de Seccion</nameFieldLabel>
+    <nameFieldLabel>ID de Sección</nameFieldLabel>
 </CustomObjectTranslation>

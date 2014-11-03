@@ -2,14 +2,14 @@
 <CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
     <caseValues>
         <plural>false</plural>
-        <value>Operacion Masiva de Curso</value>
+        <value>Operación Masiva de Curso</value>
     </caseValues>
     <caseValues>
         <plural>true</plural>
         <value>Operaciones Masivas de Curso</value>
     </caseValues>
     <fields>
-        <label>Informacion Adicional</label>
+        <label>Información Adicional</label>
         <name>Additional_Information__c</name>
     </fields>
     <fields>
@@ -50,7 +50,7 @@
         </picklistValues>
         <picklistValues>
             <masterLabel>Update Assignments</masterLabel>
-            <translation>Actualizar Asignacinoes</translation>
+            <translation>Actualizar Asignaciones</translation>
         </picklistValues>
         <picklistValues>
             <masterLabel>Upsert Assignments</masterLabel>
@@ -60,7 +60,7 @@
     <layouts>
         <layout>Training Plan Batch Operation Layout</layout>
         <sections>
-            <label>Informacion Adicional</label>
+            <label>Información Adicional</label>
             <section>Additional Information</section>
         </sections>
         <sections>
@@ -69,5 +69,5 @@
         </sections>
     </layouts>
     <gender>Feminine</gender>
-    <nameFieldLabel>ID de Operacion</nameFieldLabel>
+    <nameFieldLabel>ID de Operación</nameFieldLabel>
 </CustomObjectTranslation>

@@ -2,7 +2,7 @@
 <CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
     <caseValues>
         <plural>false</plural>
-        <value>Asignaciones de Seccion de Curso</value>
+        <value>Asignaciones de Sección de Curso</value>
     </caseValues>
     <caseValues>
         <plural>true</plural>
@@ -25,19 +25,19 @@
         </picklistValues>
     </fields>
     <fields>
-        <label>Asignacion de Curso</label>
+        <label>Asignación de Curso</label>
         <name>Training_Plan_Assignment__c</name>
-        <relationshipLabel>Asignaciones de Seccion de Curso</relationshipLabel>
+        <relationshipLabel>Asignaciones de Sección de Curso</relationshipLabel>
     </fields>
     <fields>
-        <label>Seccion de Curso</label>
+        <label>Sección de Curso</label>
         <name>Training_Plan_Section__c</name>
-        <relationshipLabel>Asignaciones de Seccion de Curso</relationshipLabel>
+        <relationshipLabel>Asignaciones de Sección de Curso</relationshipLabel>
     </fields>
     <fields>
         <label>Usuario</label>
         <name>User__c</name>
-        <relationshipLabel>Asignaciones de Seccion de Curso</relationshipLabel>
+        <relationshipLabel>Asignaciones de Sección de Curso</relationshipLabel>
     </fields>
     <layouts>
         <layout>Training Plan Section Assignment Layout</layout>
@@ -47,5 +47,5 @@
         </sections>
     </layouts>
     <gender>Feminine</gender>
-    <nameFieldLabel>ID de Asignacion de Seccion</nameFieldLabel>
+    <nameFieldLabel>ID de Asignación de Sección</nameFieldLabel>
 </CustomObjectTranslation>

@@ -2,11 +2,11 @@
 <CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
     <caseValues>
         <plural>false</plural>
-        <value>Categoria de Aprendizaje</value>
+        <value>Categoría de Aprendizaje</value>
     </caseValues>
     <caseValues>
         <plural>true</plural>
-        <value>Categorias de Aprendizaje</value>
+        <value>Categorías de Aprendizaje</value>
     </caseValues>
     <fields>
         <label>Liga para imagen de fondo</label>
@@ -31,10 +31,10 @@
             <section>Custom Links</section>
         </sections>
         <sections>
-            <label>Informacion de Interfaz Grafica</label>
+            <label>Información de Interfaz Grafica</label>
             <section>Look and Feel Information</section>
         </sections>
     </layouts>
     <gender>Feminine</gender>
-    <nameFieldLabel>Categoria de Aprendizaje</nameFieldLabel>
+    <nameFieldLabel>Categoría de Aprendizaje</nameFieldLabel>
 </CustomObjectTranslation>

@@ -9,11 +9,11 @@
         <value>Aprendizajes de Curso</value>
     </caseValues>
     <fields>
-        <label>Duracion (minutos)</label>
+        <label>Duración (minutos)</label>
         <name>Duration__c</name>
     </fields>
     <fields>
-        <label>Duracion (horas)</label>
+        <label>Duración (horas)</label>
         <name>Duration_hours__c</name>
     </fields>
     <fields>
@@ -30,7 +30,7 @@
         <name>Order__c</name>
     </fields>
     <fields>
-        <label>Seccion de Curso</label>
+        <label>Sección de Curso</label>
         <name>Training_Plan_Section__c</name>
         <relationshipLabel>Aprendizajes de Curso</relationshipLabel>
     </fields>

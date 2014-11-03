@@ -26,15 +26,15 @@
         </picklistValues>
     </fields>
     <fields>
-        <label>Numero (Respuesta Correcta)</label>
+        <label>Número (Respuesta Correcta)</label>
         <name>Correct_Number__c</name>
     </fields>
     <fields>
-        <label>Descripcion (texto enriquecido)</label>
+        <label>Descripción (texto enriquecido)</label>
         <name>Description_RTA__c</name>
     </fields>
     <fields>
-        <label>Descripcion</label>
+        <label>Descripción</label>
         <name>Description__c</name>
     </fields>
     <fields>
@@ -42,7 +42,7 @@
         <name>Order__c</name>
     </fields>
     <fields>
-        <label>Seccion de Evaluacion</label>
+        <label>Sección de Evaluación</label>
         <name>Question_Line__c</name>
         <relationshipLabel>Preguntas</relationshipLabel>
     </fields>
@@ -51,19 +51,19 @@
         <name>Type__c</name>
         <picklistValues>
             <masterLabel>Boolean</masterLabel>
-            <translation>Verdaero/Falso</translation>
+            <translation>Verdadero/Falso</translation>
         </picklistValues>
         <picklistValues>
             <masterLabel>Number</masterLabel>
-            <translation>Numero</translation>
+            <translation>Número</translation>
         </picklistValues>
         <picklistValues>
             <masterLabel>SelectMultipleQuestion</masterLabel>
-            <translation>Seleccion Multiple</translation>
+            <translation>Selección Múltiple</translation>
         </picklistValues>
         <picklistValues>
             <masterLabel>SelectOneQuestion</masterLabel>
-            <translation>Seleccion Unica</translation>
+            <translation>Selección Única</translation>
         </picklistValues>
         <picklistValues>
             <masterLabel>Text</masterLabel>
@@ -77,7 +77,7 @@
             <section>Custom Links</section>
         </sections>
         <sections>
-            <label>Informacion de Pregunta</label>
+            <label>Información de Pregunta</label>
             <section>Question Information</section>
         </sections>
     </layouts>
@@ -88,11 +88,11 @@
         <name>AnswerSequence_Required</name>
     </validationRules>
     <validationRules>
-        <errorMessage>Debe especificar una opcion correcta para preguntas de tipo Verdadero/Falso</errorMessage>
+        <errorMessage>Debe especificar una opción correcta para preguntas de tipo Verdadero/Falso</errorMessage>
         <name>CorrectBoolean_Required</name>
     </validationRules>
     <validationRules>
-        <errorMessage>Debe especificar un numero correcto para preguntas de tipo Numericas</errorMessage>
+        <errorMessage>Debe especificar un número correcto para preguntas de tipo Numéricas</errorMessage>
         <name>CorrectNumber_Required</name>
     </validationRules>
 </CustomObjectTranslation>

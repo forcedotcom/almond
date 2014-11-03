@@ -9,11 +9,11 @@
         <value>Recursos de Aprendizaje</value>
     </caseValues>
     <fields>
-        <label>Anadir parametros de Aprendizaje a la liga</label>
+        <label>Añadir parámetros de Aprendizaje a la liga</label>
         <name>Add_training_parameters_to_URL__c</name>
     </fields>
     <fields>
-        <label>Descripcion</label>
+        <label>Descripción</label>
         <name>Description__c</name>
     </fields>
     <fields>
@@ -26,7 +26,7 @@
         <relationshipLabel>Recursos de Aprendizaje</relationshipLabel>
     </fields>
     <fields>
-        <label>Delegar la terminacion de Asignacion</label>
+        <label>Delegar la terminación de Asignación</label>
         <name>Prevent_completion_on_launch__c</name>
     </fields>
     <fields>
@@ -40,7 +40,7 @@
             <section>Custom Links</section>
         </sections>
         <sections>
-            <label>Informacion Opcional</label>
+            <label>Información Opcional</label>
             <section>Optional Information</section>
         </sections>
     </layouts>

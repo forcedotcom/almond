@@ -9,7 +9,7 @@
         <value>Logros</value>
     </caseValues>
     <fields>
-        <label>Categoria de Logro</label>
+        <label>Categoría de Logro</label>
         <name>Achievement_Category__c</name>
         <relationshipLabel>Logros</relationshipLabel>
     </fields>
@@ -22,26 +22,26 @@
         <name>Eligible_Image__c</name>
     </fields>
     <fields>
-        <label>Fecha de Expiracion</label>
+        <label>Fecha de Expiración</label>
         <name>Expiration_Date__c</name>
     </fields>
     <fields>
-        <help>Si esta seleccionado, este logro no sera desplegado en el perfil de los usuarios</help>
+        <help>Si esta seleccionado, este logro no será desplegado en el perfil de los usuarios</help>
         <label>Ocultar</label>
         <name>Hidden__c</name>
     </fields>
     <fields>
-        <help>Sobreescribir el estado Adquirido, mostrara el estado seleccionado aqui en lugar del estado Adquirido. Es su responsabilidad crear un proceso que mueva la asignacion del Logro al estado Adquirido.</help>
-        <label>Sobreescritura de Estado Adquirido</label>
+        <help>Sobrescribir el estado Adquirido, mostrará el estado seleccionado aquí en lugar del estado Adquirido. Es su responsabilidad crear un proceso que mueva la asignación del Logro al estado Adquirido.</help>
+        <label>Sobre escritura de Estado Adquirido</label>
         <name>Override_Completed_Status__c</name>
         <picklistValues>
             <masterLabel>In Review</masterLabel>
-            <translation>En Revision</translation>
+            <translation>En Revisión</translation>
         </picklistValues>
     </fields>
     <fields>
         <help>Especifique una liga a la cual los usuarios serian enviados cuando presionen la imagen en su Perfil.</help>
-        <label>Enlace de Sobreescritura</label>
+        <label>Enlace de Sobre escritura</label>
         <name>Override_URL__c</name>
     </fields>
     <fields>
@@ -84,7 +84,7 @@
             <section>Custom Links</section>
         </sections>
         <sections>
-            <label>Informacion Opcional de Asignacion Opcional</label>
+            <label>Información Opcional de Asignación</label>
             <section>Optional Assignment Information</section>
         </sections>
         <sections>
@@ -92,7 +92,7 @@
             <section>Work.com Badge</section>
         </sections>
         <sections>
-            <label>Informacion de Insignia Work.com</label>
+            <label>Información de Insignia Work.com</label>
             <section>Work.com Badge Information</section>
         </sections>
     </layouts>

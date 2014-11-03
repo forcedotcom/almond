@@ -2,14 +2,14 @@
 <CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
     <caseValues>
         <plural>false</plural>
-        <value>Evaluacion</value>
+        <value>Evaluación</value>
     </caseValues>
     <caseValues>
         <plural>true</plural>
         <value>Evaluaciones</value>
     </caseValues>
     <fields>
-        <label>Descripcion</label>
+        <label>Descripción</label>
         <name>Description__c</name>
     </fields>
     <fields>
@@ -18,11 +18,11 @@
         <relationshipLabel>Evaluaciones</relationshipLabel>
     </fields>
     <fields>
-        <label>Maximo Numero de Intentos</label>
+        <label>Máximo Número de Intentos</label>
         <name>Max_Attempts__c</name>
     </fields>
     <fields>
-        <label>Calificacion de Pase</label>
+        <label>Calificación de Pase</label>
         <name>Passing_Score__c</name>
     </fields>
     <fields>
@@ -36,14 +36,14 @@
             <section>Custom Links</section>
         </sections>
         <sections>
-            <label>Informacion Opcional</label>
+            <label>Información Opcional</label>
             <section>Optional Information</section>
         </sections>
         <sections>
-            <label>Informacion de Calificacion</label>
+            <label>Información de Calificación</label>
             <section>Score Information</section>
         </sections>
     </layouts>
     <gender>Feminine</gender>
-    <nameFieldLabel>Nombre de Evaluacion</nameFieldLabel>
+    <nameFieldLabel>Nombre de Evaluación</nameFieldLabel>
 </CustomObjectTranslation>

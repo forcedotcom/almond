@@ -9,28 +9,28 @@
         <value>Aprendizajes</value>
     </caseValues>
     <fields>
-        <label>Actual Version Publicada</label>
+        <label>Actual Versión Publicada</label>
         <name>Current_Published_Version_Formula__c</name>
     </fields>
     <fields>
-        <label>Actual Version Publicada</label>
+        <label>Actual Versión Publicada</label>
         <name>Current_Published_Version__c</name>
         <relationshipLabel>Aprendizajes</relationshipLabel>
     </fields>
     <fields>
-        <label>Enlace de Vista Previa Personalizado</label>
+        <label>Enlace de Vista Previa Personalizada</label>
         <name>Custom_Preview_URL__c</name>
     </fields>
     <fields>
-        <label>Descripcion</label>
+        <label>Descripción</label>
         <name>Description__c</name>
     </fields>
     <fields>
-        <label>Duracion (minutos)</label>
+        <label>Duración (minutos)</label>
         <name>Duration__c</name>
     </fields>
     <fields>
-        <label>Duraction (horas)</label>
+        <label>Duración (horas)</label>
         <name>Duration_hours__c</name>
     </fields>
     <fields>
@@ -73,7 +73,7 @@
     <gender>Masculine</gender>
     <nameFieldLabel>Nombre de Aprendizaje</nameFieldLabel>
     <recordTypes>
-        <label>Evaluacion</label>
+        <label>Evaluación</label>
         <name>Quiz</name>
     </recordTypes>
     <recordTypes>
@@ -85,11 +85,11 @@
         <name>Task</name>
     </recordTypes>
     <sharingReasons>
-        <label>Aprendizaje - Aprobacion</label>
+        <label>Aprendizaje - Aprobación</label>
         <name>LMS_Approval_Sharing</name>
     </sharingReasons>
     <sharingReasons>
-        <label>Aprendizaje - Colaboracion</label>
+        <label>Aprendizaje - Colaboración</label>
         <name>LMS_Sharing</name>
     </sharingReasons>
     <webLinks>

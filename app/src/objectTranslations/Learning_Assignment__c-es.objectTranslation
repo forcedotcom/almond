@@ -2,7 +2,7 @@
 <CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
     <caseValues>
         <plural>false</plural>
-        <value>Asignacion de Aprendizaje</value>
+        <value>Asignación de Aprendizaje</value>
     </caseValues>
     <caseValues>
         <plural>true</plural>
@@ -18,7 +18,7 @@
         <name>Approved__c</name>
     </fields>
     <fields>
-        <label>Notas de Aprobacion</label>
+        <label>Notas de Aprobación</label>
         <name>Approver_Notes__c</name>
     </fields>
     <fields>
@@ -27,11 +27,11 @@
         <relationshipLabel>Asignaciones de Aprendizaje</relationshipLabel>
     </fields>
     <fields>
-        <label>Resultado de Evaluacion (Texto)</label>
+        <label>Resultado de Evaluación (Texto)</label>
         <name>Evaluation_Result_Text__c</name>
     </fields>
     <fields>
-        <label>Resultado de Evaluacion</label>
+        <label>Resultado de Evaluación</label>
         <name>Evaluation_Result__c</name>
         <picklistValues>
             <masterLabel>Failed</masterLabel>
@@ -47,39 +47,39 @@
         </picklistValues>
     </fields>
     <fields>
-        <label>Calificacion de Evaluacion</label>
+        <label>Calificación de Evaluación</label>
         <name>Evaluation_Score__c</name>
     </fields>
     <fields>
-        <label>Numero de Intentos de la Evaluacion</label>
+        <label>Número de Intentos de la Evaluación</label>
         <name>Evaluation_Times_Taken__c</name>
     </fields>
     <fields>
-        <help>Esta bandera indica que esta asignacion ha sido creada para una vista previa del Aprendizaje</help>
-        <label>Asignacion de Prueba</label>
+        <help>Esta bandera indica que esta asignación ha sido creada para una vista previa del Aprendizaje</help>
+        <label>Asignación de Prueba</label>
         <name>Is_Test_Assignment__c</name>
     </fields>
     <fields>
-        <label>Ultima Decision para Version Publicada de Aprendizaje</label>
+        <label>Última Decisión para Version Publicada de Aprendizaje</label>
         <name>Last_Published_Learning_Version_Decision__c</name>
         <picklistValues>
-            <masterLabel>Keep using old version</masterLabel>
-            <translation>Continuar con la version anterior</translation>
+           <masterLabel>Keep using old version</masterLabel>
+           <translation>Continuar con la versión anterior</translation>
         </picklistValues>
         <picklistValues>
-            <masterLabel>New version taken</masterLabel>
-            <translation>Tomar la nueva version</translation>
+           <masterLabel>New version taken</masterLabel>
+           <translation>Tomar la nueva versión</translation>
         </picklistValues>
     </fields>
     <fields>
-        <label>Ultima Version Publicada de Aprendizaje</label>
+        <label>Última Versión Publicada de Aprendizaje</label>
         <name>Last_Published_Learning_Version__c</name>
         <relationshipLabel>Asignaciones de Aprendizaje</relationshipLabel>
     </fields>
     <fields>
-        <label>Version de Aprendizaje</label>
+        <label>Versión de Aprendizaje</label>
         <name>Learning_Version__c</name>
-        <relationshipLabel>Asignaciones de Aprendizaje (Version Aprendizaje)</relationshipLabel>
+        <relationshipLabel>Asignaciones de Aprendizaje (Versión Aprendizaje)</relationshipLabel>
     </fields>
     <fields>
         <label>Aprendizaje</label>
@@ -115,7 +115,7 @@
         </picklistValues>
         <picklistValues>
             <masterLabel>In Review</masterLabel>
-            <translation>En Revision</translation>
+            <translation>En Revisión</translation>
         </picklistValues>
         <picklistValues>
             <masterLabel>Not Started</masterLabel>
@@ -123,12 +123,12 @@
         </picklistValues>
     </fields>
     <fields>
-        <label>Asignacion de Aprendizaje Compartido</label>
+        <label>Asignación de Aprendizaje Compartido</label>
         <name>Shared_Learning_Assignment__c</name>
         <relationshipLabel>Asignaciones de Aprendizaje</relationshipLabel>
     </fields>
     <fields>
-        <label>Asignacion de Secion de Curso</label>
+        <label>Asignación de Sección de Curso</label>
         <name>Training_Plan_Section_Assignment__c</name>
         <relationshipLabel>Asignaciones de Aprendizaje</relationshipLabel>
     </fields>
@@ -138,7 +138,7 @@
         <relationshipLabel>Asignaciones de Aprendizaje</relationshipLabel>
     </fields>
     <fields>
-        <label>Seccion de Curso</label>
+        <label>Sección de Curso</label>
         <name>Training_Plan_Section__c</name>
         <relationshipLabel>Asignaciones de Aprendizaje</relationshipLabel>
     </fields>
@@ -148,18 +148,18 @@
         <relationshipLabel>Asignaciones de Aprendizaje</relationshipLabel>
     </fields>
     <fields>
-        <label>Ususario</label>
+        <label>Usuario</label>
         <name>User__c</name>
         <relationshipLabel>Asignaciones de Aprendizaje (Usuario)</relationshipLabel>
     </fields>
     <layouts>
         <layout>Learning Assignment Layout</layout>
         <sections>
-            <label>Informacion Adicional</label>
+            <label>Información Adicional</label>
             <section>Additional Information</section>
         </sections>
         <sections>
-            <label>Informacion de Aprobacion</label>
+            <label>Información de Aprobación</label>
             <section>Approval Information</section>
         </sections>
         <sections>
@@ -167,20 +167,20 @@
             <section>Custom Links</section>
         </sections>
         <sections>
-            <label>Informacion de Evaluacion</label>
+            <label>Información de Evaluación</label>
             <section>Evaluation Information</section>
         </sections>
         <sections>
-            <label>Informacion de Versiones</label>
+            <label>Información de Versiones</label>
             <section>Versioning Information</section>
         </sections>
     </layouts>
     <sharingReasons>
-        <label>Aprendizaje - Colaboracion</label>
+        <label>Aprendizaje - Colaboración</label>
         <name>LMS_Approval_Sharing</name>
     </sharingReasons>
     <gender>Masculine</gender>
-    <nameFieldLabel>ID de Asignacion de Aprendizaje</nameFieldLabel>
+    <nameFieldLabel>ID de Asignación de Aprendizaje</nameFieldLabel>
     <webLinks>
         <label>Aprobar</label>
         <name>Approve</name>

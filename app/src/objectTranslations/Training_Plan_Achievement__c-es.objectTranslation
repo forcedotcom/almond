@@ -18,7 +18,7 @@
         <name>Main_Achievement__c</name>
     </fields>
     <fields>
-        <label>Seccion de Curso</label>
+        <label>Sección de Curso</label>
         <name>Training_Plan_Section__c</name>
         <relationshipLabel>Logros de Curso</relationshipLabel>
     </fields>
@@ -36,7 +36,7 @@
         </picklistValues>
         <picklistValues>
             <masterLabel>Section</masterLabel>
-            <translation>Seccion</translation>
+            <translation>Sección</translation>
         </picklistValues>
     </fields>
     <layouts>

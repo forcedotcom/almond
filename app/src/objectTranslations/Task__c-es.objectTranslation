@@ -9,11 +9,11 @@
         <value>Tareas</value>
     </caseValues>
     <fields>
-        <label>Anadir parametros de aprendizaje a la liga</label>
+        <label>Añadir parámetros de aprendizaje a la liga</label>
         <name>Add_training_parameters_to_URL__c</name>
     </fields>
     <fields>
-        <label>Descripcion</label>
+        <label>Descripción</label>
         <name>Description__c</name>
     </fields>
     <fields>
@@ -46,7 +46,7 @@
         <relationshipLabel>Tareas</relationshipLabel>
     </fields>
     <fields>
-        <label>Require aprobacion del Gestor para completar</label>
+        <label>Requiere aprobación del Gestor para completar</label>
         <name>Requires_Manager_Approval__c</name>
     </fields>
     <layouts>
@@ -56,7 +56,7 @@
             <section>Custom Links</section>
         </sections>
         <sections>
-            <label>Informacion Opcional</label>
+            <label>Información Opcional</label>
             <section>Optional Information</section>
         </sections>
     </layouts>

@@ -9,7 +9,7 @@
         <value>Niveles de Trayectoria</value>
     </caseValues>
     <fields>
-        <label>Descripcion</label>
+        <label>Descripción</label>
         <name>Description__c</name>
     </fields>
     <fields>
@@ -28,6 +28,6 @@
             <section>Custom Links</section>
         </sections>
     </layouts>
-    <gender>Feminine</gender>
+    <gender>Masculine</gender>
     <nameFieldLabel>Nombre de Nivel</nameFieldLabel>
 </CustomObjectTranslation>

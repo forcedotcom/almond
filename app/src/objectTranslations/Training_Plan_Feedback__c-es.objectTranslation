@@ -13,7 +13,7 @@
         <name>Comments__c</name>
     </fields>
     <fields>
-        <label>Calificacion</label>
+        <label>Calificación</label>
         <name>Rating__c</name>
     </fields>
     <fields>

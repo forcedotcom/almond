@@ -2,11 +2,11 @@
 <CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
     <caseValues>
         <plural>false</plural>
-        <value>Registro de Operacion Masiva</value>
+        <value>Registro de Operación Masiva</value>
     </caseValues>
     <caseValues>
         <plural>true</plural>
-        <value>Registros de Operacion Masiva</value>
+        <value>Registros de Operación Masiva</value>
     </caseValues>
     <fields>
         <label>Llave de Registro</label>
@@ -17,7 +17,7 @@
         <name>Record_Type__c</name>
     </fields>
     <fields>
-        <label>Operacion Masiva de Curso</label>
+        <label>Operación Masiva de Curso</label>
         <name>Training_Plan_Batch_Operation__c</name>
         <relationshipLabel>Registros de Operaciones Masivas</relationshipLabel>
     </fields>
@@ -29,5 +29,5 @@
         </sections>
     </layouts>
     <gender>Masculine</gender>
-    <nameFieldLabel>ID de Registro de Operacion Masiva</nameFieldLabel>
+    <nameFieldLabel>ID de Registro de Operación Masiva</nameFieldLabel>
 </CustomObjectTranslation>

@@ -13,21 +13,21 @@
         <name>Background_Color__c</name>
     </fields>
     <fields>
-        <help>Liga hacia la imagen que sera desplegada en el encabezado del curso</help>
+        <help>Liga hacia la imagen que será desplegada en el encabezado del curso</help>
         <label>Liga a Imagen de Fondo</label>
         <name>Background_Image_URL__c</name>
     </fields>
     <fields>
-        <help>Deshabilitar esta opcion si no desea que los usuarios reciban notificaciones en Chatter al crear asignaciones</help>
+        <help>Deshabilitar esta opción si no desea que los usuarios reciban notificaciones en Chatter al crearles asignaciones</help>
         <label>Habilitar Notificaciones en Chatter</label>
         <name>Chatter_Notifications_Enabled__c</name>
     </fields>
     <fields>
-        <label>Descripcion</label>
+        <label>Descripción</label>
         <name>Description__c</name>
     </fields>
     <fields>
-        <help>Habilitar esta opcion si desea que este curso este disponible para toda la empresa y que los usuarios se registren ellos mismos</help>
+        <help>Habilitar esta opción si desea que este curso este disponible para toda la empresa y que los usuarios se registren ellos mismos</help>
         <label>Habilitar Auto-Registro</label>
         <name>Enable_Self_Registration__c</name>
     </fields>
@@ -40,12 +40,12 @@
         <name>Enforce_Sequence__c</name>
     </fields>
     <fields>
-        <help>Liga para el video introductio que sera mostrado en el detalle del curso</help>
+        <help>Liga para el video introductorio que será mostrado en el detalle del curso</help>
         <label>Liga a video introductorio</label>
         <name>Intro_Video_URL__c</name>
     </fields>
     <fields>
-        <help>Acceso Publico o sin valor permite que los usuarios se auto-registren al curso. Require Aprobacion guarda un registro de Aprobacion que debe ser procesado por el propetario del curso.</help>
+        <help>Acceso Publico o sin valor permite que los usuarios se auto-registren al curso. Requiere Aprobación guarda un registro de Aprobación que debe ser procesado por el propietario del curso.</help>
         <label>Acceso para Auto-Registro</label>
         <name>Self_Registration_Access__c</name>
         <picklistValues>
@@ -54,7 +54,7 @@
         </picklistValues>
         <picklistValues>
             <masterLabel>Requires Approval</masterLabel>
-            <translation>Require Aprobacion</translation>
+            <translation>Requiere Aprobación</translation>
         </picklistValues>
     </fields>
     <fields>
@@ -82,7 +82,7 @@
         <name>Total_Ratings_Count__c</name>
     </fields>
     <fields>
-        <label>Suma total de Califaciones</label>
+        <label>Suma total de Calificaciones</label>
         <name>Total_Ratings_Sum__c</name>
     </fields>
     <fields>
@@ -90,13 +90,13 @@
         <name>Total_Section_Items__c</name>
     </fields>
     <fields>
-        <label>Calificacion de Curso</label>
+        <label>Calificación de Curso</label>
         <name>Training_Plan_Rating__c</name>
     </fields>
     <layouts>
         <layout>Training Plan Layout</layout>
         <sections>
-            <label>Informacion Adicional</label>
+            <label>Información Adicional</label>
             <section>Additional Information</section>
         </sections>
         <sections>
@@ -108,19 +108,19 @@
             <section>Custom Links</section>
         </sections>
         <sections>
-            <label>Informacion de Interfaz Grafica</label>
+            <label>Información de Interfaz Grafica</label>
             <section>Look and Feel Information</section>
         </sections>
         <sections>
-            <label>Informacion de Calificacion</label>
+            <label>Información de Calificación</label>
             <section>Rating Information</section>
         </sections>
         <sections>
-            <label>Informacion de Auto-Registro</label>
+            <label>Información de Auto-Registro</label>
             <section>Self-Registration Information</section>
         </sections>
         <sections>
-            <label>Informacion de Secuencia</label>
+            <label>Información de Secuencia</label>
             <section>Sequence Information</section>
         </sections>
     </layouts>
@@ -129,7 +129,7 @@
         <name>Add_Achievement</name>
     </quickActions>
     <quickActions>
-        <label>Agregar Seccion</label>
+        <label>Agregar Sección</label>
         <name>Add_Section</name>
     </quickActions>
     <quickActions>
@@ -141,7 +141,7 @@
         <name>Update_Plan_Assignments</name>
     </quickActions>
     <sharingReasons>
-        <label>Aprendizaje - Colaboracion</label>
+        <label>Aprendizaje - Colaboración</label>
         <name>LMS_Sharing</name>
     </sharingReasons>
     <gender>Masculine</gender>

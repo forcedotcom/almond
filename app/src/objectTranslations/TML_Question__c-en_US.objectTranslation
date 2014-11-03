@@ -73,4 +73,16 @@
         </sections>
     </layouts>
     <startsWith>Consonant</startsWith>
+    <validationRules>
+        <errorMessage><!-- You must specify an answer sequence for this type of question --></errorMessage>
+        <name>AnswerSequence_Required</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- You must specify a correct boolean value when defining a Boolean type of question --></errorMessage>
+        <name>CorrectBoolean_Required</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- You must specify a correct number value when defining a Number type of question --></errorMessage>
+        <name>CorrectNumber_Required</name>
+    </validationRules>
 </CustomObjectTranslation>

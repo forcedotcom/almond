@@ -28,7 +28,7 @@
         }
     </style>
     <div class="componentMask-overlay">
-         <apex:image value="{!$Resource.almond_loading_generic}"/>
+         <apex:image value="{!URLFOR($Resource.almond_uilib, '/img/almond_loading_generic.gif')}"/>
     </div>
     <div class="componentMask"></div>
 

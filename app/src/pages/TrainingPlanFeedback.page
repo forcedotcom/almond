@@ -53,7 +53,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                 </apex:define>
 
                 <apex:define name="hero-banner-footer">
-                	<span>Overall Rating : {!tPlan.trainingPlan.Training_Plan_Rating__c}</span>
+                	<span>{!$Label.ALMS_Overall_Rating} : {!tPlan.trainingPlan.Training_Plan_Rating__c}</span>
                 </apex:define>
 
                 <apex:define name="hero-banner-badge">
@@ -66,11 +66,11 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                 <apex:define name="container-header">
                     <div class="row almond-nav" >
                         <div class="btn-group col-xs-12 col-sm-12 col-md-12">
-                            <a href="javascript:almond.redirectHandlerWithStatus('{!IF(isPreview,$Page.TrainingPlanPreview,$Page.TrainingPlanDetail)}?id={!tplan.trainingPlan.Id}')" class="btn btn-default col-xs-4 col-sm-3 col-md-3" >Detail</a>
+                            <a href="javascript:almond.redirectHandlerWithStatus('{!IF(isPreview,$Page.TrainingPlanPreview,$Page.TrainingPlanDetail)}?id={!tplan.trainingPlan.Id}')" class="btn btn-default col-xs-4 col-sm-3 col-md-3">{!$Label.ALMS_Detail}</a>
                             <apex:outputPanel layout="none" rendered="{!tPlan.trainingPlan.Intro_Video_URL__c != null}">
-                                <a href="javascript:launchLearning('{!tPlan.trainingPlan.Intro_Video_URL__c}','iframe')" class="btn btn-default col-xs-4 col-sm-3 col-md-3">Intro Video</a>
+                                <a href="javascript:launchLearning('{!tPlan.trainingPlan.Intro_Video_URL__c}','iframe')" class="btn btn-default col-xs-4 col-sm-3 col-md-3">{!$Label.ALMS_Intro_Video}</a>
                             </apex:outputPanel>
-                            <a href="javascript:void(0)" class="btn btn-default col-xs-4 col-sm-3 col-md-3 almond-nav-active">Feedback</a>
+                            <a href="javascript:void(0)" class="btn btn-default col-xs-4 col-sm-3 col-md-3 almond-nav-active">{!$Label.ALMS_Feedback}</a>
                         </div>
                     </div>
                 </apex:define>
@@ -90,15 +90,15 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                                     <div class="panel-body">
 
                                         <div class="form-group">
-                                            <label>Rating : </label>
+                                            <label>{!$Label.ALMS_Feedback_Rating} : </label>
                                             <div id="feedback-rating" class="rateit bigstars" data-rateit-step="1" data-rateit-starwidth="32" data-rateit-starheight="32"></div>
                                             <apex:inputHidden id="feedbackRating" value="{!feedback.Rating__c}" />
                                         </div>
                                         <div class="form-group">
-                                            <label>Comments : </label>
+                                            <label>{!$Label.ALMS_Feedback_Comments} : </label>
                                             <apex:inputField value="{!feedback.Comments__c}" styleClass="form-control" />
                                         </div>
-                                        <apex:commandButton value="Submit" action="{!submitFeedback}" styleClass="btn btn-success" status="status" rerender="feedbackContent" />
+                                        <apex:commandButton value="{!$Label.ALMS_Feedback_Submit}" action="{!submitFeedback}" styleClass="btn btn-success" status="status" rerender="feedbackContent" />
                                     </div>
                                 </div>
                             </div>
@@ -120,7 +120,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                                             <div><img src="{!c.User__r.SmallPhotoUrl}" class="profilePic-header-45"/></div>
                                             <div><span class="feedback-username">{!c.User__r.Name}</span></div>
                                             <apex:outputPanel layout="none" rendered="{!c.Rating__c != null && c.Rating__c > 0 }">
-                                                <div><span class="feedback-rating">Rating : {!c.Rating__c}</span></div>
+                                                <div><span class="feedback-rating">{!$Label.ALMS_Feedback_Rating} : {!c.Rating__c}</span></div>
                                             </apex:outputPanel>
                                         </div>
                                         <div class="col-md-6">
@@ -141,7 +141,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                                           <apex:outputPanel layout="none" rendered="{!!hasPrevious}">
                                             <li><span>&lt;&lt;</span></li>
                                           </apex:outputPanel>
-                                          <li><label style="padding:0 10px;">page {!pageNumber} of {!totalPages}</label></li>
+                                          <li><label style="padding:0 10px;">{!$Label.ALMS_Search_Page} {!pageNumber} {!$Label.ALMS_Search_Page_Separator} {!totalPages}</label></li>
                                           <apex:outputPanel layout="none" rendered="{!hasNext}">
                                             <li><apex:commandLink action="{!doNext}" rendered="{!hasNext}" value=">>" rerender="feedbackContent" status="status"/></li>
                                           </apex:outputPanel>
@@ -155,7 +155,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                             </apex:outputPanel>
                             <apex:outputPanel layout="none" rendered="{!!isAssignedToTrainingPlan && (comments == null || comments.size == 0)}">
                                 <div style="width:100%;text-align:center;padding:20px;0;">
-                                    <h2>{!$Label.LMSUI_Nothing_to_see}</h2>
+                                    <h2>{!$Label.ALMS_Nothing_to_see}</h2>
                                 </div>
                             </apex:outputPanel>
 
@@ -184,13 +184,13 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                                         <h4 class="modal-title" style="display:inline-block;"></h4>
                                     </div>
                                     <div class="modal-body" style="text-align:center;">
-                                        <a id="contentLink" href="javascript:void(0)" >Open in new window</a>
+                                        <a id="contentLink" href="javascript:void(0)">{!$Label.ALMS_Open_New_Window}</a>
                                         <div id="contentIframeWrapper" style="padding:10px 0;">
                                             <iframe id="contentIframe" style="width:100%;"/>
                                         </div>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="almond-secondary-btn small-btn" data-dismiss="modal">Close</button>
+                                        <button type="button" class="almond-secondary-btn small-btn" data-dismiss="modal">{!$Label.ALMS_Close}</button>
                                     </div>
                                 </div>
 

@@ -8,6 +8,47 @@
         <plural>true</plural>
         <value>Task</value>
     </caseValues>
+    <fields>
+        <label><!-- Add training parameters to URL --></label>
+        <name>Add_training_parameters_to_URL__c</name>
+    </fields>
+    <fields>
+        <label><!-- Description --></label>
+        <name>Description__c</name>
+    </fields>
+    <fields>
+        <label><!-- Enable Image Upload --></label>
+        <name>Enable_Image_Upload__c</name>
+    </fields>
+    <fields>
+        <label><!-- External Resource Name --></label>
+        <name>External_Resource_Name__c</name>
+    </fields>
+    <fields>
+        <label><!-- External Resource Target --></label>
+        <name>External_Resource_Target__c</name>
+        <picklistValues>
+            <masterLabel>blank</masterLabel>
+            <translation><!-- blank --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>self</masterLabel>
+            <translation><!-- self --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- External Resource URL --></label>
+        <name>External_Resource_URL__c</name>
+    </fields>
+    <fields>
+        <label><!-- Learning --></label>
+        <name>Learning__c</name>
+        <relationshipLabel><!-- Task --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Requires Manager Approval to Complete --></label>
+        <name>Requires_Manager_Approval__c</name>
+    </fields>
     <layouts>
         <layout>Task Layout</layout>
         <sections>

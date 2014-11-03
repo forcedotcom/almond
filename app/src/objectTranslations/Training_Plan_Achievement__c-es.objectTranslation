@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Logro de Curso</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Logros de Curso</value>
+    </caseValues>
+    <fields>
+        <label>Logro</label>
+        <name>Achievement__c</name>
+        <relationshipLabel>Logros de Curso</relationshipLabel>
+    </fields>
+    <fields>
+        <label>Logro Principal</label>
+        <name>Main_Achievement__c</name>
+    </fields>
+    <fields>
+        <label>Sección de Curso</label>
+        <name>Training_Plan_Section__c</name>
+        <relationshipLabel>Logros de Curso</relationshipLabel>
+    </fields>
+    <fields>
+        <label>Curso</label>
+        <name>Training_Plan__c</name>
+        <relationshipLabel>Logros de Curso</relationshipLabel>
+    </fields>
+    <fields>
+        <label>Tipo</label>
+        <name>Type__c</name>
+        <picklistValues>
+            <masterLabel>Plan</masterLabel>
+            <translation>Curso</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Section</masterLabel>
+            <translation>Sección</translation>
+        </picklistValues>
+    </fields>
+    <layouts>
+        <layout>Training Plan Achievement Layout</layout>
+        <sections>
+            <label>Enlaces Personalizados</label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <gender>Masculine</gender>
+    <nameFieldLabel>ID de Logro de Curso</nameFieldLabel>
+</CustomObjectTranslation>

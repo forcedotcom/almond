@@ -52,7 +52,7 @@ public with sharing class TrainingPlanFeedbackController{
         if(isAllowedToView){
             init();
         }else{
-            LMSUtils.addErrorMessage('You don\'t have access to view this training plan.');
+            LMSUtils.addErrorMessage(System.Label.ALMS_Training_Plan_No_Access_Message);
         }
     }
 
@@ -81,9 +81,9 @@ public with sharing class TrainingPlanFeedbackController{
 
     public PageReference submitFeedback(){
         if(String.isBlank(feedback.Comments__c)){
-            LMSUtils.addErrorMessage('You must provide comments to submit feedback');
+            LMSUtils.addErrorMessage(System.Label.ALMS_Feedback_Missing_Comments);
         }else if (feedback.Rating__c  != null && feedback.Rating__c != 0 && existingFeedback != null){
-            LMSUtils.addErrorMessage('You\'ve already given a rating to this training plan');
+            LMSUtils.addErrorMessage(System.Label.ALMS_Feedback_Existing_Rating);
         }else{
             try{
                 LMSService.insertTrainingPlanFeedback(feedback);

@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Curso</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Cursos</value>
+    </caseValues>
+    <fields>
+        <label>Color de Fondo</label>
+        <name>Background_Color__c</name>
+    </fields>
+    <fields>
+        <help>Liga hacia la imagen que será desplegada en el encabezado del curso</help>
+        <label>Liga a Imagen de Fondo</label>
+        <name>Background_Image_URL__c</name>
+    </fields>
+    <fields>
+        <help>Deshabilitar esta opción si no desea que los usuarios reciban notificaciones en Chatter al crearles asignaciones</help>
+        <label>Habilitar Notificaciones en Chatter</label>
+        <name>Chatter_Notifications_Enabled__c</name>
+    </fields>
+    <fields>
+        <label>Descripción</label>
+        <name>Description__c</name>
+    </fields>
+    <fields>
+        <help>Habilitar esta opción si desea que este curso este disponible para toda la empresa y que los usuarios se registren ellos mismos</help>
+        <label>Habilitar Auto-Registro</label>
+        <name>Enable_Self_Registration__c</name>
+    </fields>
+    <fields>
+        <label>Fecha de Termino</label>
+        <name>End_Date__c</name>
+    </fields>
+    <fields>
+        <label>Respetar Secuencia</label>
+        <name>Enforce_Sequence__c</name>
+    </fields>
+    <fields>
+        <help>Liga para el video introductorio que será mostrado en el detalle del curso</help>
+        <label>Liga a video introductorio</label>
+        <name>Intro_Video_URL__c</name>
+    </fields>
+    <fields>
+        <help>Acceso Publico o sin valor permite que los usuarios se auto-registren al curso. Requiere Aprobación guarda un registro de Aprobación que debe ser procesado por el propietario del curso.</help>
+        <label>Acceso para Auto-Registro</label>
+        <name>Self_Registration_Access__c</name>
+        <picklistValues>
+            <masterLabel>Public</masterLabel>
+            <translation>Publico</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Requires Approval</masterLabel>
+            <translation>Requiere Aprobación</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label>Fecha de Inicio</label>
+        <name>Start_Date__c</name>
+    </fields>
+    <fields>
+        <label>Estado</label>
+        <name>Status__c</name>
+        <picklistValues>
+            <masterLabel>Active</masterLabel>
+            <translation>Activo</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Draft</masterLabel>
+            <translation>Borrador</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label>Color de Texto</label>
+        <name>Text_Color__c</name>
+    </fields>
+    <fields>
+        <label>Total de Comentarios</label>
+        <name>Total_Ratings_Count__c</name>
+    </fields>
+    <fields>
+        <label>Suma total de Calificaciones</label>
+        <name>Total_Ratings_Sum__c</name>
+    </fields>
+    <fields>
+        <label>Total de Aprendizajes de Curso</label>
+        <name>Total_Section_Items__c</name>
+    </fields>
+    <fields>
+        <label>Calificación de Curso</label>
+        <name>Training_Plan_Rating__c</name>
+    </fields>
+    <layouts>
+        <layout>Training Plan Layout</layout>
+        <sections>
+            <label>Información Adicional</label>
+            <section>Additional Information</section>
+        </sections>
+        <sections>
+            <label>Tableros</label>
+            <section>Charts</section>
+        </sections>
+        <sections>
+            <label>Enlaces Personalizados</label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label>Información de Interfaz Grafica</label>
+            <section>Look and Feel Information</section>
+        </sections>
+        <sections>
+            <label>Información de Calificación</label>
+            <section>Rating Information</section>
+        </sections>
+        <sections>
+            <label>Información de Auto-Registro</label>
+            <section>Self-Registration Information</section>
+        </sections>
+        <sections>
+            <label>Información de Secuencia</label>
+            <section>Sequence Information</section>
+        </sections>
+    </layouts>
+    <quickActions>
+        <label>Agregar Logro</label>
+        <name>Add_Achievement</name>
+    </quickActions>
+    <quickActions>
+        <label>Agregar Sección</label>
+        <name>Add_Section</name>
+    </quickActions>
+    <quickActions>
+        <label>Actualizar Logros</label>
+        <name>Update_Plan_Achievements</name>
+    </quickActions>
+    <quickActions>
+        <label>Actualizar Asignaciones</label>
+        <name>Update_Plan_Assignments</name>
+    </quickActions>
+    <sharingReasons>
+        <label>Aprendizaje - Colaboración</label>
+        <name>LMS_Sharing</name>
+    </sharingReasons>
+    <gender>Masculine</gender>
+    <nameFieldLabel>Nombre de Curso</nameFieldLabel>
+    <validationRules>
+        <errorMessage>Fecha de Inicio no puede ser mayor a Fecha de Termino</errorMessage>
+        <name>Date_Validation</name>
+    </validationRules>
+    <webLinks>
+        <label>Gestionar Logros</label>
+        <name>Manage_Achievements</name>
+    </webLinks>
+    <webLinks>
+        <label>Gestionar Asignaciones</label>
+        <name>Manage_Assignments</name>
+    </webLinks>
+</CustomObjectTranslation>

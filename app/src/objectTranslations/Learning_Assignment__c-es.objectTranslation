@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Asignación de Aprendizaje</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Asignaciones de Aprendizaje</value>
+    </caseValues>
+    <fields>
+        <label>Aprobado por</label>
+        <name>Approved_By__c</name>
+        <relationshipLabel>Asignaciones de Aprendizaje (Aprobadas Por)</relationshipLabel>
+    </fields>
+    <fields>
+        <label>Aprobado</label>
+        <name>Approved__c</name>
+    </fields>
+    <fields>
+        <label>Notas de Aprobación</label>
+        <name>Approver_Notes__c</name>
+    </fields>
+    <fields>
+        <label>Contacto</label>
+        <name>Contact__c</name>
+        <relationshipLabel>Asignaciones de Aprendizaje</relationshipLabel>
+    </fields>
+    <fields>
+        <label>Resultado de Evaluación (Texto)</label>
+        <name>Evaluation_Result_Text__c</name>
+    </fields>
+    <fields>
+        <label>Resultado de Evaluación</label>
+        <name>Evaluation_Result__c</name>
+        <picklistValues>
+            <masterLabel>Failed</masterLabel>
+            <translation>Reprobado</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>N/A</masterLabel>
+            <translation>N/A</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Passed</masterLabel>
+            <translation>Aprobado</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label>Calificación de Evaluación</label>
+        <name>Evaluation_Score__c</name>
+    </fields>
+    <fields>
+        <label>Número de Intentos de la Evaluación</label>
+        <name>Evaluation_Times_Taken__c</name>
+    </fields>
+    <fields>
+        <help>Esta bandera indica que esta asignación ha sido creada para una vista previa del Aprendizaje</help>
+        <label>Asignación de Prueba</label>
+        <name>Is_Test_Assignment__c</name>
+    </fields>
+    <fields>
+        <label>Última Decisión para Version Publicada de Aprendizaje</label>
+        <name>Last_Published_Learning_Version_Decision__c</name>
+        <picklistValues>
+           <masterLabel>Keep using old version</masterLabel>
+           <translation>Continuar con la versión anterior</translation>
+        </picklistValues>
+        <picklistValues>
+           <masterLabel>New version taken</masterLabel>
+           <translation>Tomar la nueva versión</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label>Última Versión Publicada de Aprendizaje</label>
+        <name>Last_Published_Learning_Version__c</name>
+        <relationshipLabel>Asignaciones de Aprendizaje</relationshipLabel>
+    </fields>
+    <fields>
+        <label>Versión de Aprendizaje</label>
+        <name>Learning_Version__c</name>
+        <relationshipLabel>Asignaciones de Aprendizaje (Versión Aprendizaje)</relationshipLabel>
+    </fields>
+    <fields>
+        <label>Aprendizaje</label>
+        <name>Learning__c</name>
+        <relationshipLabel>Asignaciones de Aprendizaje</relationshipLabel>
+    </fields>
+    <fields>
+        <label>Opcional</label>
+        <name>Optional__c</name>
+    </fields>
+    <fields>
+        <label>% de Progreso</label>
+        <name>Progress_Percentage__c</name>
+    </fields>
+    <fields>
+        <label>Progreso (Texto)</label>
+        <name>Progress_Text__c</name>
+    </fields>
+    <fields>
+        <label>Progreso</label>
+        <name>Progress__c</name>
+        <picklistValues>
+            <masterLabel>Cancelled</masterLabel>
+            <translation>Cancelado</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Completed</masterLabel>
+            <translation>Completo</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>In Progress</masterLabel>
+            <translation>En Proceso</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>In Review</masterLabel>
+            <translation>En Revisión</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Not Started</masterLabel>
+            <translation>No Iniciado</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label>Asignación de Aprendizaje Compartido</label>
+        <name>Shared_Learning_Assignment__c</name>
+        <relationshipLabel>Asignaciones de Aprendizaje</relationshipLabel>
+    </fields>
+    <fields>
+        <label>Asignación de Sección de Curso</label>
+        <name>Training_Plan_Section_Assignment__c</name>
+        <relationshipLabel>Asignaciones de Aprendizaje</relationshipLabel>
+    </fields>
+    <fields>
+        <label>Aprendizaje de Curso</label>
+        <name>Training_Plan_Section_Item__c</name>
+        <relationshipLabel>Asignaciones de Aprendizaje</relationshipLabel>
+    </fields>
+    <fields>
+        <label>Sección de Curso</label>
+        <name>Training_Plan_Section__c</name>
+        <relationshipLabel>Asignaciones de Aprendizaje</relationshipLabel>
+    </fields>
+    <fields>
+        <label>Curso</label>
+        <name>Training_Plan__c</name>
+        <relationshipLabel>Asignaciones de Aprendizaje</relationshipLabel>
+    </fields>
+    <fields>
+        <label>Usuario</label>
+        <name>User__c</name>
+        <relationshipLabel>Asignaciones de Aprendizaje (Usuario)</relationshipLabel>
+    </fields>
+    <layouts>
+        <layout>Learning Assignment Layout</layout>
+        <sections>
+            <label>Información Adicional</label>
+            <section>Additional Information</section>
+        </sections>
+        <sections>
+            <label>Información de Aprobación</label>
+            <section>Approval Information</section>
+        </sections>
+        <sections>
+            <label>Enlaces Personalizados</label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label>Información de Evaluación</label>
+            <section>Evaluation Information</section>
+        </sections>
+        <sections>
+            <label>Información de Versiones</label>
+            <section>Versioning Information</section>
+        </sections>
+    </layouts>
+    <sharingReasons>
+        <label>Aprendizaje - Colaboración</label>
+        <name>LMS_Approval_Sharing</name>
+    </sharingReasons>
+    <gender>Masculine</gender>
+    <nameFieldLabel>ID de Asignación de Aprendizaje</nameFieldLabel>
+    <webLinks>
+        <label>Aprobar</label>
+        <name>Approve</name>
+    </webLinks>
+</CustomObjectTranslation>

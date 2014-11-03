@@ -31,7 +31,15 @@ public with sharing class LMSInit{
     public class LMSInitException extends Exception{}
 
     private static String fetchInitData(){
-        Blob body = [select body from StaticResource where Name = 'almond_LMSInitData' limit 1].body;
+        String resourceName = 'almond_LMSInitData';
+        if(UserInfo.getLanguage() != 'en_US'){
+            String translatedResourceName = resourceName+'_'+UserInfo.getLanguage();
+            List<StaticResource> sResources = [select id from StaticResource where Name = :translatedResourceName];
+            if(sResources.size()>0){
+              resourceName = translatedResourceName;
+            }
+        }
+        Blob body = [select body from StaticResource where Name = :resourceName limit 1].body;
         return body.toString();
     }
 

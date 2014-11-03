@@ -38,32 +38,32 @@ global with sharing class TPlanAchievementAssignmentsUpdateBatch implements Data
 
     global Database.QueryLocator start(Database.BatchableContext BC){
 
-		//BEGIN Access Check
-			Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
-	        relatedFieldsObjects.put(Training_Plan_Assignment__c.sObjectType,new List<String>{
-	        	'Id'
-				,'User__c'
-	        });
-			LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
-		//END Access Check
+        //BEGIN Access Check
+        Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
+        relatedFieldsObjects.put(Training_Plan_Assignment__c.sObjectType,new List<String>{
+            'Id'
+            ,'User__c'
+        });
+        LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
+        //END Access Check
 
-		//BEGIN Access Check
-			Map<Schema.sObjectType,List<String>> relatedFieldsObjectsUpdate = new Map<Schema.sObjectType,List<String>>();
-	        relatedFieldsObjectsUpdate.put(Training_Plan_Batch_Operation__c.sObjectType,new List<String>{
-				'Type__c'
-				,'Successes__c'
-				,'Status__c'
-				,'Errors__c'
-				,'Additional_Information__c'
-	        });
-			LMS_ESAPI.isAuthorizedToUpdate(relatedFieldsObjectsUpdate);
-		//END Access Check
+        //BEGIN Access Check
+        Map<Schema.sObjectType,List<String>> relatedFieldsObjectsUpdate = new Map<Schema.sObjectType,List<String>>();
+        relatedFieldsObjectsUpdate.put(Training_Plan_Batch_Operation__c.sObjectType,new List<String>{
+            'Type__c'
+            ,'Successes__c'
+            ,'Status__c'
+            ,'Errors__c'
+            ,'Additional_Information__c'
+        });
+        LMS_ESAPI.isAuthorizedToUpdate(relatedFieldsObjectsUpdate);
+        //END Access Check
 
-		Training_Plan_Batch_Operation__c tpbo = new Training_Plan_Batch_Operation__c(id=tPlanBatchOpId);
-		tpbo.Status__c = 'In Progress';
-		tpbo.Successes__c = 0;
-		tpbo.Errors__c = 0;
-		update tpbo;
+        Training_Plan_Batch_Operation__c tpbo = new Training_Plan_Batch_Operation__c(id=tPlanBatchOpId);
+        tpbo.Status__c = 'In Progress';
+        tpbo.Successes__c = 0;
+        tpbo.Errors__c = 0;
+        update tpbo;
 
         String currentTPlan = trainingplanId;
         String soql = 'select id,User__c from Training_Plan_Assignment__c where Training_Plan__c = :currentTPlan';
@@ -72,17 +72,16 @@ global with sharing class TPlanAchievementAssignmentsUpdateBatch implements Data
 
     global void execute(Database.BatchableContext BC, List<sObject> scope){
 
-		//BEGIN Access Check
-			Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
-	        relatedFieldsObjects.put(Achievement_Assignment__c.sObjectType,new List<String>{
-				'User__c'
-				,'Training_Plan_Achievement__c'
-				,'Achievement__c'
-				,'Status__c'
-
-	        });
-			LMS_ESAPI.isAuthorizedToCreate(relatedFieldsObjects);
-		//END Access Check
+        //BEGIN Access Check
+        Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
+        relatedFieldsObjects.put(Achievement_Assignment__c.sObjectType,new List<String>{
+            'User__c'
+            ,'Training_Plan_Achievement__c'
+            ,'Achievement__c'
+            ,'Status__c'
+        });
+        LMS_ESAPI.isAuthorizedToCreate(relatedFieldsObjects);
+        //END Access Check
 
         List<Achievement_Assignment__c> aas = new List<Achievement_Assignment__c>();
         Set<Id> userIdsInScope = new Set<Id>();
@@ -96,42 +95,42 @@ global with sharing class TPlanAchievementAssignmentsUpdateBatch implements Data
 
         //Upsert AA records
         if(userIdsInScope.size()>0){
-        	Boolean success = true;
-        	String errorMessage = null;
-        	try{
-            	LMSService.upsertAchievementAssignments(userIdsInScope,trainingplanId);
-        	}catch(Exception e){
-        		success = false;
-        		errorMessage = e.getMessage();
-        	}
+            Boolean success = true;
+            String errorMessage = null;
+            try{
+                LMSService.upsertAchievementAssignments(userIdsInScope,trainingplanId);
+            }catch(Exception e){
+                success = false;
+                errorMessage = e.getMessage();
+            }
 
-			List<Training_Plan_Batch_Operation__c> tpbos = [select id
-															,Training_Plan__c
-															,Status__c
-															,Successes__c
-															,Errors__c
-															,Additional_Information__c
-															from Training_Plan_Batch_Operation__c
-															where id = :tPlanBatchOpId limit 1];
+            List<Training_Plan_Batch_Operation__c> tpbos = [select id
+                                                                    ,Training_Plan__c
+                                                                    ,Status__c
+                                                                    ,Successes__c
+                                                                    ,Errors__c
+                                                                    ,Additional_Information__c
+                                                                    from Training_Plan_Batch_Operation__c
+                                                                    where id = :tPlanBatchOpId limit 1];
 
-			Training_Plan_Batch_Operation__c tpbo = tpbos.get(0);
+            Training_Plan_Batch_Operation__c tpbo = tpbos.get(0);
 
-			if(success){
-				tpbo.Successes__c = tpbo.Successes__c + userIdsInScope.size();
-			}else{
-				tpbo.Errors__c = tpbo.Errors__c + userIdsInScope.size();
-				tpbo.Additional_Information__c = errorMessage;
-			}
-			update tpbo;
+            if(success){
+                tpbo.Successes__c = tpbo.Successes__c + userIdsInScope.size();
+            }else{
+                tpbo.Errors__c = tpbo.Errors__c + userIdsInScope.size();
+                tpbo.Additional_Information__c = errorMessage;
+            }
+            update tpbo;
         }
 
     }
 
     global void finish(Database.BatchableContext BC){
-		if(tPlanBatchOpId !=  null){
-			Training_Plan_Batch_Operation__c tpbo = new Training_Plan_Batch_Operation__c(Id=tPlanBatchOpId);
-			tpbo.Status__c = 'Completed';
-			update tpbo;
-		}
+        if(tPlanBatchOpId !=  null){
+            Training_Plan_Batch_Operation__c tpbo = new Training_Plan_Batch_Operation__c(Id=tPlanBatchOpId);
+            tpbo.Status__c = 'Completed';
+            update tpbo;
+        }
     }
 }

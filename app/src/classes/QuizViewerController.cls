@@ -134,7 +134,7 @@ public with sharing class QuizViewerController{
                                     where id = :aid];
 
                 if(assignment.Learning_Version__r.Quiz__c == null){
-                    LMSUtils.addErrorMessage('Invalid Assignment Id');
+                    LMSUtils.addErrorMessage(System.Label.ALMS_Invalid_Assignment_Id);
                     return;
                 }else{
                     quiz = assignment.Learning_Version__r.Quiz__r;
@@ -160,7 +160,7 @@ public with sharing class QuizViewerController{
                 totalPages = questionLines.size();
 
             }else{
-                LMSUtils.addErrorMessage('Invalid Assignment Id');
+                LMSUtils.addErrorMessage(System.Label.ALMS_Invalid_Assignment_Id);
                 return;
             }
 
@@ -339,7 +339,7 @@ public with sharing class QuizViewerController{
 
             }
 
-            LMSUtils.addErrorMessage('No remaining question lines found');
+            LMSUtils.addErrorMessage(System.Label.ALMS_No_Remaining_Question_Lines);
 
         }catch(QuizException qe){
             LMSUtils.addErrorMessage(qe.getMessage());
@@ -402,14 +402,20 @@ public with sharing class QuizViewerController{
 
         for (QuizItem qi : quizItemList) {
             tosave.add(qi.response);
+            Boolean missingAnswer = false;
+            // TODO : Add different error message based on question type
             if ((qi.question.Type__c == 'SelectOneQuestion' || qi.question.Type__c == 'SelectMultipleQuestion' ) && String.isBlank(qi.response.Response_Answer_Sequence_Long__c)) {
-                throw new QuizException('You must answer all of the questions to continue');
+                missingAnswer = true;
             }else if(qi.question.Type__c == 'Text' && String.isBlank(qi.response.Response_Text_Long__c)){
-                throw new QuizException('You must answer all of the questions to continue');
+                missingAnswer = true;
             }else if(qi.question.Type__c == 'Number' && qi.response.Number_Response__c == null){
-                throw new QuizException('You must answer all of the questions to continue');
+                missingAnswer = true;
             }else if(qi.question.Type__c == 'Boolean' && String.isBlank(qi.response.Boolean_Response__c)){
-                throw new QuizException('You must answer all of the questions to continue');
+                missingAnswer = true;
+            }
+
+            if(missingAnswer){
+              throw new QuizException(System.Label.ALMS_Quiz_Missing_Answers);
             }
         }
 

@@ -8,6 +8,23 @@
         <plural>true</plural>
         <value>Question Lines</value>
     </caseValues>
+    <fields>
+        <label><!-- Description --></label>
+        <name>Description__c</name>
+    </fields>
+    <fields>
+        <label><!-- Order --></label>
+        <name>Order__c</name>
+    </fields>
+    <fields>
+        <label><!-- Quiz --></label>
+        <name>Quiz__c</name>
+        <relationshipLabel><!-- Question Lines --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Total Questions --></label>
+        <name>Total_Questions__c</name>
+    </fields>
     <layouts>
         <layout>Question Line Layout</layout>
         <sections>

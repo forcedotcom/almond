@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Configuración de Almond</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Configuraciones de Almond</value>
+    </caseValues>
+    <fields>
+        <help>Liga a imagen del logo de su Compañía</help>
+        <label>Logo de Compañía</label>
+        <name>Company_Logo__c</name>
+    </fields>
+    <fields>
+        <help>Habilite esta opción para forzar que el calculo de progreso de Curso se realiza en una sola transacción</help>
+        <label>Deshabilitar calculo de progreso futuro</label>
+        <name>Disable_Future_Progress_Calculation__c</name>
+    </fields>
+    <fields>
+        <help>Deshabilitar esta opción para prevenir asignaciones de Logros para Trayectorias</help>
+        <label>Deshabilitar Logros de Trayectoria</label>
+        <name>Disable_Track_Achievements__c</name>
+    </fields>
+    <fields>
+        <help>Habilitar esta opción esta teniendo problemas de navegación con Salesforce1 + i08</help>
+        <label>Habilitar parche para iOS8</label>
+        <name>Enable_iOS_Tap_Fix__c</name>
+    </fields>
+    <fields>
+        <help>Valor hexadecimal para el color de fondo (ej. #EEEEEE)</help>
+        <label>Encabezado - Color de Fondo</label>
+        <name>Header_Background_Color__c</name>
+    </fields>
+    <fields>
+        <help>Valor hexadecimal para el color de texto (ej. #EEEEEE)</help>
+        <label>Encabezado - Color de Texto</label>
+        <name>Header_Text_Color__c</name>
+    </fields>
+    <gender>Feminine</gender>
+</CustomObjectTranslation>

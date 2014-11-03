@@ -8,6 +8,27 @@
         <plural>true</plural>
         <value>Quizzes</value>
     </caseValues>
+    <fields>
+        <label><!-- Description --></label>
+        <name>Description__c</name>
+    </fields>
+    <fields>
+        <label><!-- Learning --></label>
+        <name>Learning__c</name>
+        <relationshipLabel><!-- Quizzes --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Max Attempts --></label>
+        <name>Max_Attempts__c</name>
+    </fields>
+    <fields>
+        <label><!-- Passing Score --></label>
+        <name>Passing_Score__c</name>
+    </fields>
+    <fields>
+        <label><!-- Total Questions --></label>
+        <name>Total_Questions__c</name>
+    </fields>
     <layouts>
         <layout>Quiz Layout</layout>
         <sections>

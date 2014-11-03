@@ -57,7 +57,7 @@ public with sharing class TrainingPlanAssignmentExtensionBatch{
             insert tpbo;
 
             Id batchInstanceId = Database.executeBatch(new TrainingPlanAssignmentsUpdateBatch(trainingPlanId,tpbo.Id),20);
-            LMSUtils.addSuccessMessage('Batch update process has been queued successfully');
+            LMSUtils.addSuccessMessage(System.Label.ALMS_Batch_Updated_Queued_Success);
         }catch(Exception e){
             tpbo.Status__c = 'Failed';
             tpbo.Additional_Information__c = e.getMessage();
@@ -84,7 +84,7 @@ public with sharing class TrainingPlanAssignmentExtensionBatch{
             insert tpbo;
 
             Id batchInstanceId = Database.executeBatch(new TrainingPlanAssignmentsDeleteBatch(trainingPlanId,tpbo.Id),20);
-            LMSUtils.addSuccessMessage('Batch delete process has been queued successfully');
+            LMSUtils.addSuccessMessage(System.Label.ALMS_Batch_Delete_Queued_Success);
         }catch(Exception e){
             tpbo.Status__c = 'Failed';
             tpbo.Additional_Information__c = e.getMessage();

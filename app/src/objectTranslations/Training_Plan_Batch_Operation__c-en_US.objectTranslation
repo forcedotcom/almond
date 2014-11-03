@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Training Plan Batch Operation</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Training Plan Batch Operations</value>
+    </caseValues>
+    <fields>
+        <label><!-- Additional Information --></label>
+        <name>Additional_Information__c</name>
+    </fields>
+    <fields>
+        <label><!-- Errors --></label>
+        <name>Errors__c</name>
+    </fields>
+    <fields>
+        <label><!-- Status --></label>
+        <name>Status__c</name>
+        <picklistValues>
+            <masterLabel>Completed</masterLabel>
+            <translation><!-- Completed --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>In Progress</masterLabel>
+            <translation><!-- In Progress --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>New</masterLabel>
+            <translation><!-- New --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Successes --></label>
+        <name>Successes__c</name>
+    </fields>
+    <fields>
+        <label><!-- Training Plan --></label>
+        <name>Training_Plan__c</name>
+        <relationshipLabel><!-- Training Plan Batch Operations --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Type --></label>
+        <name>Type__c</name>
+        <picklistValues>
+            <masterLabel>Delete Assignments</masterLabel>
+            <translation><!-- Delete Assignments --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Update Assignments</masterLabel>
+            <translation><!-- Update Assignments --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Upsert Assignments</masterLabel>
+            <translation><!-- Upsert Assignments --></translation>
+        </picklistValues>
+    </fields>
+    <layouts>
+        <layout>Training Plan Batch Operation Layout</layout>
+        <sections>
+            <label><!-- Additional Information --></label>
+            <section>Additional Information</section>
+        </sections>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

@@ -66,7 +66,7 @@ public with sharing class TrainingPlanAchievementManagementExt{
             insert tpbo;
 
             Id batchInstanceId = Database.executeBatch(new TPlanAchievementAssignmentsUpdateBatch(trainingPlanId,tpbo.Id),20);
-            LMSUtils.addSuccessMessage('Batch update process has been queued successfully');
+            LMSUtils.addSuccessMessage(System.Label.ALMS_Batch_Updated_Queued_Success);
 
         }catch(Exception e){
             tpbo.Status__c = 'Failed';

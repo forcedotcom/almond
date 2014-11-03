@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Plantilla Pregunta</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Plantillas Pregunta</value>
+    </caseValues>
+    <fields>
+        <label>Verdadero/Falso (Respuesta Correcta)</label>
+        <name>Correct_Boolean__c</name>
+        <picklistValues>
+            <masterLabel>false</masterLabel>
+            <translation>Falso</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>true</masterLabel>
+            <translation>Verdadero</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label>Número (Respuesta Correcta)</label>
+        <name>Correct_Number__c</name>
+    </fields>
+    <fields>
+        <label>Descripción (texto enriquecido)</label>
+        <name>Description_RTA__c</name>
+    </fields>
+    <fields>
+        <label>Descripción</label>
+        <name>Description__c</name>
+    </fields>
+    <fields>
+        <label>Plantilla Secuencia de Respuestas</label>
+        <name>TML_Answer_Sequence__c</name>
+        <relationshipLabel>Plantillas Pregunta</relationshipLabel>
+    </fields>
+    <fields>
+        <label>Tipo</label>
+        <name>Type__c</name>
+        <picklistValues>
+            <masterLabel>Boolean</masterLabel>
+            <translation>Verdadero/Falso</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Number</masterLabel>
+            <translation>Número</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>SelectMultipleQuestion</masterLabel>
+            <translation>Selección Múltiple</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>SelectOneQuestion</masterLabel>
+            <translation>Selección Única</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Text</masterLabel>
+            <translation>Texto</translation>
+        </picklistValues>
+    </fields>
+    <layouts>
+        <layout>TML Question Layout</layout>
+        <sections>
+            <label>Enlaces Personalizados</label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label>Información de Pregunta</label>
+            <section>Question Information</section>
+        </sections>
+    </layouts>
+    <gender>Feminine</gender>
+    <nameFieldLabel>ID de Plantilla</nameFieldLabel>
+    <validationRules>
+        <errorMessage>Debe especificar una Secuencia de Respuestas para este tipo de pregunta</errorMessage>
+        <name>AnswerSequence_Required</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage>Debe especificar una opción correcta para preguntas de tipo Verdadero/Falso</errorMessage>
+        <name>CorrectBoolean_Required</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage>Debe especificar un número correcto para preguntas de tipo Numéricas</errorMessage>
+        <name>CorrectNumber_Required</name>
+    </validationRules>
+</CustomObjectTranslation>

@@ -33,10 +33,10 @@ public with sharing class LMSStartController {
     public PageReference initSampleData(){
         try{
             LMSInit.initData(true,'Sample');
-            LMSUtils.addSuccessMessage('Sample data has been successfully created!');
+            LMSUtils.addSuccessMessage(System.Label.ALMS_Sample_Data_Success);
         }catch(Exception e){
             if(ApexPages.currentPage() != null){
-                LMSUtils.addErrorMessage('Oops, something went wrong and we were not able to create sample data.');
+                LMSUtils.addErrorMessage(System.Label.ALMS_Sample_Data_Error);
             }
             LMSUtils.logException(e,'LMSInit');
         }

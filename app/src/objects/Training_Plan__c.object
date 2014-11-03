@@ -144,7 +144,7 @@
     <fields>
         <fullName>Self_Registration_Access__c</fullName>
         <externalId>false</externalId>
-        <inlineHelpText>&quot;Open&quot; or empty access allows any users to create assignments &quot;on the fly&quot; for this training plan. &quot;Requires Approval&quot; logs an approval request that is later handled by the Training Plan owner.</inlineHelpText>
+        <inlineHelpText>&quot;Public&quot; or empty access allows any users to create assignments &quot;on the fly&quot; for this training plan. &quot;Requires Approval&quot; logs an approval request that is later handled by the Training Plan owner.</inlineHelpText>
         <label>Self-Registration Access</label>
         <picklist>
             <controllingField>Enable_Self_Registration__c</controllingField>

@@ -27,7 +27,7 @@
     </apex:outputPanel>
     <apex:outputPanel layout="none" rendered="{!tplanObj == null || tplanObj.size == 0}">
         <div style="width:100%;text-align:center;padding:20px;0;">
-            <h2>{!$Label.LMSUI_Nothing_to_see}</h2>
+            <h2>{!$Label.ALMS_Nothing_to_see}</h2>
         </div>
     </apex:outputPanel>
 

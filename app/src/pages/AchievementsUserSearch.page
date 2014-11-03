@@ -30,7 +30,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
     <apex:composition template="LMS_Template">
 
         <apex:define name="head">
-            <title>Search</title>
+            <title>{!$Label.ALMS_Search}</title>
         </apex:define>
 
         <apex:define name="body">
@@ -55,7 +55,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 
                 <apex:outputPanel layout="none" rendered="{!searchResults == null || searchResults.size == 0}">
                     <div style="width:100%;text-align:center;padding:20px;0;">
-                        <h2>No Results Found</h2>
+                        <h2>{!$Label.ALMS_Search_No_Results_Found}</h2>
                     </div>
                 </apex:outputPanel>
 
@@ -69,7 +69,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                           <apex:outputPanel layout="none" rendered="{!!hasPrevious}">
                             <li><span>&lt;&lt;</span></li>
                           </apex:outputPanel>
-                          <li><label style="padding:0 10px;">page {!pageNumber} of {!totalPages}</label></li>
+                          <li><label style="padding:0 10px;">{!$Label.ALMS_Search_Page} {!pageNumber} {!$Label.ALMS_Search_Page_Separator} {!totalPages}</label></li>
                           <apex:outputPanel layout="none" rendered="{!hasNext}">
                             <li><apex:commandLink action="{!doNext}" rendered="{!hasNext}" value=">>" rerender="theForm" status="status"/></li>
                           </apex:outputPanel>

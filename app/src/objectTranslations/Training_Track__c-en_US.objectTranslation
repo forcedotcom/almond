@@ -9,6 +9,11 @@
         <value>Training Tracks</value>
     </caseValues>
     <fields>
+        <label><!-- Achievement --></label>
+        <name>Achievement__c</name>
+        <relationshipLabel><!-- Training Track --></relationshipLabel>
+    </fields>
+    <fields>
         <label><!-- Background Color --></label>
         <name>Background_Color__c</name>
     </fields>
@@ -19,6 +24,10 @@
     <fields>
         <label><!-- Description --></label>
         <name>Description__c</name>
+    </fields>
+    <fields>
+        <label><!-- Order --></label>
+        <name>Order__c</name>
     </fields>
     <fields>
         <label><!-- Status --></label>

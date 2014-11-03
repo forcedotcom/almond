@@ -8,6 +8,36 @@
         <plural>true</plural>
         <value>Training Plan Assignments</value>
     </caseValues>
+    <fields>
+        <label><!-- Last Updated --></label>
+        <name>Last_Updated__c</name>
+    </fields>
+    <fields>
+        <label><!-- Status --></label>
+        <name>Status__c</name>
+        <picklistValues>
+            <masterLabel>Completed</masterLabel>
+            <translation><!-- Completed --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>In Progress</masterLabel>
+            <translation><!-- In Progress --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Not Started</masterLabel>
+            <translation><!-- Not Started --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Training Plan --></label>
+        <name>Training_Plan__c</name>
+        <relationshipLabel><!-- Training Plan Assignments --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- User --></label>
+        <name>User__c</name>
+        <relationshipLabel><!-- Training Plan Assignments --></relationshipLabel>
+    </fields>
     <layouts>
         <layout>Training Plan Assignment Layout</layout>
         <sections>

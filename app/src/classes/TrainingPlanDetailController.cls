@@ -95,7 +95,7 @@ public with sharing class TrainingPlanDetailController{
             byPassLaunchModal = false;
 
             if(String.isBlank(selectedSectionId) || String.isBlank(selectedItemId)){
-                throw new TrainingPlanDetailException('Invalid parameters');
+                throw new TrainingPlanDetailException(System.Label.ALMS_Invalid_Parameters_Message);
             }else{
 
                 Set<Id> previousSectionIds = new Set<Id>();
@@ -155,7 +155,7 @@ public with sharing class TrainingPlanDetailController{
                     }
 
                 }else{
-                    throw new TrainingPlanDetailException('Unable to retrieve assignment information');
+                    throw new TrainingPlanDetailException(System.Label.ALMS_Unable_Retrieve_Assignment_Info);
                 }
 
                 if(!hasPreRequisite && !(selectedItem.launchBehavior=='ask_user' || selectedItem.launchBehavior=='update_version')){

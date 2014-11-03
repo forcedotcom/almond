@@ -29,9 +29,9 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 
     <apex:includeScript value="{!URLFOR($Resource.almond_uilib, '/js/jquery.min.js')}"/>
 
-    <apex:sectionHeader title="Achievements" subtitle="Work.com Badges">
+    <apex:sectionHeader title="{!$Label.ALMS_Achievements}" subtitle="{!$Label.ALMS_Work_Badges}">
         <div class="bPageTitle" style="padding:0px;">
-            <div class="ptBreadcrumb">&nbsp;&lt;&lt;&nbsp;<a href="/{!Achievement__c.Id}">Back to Achievement: {!achievement.Name} </a></div>
+            <div class="ptBreadcrumb">&nbsp;&lt;&lt;&nbsp;<a href="/{!Achievement__c.Id}">{!$Label.ALMS_Achievement_Back}: {!achievement.Name} </a></div>
         </div>
     </apex:sectionHeader>
 
@@ -74,20 +74,20 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
         <apex:pageBlock>
 
             <apex:pageBlockButtons>
-                <apex:commandButton value="Save" action="{!saveBadgeInfo}" rerender="theForm" status="status"/>
-                <apex:commandButton value="Cancel" action="{!cancel}" />
+                <apex:commandButton value="{!$Label.ALMS_Save}" action="{!saveBadgeInfo}" rerender="theForm" status="status"/>
+                <apex:commandButton value="{!$Label.ALMS_Cancel}" action="{!cancel}" />
             </apex:pageBlockButtons>
 
             <apex:pageMessages />
 
-            <apex:pageBlockSection columns="2" title="Badge Information">
+            <apex:pageBlockSection columns="2" title="{!$Label.ALMS_Badge_Info}">
 
                 <apex:inputField value="{!achievement.Work_Badge_Giver__c}" required="true"/>
                 <apex:inputField value="{!achievement.Work_Badge_Message__c}" style="width:90%;height:60px;"/>
 
             </apex:pageBlockSection>
 
-            <apex:pageBlockSection columns="1" title="Badge Selection">
+            <apex:pageBlockSection columns="1" title="{!$Label.ALMS_Badge_Selection}">
                 <apex:pageBlock>
 
                     <apex:repeat value="{!badges}" var="b">
@@ -129,7 +129,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                         badgeItem.addClass('badge-active');
                     }
                 }else{
-                    alert('Unable to register selection.')
+                    alert('{!JSENCODE($Label.ALMS_Selection_Error)}')
                 }
 
             }

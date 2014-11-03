@@ -30,7 +30,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
     <apex:composition template="LMS_HeroTemplate">
 
         <apex:define name="head">
-            <title>Achievements</title>
+            <title>{!$Label.ALMS_Achievements}</title>
         </apex:define>
 
         <apex:define name="hero-banner">
@@ -59,7 +59,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
         </apex:define>
 
         <apex:define name="hero-banner-footer">
-            <span>Total Acquired Achievements : {!totalAchievements}</span>
+            <span>{!$Label.ALMS_Total_Acquired_Achievements} : {!totalAchievements}</span>
         </apex:define>
 
         <apex:define name="body">
@@ -89,7 +89,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
             </apex:outputPanel>
             <apex:outputPanel layout="none" rendered="{!lcategories == null || lcategories.size == 0}">
                 <div style="width:100%;text-align:center;padding:20px;0;">
-                    <h2>{!$Label.LMSUI_Nothing_to_see}</h2>
+                    <h2>{!$Label.ALMS_Nothing_to_see}</h2>
                 </div>
             </apex:outputPanel>
         </apex:define>

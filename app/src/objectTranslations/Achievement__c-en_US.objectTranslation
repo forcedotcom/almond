@@ -8,16 +8,97 @@
         <plural>true</plural>
         <value>Achievements</value>
     </caseValues>
+    <fields>
+        <label><!-- Achievement Category --></label>
+        <name>Achievement_Category__c</name>
+        <relationshipLabel><!-- Achievements --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Acquired Image --></label>
+        <name>Acquired_Image__c</name>
+    </fields>
+    <fields>
+        <label><!-- Eligible Image --></label>
+        <name>Eligible_Image__c</name>
+    </fields>
+    <fields>
+        <label><!-- Expiration Date --></label>
+        <name>Expiration_Date__c</name>
+    </fields>
+    <fields>
+        <help><!-- If checked, the achievement won&apos;t be displayed in the user&apos;s profile page --></help>
+        <label><!-- Hidden --></label>
+        <name>Hidden__c</name>
+    </fields>
+    <fields>
+        <help><!-- Overriding the completed status will make the Achievement Assignments go to the defined &quot;override status&quot; instead of &quot;Acquired&quot;. It&apos;s up to you move to the &quot;Acquired&quot;  status once this feature is used. --></help>
+        <label><!-- Override Completed Status --></label>
+        <name>Override_Completed_Status__c</name>
+        <picklistValues>
+            <masterLabel>In Review</masterLabel>
+            <translation><!-- In Review --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help><!-- Specify a value if you want users to go to this URL when clicking the Achievement Image. This can be used to redirect to a custom page where you manage additional steps before changing the status of the Achievement to &quot;Acquired&quot;. --></help>
+        <label><!-- Override URL --></label>
+        <name>Override_URL__c</name>
+    </fields>
+    <fields>
+        <label><!-- Type --></label>
+        <name>Type__c</name>
+        <picklistValues>
+            <masterLabel>Achievements</masterLabel>
+            <translation><!-- Achievements --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Certifications</masterLabel>
+            <translation><!-- Certifications --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Work.com Badge Giver --></label>
+        <name>Work_Badge_Giver__c</name>
+        <relationshipLabel><!-- Achievements --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Work Badge Id --></label>
+        <name>Work_Badge_Id__c</name>
+    </fields>
+    <fields>
+        <label><!-- Work Badge Image URL --></label>
+        <name>Work_Badge_Image_URL__c</name>
+    </fields>
+    <fields>
+        <label><!-- Work.com Badge Message --></label>
+        <name>Work_Badge_Message__c</name>
+    </fields>
     <layouts>
         <layout>Achievement Layout</layout>
+        <sections>
+            <label><!-- Custom Badge --></label>
+            <section>Custom Badge</section>
+        </sections>
         <sections>
             <label><!-- Custom Links --></label>
             <section>Custom Links</section>
         </sections>
         <sections>
-            <label><!-- Custom Badge --></label>
-            <section>Custom Badge</section>
+            <label><!-- Optional Assignment Information --></label>
+            <section>Optional Assignment Information</section>
+        </sections>
+        <sections>
+            <label><!-- Work.com Badge --></label>
+            <section>Work.com Badge</section>
+        </sections>
+        <sections>
+            <label><!-- Work.com Badge Information --></label>
+            <section>Work.com Badge Information</section>
         </sections>
     </layouts>
     <startsWith>Consonant</startsWith>
+    <webLinks>
+        <label><!-- Add_Work_com_Badge --></label>
+        <name>Add_Work_com_Badge</name>
+    </webLinks>
 </CustomObjectTranslation>

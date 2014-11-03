@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Batch Operation Record</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Batch Operation Records</value>
+    </caseValues>
+    <fields>
+        <label><!-- Record Key --></label>
+        <name>Record_Key__c</name>
+    </fields>
+    <fields>
+        <label><!-- Record Type --></label>
+        <name>Record_Type__c</name>
+    </fields>
+    <fields>
+        <label><!-- Training Plan Batch Operation --></label>
+        <name>Training_Plan_Batch_Operation__c</name>
+        <relationshipLabel><!-- Batch Operation Records --></relationshipLabel>
+    </fields>
+    <layouts>
+        <layout>Batch Operation Record Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

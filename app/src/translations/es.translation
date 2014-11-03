@@ -1,0 +1,1043 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Translations xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customApplications>
+        <label>almond</label>
+        <name>almond_LMS</name>
+    </customApplications>
+    <customLabels>
+        <label>Regresar a Logro</label>
+        <name>ALMS_Achievement_Back</name>
+    </customLabels>
+    <customLabels>
+        <label>Logros</label>
+        <name>ALMS_Achievements</name>
+    </customLabels>
+    <customLabels>
+        <label>Acción</label>
+        <name>ALMS_Action</name>
+    </customLabels>
+    <customLabels>
+        <label>Actividades</label>
+        <name>ALMS_Activities</name>
+    </customLabels>
+    <customLabels>
+        <label>Agregar Opción de Respuesta</label>
+        <name>ALMS_Add_Answer_Sequence_Item</name>
+    </customLabels>
+    <customLabels>
+        <label>Información Adicional</label>
+        <name>ALMS_Additional_Information</name>
+    </customLabels>
+    <customLabels>
+        <label>Opciones Adicionales</label>
+        <name>ALMS_Additional_Report_Options</name>
+    </customLabels>
+    <customLabels>
+        <label>El proceso de importación usará la columna que contenga el ID del Usuario por defecto. Si quiere cambiar este comportamiento, especifique el índice de la columna que contiene los IDs de Usuario.</label>
+        <name>ALMS_Additional_Report_Options_Msg</name>
+    </customLabels>
+    <customLabels>
+        <label>Aprobar</label>
+        <name>ALMS_Approve</name>
+    </customLabels>
+    <customLabels>
+        <label>Usuario no autorizado para aprobar esta tarea.</label>
+        <name>ALMS_Approver_Not_Authorized</name>
+    </customLabels>
+    <customLabels>
+        <label>Notas de aprobación</label>
+        <name>ALMS_Approver_Notes_Field</name>
+    </customLabels>
+    <customLabels>
+        <label>Las notas de aprobación serán visibles al usuario asignado a la tarea</label>
+        <name>ALMS_Approver_Notes_Message</name>
+    </customLabels>
+    <customLabels>
+        <label>Asignar</label>
+        <name>ALMS_Assign</name>
+    </customLabels>
+    <customLabels>
+        <label>Presione el botón Aprobar para dar su aprobación a esta asignación</label>
+        <name>ALMS_Assignment_Approve_Message</name>
+    </customLabels>
+    <customLabels>
+        <label>Operaciones Masivas</label>
+        <name>ALMS_Assignments_Batch_Operations</name>
+    </customLabels>
+    <customLabels>
+        <label>Asignaciones eliminadas exitosamente</label>
+        <name>ALMS_Assignments_Deleted_Success</name>
+    </customLabels>
+    <customLabels>
+        <label>Sin resultados. Favor de asegurarse que los usuarios que esta buscando hayan sido asignados a los conjuntos de permisos de LMS Admin o LMS User.</label>
+        <name>ALMS_Assignments_No_Results_Message</name>
+    </customLabels>
+    <customLabels>
+        <label>Resultados</label>
+        <name>ALMS_Assignments_Results</name>
+    </customLabels>
+    <customLabels>
+        <label>Asignaciones actualizadas exitosamente</label>
+        <name>ALMS_Assignments_Updated_Success</name>
+    </customLabels>
+    <customLabels>
+        <label>Información de Insignia</label>
+        <name>ALMS_Badge_Info</name>
+    </customLabels>
+    <customLabels>
+        <label>Seleccionar Insignia</label>
+        <name>ALMS_Badge_Selection</name>
+    </customLabels>
+    <customLabels>
+        <label>Trabajo de eliminación masiva ha sido programado existosamente</label>
+        <name>ALMS_Batch_Delete_Queued_Success</name>
+    </customLabels>
+    <customLabels>
+        <label>Trabajo de actualización masiva ha sido programado existosamente</label>
+        <name>ALMS_Batch_Updated_Queued_Success</name>
+    </customLabels>
+    <customLabels>
+        <label>Falso</label>
+        <name>ALMS_Boolean_False</name>
+    </customLabels>
+    <customLabels>
+        <label>Verdadero/Falso</label>
+        <name>ALMS_Boolean_Question</name>
+    </customLabels>
+    <customLabels>
+        <label>Verdadero</label>
+        <name>ALMS_Boolean_True</name>
+    </customLabels>
+    <customLabels>
+        <label>Crear</label>
+        <name>ALMS_CRUD_FLS_Create</name>
+    </customLabels>
+    <customLabels>
+        <label>Eliminar</label>
+        <name>ALMS_CRUD_FLS_Delete</name>
+    </customLabels>
+    <customLabels>
+        <label>Actualizar</label>
+        <name>ALMS_CRUD_FLS_Update</name>
+    </customLabels>
+    <customLabels>
+        <label>Lectura</label>
+        <name>ALMS_CRUD_FLS_View</name>
+    </customLabels>
+    <customLabels>
+        <label>Cancelar</label>
+        <name>ALMS_Cancel</name>
+    </customLabels>
+    <customLabels>
+        <label>Categoría</label>
+        <name>ALMS_Category</name>
+    </customLabels>
+    <customLabels>
+        <label>Cambiar Imagen</label>
+        <name>ALMS_Change_Image</name>
+    </customLabels>
+    <customLabels>
+        <label>Hola</label>
+        <name>ALMS_Chatter_Notification_Greeting</name>
+    </customLabels>
+    <customLabels>
+        <label>Has sido asignado al siguiente Curso</label>
+        <name>ALMS_Chatter_Notification_Message_1</name>
+    </customLabels>
+    <customLabels>
+        <label>Presione la liga adjunta para iniciar el curso</label>
+        <name>ALMS_Chatter_Notification_Message_2</name>
+    </customLabels>
+    <customLabels>
+        <label>Presione</label>
+        <name>ALMS_Click</name>
+    </customLabels>
+    <customLabels>
+        <label>Cerrar</label>
+        <name>ALMS_Close</name>
+    </customLabels>
+    <customLabels>
+        <label>Debe completar todas las actividades previas para continuar.</label>
+        <name>ALMS_Complete_Previous</name>
+    </customLabels>
+    <customLabels>
+        <label>Completo (exitosamente)</label>
+        <name>ALMS_Complete_Success</name>
+    </customLabels>
+    <customLabels>
+        <label>Completos</label>
+        <name>ALMS_Completed</name>
+    </customLabels>
+    <customLabels>
+        <label>¿Está seguro?</label>
+        <name>ALMS_Confirm_Alert</name>
+    </customLabels>
+    <customLabels>
+        <label>Seleccionar contenido para vista previa</label>
+        <name>ALMS_Content_Previewed</name>
+    </customLabels>
+    <customLabels>
+        <label>Continuar</label>
+        <name>ALMS_Continue</name>
+    </customLabels>
+    <customLabels>
+        <label>Continuar con versión anterior</label>
+        <name>ALMS_Continue_Old_Version</name>
+    </customLabels>
+    <customLabels>
+        <label>Crear Asignaciones</label>
+        <name>ALMS_Create_Assignments</name>
+    </customLabels>
+    <customLabels>
+        <label>¡Felicidades! ¡Has adquirido una nueva insignia de aprendizaje!</label>
+        <name>ALMS_Default_Achievement_Message</name>
+    </customLabels>
+    <customLabels>
+        <label>Error insertando registros de insignia</label>
+        <name>ALMS_Default_Error_Inserting_Badge</name>
+    </customLabels>
+    <customLabels>
+        <label>Error insertando registros de feed</label>
+        <name>ALMS_Default_Error_Inserting_Feed</name>
+    </customLabels>
+    <customLabels>
+        <label>Error insertando registros de agradecimiento</label>
+        <name>ALMS_Default_Error_Inserting_Thanks</name>
+    </customLabels>
+    <customLabels>
+        <label>Eliminar</label>
+        <name>ALMS_Delete</name>
+    </customLabels>
+    <customLabels>
+        <label>Eliminar todas las asignaciones</label>
+        <name>ALMS_Delete_All_Assignments</name>
+    </customLabels>
+    <customLabels>
+        <label>Detalles</label>
+        <name>ALMS_Detail</name>
+    </customLabels>
+    <customLabels>
+        <label>Duración</label>
+        <name>ALMS_Duration</name>
+    </customLabels>
+    <customLabels>
+        <label>Email</label>
+        <name>ALMS_Email</name>
+    </customLabels>
+    <customLabels>
+        <label>Comentarios</label>
+        <name>ALMS_Feedback</name>
+    </customLabels>
+    <customLabels>
+        <label>Comentarios</label>
+        <name>ALMS_Feedback_Comments</name>
+    </customLabels>
+    <customLabels>
+        <label>Ya has enviado una calificación para este curso</label>
+        <name>ALMS_Feedback_Existing_Rating</name>
+    </customLabels>
+    <customLabels>
+        <label>Favor de proporcionar comentarios</label>
+        <name>ALMS_Feedback_Missing_Comments</name>
+    </customLabels>
+    <customLabels>
+        <label>Calificación</label>
+        <name>ALMS_Feedback_Rating</name>
+    </customLabels>
+    <customLabels>
+        <label>Enviar</label>
+        <name>ALMS_Feedback_Submit</name>
+    </customLabels>
+    <customLabels>
+        <label>Filtros</label>
+        <name>ALMS_Filters</name>
+    </customLabels>
+    <customLabels>
+        <label>Nombre</label>
+        <name>ALMS_First_Name</name>
+    </customLabels>
+    <customLabels>
+        <label>Ha ocurrido un error inesperado, favor de contactar a su equipo de soporte y proporcionar la siguiente información</label>
+        <name>ALMS_Generic_Error_Message</name>
+    </customLabels>
+    <customLabels>
+        <label>Importar Asignaciones</label>
+        <name>ALMS_Import_Assignments</name>
+    </customLabels>
+    <customLabels>
+        <label>Importar</label>
+        <name>ALMS_Import_Button</name>
+    </customLabels>
+    <customLabels>
+        <label>Importar Reporte</label>
+        <name>ALMS_Import_From_Report</name>
+    </customLabels>
+    <customLabels>
+        <label>Seleccione un reporte de la lista y presione el botón de Importar. Solo puede importar reportes de formato tabular</label>
+        <name>ALMS_Import_Report_Message</name>
+    </customLabels>
+    <customLabels>
+        <label>En Proceso</label>
+        <name>ALMS_InProgress</name>
+    </customLabels>
+    <customLabels>
+        <label>Permisos insuficientes, favor de contactar a su administrador</label>
+        <name>ALMS_Insufficient_CRUD_FLS</name>
+    </customLabels>
+    <customLabels>
+        <label>Video Introductorio</label>
+        <name>ALMS_Intro_Video</name>
+    </customLabels>
+    <customLabels>
+        <label>Id de Asignación inválido</label>
+        <name>ALMS_Invalid_Assignment_Id</name>
+    </customLabels>
+    <customLabels>
+        <label>Id de Categoría inválido</label>
+        <name>ALMS_Invalid_Category_Id</name>
+    </customLabels>
+    <customLabels>
+        <label>Parámetros inválidos</label>
+        <name>ALMS_Invalid_Parameters_Message</name>
+    </customLabels>
+    <customLabels>
+        <label>La siguiente operación eliminará todas las asignaciones de Aprendizaje de Curso bajo la siguiente sección de Curso</label>
+        <name>ALMS_Item_Assignments_Delete_Warning</name>
+    </customLabels>
+    <customLabels>
+        <label>Eliminar asignaciones de Aprendizajes de Curso</label>
+        <name>ALMS_Item_Delete_Assignments_Button</name>
+    </customLabels>
+    <customLabels>
+        <label>Apellido</label>
+        <name>ALMS_Last_Name</name>
+    </customLabels>
+    <customLabels>
+        <label>Iniciar</label>
+        <name>ALMS_Launch</name>
+    </customLabels>
+    <customLabels>
+        <label>Presione Continuar para iniciar la nueva versión</label>
+        <name>ALMS_Launch_New_Version</name>
+    </customLabels>
+    <customLabels>
+        <label>Aprendizaje</label>
+        <name>ALMS_Learning</name>
+    </customLabels>
+    <customLabels>
+        <label>Asignación de Aprendizaje</label>
+        <name>ALMS_Learning_Assignment</name>
+    </customLabels>
+    <customLabels>
+        <label>Regresar a Asignación de Aprendizaje</label>
+        <name>ALMS_Learning_Assignment_Back</name>
+    </customLabels>
+    <customLabels>
+        <label>Regresar a Aprendizaje</label>
+        <name>ALMS_Learning_Back</name>
+    </customLabels>
+    <customLabels>
+        <label>Inicio de Aprendizaje</label>
+        <name>ALMS_Learning_Home</name>
+    </customLabels>
+    <customLabels>
+        <label>Este logro ha sido ligado a una insignia de Work.com. La imagen personalizada ya no será utilizada.</label>
+        <name>ALMS_Linked_Work_Badge_Message</name>
+    </customLabels>
+    <customLabels>
+        <label>Gestionar Logros</label>
+        <name>ALMS_Manage_Achievements</name>
+    </customLabels>
+    <customLabels>
+        <label>Gestionar Asignaciones</label>
+        <name>ALMS_Manage_Assignments</name>
+    </customLabels>
+    <customLabels>
+        <label>Gestor</label>
+        <name>ALMS_Manager</name>
+    </customLabels>
+    <customLabels>
+        <label>Solo se permiten 255 caracteres para notas de aprobación</label>
+        <name>ALMS_Max_Approver_Notes_Error</name>
+    </customLabels>
+    <customLabels>
+        <label>Las siguientes operaciones afectarán todas las Asignaciones de Logros relacionadas a los Logros de Curso para el siguiente Curso</label>
+        <name>ALMS_Message_Achievements_Assignments</name>
+    </customLabels>
+    <customLabels>
+        <label>Favor de seleccionar una carpeta válida de la lista</label>
+        <name>ALMS_Missing_Report_Folder</name>
+    </customLabels>
+    <customLabels>
+        <label>Favor de seleccionar un reporte de la lista</label>
+        <name>ALMS_Missing_Report_Item</name>
+    </customLabels>
+    <customLabels>
+        <label>No hay ninguna insignia de Work.com ligada a este Logro. Presione Agregar Insignia de Work.com si desea crear la asocación</label>
+        <name>ALMS_Missing_Work_Badge_Message</name>
+    </customLabels>
+    <customLabels>
+        <label>Logros</label>
+        <name>ALMS_MyProfile</name>
+    </customLabels>
+    <customLabels>
+        <label>Mis Cursos</label>
+        <name>ALMS_My_Training</name>
+    </customLabels>
+    <customLabels>
+        <label>Nueva Pregunta</label>
+        <name>ALMS_New_Question</name>
+    </customLabels>
+    <customLabels>
+        <label>Nueva versión disponible</label>
+        <name>ALMS_New_Version_available</name>
+    </customLabels>
+    <customLabels>
+        <label>Siguiente</label>
+        <name>ALMS_Next</name>
+    </customLabels>
+    <customLabels>
+        <label>No se encontraron Secciones de Evaluación</label>
+        <name>ALMS_No_Remaining_Question_Lines</name>
+    </customLabels>
+    <customLabels>
+        <label>No se encontraron reportes tabulares bajo la carpeta seleccionada</label>
+        <name>ALMS_No_Reports_Found</name>
+    </customLabels>
+    <customLabels>
+        <label>Pendientes</label>
+        <name>ALMS_NotStarted</name>
+    </customLabels>
+    <customLabels>
+        <label>Notas de Aprobación</label>
+        <name>ALMS_Note_From_Approver</name>
+    </customLabels>
+    <customLabels>
+        <label>¡No hay nada que ver aquí!</label>
+        <name>ALMS_Nothing_to_see</name>
+    </customLabels>
+    <customLabels>
+        <label>Numérica</label>
+        <name>ALMS_Number_Question</name>
+    </customLabels>
+    <customLabels>
+        <label>Abrir en una nueva ventana</label>
+        <name>ALMS_Open_New_Window</name>
+    </customLabels>
+    <customLabels>
+        <label>Secciones con aprendizajes requeridos no pueden ser opcionales</label>
+        <name>ALMS_Optional_Section_Error_Message</name>
+    </customLabels>
+    <customLabels>
+        <label>Calificación promedio</label>
+        <name>ALMS_Overall_Rating</name>
+    </customLabels>
+    <customLabels>
+        <label>Vista Previa</label>
+        <name>ALMS_Preview</name>
+    </customLabels>
+    <customLabels>
+        <label>Ha ocurrido un error al iniciar la vista previa de la nueva versión</label>
+        <name>ALMS_Preview_Version_Error</name>
+    </customLabels>
+    <customLabels>
+        <label>Anterior</label>
+        <name>ALMS_Previous</name>
+    </customLabels>
+    <customLabels>
+        <label>Perfil</label>
+        <name>ALMS_Profile</name>
+    </customLabels>
+    <customLabels>
+        <label>Catálogo</label>
+        <name>ALMS_PublicCatalog</name>
+    </customLabels>
+    <customLabels>
+        <label>No fue posible asignar este curso, favor de contactar a soporte técnico</label>
+        <name>ALMS_Public_Plan_Assignment_Error</name>
+    </customLabels>
+    <customLabels>
+        <label>Su petición ha sido enviada</label>
+        <name>ALMS_Public_Plan_Request_Submitted</name>
+    </customLabels>
+    <customLabels>
+        <label>Publicar</label>
+        <name>ALMS_Publish</name>
+    </customLabels>
+    <customLabels>
+        <label>Publicar nueva versión</label>
+        <name>ALMS_Publish_New_Learning_Version</name>
+    </customLabels>
+    <customLabels>
+        <label>Pregunta</label>
+        <name>ALMS_Question</name>
+    </customLabels>
+    <customLabels>
+        <label>Sección de Evaluación</label>
+        <name>ALMS_Question_Line</name>
+    </customLabels>
+    <customLabels>
+        <label>Orden</label>
+        <name>ALMS_Question_Order</name>
+    </customLabels>
+    <customLabels>
+        <label>Tipo de Pregunta</label>
+        <name>ALMS_Question_Type</name>
+    </customLabels>
+    <customLabels>
+        <label>Regresar</label>
+        <name>ALMS_Quiz_Back</name>
+    </customLabels>
+    <customLabels>
+        <label>¿Esta seguro? Las cambios de esta página se perderán</label>
+        <name>ALMS_Quiz_Back_Warning</name>
+    </customLabels>
+    <customLabels>
+        <label>si desea regresar sin guardar cambios para esta página</label>
+        <name>ALMS_Quiz_Back_Warning_Message</name>
+    </customLabels>
+    <customLabels>
+        <label>Cancelar</label>
+        <name>ALMS_Quiz_Cancel</name>
+    </customLabels>
+    <customLabels>
+        <label>El límite de intentos para esta evaluación ha sido alcanzado</label>
+        <name>ALMS_Quiz_Max_Attempts_Reached</name>
+    </customLabels>
+    <customLabels>
+        <label>Favor de contestar todas las preguntas para continuar</label>
+        <name>ALMS_Quiz_Missing_Answers</name>
+    </customLabels>
+    <customLabels>
+        <label>Siguiente</label>
+        <name>ALMS_Quiz_Next</name>
+    </customLabels>
+    <customLabels>
+        <label>Reiniciar</label>
+        <name>ALMS_Quiz_Reset</name>
+    </customLabels>
+    <customLabels>
+        <label>¿Esta seguro? Los cambios de esta página se perderán</label>
+        <name>ALMS_Quiz_Reset_Warning</name>
+    </customLabels>
+    <customLabels>
+        <label>Resultados de Evaluación</label>
+        <name>ALMS_Quiz_Results</name>
+    </customLabels>
+    <customLabels>
+        <label>El resultado de la evaluación es</label>
+        <name>ALMS_Quiz_Results_Eval_Message</name>
+    </customLabels>
+    <customLabels>
+        <label>Calificación</label>
+        <name>ALMS_Quiz_Score</name>
+    </customLabels>
+    <customLabels>
+        <label>Enviar</label>
+        <name>ALMS_Quiz_Submit</name>
+    </customLabels>
+    <customLabels>
+        <label>¡Sí!</label>
+        <name>ALMS_Quiz_Success_Pre_Message</name>
+    </customLabels>
+    <customLabels>
+        <label>¡Registrarse!</label>
+        <name>ALMS_Register_Button</name>
+    </customLabels>
+    <customLabels>
+        <label>Eliminar</label>
+        <name>ALMS_Remove_Image</name>
+    </customLabels>
+    <customLabels>
+        <label>Índice de Columna</label>
+        <name>ALMS_Report_Custom_Column_Index</name>
+    </customLabels>
+    <customLabels>
+        <label>Carpeta</label>
+        <name>ALMS_Report_Folder</name>
+    </customLabels>
+    <customLabels>
+        <label>Información de Reporte</label>
+        <name>ALMS_Report_Information</name>
+    </customLabels>
+    <customLabels>
+        <label>El reporte no regreso ningún registro o no fue posible encontrar IDs de usuario válidos en la columna especificada</label>
+        <name>ALMS_Report_No_Records_Error</name>
+    </customLabels>
+    <customLabels>
+        <label>Requerido</label>
+        <name>ALMS_Required</name>
+    </customLabels>
+    <customLabels>
+        <label>Esta siendo redireccionado, espere un momento...</label>
+        <name>ALMS_Resource_Redirect</name>
+    </customLabels>
+    <customLabels>
+        <label>Redireccionando</label>
+        <name>ALMS_Resource_Redirect_Title</name>
+    </customLabels>
+    <customLabels>
+        <label>Función</label>
+        <name>ALMS_Role</name>
+    </customLabels>
+    <customLabels>
+        <label>Ha ocurrido algo inesperado y no fue posible crear datos de muestra.</label>
+        <name>ALMS_Sample_Data_Error</name>
+    </customLabels>
+    <customLabels>
+        <label>¡Datos de muestra creados exitosamente!</label>
+        <name>ALMS_Sample_Data_Success</name>
+    </customLabels>
+    <customLabels>
+        <label>Guardar</label>
+        <name>ALMS_Save</name>
+    </customLabels>
+    <customLabels>
+        <label>Buscar</label>
+        <name>ALMS_Search</name>
+    </customLabels>
+    <customLabels>
+        <label>Buscar</label>
+        <name>ALMS_Search_Button</name>
+    </customLabels>
+    <customLabels>
+        <label>Buscar en Catálogo</label>
+        <name>ALMS_Search_Catalog</name>
+    </customLabels>
+    <customLabels>
+        <label>Favor de proporcionar por lo menos 3 caracteres</label>
+        <name>ALMS_Search_Minimum_Characters</name>
+    </customLabels>
+    <customLabels>
+        <label>Sin Resultados</label>
+        <name>ALMS_Search_No_Results</name>
+    </customLabels>
+    <customLabels>
+        <label>Sin Resultados</label>
+        <name>ALMS_Search_No_Results_Found</name>
+    </customLabels>
+    <customLabels>
+        <label>página</label>
+        <name>ALMS_Search_Page</name>
+    </customLabels>
+    <customLabels>
+        <label>de</label>
+        <name>ALMS_Search_Page_Separator</name>
+    </customLabels>
+    <customLabels>
+        <label>Buscar Usuarios</label>
+        <name>ALMS_Search_Users</name>
+    </customLabels>
+    <customLabels>
+        <label>La siguiente operación eliminará todas las Asignaciones de Sección de Curso para los usuarios bajo la siguiente Sección</label>
+        <name>ALMS_Section_Assignments_Delete_Warning</name>
+    </customLabels>
+    <customLabels>
+        <label>Eliminar todas las Asignaciones de Sección de Curso</label>
+        <name>ALMS_Section_Delete_Assignments_Button</name>
+    </customLabels>
+    <customLabels>
+        <label>Seleccionar todos</label>
+        <name>ALMS_Select_All</name>
+    </customLabels>
+    <customLabels>
+        <label>Seleccionar Imagen</label>
+        <name>ALMS_Select_Image</name>
+    </customLabels>
+    <customLabels>
+        <label>Seleccionar contenido para publicar</label>
+        <name>ALMS_Select_Published_Content</name>
+    </customLabels>
+    <customLabels>
+        <label>-- Seleccionar Carpeta --</label>
+        <name>ALMS_Select_Report_Default_Option</name>
+    </customLabels>
+    <customLabels>
+        <label>Favor de seleccionar una insignia de la lista</label>
+        <name>ALMS_Select_Work_Badge</name>
+    </customLabels>
+    <customLabels>
+        <label>No fue posible registrar su selección</label>
+        <name>ALMS_Selection_Error</name>
+    </customLabels>
+    <customLabels>
+        <label>Eliminar asignaciones compartidas no utilizadas</label>
+        <name>ALMS_Shared_Assignments_Delete_Button</name>
+    </customLabels>
+    <customLabels>
+        <label>Eliminar asignaciones no utilizar</label>
+        <name>ALMS_Shared_Assignments_Delete_Unused</name>
+    </customLabels>
+    <customLabels>
+        <label>La siguiente operación eliminará todas las asignaciones compartidas no utilizadas para el siguiente Aprendizaje</label>
+        <name>ALMS_Shared_Assignments_Delete_Warning</name>
+    </customLabels>
+    <customLabels>
+        <label>Presione el botón Crear Datos de Muestra para cargar datos que le permitirán iniciar con la aplicación. Una vez que los datos sean cargados, vaya a la pestaña de Cursos y asigne el curso a sus usuarios.</label>
+        <name>ALMS_Start_Here_Message</name>
+    </customLabels>
+    <customLabels>
+        <label>Iniciar aquí</label>
+        <name>ALMS_Start_Here_SubTitle</name>
+    </customLabels>
+    <customLabels>
+        <label>Aprendizaje</label>
+        <name>ALMS_Start_Here_Title</name>
+    </customLabels>
+    <customLabels>
+        <label>Crear Datos de Muestra</label>
+        <name>ALMS_Start_Sample_Data_Button</name>
+    </customLabels>
+    <customLabels>
+        <label>Datos de Muestra</label>
+        <name>ALMS_Start_Sample_Data_Section</name>
+    </customLabels>
+    <customLabels>
+        <label>Eliminar Asignaciones</label>
+        <name>ALMS_TPlanItem_Delete_Assignments</name>
+    </customLabels>
+    <customLabels>
+        <label>Eliminar Asignaciones</label>
+        <name>ALMS_TPlanSection_Delete_Assignments</name>
+    </customLabels>
+    <customLabels>
+        <label>Estado</label>
+        <name>ALMS_TPlan_Access_Request_Status</name>
+    </customLabels>
+    <customLabels>
+        <label>Sin Registro</label>
+        <name>ALMS_TPlan_Not_Registered</name>
+    </customLabels>
+    <customLabels>
+        <label>Solicitar Acceso</label>
+        <name>ALMS_TPlan_Request_Access_Button</name>
+    </customLabels>
+    <customLabels>
+        <label>Comentarios</label>
+        <name>ALMS_TPlan_Request_Comments</name>
+    </customLabels>
+    <customLabels>
+        <label>Su solicitud ha sido enviada</label>
+        <name>ALMS_TPlan_Request_Submitted_Message</name>
+    </customLabels>
+    <customLabels>
+        <label>Require asignación</label>
+        <name>ALMS_TPlan_Requires_Assignment</name>
+    </customLabels>
+    <customLabels>
+        <label>Tomar nueva versión</label>
+        <name>ALMS_Take_New_Version</name>
+    </customLabels>
+    <customLabels>
+        <label>Regresar</label>
+        <name>ALMS_Task_Back_Button</name>
+    </customLabels>
+    <customLabels>
+        <label>¡Listo!</label>
+        <name>ALMS_Task_Done_Button</name>
+    </customLabels>
+    <customLabels>
+        <label>Esta tarea ha sido completada y se encuentra bajo revisión</label>
+        <name>ALMS_Task_In_Review_Message</name>
+    </customLabels>
+    <customLabels>
+        <label>Favor de añadir una imagen para completar esta tarea</label>
+        <name>ALMS_Task_Missing_Image</name>
+    </customLabels>
+    <customLabels>
+        <label>Sigo trabajando en esto</label>
+        <name>ALMS_Task_Working_Button</name>
+    </customLabels>
+    <customLabels>
+        <label>Total de Logros adquiridos</label>
+        <name>ALMS_Total_Acquired_Achievements</name>
+    </customLabels>
+    <customLabels>
+        <label>Total de Cursos</label>
+        <name>ALMS_Total_Plans</name>
+    </customLabels>
+    <customLabels>
+        <label>Trayectorias</label>
+        <name>ALMS_TrainingTracks</name>
+    </customLabels>
+    <customLabels>
+        <label>Catálogo</label>
+        <name>ALMS_Training_Catalog</name>
+    </customLabels>
+    <customLabels>
+        <label>Regresar a Curso</label>
+        <name>ALMS_Training_Plan_Back</name>
+    </customLabels>
+    <customLabels>
+        <label>Regresar a Sección de Curso</label>
+        <name>ALMS_Training_Plan_Back_Section</name>
+    </customLabels>
+    <customLabels>
+        <label>Regresar a Aprendizaje de Curso</label>
+        <name>ALMS_Training_Plan_Back_Section_Item</name>
+    </customLabels>
+    <customLabels>
+        <label>No tiene permisos para ver este curso</label>
+        <name>ALMS_Training_Plan_No_Access_Message</name>
+    </customLabels>
+    <customLabels>
+        <label>No tiene permisos para ver esta trayectoria</label>
+        <name>ALMS_Training_Track_No_Access</name>
+    </customLabels>
+    <customLabels>
+        <label>Trayectorias</label>
+        <name>ALMS_Training_Tracks</name>
+    </customLabels>
+    <customLabels>
+        <label>No fue posible leer la información de la asignación</label>
+        <name>ALMS_Unable_Retrieve_Assignment_Info</name>
+    </customLabels>
+    <customLabels>
+        <label>Reiniciar Selecciones</label>
+        <name>ALMS_Unselect_All</name>
+    </customLabels>
+    <customLabels>
+        <label>Actualizar</label>
+        <name>ALMS_Update</name>
+    </customLabels>
+    <customLabels>
+        <label>Actualizar Asignaciones</label>
+        <name>ALMS_Update_Achievements</name>
+    </customLabels>
+    <customLabels>
+        <label>Actualizar Asignaciones de Logros</label>
+        <name>ALMS_Update_Achievements_Assignments</name>
+    </customLabels>
+    <customLabels>
+        <label>Actualizar todas las Asignaciones</label>
+        <name>ALMS_Update_All_Assignments</name>
+    </customLabels>
+    <customLabels>
+        <label>La siguiente operación afectará todas las Asignaciones de Aprendizaje bajo el siguiente Curso</label>
+        <name>ALMS_Update_All_Assignments_Message</name>
+    </customLabels>
+    <customLabels>
+        <label>Actualizar Asignaciones</label>
+        <name>ALMS_Update_Assignments</name>
+    </customLabels>
+    <customLabels>
+        <label>Actualizar/Eliminar Asignaciones</label>
+        <name>ALMS_Update_Delete_Assignments</name>
+    </customLabels>
+    <customLabels>
+        <label>Insignias de Work.com</label>
+        <name>ALMS_Work_Badges</name>
+    </customLabels>
+    <customLabels>
+        <label>aquí</label>
+        <name>ALMS_here</name>
+    </customLabels>
+    <customLabels>
+        <label>Pendiente</label>
+        <name>ALMS_Training_Status_Not_Started</name>
+    </customLabels>
+    <customLabels>
+        <label>En Proceso</label>
+        <name>ALMS_Training_Status_In_Progress</name>
+    </customLabels>
+    <customLabels>
+        <label>Completo</label>
+        <name>ALMS_Training_Status_Completed</name>
+    </customLabels>
+    <customLabels>
+        <label>En Revisión</label>
+        <name>ALMS_Achievement_In_Review</name>
+    </customLabels>
+    <customLabels>
+        <label>Aprobado</label>
+        <name>ALMS_Quiz_Passed</name>
+    </customLabels>
+    <customLabels>
+        <label>Reprobado</label>
+        <name>ALMS_Quiz_Failed</name>
+    </customLabels>
+    <customLabels>
+        <label>hr(s)</label>
+        <name>ALMS_Hours_Abbreviation</name>
+    </customLabels>
+    <customLabels>
+        <label>mins</label>
+        <name>ALMS_Minutes_Abbreviation</name>
+    </customLabels>
+    <customLabels>
+        <label>Administrador del sistema</label>
+        <name>ALMS_Sys_Admin_Profile</name>
+    </customLabels>
+    <customLabels>
+        <label>Usuario estándar</label>
+        <name>ALMS_Standard_User_Profile</name>
+    </customLabels>
+    <customTabs>
+        <label>Aprendizaje</label>
+        <name>Learning</name>
+    </customTabs>
+    <customTabs>
+        <label>Mis cursos</label>
+        <name>My_Training</name>
+    </customTabs>
+    <customTabs>
+        <label>Iniciar aquí</label>
+        <name>Start_Here</name>
+    </customTabs>
+    <customTabs>
+        <label>Logros de Aprendizaje</label>
+        <name>SubTabAchievements</name>
+    </customTabs>
+    <reportTypes>
+        <description>Tipo de Reporte para Asignaciones de Logros</description>
+        <label>Asignaciones de Logros</label>
+        <name>LMS_Achievement_Assignments</name>
+        <sections>
+            <label>Asignaciones de Logros</label>
+            <name>Achievement Assignments</name>
+        </sections>
+        <sections>
+            <label>Información de Logro</label>
+            <name>Achievement Information</name>
+        </sections>
+        <sections>
+            <label>Información de Usuario</label>
+            <name>User Information</name>
+        </sections>
+    </reportTypes>
+    <reportTypes>
+        <description>Tipo de Reporte para Asignaciones de Aprendizaje con Respuestas</description>
+        <label>Asignaciones de Aprendizaje con Respuestas</label>
+        <name>LMS_Learning_Assignments_with_Responses</name>
+        <sections>
+            <label>Aprendizaje</label>
+            <name>Learning</name>
+        </sections>
+        <sections>
+            <label>Asignaciones de Aprendizaje</label>
+            <name>Learning Assignments</name>
+        </sections>
+        <sections>
+            <label>Respuestas (Asignaciones de Evaluación)</label>
+            <name>Responses (Quiz Assignments)</name>
+        </sections>
+        <sections>
+            <label>Curso</label>
+            <name>Training Plan</name>
+        </sections>
+        <sections>
+            <label>Asignación de Curso</label>
+            <name>Training Plan Assignment</name>
+        </sections>
+        <sections>
+            <label>Sección de Curso</label>
+            <name>Training Plan Section</name>
+        </sections>
+        <sections>
+            <label>Asignación de Sección de Curso</label>
+            <name>Training Plan Section Assignment</name>
+        </sections>
+        <sections>
+            <label>Asignación de Aprendizaje de Curso</label>
+            <name>Training Plan Section Item</name>
+        </sections>
+    </reportTypes>
+    <reportTypes>
+        <description>Tipo de report para Asignaciones de Curso</description>
+        <label>Asignaciones de Curso</label>
+        <name>LMS_Plan_Assignments</name>
+        <sections>
+            <label>Asignaciones de Curso</label>
+            <name>Training Plan Assignments</name>
+        </sections>
+        <sections>
+            <label>Información de Usuario</label>
+            <name>User Information</name>
+        </sections>
+    </reportTypes>
+    <reportTypes>
+        <description>Tipo de reporte para Asignaciones de Curso con Asignaciones de Sección</description>
+        <label>Asignaciones de Curso con Asignaciones de Sección</label>
+        <name>LMS_Plan_Assignments_with_Section_Assignments</name>
+        <sections>
+            <label>Asignaciones de Curso</label>
+            <name>Training Plan Assignments</name>
+        </sections>
+        <sections>
+            <label>Asignaciones de Secciones de Curso</label>
+            <name>Training Plan Section Assignments</name>
+        </sections>
+    </reportTypes>
+    <reportTypes>
+        <description>Tipo de reporta para Aprendizajes con Evaluaciones y Secciones de Evaluación</description>
+        <label>Aprendizajes con Evaluaciones y Secciones de Evaluación</label>
+        <name>Learnings_with_Quizzes_with_Question_Lines</name>
+        <sections>
+            <label>Aprendizajes</label>
+            <name>Learnings</name>
+        </sections>
+        <sections>
+            <label>Secciones de Evaluación</label>
+            <name>Question Lines</name>
+        </sections>
+        <sections>
+            <label>Evaluaciones</label>
+            <name>Quizzes</name>
+        </sections>
+    </reportTypes>
+    <reportTypes>
+        <description>Tipo de reporte para Aprendizajes con Evaluaciones, Secciones y Preguntas</description>
+        <label>Aprendizajes con Evaluaciones, Secciones y Preguntas</label>
+        <name>Learnings_with_Quizzes_with_Question_Lines_with_Questions</name>
+        <sections>
+            <label>Aprendizajes</label>
+            <name>Learnings</name>
+        </sections>
+        <sections>
+            <label>Secciones de Evaluación</label>
+            <name>Question Lines</name>
+        </sections>
+        <sections>
+            <label>Preguntas</label>
+            <name>Questions</name>
+        </sections>
+        <sections>
+            <label>Evaluaciones</label>
+            <name>Quizzes</name>
+        </sections>
+    </reportTypes>
+    <reportTypes>
+        <description>Tipo de reporte para Evaluaciones con Secciones y Preguntas</description>
+        <label>Evaluaciones con Secciones y Preguntas</label>
+        <name>Quizzes_with_Question_Lines_with_Questions</name>
+        <sections>
+            <label>Secciones de Evaluación</label>
+            <name>Question Lines</name>
+        </sections>
+        <sections>
+            <label>Preguntas</label>
+            <name>Questions</name>
+        </sections>
+        <sections>
+            <label>Evaluaciones</label>
+            <name>Quizzes</name>
+        </sections>
+    </reportTypes>
+    <reportTypes>
+        <description>Tipo de reporte para Cursos con Secciones y Aprendizajes</description>
+        <label>Cursos con Secciones y Aprendizajes</label>
+        <name>Training_Plans_with_Training_Plan_Sections_with_Training_Plan_Section_Items</name>
+        <sections>
+            <label>Aprendizajes de Curso</label>
+            <name>Training Plan Section Items</name>
+        </sections>
+        <sections>
+            <label>Secciones de Curso</label>
+            <name>Training Plan Sections</name>
+        </sections>
+        <sections>
+            <label>Cursos</label>
+            <name>Training Plans</name>
+        </sections>
+    </reportTypes>
+</Translations>

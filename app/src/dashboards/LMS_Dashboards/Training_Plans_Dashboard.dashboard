@@ -105,7 +105,7 @@
             <sortBy>RowValueDescending</sortBy>
         </components>
     </rightSection>
-    <runningUser>{{RUNNING_USER}}</runningUser>
+    <runningUser>jrico@almond.com.test</runningUser>
     <textColor>#000000</textColor>
     <title>Training Plans Dashboard</title>
     <titleColor>#000000</titleColor>

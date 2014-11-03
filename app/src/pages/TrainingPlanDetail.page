@@ -349,7 +349,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                                     almond.redirectHandler(learningURL,retainHistory);
                                 }else{
                                     // In desktop, this will open a popup so we don't have to retain history
-                                    almond.redirectHandlerWithTargetPopUp(learningURL,false,'{!$Resource.almond_loading_generic}');
+                                    almond.redirectHandlerWithTargetPopUp(learningURL,false,"{!URLFOR($Resource.almond_uilib, '/img/almond_loading_generic.gif')}");
                                 }
                             }else{
                                 almond.redirectHandler(learningURL,retainHistory);

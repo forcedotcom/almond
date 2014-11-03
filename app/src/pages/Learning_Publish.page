@@ -27,14 +27,14 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 <apex:page standardController="Learning__c" extensions="Learning_Publish_Ext" tabStyle="Learning__c">
 
-    <apex:sectionHeader title="Learning" subtitle="Publish a new version">
+    <apex:sectionHeader title="{!$Label.ALMS_Learning}" subtitle="{!$Label.ALMS_Publish_New_Learning_Version}">
         <div class="bPageTitle" style="padding:0px;">
-            <div class="ptBreadcrumb">&nbsp;&lt;&lt;&nbsp;<a href="/{!Learning__c}">Back to Learning: {!learning.Name} </a></div>
+            <div class="ptBreadcrumb">&nbsp;&lt;&lt;&nbsp;<a href="/{!Learning__c}">{!$Label.ALMS_Learning_Back}: {!learning.Name} </a></div>
         </div>
     </apex:sectionHeader>
 
     <apex:form >
-        <apex:pageBlock title="Select content to be published">
+        <apex:pageBlock title="{!$Label.ALMS_Select_Published_Content}">
 
             <style>
                 a.btnLMSPublish ,a.btnLMSPublish:hover{
@@ -49,8 +49,8 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
             </apex:pageBlockSection>
 
             <apex:pageBlockTable value="{!contents}" var="c">
-                <apex:column headerValue="Action">
-                    <apex:commandLink value="Publish" action="{!publishContent}" styleClass="btnImportant btnLMSPublish" onclick="return confirm('Are you sure?');">
+                <apex:column headerValue="{!$Label.ALMS_Action}">
+                    <apex:commandLink value="{!$Label.ALMS_Publish}" action="{!publishContent}" styleClass="btnImportant btnLMSPublish" onclick="return confirm('{!JSENCODE($Label.ALMS_Confirm_Alert)}');">
                         <apex:param name="selectedContent" value="{!c.Id}" assignTo="{!selectedContent}" />
                     </apex:commandLink>
                 </apex:column>

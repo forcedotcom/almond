@@ -8,12 +8,153 @@
         <plural>true</plural>
         <value>Training Plans</value>
     </caseValues>
+    <fields>
+        <label><!-- Background Color --></label>
+        <name>Background_Color__c</name>
+    </fields>
+    <fields>
+        <help><!-- URL for the image displayed in the training plan detail header --></help>
+        <label><!-- Background Image URL --></label>
+        <name>Background_Image_URL__c</name>
+    </fields>
+    <fields>
+        <help><!-- Disable this option if you don&apos;t want users to receive chatter notifications when they are assigned to this training plan. --></help>
+        <label><!-- Chatter Notifications Enabled --></label>
+        <name>Chatter_Notifications_Enabled__c</name>
+    </fields>
+    <fields>
+        <label><!-- Description --></label>
+        <name>Description__c</name>
+    </fields>
+    <fields>
+        <help><!-- Check this box if you&apos;d like to make this training plan available to all your company and allow users to create assignments on-the-fly. --></help>
+        <label><!-- Enable Self-Registration --></label>
+        <name>Enable_Self_Registration__c</name>
+    </fields>
+    <fields>
+        <label><!-- End Date --></label>
+        <name>End_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Enforce Sequence --></label>
+        <name>Enforce_Sequence__c</name>
+    </fields>
+    <fields>
+        <help><!-- URL for the embedded intro video shown in the training plan detail page --></help>
+        <label><!-- Intro Video URL --></label>
+        <name>Intro_Video_URL__c</name>
+    </fields>
+    <fields>
+        <help><!-- &quot;Open&quot; or empty access allows any users to create assignments &quot;on the fly&quot; for this training plan. &quot;Requires Approval&quot; logs an approval request that is later handled by the Training Plan owner. --></help>
+        <label><!-- Self-Registration Access --></label>
+        <name>Self_Registration_Access__c</name>
+        <picklistValues>
+            <masterLabel>Public</masterLabel>
+            <translation><!-- Public --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Requires Approval</masterLabel>
+            <translation><!-- Requires Approval --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Start Date --></label>
+        <name>Start_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Status --></label>
+        <name>Status__c</name>
+        <picklistValues>
+            <masterLabel>Active</masterLabel>
+            <translation><!-- Active --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Draft</masterLabel>
+            <translation><!-- Draft --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Text Color --></label>
+        <name>Text_Color__c</name>
+    </fields>
+    <fields>
+        <label><!-- Total Ratings Count --></label>
+        <name>Total_Ratings_Count__c</name>
+    </fields>
+    <fields>
+        <label><!-- Total Ratings Sum --></label>
+        <name>Total_Ratings_Sum__c</name>
+    </fields>
+    <fields>
+        <label><!-- Total Section Items --></label>
+        <name>Total_Section_Items__c</name>
+    </fields>
+    <fields>
+        <label><!-- Training Plan Rating --></label>
+        <name>Training_Plan_Rating__c</name>
+    </fields>
     <layouts>
         <layout>Training Plan Layout</layout>
+        <sections>
+            <label><!-- Additional Information --></label>
+            <section>Additional Information</section>
+        </sections>
+        <sections>
+            <label><!-- Charts --></label>
+            <section>Charts</section>
+        </sections>
         <sections>
             <label><!-- Custom Links --></label>
             <section>Custom Links</section>
         </sections>
+        <sections>
+            <label><!-- Look and Feel Information --></label>
+            <section>Look and Feel Information</section>
+        </sections>
+        <sections>
+            <label><!-- Rating Information --></label>
+            <section>Rating Information</section>
+        </sections>
+        <sections>
+            <label><!-- Self-Registration Information --></label>
+            <section>Self-Registration Information</section>
+        </sections>
+        <sections>
+            <label><!-- Sequence Information --></label>
+            <section>Sequence Information</section>
+        </sections>
     </layouts>
+    <quickActions>
+        <label><!-- Add Achievement --></label>
+        <name>Add_Achievement</name>
+    </quickActions>
+    <quickActions>
+        <label><!-- Add Section --></label>
+        <name>Add_Section</name>
+    </quickActions>
+    <quickActions>
+        <label><!-- Update Achievements --></label>
+        <name>Update_Plan_Achievements</name>
+    </quickActions>
+    <quickActions>
+        <label><!-- Update Assignments --></label>
+        <name>Update_Plan_Assignments</name>
+    </quickActions>
+    <sharingReasons>
+        <label><!-- LMS Sharing --></label>
+        <name>LMS_Sharing</name>
+    </sharingReasons>
     <startsWith>Consonant</startsWith>
+    <validationRules>
+        <errorMessage><!-- Start Date cannot be greater than End Date --></errorMessage>
+        <name>Date_Validation</name>
+    </validationRules>
+    <webLinks>
+        <label><!-- Manage_Achievements --></label>
+        <name>Manage_Achievements</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Manage_Assignments --></label>
+        <name>Manage_Assignments</name>
+    </webLinks>
 </CustomObjectTranslation>

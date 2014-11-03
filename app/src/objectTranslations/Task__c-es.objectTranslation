@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Tarea</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Tareas</value>
+    </caseValues>
+    <fields>
+        <label>Añadir parámetros de aprendizaje a la liga</label>
+        <name>Add_training_parameters_to_URL__c</name>
+    </fields>
+    <fields>
+        <label>Descripción</label>
+        <name>Description__c</name>
+    </fields>
+    <fields>
+        <label>Habilitar Carga de Imagen</label>
+        <name>Enable_Image_Upload__c</name>
+    </fields>
+    <fields>
+        <label>Nombre de Recurso Externo</label>
+        <name>External_Resource_Name__c</name>
+    </fields>
+    <fields>
+        <label>Comportamiento de Recurso Externo</label>
+        <name>External_Resource_Target__c</name>
+        <picklistValues>
+            <masterLabel>blank</masterLabel>
+            <translation>Abrir en nueva ventana</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>self</masterLabel>
+            <translation>Abrir en la misma ventana</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label>Liga de Recurso Externo</label>
+        <name>External_Resource_URL__c</name>
+    </fields>
+    <fields>
+        <label>Aprendizaje</label>
+        <name>Learning__c</name>
+        <relationshipLabel>Tareas</relationshipLabel>
+    </fields>
+    <fields>
+        <label>Requiere aprobación del Gestor para completar</label>
+        <name>Requires_Manager_Approval__c</name>
+    </fields>
+    <layouts>
+        <layout>Task Layout</layout>
+        <sections>
+            <label>Enlaces Personalizados</label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label>Información Opcional</label>
+            <section>Optional Information</section>
+        </sections>
+    </layouts>
+    <gender>Feminine</gender>
+    <nameFieldLabel>Nombre de Tarea</nameFieldLabel>
+</CustomObjectTranslation>

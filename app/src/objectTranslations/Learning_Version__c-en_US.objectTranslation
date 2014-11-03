@@ -8,6 +8,58 @@
         <plural>true</plural>
         <value>Learning Versions</value>
     </caseValues>
+    <fields>
+        <label><!-- Learning Content ID --></label>
+        <name>Learning_Content_ID__c</name>
+    </fields>
+    <fields>
+        <label><!-- Learning --></label>
+        <name>Learning__c</name>
+        <relationshipLabel><!-- Learning Versions --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Quiz --></label>
+        <name>Quiz__c</name>
+        <relationshipLabel><!-- Learning Versions --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Task --></label>
+        <name>Task__c</name>
+        <relationshipLabel><!-- Learning Versions --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Training Resource --></label>
+        <name>Training_Resource__c</name>
+        <relationshipLabel><!-- Learning Versions --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Type --></label>
+        <name>Type__c</name>
+        <picklistValues>
+            <masterLabel>Preview</masterLabel>
+            <translation><!-- Preview --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Published</masterLabel>
+            <translation><!-- Published --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Version --></label>
+        <name>Version__c</name>
+    </fields>
+    <fields>
+        <label><!-- Version selection behavior --></label>
+        <name>Version_selection_behavior__c</name>
+        <picklistValues>
+            <masterLabel>Ask user for version selection</masterLabel>
+            <translation><!-- Ask user for version selection --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Update version on launch</masterLabel>
+            <translation><!-- Update version on launch --></translation>
+        </picklistValues>
+    </fields>
     <layouts>
         <layout>Learning Version Layout</layout>
         <sections>

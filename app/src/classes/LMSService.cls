@@ -1277,7 +1277,7 @@ public with sharing class LMSService{
 
         List<String> listSOQLFields = new List<String>{
             'Id'
-            ,'Status__c'
+            ,'toLabel(Status__c)'
             ,'Comments__c'
         };
 

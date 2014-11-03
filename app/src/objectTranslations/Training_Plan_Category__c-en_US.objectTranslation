@@ -14,6 +14,10 @@
         <relationshipLabel><!-- Training Plan Categories --></relationshipLabel>
     </fields>
     <fields>
+        <label><!-- Order --></label>
+        <name>Order__c</name>
+    </fields>
+    <fields>
         <label><!-- Training Plan --></label>
         <name>Training_Plan__c</name>
         <relationshipLabel><!-- Training Plan Categories --></relationshipLabel>

@@ -27,9 +27,9 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 <apex:page standardController="Learning__c" extensions="LearningDeleteSharedAssignmentsExt" sidebar="false">
 
-    <apex:sectionHeader title="Delete Unused Shared Assignments" subtitle="{!Learning__c.Name}" >
+    <apex:sectionHeader title="{!$Label.ALMS_Shared_Assignments_Delete_Unused}" subtitle="{!Learning__c.Name}" >
         <div class="bPageTitle" style="padding:0px;">
-            <div class="ptBreadcrumb">&nbsp;&lt;&lt;&nbsp;<a href="/{!Learning__c.Id}">Back to Learning</a></div>
+            <div class="ptBreadcrumb">&nbsp;&lt;&lt;&nbsp;<a href="/{!Learning__c.Id}">{!$Label.ALMS_Learning_Back}</a></div>
         </div>
     </apex:sectionHeader>
 
@@ -45,17 +45,17 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
             <apex:pageMessages />
 
             <apex:pageBlockButtons location="top">
-                <apex:commandButton value="Delete all unused shared assignments"
+                <apex:commandButton value="{!$Label.ALMS_Shared_Assignments_Delete_Button}"
                         action="{!deleteUnusuedSharedAssignments}"
-                        onclick="if(!confirm('Are you sure?')){return};"
+                        onclick="if(!confirm('{!JSENCODE($Label.ALMS_Confirm_Alert)}')){return};"
                         styleClass="btnImportant"
                         rerender="sectionAssignmentDeleteForm"
                         status="status"
                 />
-                <apex:commandButton value="Cancel" action="{!cancel}"/>
+                <apex:commandButton value="{!$Label.ALMS_Cancel}" action="{!cancel}"/>
             </apex:pageBlockButtons>
 
-            <apex:pageMessage summary="The following operation will delete all unused shared assignments for users under the Learning : {!Learning__c.Name} " severity="warning" strength="3" />
+            <apex:pageMessage summary="{!$Label.ALMS_Shared_Assignments_Delete_Warning} : {!Learning__c.Name} " severity="warning" strength="3" />
 
         </apex:pageBlock>
     </apex:form>

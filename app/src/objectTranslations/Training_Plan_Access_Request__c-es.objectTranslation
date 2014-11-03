@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Solicitud de Acceso a Curso</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Solicitudes de Acceso a Cursos</value>
+    </caseValues>
+    <fields>
+        <label>Comentarios de Aprobador</label>
+        <name>Approver_Comments__c</name>
+    </fields>
+    <fields>
+        <label>Comentarios</label>
+        <name>Comments__c</name>
+    </fields>
+    <fields>
+        <label>Estado</label>
+        <name>Status__c</name>
+        <picklistValues>
+            <masterLabel>Approved</masterLabel>
+            <translation>Aprobado</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Pending</masterLabel>
+            <translation>Pendiente</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Rejected</masterLabel>
+            <translation>Rechazado</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label>Curso</label>
+        <name>Training_Plan__c</name>
+        <relationshipLabel>Solicitudes de Acceso a Cursos</relationshipLabel>
+    </fields>
+    <fields>
+        <label>Usuario</label>
+        <name>User__c</name>
+        <relationshipLabel>Solicitudes de Acceso a Cursos</relationshipLabel>
+    </fields>
+    <layouts>
+        <layout>Training Plan Access Request Layout</layout>
+        <sections>
+            <label>Comentarios</label>
+            <section>Comments</section>
+        </sections>
+        <sections>
+            <label>Enlaces Personalizados</label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <gender>Feminine</gender>
+    <nameFieldLabel>ID de Solicitud</nameFieldLabel>
+</CustomObjectTranslation>

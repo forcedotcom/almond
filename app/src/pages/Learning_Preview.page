@@ -27,14 +27,14 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 <apex:page standardController="Learning__c" extensions="Learning_Preview_Ext" sidebar="false">
 
-    <apex:sectionHeader title="Learning" subtitle="Preview">
+    <apex:sectionHeader title="{!$Label.ALMS_Learning}" subtitle="{!$Label.ALMS_Preview}">
         <div class="bPageTitle" style="padding:0px;">
-            <div class="ptBreadcrumb">&nbsp;&lt;&lt;&nbsp;<a href="/{!Learning__c}">Back to Learning: {!learning.Name} </a></div>
+            <div class="ptBreadcrumb">&nbsp;&lt;&lt;&nbsp;<a href="/{!Learning__c}">{!$Label.ALMS_Learning_Back}: {!learning.Name} </a></div>
         </div>
     </apex:sectionHeader>
 
     <apex:form >
-        <apex:pageBlock title="Select content to be previewed">
+        <apex:pageBlock title="{!$Label.ALMS_Content_Previewed}">
 
              <style>
                 a.btnLMSPublish ,a.btnLMSPublish:hover{
@@ -47,8 +47,8 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 
             <apex:pageBlockTable value="{!contents}" var="c">
 
-                <apex:column headerValue="Action">
-                    <apex:commandLink value="Preview" action="{!previewContent}" styleClass="btnImportant btnLMSPublish">
+                <apex:column headerValue="{!$Label.ALMS_Action}">
+                    <apex:commandLink value="{!$Label.ALMS_Preview}" action="{!previewContent}" styleClass="btnImportant btnLMSPublish">
                         <apex:param name="selectedContent" value="{!c.Id}" assignTo="{!selectedContent}" />
                     </apex:commandLink>
                 </apex:column>

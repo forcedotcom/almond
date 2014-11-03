@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Evaluación</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Evaluaciones</value>
+    </caseValues>
+    <fields>
+        <label>Descripción</label>
+        <name>Description__c</name>
+    </fields>
+    <fields>
+        <label>Aprendizaje</label>
+        <name>Learning__c</name>
+        <relationshipLabel>Evaluaciones</relationshipLabel>
+    </fields>
+    <fields>
+        <label>Máximo Número de Intentos</label>
+        <name>Max_Attempts__c</name>
+    </fields>
+    <fields>
+        <label>Calificación de Pase</label>
+        <name>Passing_Score__c</name>
+    </fields>
+    <fields>
+        <label>Total de Preguntas</label>
+        <name>Total_Questions__c</name>
+    </fields>
+    <layouts>
+        <layout>Quiz Layout</layout>
+        <sections>
+            <label>Enlaces Personalizados</label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label>Información Opcional</label>
+            <section>Optional Information</section>
+        </sections>
+        <sections>
+            <label>Información de Calificación</label>
+            <section>Score Information</section>
+        </sections>
+    </layouts>
+    <gender>Feminine</gender>
+    <nameFieldLabel>Nombre de Evaluación</nameFieldLabel>
+</CustomObjectTranslation>

@@ -33,22 +33,22 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
             <apex:pageMessages />
 
             <apex:pageBlockButtons location="top">
-                <apex:commandButton value="Update all Assignments"
+                <apex:commandButton value="{!$Label.ALMS_Update_All_Assignments}"
                         action="{!updateAllAssignments}"
-                        onclick="if(!confirm('Are you sure?')){return};"
+                        onclick="if(!confirm('{!JSENCODE($Label.ALMS_Confirm_Alert)}')){return};"
                         rerender="assignmentFormBatch"
                         status="status"
                 />
-                <apex:commandButton value="Delete all Assignments"
+                <apex:commandButton value="{!$Label.ALMS_Delete_All_Assignments}"
                         action="{!deleteAllAssignments}"
-                        onclick="if(!confirm('Are you sure?')){return};"
+                        onclick="if(!confirm('{!JSENCODE($Label.ALMS_Confirm_Alert)}')){return};"
                         rerender="assignmentFormBatch"
                         status="status"
                 />
-                <apex:commandButton value="Cancel" action="{!cancel}"/>
+                <apex:commandButton value="{!$Label.ALMS_Cancel}" action="{!cancel}"/>
             </apex:pageBlockButtons>
 
-            <apex:pageMessage summary="The following operations will affect all Learning Assignments under the {!Training_Plan__c.Name} Training Plan" severity="warning" strength="3" />
+            <apex:pageMessage summary="{!$Label.ALMS_Update_All_Assignments_Message} : {!Training_Plan__c.Name}" severity="warning" strength="3" />
 
         </apex:pageBlock>
 

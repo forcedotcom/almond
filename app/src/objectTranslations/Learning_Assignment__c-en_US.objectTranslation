@@ -8,11 +8,159 @@
         <plural>true</plural>
         <value>Learning Assignments</value>
     </caseValues>
+    <fields>
+        <label><!-- Approved By --></label>
+        <name>Approved_By__c</name>
+        <relationshipLabel><!-- Learning Assignments (Approved By) --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Approved --></label>
+        <name>Approved__c</name>
+    </fields>
+    <fields>
+        <label><!-- Approver Notes --></label>
+        <name>Approver_Notes__c</name>
+    </fields>
+    <fields>
+        <label><!-- Contact --></label>
+        <name>Contact__c</name>
+        <relationshipLabel><!-- Learning Assignments --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Evaluation Result Text --></label>
+        <name>Evaluation_Result_Text__c</name>
+    </fields>
+    <fields>
+        <label><!-- Evaluation Result --></label>
+        <name>Evaluation_Result__c</name>
+        <picklistValues>
+            <masterLabel>Failed</masterLabel>
+            <translation><!-- Failed --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>N/A</masterLabel>
+            <translation><!-- N/A --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Passed</masterLabel>
+            <translation><!-- Passed --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Evaluation Score --></label>
+        <name>Evaluation_Score__c</name>
+    </fields>
+    <fields>
+        <label><!-- Evaluation Times Taken --></label>
+        <name>Evaluation_Times_Taken__c</name>
+    </fields>
+    <fields>
+        <help><!-- This flag indicates that this assignment is created for preview purposes while creating new Learnings --></help>
+        <label><!-- Is Test Assignment --></label>
+        <name>Is_Test_Assignment__c</name>
+    </fields>
+    <fields>
+        <label><!-- Last Published Learning Version Decision --></label>
+        <name>Last_Published_Learning_Version_Decision__c</name>
+        <picklistValues>
+            <masterLabel>Keep using old version</masterLabel>
+            <translation><!-- Keep using old version --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>New version taken</masterLabel>
+            <translation><!-- New version taken --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Last Published Learning Version --></label>
+        <name>Last_Published_Learning_Version__c</name>
+        <relationshipLabel><!-- Learning Assignments --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Learning Version --></label>
+        <name>Learning_Version__c</name>
+        <relationshipLabel><!-- Learning Assignments (Learning Version) --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Learning --></label>
+        <name>Learning__c</name>
+        <relationshipLabel><!-- Learning Assignments --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Optional --></label>
+        <name>Optional__c</name>
+    </fields>
+    <fields>
+        <label><!-- Progress % --></label>
+        <name>Progress_Percentage__c</name>
+    </fields>
+    <fields>
+        <label><!-- Progress Text --></label>
+        <name>Progress_Text__c</name>
+    </fields>
+    <fields>
+        <label><!-- Progress --></label>
+        <name>Progress__c</name>
+        <picklistValues>
+            <masterLabel>Cancelled</masterLabel>
+            <translation><!-- Cancelled --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Completed</masterLabel>
+            <translation><!-- Completed --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>In Progress</masterLabel>
+            <translation><!-- In Progress --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>In Review</masterLabel>
+            <translation><!-- In Review --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Not Started</masterLabel>
+            <translation><!-- Not Started --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Shared Learning Assignment --></label>
+        <name>Shared_Learning_Assignment__c</name>
+        <relationshipLabel><!-- Learning Assignments --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Training Plan Section Assignment --></label>
+        <name>Training_Plan_Section_Assignment__c</name>
+        <relationshipLabel><!-- Learning Assignments --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Training Plan Section Item --></label>
+        <name>Training_Plan_Section_Item__c</name>
+        <relationshipLabel><!-- Learning Assignments --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Training Plan Section --></label>
+        <name>Training_Plan_Section__c</name>
+        <relationshipLabel><!-- Learning Assignments --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Training Plan --></label>
+        <name>Training_Plan__c</name>
+        <relationshipLabel><!-- Learning Assignments --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- User --></label>
+        <name>User__c</name>
+        <relationshipLabel><!-- Learning Assignments (User) --></relationshipLabel>
+    </fields>
     <layouts>
         <layout>Learning Assignment Layout</layout>
         <sections>
             <label><!-- Additional Information --></label>
             <section>Additional Information</section>
+        </sections>
+        <sections>
+            <label><!-- Approval Information --></label>
+            <section>Approval Information</section>
         </sections>
         <sections>
             <label><!-- Custom Links --></label>
@@ -27,5 +175,13 @@
             <section>Versioning Information</section>
         </sections>
     </layouts>
+    <sharingReasons>
+        <label><!-- LMS Approval Sharing --></label>
+        <name>LMS_Approval_Sharing</name>
+    </sharingReasons>
     <startsWith>Consonant</startsWith>
+    <webLinks>
+        <label><!-- Approve --></label>
+        <name>Approve</name>
+    </webLinks>
 </CustomObjectTranslation>

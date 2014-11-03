@@ -216,6 +216,10 @@
     	<apexClass>LMSTemplateController</apexClass>
     	<enabled>true</enabled>
     </classAccesses>
+    <classAccesses>
+        <apexClass>LMS_API</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
     <fieldPermissions>
         <editable>false</editable>
         <field>Achievement_Assignment__c.Achievement__c</field>
@@ -308,22 +312,12 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Answer_Sequence_Item__c.Answer_Sequence__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>Answer_Sequence_Item__c.Answer_Text__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
         <field>Answer_Sequence_Item__c.Is_Correct_Answer__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Answer_Sequence_Item__c.Item_Id__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -458,11 +452,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Learning_Version__c.Learning__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>Learning_Version__c.Quiz__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -553,11 +542,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Question_Line__c.Quiz__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>Question_Line__c.Total_Questions__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -593,11 +577,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Question__c.Question_Line__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>Question__c.Type__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -605,11 +584,6 @@
         <editable>false</editable>
         <field>Quiz__c.Description__c</field>
         <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Quiz__c.Learning__c</field>
-        <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
@@ -793,11 +767,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>TML_Answer_Sequence_Item__c.TML_Answer_Sequence__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>TML_Answer_Sequence__c.Internal_Notes__c</field>
         <readable>false</readable>
     </fieldPermissions>
@@ -829,11 +798,6 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>TML_Question__c.Type__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Task_Approver__c.Task__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -870,11 +834,6 @@
         <editable>false</editable>
         <field>Task__c.External_Resource_URL__c</field>
         <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Task__c.Learning__c</field>
-        <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
@@ -923,11 +882,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Training_Plan_Achievement__c.Training_Plan__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>Training_Plan_Achievement__c.Type__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -943,11 +897,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Training_Plan_Assignment__c.Training_Plan__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>Training_Plan_Assignment__c.User__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -960,11 +909,6 @@
         <editable>false</editable>
         <field>Training_Plan_Section_Assignment__c.Training_Plan_Assignment__c</field>
         <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Training_Plan_Section_Assignment__c.Training_Plan_Section__c</field>
-        <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
@@ -998,11 +942,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Training_Plan_Section_Item__c.Training_Plan_Section__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>Training_Plan_Section__c.Optional__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1014,11 +953,6 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Training_Plan_Section__c.Total_Section_Items__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Training_Plan_Section__c.Training_Plan__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -1113,11 +1047,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Training_Resource__c.Learning__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>Training_Resource__c.Resource_URL__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1153,11 +1082,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Training_Plan_Batch_Operation__c.Training_Plan__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>Training_Plan_Batch_Operation__c.Type__c</field>
         <readable>false</readable>
     </fieldPermissions>
@@ -1173,21 +1097,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Batch_Operation_Record__c.Training_Plan_Batch_Operation__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Training_Plan_Category__c.Learning_Category__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Training_Plan_Category__c.Training_Plan__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>Training_Plan_Category__c.Order__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1199,11 +1108,6 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Training_Plan_Feedback__c.Rating__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Training_Plan_Feedback__c.Training_Plan__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -1243,22 +1147,12 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Training_Track_Level__c.Training_Track__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>Training_Track_Level_Item__c.Training_Plan__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
         <field>Training_Track_Level_Item__c.Order__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Training_Track_Level_Item__c.Training_Track_Level__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

@@ -189,7 +189,7 @@ public with sharing class TrainingPlanAssignmentHelper{
 
                         //Create a text segment
                         ConnectApi.TextSegmentInput textSegment = new ConnectApi.TextSegmentInput();
-                        textSegment.text = 'Hi ';
+                        textSegment.text = System.Label.ALMS_Chatter_Notification_Greeting+' ';
                         messageInput.messageSegments.add(textSegment);
 
                         //Create a mention segment
@@ -199,7 +199,7 @@ public with sharing class TrainingPlanAssignmentHelper{
 
                         //Create a text segement
                         textSegment = new ConnectApi.TextSegmentInput();
-                        textSegment.text = ' You\'ve been assigned to the '+tPlanInfo.Name+' training plan. Click the following link to launch it : ';
+                        textSegment.text = ' '+System.Label.ALMS_Chatter_Notification_Message_1+' : '+tPlanInfo.Name+'. '+System.Label.ALMS_Chatter_Notification_Message_2+' : ';
                         messageInput.messageSegments.add(textSegment);
 
                         ConnectApi.LinkAttachmentInput linkSegment = new ConnectApi.LinkAttachmentInput();

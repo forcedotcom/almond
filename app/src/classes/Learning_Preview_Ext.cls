@@ -167,7 +167,7 @@ public with sharing class Learning_Preview_Ext{
                 return doRedirection();
 
             }else{
-                LMSUtils.addErrorMessage('An error has occured while previewing the new version');
+                LMSUtils.addErrorMessage(System.Label.ALMS_Preview_Version_Error);
                 return null;
             }
 

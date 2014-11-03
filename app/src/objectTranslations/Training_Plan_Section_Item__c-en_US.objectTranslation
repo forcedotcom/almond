@@ -8,6 +8,32 @@
         <plural>true</plural>
         <value>Training Plan Section Items</value>
     </caseValues>
+    <fields>
+        <label><!-- Duration (minutes) --></label>
+        <name>Duration__c</name>
+    </fields>
+    <fields>
+        <label><!-- Duration (hours) --></label>
+        <name>Duration_hours__c</name>
+    </fields>
+    <fields>
+        <label><!-- Learning --></label>
+        <name>Learning__c</name>
+        <relationshipLabel><!-- Training Plan Section Items --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Optional --></label>
+        <name>Optional__c</name>
+    </fields>
+    <fields>
+        <label><!-- Order --></label>
+        <name>Order__c</name>
+    </fields>
+    <fields>
+        <label><!-- Training Plan Section --></label>
+        <name>Training_Plan_Section__c</name>
+        <relationshipLabel><!-- Training Plan Section Items --></relationshipLabel>
+    </fields>
     <layouts>
         <layout>Training Plan Section Item Layout</layout>
         <sections>
@@ -16,4 +42,8 @@
         </sections>
     </layouts>
     <startsWith>Consonant</startsWith>
+    <webLinks>
+        <label><!-- Delete_Assignments --></label>
+        <name>Delete_Assignments</name>
+    </webLinks>
 </CustomObjectTranslation>

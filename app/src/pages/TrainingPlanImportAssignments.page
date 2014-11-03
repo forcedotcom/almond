@@ -29,9 +29,9 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 
     <script src="{!URLFOR($Resource.almond_uilib, '/js/jquery.min.js')}" />
 
-    <apex:sectionHeader title="Import Assignments" subtitle="{!Training_Plan__c.Name}">
+    <apex:sectionHeader title="{!$Label.ALMS_Import_Assignments}" subtitle="{!Training_Plan__c.Name}">
         <div class="bPageTitle" style="padding:0px;">
-            <div class="ptBreadcrumb">&nbsp;&lt;&lt;&nbsp;<a href="/{!Training_Plan__c.Id}">Back to Training Plan</a></div>
+            <div class="ptBreadcrumb">&nbsp;&lt;&lt;&nbsp;<a href="/{!Training_Plan__c.Id}">{!$Label.ALMS_Training_Plan_Back}</a></div>
         </div>
     </apex:sectionHeader>
 
@@ -45,16 +45,16 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 
         <apex:pageBlock id="assignmentPageBlock">
 
-            <apex:pageMessage summary="Select a report from the list below and click Import. Please note that only tabular reports are available for data import" severity="info" strength="1" />
+            <apex:pageMessage summary="{!$Label.ALMS_Import_Report_Message}" severity="info" strength="1" />
 
             <apex:pageMessages />
 
             <apex:pageBlockButtons location="top">
-                <apex:commandButton value="Cancel" action="{!cancel}" />
-                <apex:commandButton value="Import" action="{!importRecords}" status="status" rerender="assignmentForm" onclick="if(!confirm('Are you sure?')){return};" styleClass="btnImportant"/>
+                <apex:commandButton value="{!$Label.ALMS_Cancel}" action="{!cancel}" />
+                <apex:commandButton value="{!$Label.ALMS_Import_Button}" action="{!importRecords}" status="status" rerender="assignmentForm" onclick="if(!confirm('{!JSENCODE($Label.ALMS_Confirm_Alert)}')){return};" styleClass="btnImportant"/>
             </apex:pageBlockButtons>
 
-            <apex:pageBlockSection columns="1" title="Report Information" collapsible="false">
+            <apex:pageBlockSection columns="1" title="{!$Label.ALMS_Report_Information}" collapsible="false">
                 <apex:pageBlockSectionItem >
                     <apex:outputLabel value="Folder :" for="folderSelect"/>
                     <apex:selectList id="folderSelect" value="{!selectedFolderId}" size="1">
@@ -64,22 +64,22 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                 </apex:pageBlockSectionItem>
 
                 <apex:pageBlockSectionItem rendered="{!importReports.size > 0}">
-                    <apex:outputLabel value="Report :" for="reportSelect"/>
+                    <apex:outputLabel value="{!$Label.ALMS_Report_Folder} :" for="reportSelect"/>
                     <apex:selectList id="reportSelect" value="{!selectedReportId}" size="1">
                         <apex:selectOptions value="{!importReports}"/>
                     </apex:selectList>
                 </apex:pageBlockSectionItem>
 
                 <apex:pageBlockSectionItem rendered="{!importReports.size == 0 && selectedFolderId != null}">
-                    <apex:pageMessage summary="No tabular reports found under the selected folder." severity="info" strength="1" />
+                    <apex:pageMessage summary="{!$Label.ALMS_No_Reports_Found}" severity="info" strength="1" />
                 </apex:pageBlockSectionItem>
 
             </apex:pageBlockSection>
 
-            <apex:pageBlockSection columns="1" title="Additional Options" collapsible="true" id="additionalOptionsSection">
-                <apex:pageMessage summary="By default, the import process will try to find the column index with the USER_ID key. If you'd like to to change this behavior, please provide the column index that has users ids in your report." severity="info" strength="1" />
+            <apex:pageBlockSection columns="1" title="{!$Label.ALMS_Additional_Report_Options}" collapsible="true" id="additionalOptionsSection">
+                <apex:pageMessage summary="{!$Label.ALMS_Additional_Report_Options_Msg}" severity="info" strength="1" />
                 <apex:pageBlockSectionItem>
-                    <apex:outputLabel value="Custom Column Index :" for="colIndex"/>
+                    <apex:outputLabel value="{!$Label.ALMS_Report_Custom_Column_Index} :" for="colIndex"/>
                     <apex:inputText id="colIndex" value="{!customColumnIndex}" size="2"/>
                 </apex:pageBlockSectionItem>
             </apex:pageBlockSection>

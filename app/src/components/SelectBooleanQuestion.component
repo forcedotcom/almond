@@ -5,20 +5,20 @@
 
     <div class="radio">
         <label>
-            <input onClick="document.getElementsByName('{!$Component.resource}')[0].value='true';" 
-                type="radio" name="{!qi.question.Id}" 
+            <input onClick="document.getElementsByName('{!$Component.resource}')[0].value='true';"
+                type="radio" name="{!qi.question.Id}"
                 id="{!qi.question.id}true"
                 value="true" />
-                True          
+                {!$Label.ALMS_Boolean_True}
         </label>
     </div>
     <div class="radio">
         <label>
-            <input onClick="document.getElementsByName('{!$Component.resource}')[0].value='false';" 
-                type="radio" name="{!qi.question.Id}" 
+            <input onClick="document.getElementsByName('{!$Component.resource}')[0].value='false';"
+                type="radio" name="{!qi.question.Id}"
                 id="{!qi.question.id}false"
                 value="false" />
-                False          
+                {!$Label.ALMS_Boolean_False}
         </label>
     </div>
 
@@ -34,5 +34,5 @@
 
     <apex:inputHidden value="{!qi.response.Boolean_Response__c}" id="resource" rendered="true" />
 
-        
+
 </apex:component>

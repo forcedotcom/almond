@@ -45,7 +45,7 @@ public with sharing class TrainingPlanImportAssignmentsExt {
     public List<SelectOption> getReportFolders(){
         List<SelectOption> options = new List<SelectOption>();
         selectedReportId = null;
-        options.add(new SelectOption('','-- Select Folder --'));
+        options.add(new SelectOption('',System.Label.ALMS_Select_Report_Default_Option));
         for(Folder f : [select id,name from Folder where Type = 'Report']){
             if(f.name != null){
                 options.add(new SelectOption(f.Id,f.Name));
@@ -63,7 +63,7 @@ public with sharing class TrainingPlanImportAssignmentsExt {
                 }
             }
         }else{
-            LMSUtils.addErrorMessage('Please select a valid folder from the list');
+            LMSUtils.addErrorMessage(System.Label.ALMS_Missing_Report_Folder);
         }
         return null;
     }
@@ -74,7 +74,7 @@ public with sharing class TrainingPlanImportAssignmentsExt {
                 runReportAndImportData(selectedReportId);
                 return new PageReference('/'+trainingPlanId);
             }else{
-                LMSUtils.addErrorMessage('Please select a report from the report list');
+                LMSUtils.addErrorMessage(System.Label.ALMS_Missing_Report_Item);
                 return null;
             }
         }catch(Exception e){
@@ -180,7 +180,7 @@ public with sharing class TrainingPlanImportAssignmentsExt {
                 update tpbo;
             }
         }else{
-            throw new LMSException('Report did not return any records or we were unable to retrieve valid users ids from the specified column');
+            throw new LMSException(System.Label.ALMS_Report_No_Records_Error);
         }
     }
 

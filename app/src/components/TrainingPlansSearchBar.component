@@ -6,7 +6,7 @@
     <div class="row">
         <div class="col-lg-12 lms-search-group">
             <div class="input-group input-group-lg">
-                <input type="text" class="form-control" id="lms-search-input" autocomplete="off" maxlength="100" placeholder="Search Catalog"/>
+                <input type="text" class="form-control" id="lms-search-input" autocomplete="off" maxlength="100" placeholder="{!$Label.ALMS_Search_Catalog}"/>
                 <span class="input-group-btn">
                     <button class="btn btn-default" type="button" id="lms-search-button"><span class="glyphicon glyphicon-search"></span></button>
                 </span>

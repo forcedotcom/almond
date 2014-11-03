@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Logro</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Logros</value>
+    </caseValues>
+    <fields>
+        <label>Categoría de Logro</label>
+        <name>Achievement_Category__c</name>
+        <relationshipLabel>Logros</relationshipLabel>
+    </fields>
+    <fields>
+        <label>Imagen Logro Adquirido</label>
+        <name>Acquired_Image__c</name>
+    </fields>
+    <fields>
+        <label>Imagen Logro Elegible</label>
+        <name>Eligible_Image__c</name>
+    </fields>
+    <fields>
+        <label>Fecha de Expiración</label>
+        <name>Expiration_Date__c</name>
+    </fields>
+    <fields>
+        <help>Si esta seleccionado, este logro no será desplegado en el perfil de los usuarios</help>
+        <label>Ocultar</label>
+        <name>Hidden__c</name>
+    </fields>
+    <fields>
+        <help>Sobrescribir el estado Adquirido, mostrará el estado seleccionado aquí en lugar del estado Adquirido. Es su responsabilidad crear un proceso que mueva la asignación del Logro al estado Adquirido.</help>
+        <label>Sobre escritura de Estado Adquirido</label>
+        <name>Override_Completed_Status__c</name>
+        <picklistValues>
+            <masterLabel>In Review</masterLabel>
+            <translation>En Revisión</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <help>Especifique una liga a la cual los usuarios serian enviados cuando presionen la imagen en su Perfil.</help>
+        <label>Enlace de Sobre escritura</label>
+        <name>Override_URL__c</name>
+    </fields>
+    <fields>
+        <label>Tipo</label>
+        <name>Type__c</name>
+        <picklistValues>
+            <masterLabel>Achievements</masterLabel>
+            <translation>Logros</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Certifications</masterLabel>
+            <translation>Certificaciones</translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label>Usuario para entregar Insignia</label>
+        <name>Work_Badge_Giver__c</name>
+        <relationshipLabel>Logros</relationshipLabel>
+    </fields>
+    <fields>
+        <label>Id de Insignia Work.com</label>
+        <name>Work_Badge_Id__c</name>
+    </fields>
+    <fields>
+        <label>Liga de Insignia Work.com</label>
+        <name>Work_Badge_Image_URL__c</name>
+    </fields>
+    <fields>
+        <label>Mensaje de Insignia Work.com</label>
+        <name>Work_Badge_Message__c</name>
+    </fields>
+    <layouts>
+        <layout>Achievement Layout</layout>
+        <sections>
+            <label>Insignia Personalizada</label>
+            <section>Custom Badge</section>
+        </sections>
+        <sections>
+            <label>Enlaces Personalizados</label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label>Información Opcional de Asignación</label>
+            <section>Optional Assignment Information</section>
+        </sections>
+        <sections>
+            <label>Insignia Work.com</label>
+            <section>Work.com Badge</section>
+        </sections>
+        <sections>
+            <label>Información de Insignia Work.com</label>
+            <section>Work.com Badge Information</section>
+        </sections>
+    </layouts>
+    <gender>Masculine</gender>
+    <nameFieldLabel>Nombre de Logro</nameFieldLabel>
+    <webLinks>
+        <label>Añadir Insignia Work.com</label>
+        <name>Add_Work_com_Badge</name>
+    </webLinks>
+</CustomObjectTranslation>

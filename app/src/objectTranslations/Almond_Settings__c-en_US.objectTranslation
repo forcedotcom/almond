@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Almond Settings</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Almond Settings</value>
+    </caseValues>
+    <fields>
+        <help><!-- URL for your company logo --></help>
+        <label><!-- Company Logo --></label>
+        <name>Company_Logo__c</name>
+    </fields>
+    <fields>
+        <help><!-- Enable this option to force training plan progress calculation in a single transaction --></help>
+        <label><!-- Disable Future Progress Calculation --></label>
+        <name>Disable_Future_Progress_Calculation__c</name>
+    </fields>
+    <fields>
+        <help><!-- Enable this option to prevent automatic achievement assignment for track achievements --></help>
+        <label><!-- Disable Track Achievements --></label>
+        <name>Disable_Track_Achievements__c</name>
+    </fields>
+    <fields>
+        <help><!-- Enable this option if you&apos;re experiencing issues with taps in Salesforce1 + iOS8 --></help>
+        <label><!-- Enable iOS Tap Fix --></label>
+        <name>Enable_iOS_Tap_Fix__c</name>
+    </fields>
+    <fields>
+        <help><!-- HEX value for the header background color. (e.g. #EEEEEE) --></help>
+        <label><!-- Header Background Color --></label>
+        <name>Header_Background_Color__c</name>
+    </fields>
+    <fields>
+        <help><!-- HEX value for the header text color. (e.g. #EEEEEE) --></help>
+        <label><!-- Header Text Color --></label>
+        <name>Header_Text_Color__c</name>
+    </fields>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

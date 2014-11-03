@@ -59,7 +59,7 @@ public with sharing class TrainingPlanPreviewController{
                     lUsersWithAchievement = LMSService.getUsersForAchievement(tPlan.mainAchievement.Id, LMSConstants.AA_ACQUIRED_STATUS, 12);
                 }
             }else{
-                LMSUtils.addErrorMessage('You don\'t have access to view this training plan.');
+                LMSUtils.addErrorMessage(System.Label.ALMS_Training_Plan_No_Access_Message);
             }
         }catch(Exception e){
             LMSUtils.logException(e,'TrainingPlanPreviewController');
@@ -90,7 +90,7 @@ public with sharing class TrainingPlanPreviewController{
             if(selectedPlan.Self_Registration_Access__c != 'Requires Approval' && LMSService.isPublicTrainingPlanAvailable(trainingPlanId,UserInfo.getUserId())){
                 LMSService.upsertAssignments(new Set<Id>{UserInfo.getUserId()}, trainingPlanId);
             }else{
-                LMSUtils.addErrorMessage('Oops! We were unable to assign this training plan, please contact support');
+                LMSUtils.addErrorMessage(System.Label.ALMS_Public_Plan_Assignment_Error);
                 return null;
             }
 
@@ -119,7 +119,7 @@ public with sharing class TrainingPlanPreviewController{
         try{
             Training_Plan_Access_Request__c tpar = LMSService.createTrainingPlanAccessRequest(UserInfo.getUserId(),trainingPlanId,dummyRequest.Comments__c);
             dummyRequest = new Training_Plan_Access_Request__c();
-            LMSUtils.addSuccessMessage('Your request has been submitted');
+            LMSUtils.addSuccessMessage(System.Label.ALMS_Public_Plan_Request_Submitted);
             return null;
         }catch(Exception e){
             LMSUtils.addErrorMessage(e.getStackTraceString());

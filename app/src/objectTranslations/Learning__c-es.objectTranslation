@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Aprendizaje</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Aprendizajes</value>
+    </caseValues>
+    <fields>
+        <label>Actual Versión Publicada</label>
+        <name>Current_Published_Version_Formula__c</name>
+    </fields>
+    <fields>
+        <label>Actual Versión Publicada</label>
+        <name>Current_Published_Version__c</name>
+        <relationshipLabel>Aprendizajes</relationshipLabel>
+    </fields>
+    <fields>
+        <label>Enlace de Vista Previa Personalizada</label>
+        <name>Custom_Preview_URL__c</name>
+    </fields>
+    <fields>
+        <label>Descripción</label>
+        <name>Description__c</name>
+    </fields>
+    <fields>
+        <label>Duración (minutos)</label>
+        <name>Duration__c</name>
+    </fields>
+    <fields>
+        <label>Duración (horas)</label>
+        <name>Duration_hours__c</name>
+    </fields>
+    <fields>
+        <label>Publicado?</label>
+        <name>Is_Published_Formula__c</name>
+    </fields>
+    <fields>
+        <label>Publicado?</label>
+        <name>Published__c</name>
+    </fields>
+    <fields>
+        <label>Sincronizar progreso entre asignaciones</label>
+        <name>Sync_progress__c</name>
+    </fields>
+    <fields>
+        <label>Tipo</label>
+        <name>Type_Image__c</name>
+    </fields>
+    <layouts>
+        <layout>Learning-Quiz Layout</layout>
+        <sections>
+            <label>Enlaces Personalizados</label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Learning-Resource Layout</layout>
+        <sections>
+            <label>Enlaces Personalizados</label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>Learning-Task Layout</layout>
+        <sections>
+            <label>Enlaces Personalizados</label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <gender>Masculine</gender>
+    <nameFieldLabel>Nombre de Aprendizaje</nameFieldLabel>
+    <recordTypes>
+        <label>Evaluación</label>
+        <name>Quiz</name>
+    </recordTypes>
+    <recordTypes>
+        <label>Recurso de Aprendizaje</label>
+        <name>Resource</name>
+    </recordTypes>
+    <recordTypes>
+        <label>Tarea</label>
+        <name>Task</name>
+    </recordTypes>
+    <sharingReasons>
+        <label>Aprendizaje - Aprobación</label>
+        <name>LMS_Approval_Sharing</name>
+    </sharingReasons>
+    <sharingReasons>
+        <label>Aprendizaje - Colaboración</label>
+        <name>LMS_Sharing</name>
+    </sharingReasons>
+    <webLinks>
+        <label>Eliminar Asignaciones Compartidas</label>
+        <name>Delete_Shared_Assignments</name>
+    </webLinks>
+    <webLinks>
+        <label>Vista Previa</label>
+        <name>Preview</name>
+    </webLinks>
+    <webLinks>
+        <label>Publicar</label>
+        <name>Publish</name>
+    </webLinks>
+</CustomObjectTranslation>

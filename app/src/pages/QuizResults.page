@@ -30,7 +30,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
     <apex:composition template="LMS_Template">
 
         <apex:define name="head">
-            <title>Quiz Results</title>
+            <title>{!$Label.ALMS_Quiz_Results}</title>
         </apex:define>
 
         <apex:define name="body">
@@ -50,25 +50,25 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                 </apex:actionStatus>
 
                 <div class="alert {!messageStyle}">
-                    <h3>{!resultPreMessage} The result for your evaluation is : <b>{!evalResult}</b></h3>
+                    <h3>{!resultPreMessage} {!$Label.ALMS_Quiz_Results_Eval_Message} : <b>{!evalResultLabel}</b></h3>
                 </div>
 
                 <apex:outputPanel layout="none" rendered="{!maxAttemptsReached}">
                     <div class="alert info">
-                        <h3>You've reached the max number of attempts allowed by this quiz</h3>
+                        <h3>{!$Label.ALMS_Quiz_Max_Attempts_Reached}</h3>
                     </div>
                 </apex:outputPanel>
 
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                      <h2 class="panel-title">Additional Information</h2>
+                      <h2 class="panel-title">{!$Label.ALMS_Additional_Information}</h2>
                     </div>
                     <div class="panel-body">
-                      <h3>Score: {!evalScore}%</h3>
+                      <h3>{!$Label.ALMS_Quiz_Score} : {!evalScore}%</h3>
                     </div>
                 </div>
 
-                <apex:commandbutton value="Continue" action="{!quizContinue}" styleClass="almond-default-btn large-btn" status="status" rerender="resultsPanel,pMessages" oncomplete="doRedirection()"/>
+                <apex:commandbutton value="{!$Label.ALMS_Continue}" action="{!quizContinue}" styleClass="almond-default-btn large-btn" status="status" rerender="resultsPanel,pMessages" oncomplete="doRedirection()"/>
 
                 <script>
                     function doRedirection(){

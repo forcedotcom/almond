@@ -68,7 +68,7 @@ public with sharing class AchievementWorkComExt{
         try{
 
             if(String.isBlank(selectedBadge)){
-                LMSUtils.addErrorMessage('You must select a Badge from the list below.');
+                LMSUtils.addErrorMessage(System.Label.ALMS_Select_Work_Badge);
                 return null;
             }
 

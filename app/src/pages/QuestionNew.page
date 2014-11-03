@@ -45,28 +45,28 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
             <apex:param name="qtype" assignTo="{!questiontype}" value="" />
         </apex:actionFunction>
 
-        <apex:sectionHeader title="Question Line" subtitle="{!IF(question.Name != null, question.Name,'New Question')}"/>
+        <apex:sectionHeader title="{!$Label.ALMS_Question_Line}" subtitle="{!IF(question.Name != null, question.Name, $Label.ALMS_New_Question)}"/>
 
         <apex:pageBlock >
             <apex:pageBlockButtons location="top" >
-                <apex:commandButton action="{!c_save}" value="Save" id="savebtn" />
-                <apex:commandButton action="{!cancel}" value="Cancel" id="cancelbtn" />
+                <apex:commandButton action="{!c_save}" value="{!$Label.ALMS_Save}" id="savebtn" />
+                <apex:commandButton action="{!cancel}" value="{!$Label.ALMS_Cancel}" id="cancelbtn" />
             </apex:pageBlockButtons>
 
             <apex:pageBlockSection id="qsection" columns="3" >
 
                 <apex:pageBlockSectionItem >
-                    <apex:outputLabel value="Question" for="qdesc"  ></apex:outputLabel>
+                    <apex:outputLabel value="{!$Label.ALMS_Question}" for="qdesc" ></apex:outputLabel>
                     <apex:inputField value="{!question.Description__c}"  id="qdesc" styleClass="qtxtinput"/>
                 </apex:pageBlockSectionItem>
 
                 <apex:pageBlockSectionItem >
-                    <apex:outputLabel value="Question Type" for="qtype"  ></apex:outputLabel>
+                    <apex:outputLabel value="{!$Label.ALMS_Question_Type}" for="qtype" ></apex:outputLabel>
                     <apex:inputField value="{!question.Type__c}" id="qtype" onchange="answerseqenablerJS(this.value)"/>
                 </apex:pageBlockSectionItem>
 
                 <apex:pageBlockSectionItem >
-                    <apex:outputLabel value="Order" for="qorder"  ></apex:outputLabel>
+                    <apex:outputLabel value="{!$Label.ALMS_Question_Order}" for="qorder" ></apex:outputLabel>
                     <apex:inputField value="{!question.Order__c}" id="qorder" styleClass="qorder"/>
                 </apex:pageBlockSectionItem>
 
@@ -75,12 +75,12 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
             <apex:pageBlockSection id="qsection2" columns="1">
 
                 <apex:pageBlockSectionItem rendered="{!banswernum}" >
-                    <apex:outputLabel value="Number" for="qnum"  ></apex:outputLabel>
+                    <apex:outputLabel value="{!$Label.ALMS_Number_Question}" for="qnum" ></apex:outputLabel>
                     <apex:inputField value="{!question.Correct_Number__c}" id="qnum"/>
                 </apex:pageBlockSectionItem>
 
                 <apex:pageBlockSectionItem rendered="{!banswerbool}" >
-                    <apex:outputLabel value="Boolean" for="qbool"  ></apex:outputLabel>
+                    <apex:outputLabel value="{!$Label.ALMS_Boolean_Question}" for="qbool" ></apex:outputLabel>
                     <apex:inputField value="{!question.Correct_Boolean__c}" id="qbool"/>
                 </apex:pageBlockSectionItem>
 
@@ -89,18 +89,16 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 
         <apex:pageBlock id="therepeater">
             <apex:pageBlockButtons location="top" rendered="{!banswerseq}" >
-                <apex:commandButton action="{!addanswerseqitem}" value="Add Answer Seq Item" id="theButton" rerender="therepeater" />
+                <apex:commandButton action="{!addanswerseqitem}" value="{!$Label.ALMS_Add_Answer_Sequence_Item}" id="theButton" rerender="therepeater" />
             </apex:pageBlockButtons>
 
             <apex:pageBlockSection columns="4" rendered="{!banswerseq}" >
-
                 <apex:repeat value="{!lanswerseqitems}" var="item" >
                     <apex:inputField value="{!item.Item_Id__c}" required="false" styleClass="qtxtinput" />
                     <apex:inputField value="{!item.Answer_Text__c}" styleClass="qtxtinput" />
                     <apex:inputField value="{!item.Order__c}" styleClass="qorder" />
                     <apex:inputField value="{!item.Is_Correct_Answer__c}" />
                 </apex:repeat>
-
             </apex:pageBlockSection>
 
         </apex:pageBlock>

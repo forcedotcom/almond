@@ -8,6 +8,10 @@
         <plural>true</plural>
         <value>Answer Sequences</value>
     </caseValues>
+    <fields>
+        <label><!-- Internal Notes --></label>
+        <name>Internal_Notes__c</name>
+    </fields>
     <layouts>
         <layout>Answer Sequence Layout</layout>
         <sections>

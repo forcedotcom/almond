@@ -28,7 +28,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 <apex:page standardController="Achievement__c" sidebar="false" showHeader="false">
 
     <apex:outputPanel layout="none" rendered="{!Achievement__c.Work_Badge_Id__c != null && (Achievement__c.Acquired_Image__c != null || Achievement__c.Eligible_Image__c != null)}">
-        <apex:pageMessage severity="info" strength="3" detail="This achievement is now linked to a Work.com Badge. Your Custom Badge images will no longer be displayed."/>
+        <apex:pageMessage severity="info" strength="3" detail="{!$Label.ALMS_Linked_Work_Badge_Message}"/>
     </apex:outputPanel>
 
     <apex:outputPanel layout="none" rendered="{!Achievement__c.Work_Badge_Id__c != null}">
@@ -37,7 +37,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
         </div>
     </apex:outputPanel>
     <apex:outputPanel layout="none" rendered="{!Achievement__c.Work_Badge_Id__c == null}">
-        <apex:pageMessage severity="info" strength="3" detail="No Work.com Badge is associated to this achievement. Click the Add Work.com Badge button to associate a Work.com Badge."/>
+        <apex:pageMessage severity="info" strength="3" detail="{!$Label.ALMS_Missing_Work_Badge_Message}"/>
     </apex:outputPanel>
 
 

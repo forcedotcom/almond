@@ -29,9 +29,9 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 
     <script src="{!URLFOR($Resource.almond_uilib, '/js/jquery.min.js')}" />
 
-    <apex:sectionHeader title="Manage Assignments" subtitle="{!Training_Plan__c.Name}">
+    <apex:sectionHeader title="{!$Label.ALMS_Manage_Assignments}" subtitle="{!Training_Plan__c.Name}">
         <div class="bPageTitle" style="padding:0px;">
-            <div class="ptBreadcrumb">&nbsp;&lt;&lt;&nbsp;<a href="/{!Training_Plan__c.Id}">Back to Training Plan</a></div>
+            <div class="ptBreadcrumb">&nbsp;&lt;&lt;&nbsp;<a href="/{!Training_Plan__c.Id}">{!$Label.ALMS_Training_Plan_Back}</a></div>
         </div>
     </apex:sectionHeader>
 
@@ -54,20 +54,19 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
     </apex:actionStatus>
 
     <apex:tabPanel switchType="client" value="{!IF($CurrentPage.parameters.stab != null,$CurrentPage.parameters.stab,'upsertTab')}" id="theTabPanel" activeTabClass="lmsTabActive" inactiveTabClass="lmsTabInActive">
-        <apex:tab label="Create assignments" name="upsertTab" id="tabOne">
+        <apex:tab label="{!$Label.ALMS_Create_Assignments}" name="upsertTab" id="tabOne">
             <apex:include pageName="TrainingPlanAssignmentNew"/>
         </apex:tab>
-        <apex:tab label="Update/Delete assignments" name="updatedeleteTab" id="tabTwo">
+        <apex:tab label="{!$Label.ALMS_Update_Delete_Assignments}" name="updatedeleteTab" id="tabTwo">
             <apex:include pageName="TrainingPlanAssignmentExisting"/>
         </apex:tab>
-        <apex:tab label="Batch operations" name="batchTab" id="tabThree">
+        <apex:tab label="{!$Label.ALMS_Assignments_Batch_Operations}" name="batchTab" id="tabThree">
             <apex:include pageName="TrainingPlanAssignmentBatch"/>
         </apex:tab>
     </apex:tabPanel>
 
     <script>
         $j = jQuery.noConflict();
-
         function selectAllCBs(className){
             $j('.'+className).prop('checked',true);
         }

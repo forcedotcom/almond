@@ -8,6 +8,47 @@
         <plural>true</plural>
         <value>Achievement Assignments</value>
     </caseValues>
+    <fields>
+        <label><!-- Achievement --></label>
+        <name>Achievement__c</name>
+        <relationshipLabel><!-- Achievement Assignments --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Contact --></label>
+        <name>Contact__c</name>
+        <relationshipLabel><!-- Achievement Assignments --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Status --></label>
+        <name>Status__c</name>
+        <picklistValues>
+            <masterLabel>Acquired</masterLabel>
+            <translation><!-- Acquired --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Eligible</masterLabel>
+            <translation><!-- Eligible --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Expired</masterLabel>
+            <translation><!-- Expired --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Training Plan Achievement --></label>
+        <name>Training_Plan_Achievement__c</name>
+        <relationshipLabel><!-- Achievement Assignments --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Training Track --></label>
+        <name>Training_Track__c</name>
+        <relationshipLabel><!-- Achievement Assignments --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- User --></label>
+        <name>User__c</name>
+        <relationshipLabel><!-- Achievement Assignments --></relationshipLabel>
+    </fields>
     <layouts>
         <layout>Achievement Assignment Layout</layout>
         <sections>

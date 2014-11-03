@@ -8,6 +8,68 @@
         <plural>true</plural>
         <value>Questions</value>
     </caseValues>
+    <fields>
+        <label><!-- Answer Sequence --></label>
+        <name>Answer_Sequence__c</name>
+        <relationshipLabel><!-- Questions --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Correct Boolean --></label>
+        <name>Correct_Boolean__c</name>
+        <picklistValues>
+            <masterLabel>false</masterLabel>
+            <translation><!-- false --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>true</masterLabel>
+            <translation><!-- true --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- Correct Number --></label>
+        <name>Correct_Number__c</name>
+    </fields>
+    <fields>
+        <label><!-- Description RTA --></label>
+        <name>Description_RTA__c</name>
+    </fields>
+    <fields>
+        <label><!-- Description --></label>
+        <name>Description__c</name>
+    </fields>
+    <fields>
+        <label><!-- Order --></label>
+        <name>Order__c</name>
+    </fields>
+    <fields>
+        <label><!-- Question Line --></label>
+        <name>Question_Line__c</name>
+        <relationshipLabel><!-- Questions --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Type --></label>
+        <name>Type__c</name>
+        <picklistValues>
+            <masterLabel>Boolean</masterLabel>
+            <translation><!-- Boolean --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Number</masterLabel>
+            <translation><!-- Number --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>SelectMultipleQuestion</masterLabel>
+            <translation><!-- SelectMultipleQuestion --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>SelectOneQuestion</masterLabel>
+            <translation><!-- SelectOneQuestion --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Text</masterLabel>
+            <translation><!-- Text --></translation>
+        </picklistValues>
+    </fields>
     <layouts>
         <layout>Question Layout</layout>
         <sections>
@@ -20,4 +82,16 @@
         </sections>
     </layouts>
     <startsWith>Consonant</startsWith>
+    <validationRules>
+        <errorMessage><!-- You must specify an answer sequence for this type of question --></errorMessage>
+        <name>AnswerSequence_Required</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- You must specify a correct boolean value when defining a Boolean type of question --></errorMessage>
+        <name>CorrectBoolean_Required</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- You must specify a correct number value when defining a Number type of question --></errorMessage>
+        <name>CorrectNumber_Required</name>
+    </validationRules>
 </CustomObjectTranslation>

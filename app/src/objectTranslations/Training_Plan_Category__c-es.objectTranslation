@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Categoría de Curso</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Categorías de Curso</value>
+    </caseValues>
+    <fields>
+        <label>Categoría de Aprendizaje</label>
+        <name>Learning_Category__c</name>
+        <relationshipLabel>Categorías de Curso</relationshipLabel>
+    </fields>
+    <fields>
+        <label>Orden</label>
+        <name>Order__c</name>
+    </fields>
+    <fields>
+        <label>Curso</label>
+        <name>Training_Plan__c</name>
+        <relationshipLabel>Categorías de Curso</relationshipLabel>
+    </fields>
+    <layouts>
+        <layout>Training Plan Category Layout</layout>
+        <sections>
+            <label>Enlaces Personalizados</label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <gender>Feminine</gender>
+    <nameFieldLabel>ID de Categoría de Curso</nameFieldLabel>
+</CustomObjectTranslation>

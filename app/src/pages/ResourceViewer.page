@@ -25,10 +25,10 @@ LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
 OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
 OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
-<apex:page controller="ResourceViewerController" docType="html-5.0" sidebar="false" showHeader="false" standardStylesheets="true" cache="false" title="LMS - Redirection">
+<apex:page controller="ResourceViewerController" docType="html-5.0" sidebar="false" showHeader="false" standardStylesheets="true" cache="false" title="{!$Label.ALMS_Resource_Redirect_Title}">
 
     <apex:pageMessages />
-    <apex:pageMessage summary="You're being redirected, please wait..." severity="info" strength="1" />
+    <apex:pageMessage summary="{!$Label.ALMS_Resource_Redirect}" severity="info" strength="1" />
 
     <apex:includeScript value="{!URLFOR($Resource.almond_uilib, '/js/jquery.min.js')}"/>
     <apex:includeScript value="{!URLFOR($Resource.almond_uilib, '/js/almondutils.js')}"/>

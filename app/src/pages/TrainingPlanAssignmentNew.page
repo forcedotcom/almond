@@ -34,66 +34,70 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
             <apex:pageMessages />
 
             <apex:pageBlockButtons location="top">
-                <apex:commandButton value="Import from Report" action="{!goToImportAssignments}" status="status" />
-                <apex:commandButton value="Assign" action="{!assignUsers}" status="status" rerender="assignmentForm" onclick="if(!confirm('Are you sure?')){return};" />
-                <apex:commandButton value="Cancel" action="{!cancel}" />
+                <apex:commandButton value="{!$Label.ALMS_Import_From_Report}" action="{!goToImportAssignments}" status="status" />
+                <apex:commandButton value="{!$Label.ALMS_Assign}" action="{!assignUsers}" status="status" rerender="assignmentForm" onclick="if(!confirm('{!JSENCODE($Label.ALMS_Confirm_Alert)}')){return};" />
+                <apex:commandButton value="{!$Label.ALMS_Cancel}" action="{!cancel}" />
             </apex:pageBlockButtons>
 
             <table style="width:100%;">
                 <tr>
                     <td style="width:25%;vertical-align:top;">
-                        <apex:pageBlock title="Filters">
+                        <apex:pageBlock title="{!$Label.ALMS_Filters}">
                             <apex:pageBlockSection columns="1">
                                 <apex:pageBlockSectionItem >
-                                    <apex:outputLabel value="First Name" for="fName__search"/>
+                                    <apex:outputLabel value="{!$Label.ALMS_First_Name}" for="fName__search"/>
                                     <apex:inputText id="fName__search" value="{!firstName}" style="width:90%;"/>
                                 </apex:pageBlockSectionItem>
                                 <apex:pageBlockSectionItem >
-                                    <apex:outputLabel value="Last Name" for="lName__search"/>
+                                    <apex:outputLabel value="{!$Label.ALMS_Last_Name}" for="lName__search"/>
                                     <apex:inputText id="lName__search" value="{!lastName}" style="width:90%;"/>
                                 </apex:pageBlockSectionItem>
                                 <apex:pageBlockSectionItem >
-                                    <apex:outputLabel value="Email" for="email__Search"/>
+                                    <apex:outputLabel value="{!$Label.ALMS_Email}" for="email__Search"/>
                                     <apex:inputText id="email__Search" value="{!email}" style="width:90%;"/>
                                 </apex:pageBlockSectionItem>
                                 <apex:pageBlockSectionItem >
-                                    <apex:outputLabel value="Profile" for="profile__search"/>
+                                    <apex:outputLabel value="{!$Label.ALMS_Profile}" for="profile__search"/>
                                     <apex:selectList value="{!profileId}" size="1">
                                         <apex:selectOptions value="{!profiles}" />
                                     </apex:selectList>
                                 </apex:pageBlockSectionItem>
                                 <apex:pageBlockSectionItem >
-                                    <apex:outputLabel value="Role" for="role__Search"/>
+                                    <apex:outputLabel value="{!$Label.ALMS_Role}" for="role__Search"/>
                                     <apex:selectList value="{!roleId}" size="1">
                                         <apex:selectOptions value="{!roles}"/>
                                     </apex:selectList>
                                 </apex:pageBlockSectionItem>
                                 <apex:pageBlockSectionItem >
-                                    <apex:outputLabel value="Manager" for="manager__Search"/>
+                                    <apex:outputLabel value="{!$Label.ALMS_Manager}" for="manager__Search"/>
                                     <apex:inputField id="manager__Search" value="{!dummyAssignment.User__c}" />
                                 </apex:pageBlockSectionItem>
+                                <apex:pageBlockSectionItem >
+                                    <apex:outputLabel value="{!$Label.ALMS_Filter_Existing_Assignments}" for="filterext__Search"/>
+                                    <apex:inputCheckBox id="filterext__Search" value="{!filterExistingUsers}" />
+                                </apex:pageBlockSectionItem>
                                 <apex:pageBlockSectionItem dataStyle="width:100%;text-align:center;">
-                                    <apex:commandButton value="Search" action="{!searchUsers}" styleClass="btnImportant" rerender="searchPB" status="status"/>
+                                    <apex:commandButton value="{!$Label.ALMS_Search_Button}" action="{!searchUsers}" styleClass="btnImportant" rerender="searchPB" status="status"/>
                                 </apex:pageBlockSectionItem>
                             </apex:pageBlockSection>
                         </apex:pageBlock>
                     </td>
 
                     <td style="width:75%;vertical-align:top;">
-                        <apex:pageBlock title="Results" id="searchPB">
+                        <apex:pageBlock title="{!$Label.ALMS_Assignments_Results}" id="searchPB">
 
                             <apex:outputPanel layout="block" rendered="{!users.size == 0}">
-                                <apex:pageMessage summary="No results. Please make sure the users you're looking for have the LMS Admin or LMS User permission set." severity="info" strength="2" />
+                                <apex:pageMessage summary="{!$Label.ALMS_Assignments_No_Results_Message}" severity="info" strength="2" />
                             </apex:outputPanel>
 
                             <apex:outputPanel rendered="{!users.size > 0}">
 
                                 <apex:outputPanel layout="block" style="padding:10px 0;">
-                                    <a href="javascript:selectAllCBs('lmsCBSelectNew')">Select All</a> | <a href="javascript:unSelectAllCBs('lmsCBSelectNew')">Unselect All</a>
+                                    <a href="javascript:selectAllCBs('lmsCBSelectNew')">{!$Label.ALMS_Select_All}</a> | <a href="javascript:unSelectAllCBs('lmsCBSelectNew')">{!$Label.ALMS_Unselect_All}</a>
                                 </apex:outputPanel>
 
                                 <apex:pageBlockTable value="{!users}" var="u">
-                                    <apex:column headerValue="Action">
+                                    <apex:column headerValue="{!$Label.ALMS_Action}">
                                         <apex:inputCheckbox value="{!u.isSelected}" styleClass="lmsCBSelectNew"/>
                                     </apex:column>
                                     <apex:column value="{!u.userRecord.Name}"/>

@@ -216,6 +216,10 @@
     	<apexClass>LMSTemplateController</apexClass>
     	<enabled>true</enabled>
     </classAccesses>
+    <classAccesses>
+        <apexClass>LMS_API</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
     <fieldPermissions>
         <editable>false</editable>
         <field>Achievement_Assignment__c.Achievement__c</field>

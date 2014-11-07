@@ -989,7 +989,7 @@ public with sharing class LMSService{
         //Ignore inactive users
         Set<Id> activeUserIds = new Set<Id>();
         for(User u : [select id from User where id in :userIds and IsActive = true]){
-          activeUserIds.add(u.Id);
+            activeUserIds.add(u.Id);
         }
 
         //Auxiliary collections
@@ -1141,7 +1141,7 @@ public with sharing class LMSService{
         //Ignore inactive users
         Set<Id> activeUserIds = new Set<Id>();
         for(User u : [select id from User where id in :userIds and IsActive = true]){
-          activeUserIds.add(u.Id);
+            activeUserIds.add(u.Id);
         }
 
         Map<Id,List<Achievement_Assignment__c>> results = new Map<Id,List<Achievement_Assignment__c>>();

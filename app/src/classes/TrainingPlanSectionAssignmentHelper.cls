@@ -66,6 +66,13 @@ public with sharing class TrainingPlanSectionAssignmentHelper{
             }
         }
 
+        //Filter inactive users
+        Set<Id> activeUserIds = new Set<Id>();
+        for(User u : [select id from User where id in :relatedUsers and IsActive = true]){
+            activeUserIds.add(u.Id);
+        }
+        relatedUsers = activeUserIds;
+
         if(relatedTPlanSections.size()>0){
             //Fetch additional information for the related training plan sections
             for(Training_Plan_Section__c tps : [select id

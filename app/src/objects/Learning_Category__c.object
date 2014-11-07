@@ -76,6 +76,17 @@
         <trackTrending>false</trackTrending>
         <type>Summary</type>
     </fields>
+    <fields>
+        <fullName>Hide_From_Catalog_Home__c</fullName>
+        <inlineHelpText>Enable this option if you do not want to display this category in the catalog home page</inlineHelpText>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Hide from Catalog Home</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
     <label>Learning Category</label>
     <listViews>
         <fullName>All</fullName>

@@ -1434,6 +1434,7 @@ public with sharing class LMSService{
             ,'Background_Image_URL__c'
             ,'Logo__c'
             ,'Text_Color__c'
+            ,'Hide_From_Catalog_Home__c'
         });
         LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
         //END Access Check
@@ -1445,13 +1446,14 @@ public with sharing class LMSService{
             ,'Logo__c'
             ,'Text_Color__c'
             ,'Total_Training_Plans__c'
+            ,'Hide_From_Catalog_Home__c'
         };
 
         String soqlQuery = 'select '+String.join(listSOQLFields,',')+' from Learning_Category__c';
         if(catId != null){
             soqlQuery+= ' where id = :catId';
         }else{
-            soqlQuery+= ' where Total_Training_Plans__c > 0';
+            soqlQuery+= ' where Total_Training_Plans__c > 0 and Hide_From_Catalog_Home__c = false';
         }
 
         results = (List<Learning_Category__c>)Database.query(soqlQuery);

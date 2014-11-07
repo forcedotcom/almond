@@ -24,6 +24,11 @@
         <label>Total de Cursos</label>
         <name>Total_Training_Plans__c</name>
     </fields>
+    <fields>
+        <help>Habilitar esta opción para esconder esta Categoría de la página de Catálogo</help>
+        <label>Esconder de página de Catálogo</label>
+        <name>Hide_From_Catalog_Home__c</name>
+    </fields>
     <layouts>
         <layout>Learning Category Layout</layout>
         <sections>
@@ -33,6 +38,10 @@
         <sections>
             <label>Información de Interfaz Grafica</label>
             <section>Look and Feel Information</section>
+        </sections>
+        <sections>
+            <label>Información Adicional</label>
+            <section>Additional Information</section>
         </sections>
     </layouts>
     <gender>Feminine</gender>

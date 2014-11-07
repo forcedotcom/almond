@@ -557,6 +557,10 @@
         <name>ALMS_Report_Folder</name>
     </customLabels>
     <customLabels>
+        <label>Informe</label>
+        <name>ALMS_Report</name>
+    </customLabels>
+    <customLabels>
         <label>Información de Reporte</label>
         <name>ALMS_Report_Information</name>
     </customLabels>

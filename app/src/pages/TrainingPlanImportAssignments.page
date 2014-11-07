@@ -56,7 +56,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 
             <apex:pageBlockSection columns="1" title="{!$Label.ALMS_Report_Information}" collapsible="false">
                 <apex:pageBlockSectionItem >
-                    <apex:outputLabel value="Folder :" for="folderSelect"/>
+                    <apex:outputLabel value="{!$Label.ALMS_Report_Folder} :" for="folderSelect"/>
                     <apex:selectList id="folderSelect" value="{!selectedFolderId}" size="1">
                         <apex:actionSupport event="onchange" action="{!loadReports}" rerender="assignmentForm" status="status"/>
                         <apex:selectOptions value="{!reportFolders}"/>
@@ -64,7 +64,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                 </apex:pageBlockSectionItem>
 
                 <apex:pageBlockSectionItem rendered="{!importReports.size > 0}">
-                    <apex:outputLabel value="{!$Label.ALMS_Report_Folder} :" for="reportSelect"/>
+                    <apex:outputLabel value="{!$Label.ALMS_Report} :" for="reportSelect"/>
                     <apex:selectList id="reportSelect" value="{!selectedReportId}" size="1">
                         <apex:selectOptions value="{!importReports}"/>
                     </apex:selectList>

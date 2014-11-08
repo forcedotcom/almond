@@ -24,6 +24,11 @@
         <label><!-- Total Training Plans --></label>
         <name>Total_Training_Plans__c</name>
     </fields>
+    <fields>
+        <help><!-- Help text --></help>
+        <label><!-- Hide from Catalog Home --></label>
+        <name>Hide_From_Catalog_Home__c</name>
+    </fields>
     <layouts>
         <layout>Learning Category Layout</layout>
         <sections>
@@ -33,6 +38,10 @@
         <sections>
             <label><!-- Look and Feel Information --></label>
             <section>Look and Feel Information</section>
+        </sections>
+        <sections>
+            <label><!-- Additional Information --></label>
+            <section>Additional Information</section>
         </sections>
     </layouts>
     <startsWith>Consonant</startsWith>

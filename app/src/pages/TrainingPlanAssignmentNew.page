@@ -46,11 +46,11 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                             <apex:pageBlockSection columns="1">
                                 <apex:pageBlockSectionItem >
                                     <apex:outputLabel value="{!$Label.ALMS_First_Name}" for="fName__search"/>
-                                    <apex:inputText id="fName__search" value="{!firstName}" style="width:90%;"/>
+                                    <apex:inputText id="fName__search" value="{!firstName}" style="width:90%;" styleClass="noEnter"/>
                                 </apex:pageBlockSectionItem>
                                 <apex:pageBlockSectionItem >
                                     <apex:outputLabel value="{!$Label.ALMS_Last_Name}" for="lName__search"/>
-                                    <apex:inputText id="lName__search" value="{!lastName}" style="width:90%;"/>
+                                    <apex:inputText id="lName__search" value="{!lastName}" style="width:90%;" styleClass="noEnter"/>
                                 </apex:pageBlockSectionItem>
                                 <apex:pageBlockSectionItem >
                                     <apex:outputLabel value="{!$Label.ALMS_Email}" for="email__Search"/>
@@ -70,7 +70,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                                 </apex:pageBlockSectionItem>
                                 <apex:pageBlockSectionItem >
                                     <apex:outputLabel value="{!$Label.ALMS_Manager}" for="manager__Search"/>
-                                    <apex:inputField id="manager__Search" value="{!dummyAssignment.User__c}" />
+                                    <apex:inputField id="manager__Search" value="{!dummyAssignment.User__c}" styleClass="noEnter" />
                                 </apex:pageBlockSectionItem>
                                 <apex:pageBlockSectionItem >
                                     <apex:outputLabel value="{!$Label.ALMS_Filter_Existing_Assignments}" for="filterext__Search"/>
@@ -113,6 +113,18 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                 </tr>
             </table>
 
+
         </apex:pageBlock>
     </apex:form>
+
+    <script>
+        jQuery(document).ready(function($){
+            $('.noEnter').keydown(function(event) {
+                if(event.which == 13) {
+                    event.preventDefault();
+                    return false;
+                }
+            });
+        });
+    </script>
 </apex:page>

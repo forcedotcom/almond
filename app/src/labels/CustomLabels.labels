@@ -1161,6 +1161,14 @@
         <value>Folder</value>
     </labels>
     <labels>
+        <fullName>ALMS_Report</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Report Label</shortDescription>
+        <value>Report</value>
+    </labels>
+    <labels>
         <fullName>ALMS_No_Reports_Found</fullName>
         <categories>ALMOND General, ALMOND UI</categories>
         <language>en_US</language>

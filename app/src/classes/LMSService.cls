@@ -986,6 +986,12 @@ public with sharing class LMSService{
     //Upsert learning assignments for the specified users under the specified training plan Id
     public static Map<Id,List<Learning_Assignment__c>> upsertAssignments(Set<Id> userIds, Id trainingPlanId){
 
+        //Ignore inactive users
+        Set<Id> activeUserIds = new Set<Id>();
+        for(User u : [select id from User where id in :userIds and IsActive = true]){
+            activeUserIds.add(u.Id);
+        }
+
         //Auxiliary collections
         Map<Id,List<Learning_Assignment__c>> results = new Map<Id,List<Learning_Assignment__c>>();
         List<Learning_Assignment__c> assignmentsToInsert = new List<Learning_Assignment__c>();
@@ -1022,7 +1028,7 @@ public with sharing class LMSService{
 
             Set<Id> learnings = trainingPlanLearnings.get(trainingPlanId);
 
-            Map<Id,List<Learning_Assignment__c>> mapLearningAssignments = getAssignmentsForLearnings(learnings,trainingPlanId,userIds);
+            Map<Id,List<Learning_Assignment__c>> mapLearningAssignments = getAssignmentsForLearnings(learnings,trainingPlanId,activeUserIds);
 
             //Look for learnings that already have assignments and add to excluded map
             for(Id learningId : mapLearningAssignments.keySet()){
@@ -1056,14 +1062,14 @@ public with sharing class LMSService{
             }
 
             //Get additional training plan information
-            Map<Id,User> addUserInfo = getAdditionalUserInfo(userIds);
+            Map<Id,User> addUserInfo = getAdditionalUserInfo(activeUserIds);
 
             for(List<Training_Plan_Section_Item__c> sectionItems : tPlanSectionItems.values()){
 
                 for(Training_Plan_Section_Item__c sectionItem : sectionItems){
 
                     if(sectionItem.Learning__c != null){
-                        for(Id userId : userIds){
+                        for(Id userId : activeUserIds){
 
                             if(!excludedLearnings.containsKey(userId) || (excludedLearnings.containsKey(userId) && !excludedLearnings.get(userId).contains(sectionItem.Learning__c+'_'+sectionItem.Id))){
 
@@ -1101,7 +1107,7 @@ public with sharing class LMSService{
         }
 
         if(learningsUserSharing.size()>0){
-            //Share the training with processed users
+            //Share the training and learnings with corresponding users
             LMSService.WithoutSharingOps wsops = new LMSService.WithoutSharingOps();
             wsops.shareTrainingPlanWithUsers(newUsersWithAssignments,new Set<Id>{trainingPlanId});
             wsops.shareLearningsWithUsers(learningsUserSharing);
@@ -1109,14 +1115,13 @@ public with sharing class LMSService{
 
         // Regular users dont' have permissions to insert these objects, however it's possible that they create assignments
         // for training plans with self-registration enabled. Therefore, we leave CRUD/FLS enforcement to the caller
-
         if(assignmentsToInsert.size()>0){
             insert assignmentsToInsert;
         }
 
         //Update optional flag for assignments where the parent section item or section has changed
         if(updatedOptionalAssignments.size()>0){
-        	update updatedOptionalAssignments.values();
+            update updatedOptionalAssignments.values();
         }
 
 
@@ -1125,13 +1130,19 @@ public with sharing class LMSService{
         }
 
         //Create Badge Assignments
-        upsertAchievementAssignments(userIds,trainingPlanId);
+        upsertAchievementAssignments(activeUserIds,trainingPlanId);
 
         return results;
     }
 
     //Upsert badge assignments for the specified users under the specified training plan Id
     public static Map<Id,List<Achievement_Assignment__c>> upsertAchievementAssignments(Set<Id> userIds, Id trainingPlanId){
+
+        //Ignore inactive users
+        Set<Id> activeUserIds = new Set<Id>();
+        for(User u : [select id from User where id in :userIds and IsActive = true]){
+            activeUserIds.add(u.Id);
+        }
 
         Map<Id,List<Achievement_Assignment__c>> results = new Map<Id,List<Achievement_Assignment__c>>();
         List<Achievement_Assignment__c> aasToInsert = new List<Achievement_Assignment__c>();
@@ -1153,7 +1164,7 @@ public with sharing class LMSService{
                                                 ,Training_Plan_Achievement__c
                                                 ,Achievement__c
                                                 from Achievement_Assignment__c
-                                                where User__c in :userIds
+                                                where User__c in :activeUserIds
                                                 and Training_Plan_Achievement__c in :tpasMap.keySet()]){
                 if(aa.User__c != null){
                     if(!existingAATrainingPlanBadges.containsKey(aa.User__c)){
@@ -1166,7 +1177,7 @@ public with sharing class LMSService{
             //Create new AA records
             for(Training_Plan_Achievement__c tpa : tpasMap.values()){
 
-                for(Id uId : userIds){
+                for(Id uId : activeUserIds){
                     Set<Id> existingUserAAs = existingAATrainingPlanBadges.get(uId);
 
                     if(existingUserAAs == null || !existingUserAAs.contains(tpa.Id)){
@@ -1175,6 +1186,7 @@ public with sharing class LMSService{
                         aa.Training_Plan_Achievement__c = tpa.Id;
                         aa.Achievement__c = tpa.Achievement__c;
                         aa.Status__c = LMSConstants.AA_ELIGIBLE_STATUS;
+                        aa.OwnerId = uId;
                         aasToInsert.add(aa);
                         if(!results.containsKey(uId)){
                             results.put(uId,new List<Achievement_Assignment__c>());
@@ -1434,6 +1446,7 @@ public with sharing class LMSService{
             ,'Background_Image_URL__c'
             ,'Logo__c'
             ,'Text_Color__c'
+            ,'Hide_From_Catalog_Home__c'
         });
         LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
         //END Access Check
@@ -1445,13 +1458,14 @@ public with sharing class LMSService{
             ,'Logo__c'
             ,'Text_Color__c'
             ,'Total_Training_Plans__c'
+            ,'Hide_From_Catalog_Home__c'
         };
 
         String soqlQuery = 'select '+String.join(listSOQLFields,',')+' from Learning_Category__c';
         if(catId != null){
             soqlQuery+= ' where id = :catId';
         }else{
-            soqlQuery+= ' where Total_Training_Plans__c > 0';
+            soqlQuery+= ' where Total_Training_Plans__c > 0 and Hide_From_Catalog_Home__c = false';
         }
 
         results = (List<Learning_Category__c>)Database.query(soqlQuery);

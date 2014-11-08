@@ -519,6 +519,13 @@ public with sharing class LearningAssignmentsHelper{
                 }
             }
 
+            //Filter inactive users
+            Set<Id> activeUserIds = new Set<Id>();
+            for(User u : [select id from User where id in :relatedUsers and IsActive = true]){
+                activeUserIds.add(u.Id);
+            }
+            relatedUsers = activeUserIds;
+
             //Get aggregate information for associated assignments
             AggregateResult[] groupedResults = [select Training_Plan_Section__c
                                                         ,User__c

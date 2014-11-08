@@ -1137,6 +1137,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Learning_Category__c.Hide_From_Catalog_Home__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Training_Track_Level__c.Order__c</field>
         <readable>true</readable>
     </fieldPermissions>

@@ -29,6 +29,10 @@
         <label><!-- Hide from Catalog Home --></label>
         <name>Hide_From_Catalog_Home__c</name>
     </fields>
+    <fields>
+        <label><!-- Order --></label>
+        <name>Order__c</name>
+    </fields>
     <layouts>
         <layout>Learning Category Layout</layout>
         <sections>

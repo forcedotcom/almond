@@ -29,6 +29,10 @@
         <label>Esconder de página de Catálogo</label>
         <name>Hide_From_Catalog_Home__c</name>
     </fields>
+    <fields>
+        <label>Orden</label>
+        <name>Order__c</name>
+    </fields>
     <layouts>
         <layout>Learning Category Layout</layout>
         <sections>

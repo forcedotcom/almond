@@ -30,8 +30,7 @@ public with sharing class LMSInit{
 
     public class LMSInitException extends Exception{}
 
-    private static String fetchInitData(){
-        String resourceName = 'almond_LMSInitData';
+    private static String fetchInitData(String resourceName){
         if(UserInfo.getLanguage() != 'en_US'){
             String translatedResourceName = resourceName+'_'+UserInfo.getLanguage();
             List<StaticResource> sResources = [select id from StaticResource where Name = :translatedResourceName];
@@ -49,7 +48,7 @@ public with sharing class LMSInit{
         return ts;
     }
 
-    public static void initData(Boolean addTimeStamp,String achievementCategoryName){
+    public static void initData(String resourceName, Boolean addTimeStamp){
 
         //BEGIN Access Check
         Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
@@ -69,22 +68,46 @@ public with sharing class LMSInit{
 
         try{
 
-            //Check for sample categories
-            Map<String,Achievement_Category__c> acMap = new Map<String,Achievement_Category__c>();
-            for(Achievement_Category__c sampleAC : [select id,name from Achievement_Category__c where Name = :achievementCategoryName]){
-                acMap.put(sampleAC.name,sampleAc);
-            }
-
-            if(acMap.size()==0){
-                Achievement_Category__c ac = new Achievement_Category__c();
-                ac.Name = achievementCategoryName;
-                acMap.put(ac.name,ac);
-                insert acMap.values();
-            }
-
-
-            Map<String,Object> dataMap = (Map<String,Object>)JSON.deserializeUntyped(fetchInitData());
             String ts = '_'+getTimeStamp();
+            Map<String,Object> dataMap = (Map<String,Object>)JSON.deserializeUntyped(fetchInitData(resourceName));
+
+            //Check for existing lookups
+            Map<String,Map<String,String>> existingRecordsMap = new Map<String,Map<String,String>>();
+
+            List<Object> existingObjects = (List<Object>)dataMap.get('lookup-objects');
+            for(Object lo : existingObjects){
+                Map<String,Object> lHeader = (Map<String,Object>)lo;
+                String name = addTimeStamp?(String)lHeader.get('name')+ts:(String)lHeader.get('name');
+                String type = (String)lHeader.get('type');
+                if(!existingRecordsMap.containsKey(type)){
+                    existingRecordsMap.put(type,new Map<String,String>());
+                }
+                existingRecordsMap.get(type).put(name,null);
+            }
+
+            if(existingRecordsMap.get('achievement-category') != null){
+
+                Map<String,Achievement_Category__c> acMap = new Map<String,Achievement_Category__c>();
+
+                for(Achievement_Category__c extAC : [select id,name from Achievement_Category__c where Name = :existingRecordsMap.get('achievement-category').keySet()]){
+                    existingRecordsMap.get('achievement-category').put(extAC.name, extAC.id);
+                }
+                //Insert missing values
+                for(String acKey : existingRecordsMap.get('achievement-category').keySet()){
+                    if(existingRecordsMap.get('achievement-category').get(acKey) == null){
+                      Achievement_Category__c ac = new Achievement_Category__c();
+                      ac.Name = acKey;
+                      acMap.put(ac.name,ac);
+                    }
+                }
+                // Update existing mappings map
+                if(acMap.size()>0){
+                    insert acMap.values();
+                    for(Achievement_Category__c ac : acMap.values()){
+                        existingRecordsMap.get('achievement-category').put(ac.name, ac.id);
+                    }
+                }
+            }
 
             //Create record type map
             Map<String,String> learningRTMap = new Map<String,String>();
@@ -112,11 +135,11 @@ public with sharing class LMSInit{
             List<Object> lookupObjects = (List<Object>)dataMap.get('lookup-objects');
             for(Object lo : lookupObjects){
                 Map<String,Object> lHeader = (Map<String,Object>)lo;
-                String name = (String)lHeader.get('name');
+                String name = addTimeStamp?(String)lHeader.get('name')+ts:(String)lHeader.get('name');
                 String type = (String)lHeader.get('type');
                 if(type == 'answer-sequence'){
                     Answer_Sequence__c aseq = new Answer_Sequence__c();
-                    answerSequences.put(name+ts,aseq);
+                    answerSequences.put(name,aseq);
                 }
             }
 
@@ -124,9 +147,8 @@ public with sharing class LMSInit{
 
             for(Object lo : lookupObjects){
                 Map<String,Object> lHeader = (Map<String,Object>)lo;
-                String name = (String)lHeader.get('name');
+                String headerName = addTimeStamp?(String)lHeader.get('name')+ts:(String)lHeader.get('name');
                 String type = (String)lHeader.get('type');
-                String headerName = name+ts;
                 if(type == 'answer-sequence'){
                     Map<String,Object> lookUpContent = (Map<String,Object>)lHeader.get('content');
                     List<Object> sequenceItems = (List<Object>)lookUpContent.get('options');
@@ -254,7 +276,8 @@ public with sharing class LMSInit{
                             q.Type__c = (String)qHeader.get('type');
                             q.Order__c = (Integer)qHeader.get('order');
                             if(qHeader.get('answer-sequence') != null){
-                                q.Answer_Sequence__c = answerSequences.get((String)qHeader.get('answer-sequence')+ts).Id;
+                                String aswSeqName = addTimeStamp?(String)qHeader.get('answer-sequence')+ts:(String)qHeader.get('answer-sequence');
+                                q.Answer_Sequence__c = answerSequences.get(aswSeqName).Id;
                             }else if(qHeader.get('correct-boolean') != null){
                                 q.Correct_Boolean__c = (String)qHeader.get('correct-boolean');
                             }else if(qHeader.get('correct-number') != null){
@@ -322,7 +345,11 @@ public with sharing class LMSInit{
                     a.Eligible_Image__c = a.Eligible_Image__c.replace('almond_uilib',uiLibNS);
                     a.Acquired_Image__c = a.Acquired_Image__c.replace('almond_uilib',uiLibNS);
                 }
-                a.Achievement_Category__c = acMap.get(achievementCategoryName).Id;
+                String categoryName = (String)achievementHeader.get('achievement-category');
+                categoryName = addTimeStamp?categoryName+ts:categoryName;
+                if(existingRecordsMap.get('achievement-category') != null && existingRecordsMap.get('achievement-category').get(categoryName) != null){
+                    a.Achievement_Category__c = existingRecordsMap.get('achievement-category').get(categoryName);
+                }
                 achievements.put(a.Name,a);
             }
 

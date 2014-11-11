@@ -35,7 +35,7 @@ public class TestLMSInit {
 
 		Test.startTest();
 
-			LMSInit.initData(true,'Sample');
+			LMSInit.initData('almond_LMSInitData',true);
 			System.assertEquals(1,getTrainingPlanCount());
 
 		Test.stopTest();
@@ -47,7 +47,7 @@ public class TestLMSInit {
 
 		Test.startTest();
 
-			LMSInit.initData(false,'Sample');
+			LMSInit.initData('almond_LMSInitData',false);
 			System.assertEquals(1,getTrainingPlanCount());
 
 		Test.stopTest();

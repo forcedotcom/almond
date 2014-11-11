@@ -32,7 +32,7 @@ public with sharing class LMSStartController {
 
     public PageReference initSampleData(){
         try{
-            LMSInit.initData(true,'Sample');
+            LMSInit.initData('almond_LMSInitData',true);
             LMSUtils.addSuccessMessage(System.Label.ALMS_Sample_Data_Success);
         }catch(Exception e){
             if(ApexPages.currentPage() != null){

@@ -25,7 +25,6 @@
                     }
                 ]
             }
-
         },
         {
             "type":"answer-sequence",
@@ -52,7 +51,6 @@
                     }
                 ]
             }
-
         },
         {
             "type":"answer-sequence",
@@ -79,7 +77,6 @@
                     }
                 ]
             }
-
         },
         {
             "type":"answer-sequence",
@@ -112,7 +109,12 @@
                     }
                 ]
             }
-
+        },
+        {
+            "type":"achievement-category",
+            "name":"Sample",
+            "content": {
+            }
         }
     ],
     "learning-objects":[
@@ -230,17 +232,15 @@
                             }
                         ]
                     }
-
                 ]
             }
-
         }
-
     ],
     "achievement-objects":[
         {
             "name" : "Sample Achievement",
             "type" : "Achievements",
+            "achievement-category" : "Sample",
             "acquired-image" : "<img alt=\"User-added image\" src=\"/resource/almond_uilib/img/sampleLogo1.png\"></img>",
             "eligible-image" : "<img alt=\"User-added image\" src=\"/resource/almond_uilib/img/sampleLogo2.png\"></img>"
         }
@@ -267,7 +267,6 @@
                             "learning" : "Task Learning"
                         }
                     ]
-
                 },
                 {
                     "name" : "Section 2",
@@ -282,7 +281,6 @@
                             "learning" : "Task Learning 2"
                         }
                     ]
-
                 },
                 {
                     "name" : "Section 3",
@@ -293,7 +291,6 @@
                             "learning" : "Quiz Learning 1"
                         }
                     ]
-
                 }
             ],
             "achievements" : [

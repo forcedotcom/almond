@@ -243,6 +243,13 @@
             "achievement-category" : "Sample",
             "acquired-image" : "<img alt=\"User-added image\" src=\"/resource/almond_uilib/img/sampleLogo1.png\"></img>",
             "eligible-image" : "<img alt=\"User-added image\" src=\"/resource/almond_uilib/img/sampleLogo2.png\"></img>"
+        },
+        {
+            "name" : "Sample Track Achievement",
+            "type" : "Achievements",
+            "achievement-category" : "Sample",
+            "acquired-image" : "<img alt=\"User-added image\" src=\"/resource/almond_uilib/img/sampleLogo1.png\"></img>",
+            "eligible-image" : "<img alt=\"User-added image\" src=\"/resource/almond_uilib/img/sampleLogo2.png\"></img>"
         }
     ],
     "plan-objects":[
@@ -298,6 +305,31 @@
                     "achievement" : "Sample Achievement",
                     "main-achievement" : true,
                     "section" : null
+                }
+            ]
+        }
+    ],
+    "track-objects":[
+        {
+            "name" : "Sample Track",
+            "description" : "Sample Track description",
+            "status" : "Active",
+            "order" : null,
+            "background-image-url" : null,
+            "text-color-url" : null,
+            "background-color" : null,
+            "achievement" : "Sample Track Achievement",
+            "levels" : [
+                {
+                    "name" : "Level 1",
+                    "order" : 1,
+                    "description" : "Sample Level 1 description",
+                    "items" : [
+                        {
+                            "order" : 1,
+                            "plan" : "Sample Training Plan"
+                        }
+                    ]
                 }
             ]
         }

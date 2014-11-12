@@ -28,11 +28,14 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 public with sharing class LMSStartController {
 
-    public LMSStartController(){}
+    public String jsonData{get;set;}
+    public LMSStartController(){
+        jsonData = LMSInit.fetchInitData('almond_LMSInitData');
+    }
 
     public PageReference initSampleData(){
         try{
-            LMSInit.initData('almond_LMSInitData',true);
+            LMSInit.initData(LMSInit.fetchInitData('almond_LMSInitData'),true);
             LMSUtils.addSuccessMessage(System.Label.ALMS_Sample_Data_Success);
         }catch(Exception e){
             if(ApexPages.currentPage() != null){
@@ -41,6 +44,19 @@ public with sharing class LMSStartController {
             LMSUtils.logException(e,'LMSInit');
         }
         return null;
+    }
+
+    public PageReference initFromJSONString(){
+      try{
+          LMSInit.initData(jsonData,false);
+          LMSUtils.addSuccessMessage(System.Label.ALMS_Sample_Data_Success);
+      }catch(Exception e){
+          if(ApexPages.currentPage() != null){
+              LMSUtils.addErrorMessage(System.Label.ALMS_Sample_Data_Error);
+          }
+          LMSUtils.logException(e,'LMSInit');
+      }
+      return null;
     }
 
 }

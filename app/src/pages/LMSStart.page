@@ -29,6 +29,8 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 
     <apex:sectionHeader title="{!$Label.ALMS_Start_Here_Title}" subtitle="{!$Label.ALMS_Start_Here_SubTitle}"/>
 
+    <script src="{!URLFOR($Resource.almond_uilib, '/js/jquery.min.js')}" />
+
     <apex:form id="theForm">
 
         <apex:actionStatus id="status">
@@ -48,7 +50,28 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                 </apex:pageBlockSectionItem>
             </apex:pageBlockSection>
 
+            <apex:pageBlockSection title="{!$Label.ALMS_Additional_Options}" columns="1" collapsible="true">
+                <apex:inputTextArea value="{!jsonData}" style="height:300px;width:98%;"/>
+                <apex:pageBlockSectionItem dataStyle="text-align:center;width:100%;">
+                    <apex:commandButton value="{!$Label.ALMS_Load_JSON}" action="{!initFromJSONString}" rerender="theForm" status="status" styleClass="btnImportant"/>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+
         </apex:pageBlock>
+
+        <script>
+            jQuery(document).ready(function($) {
+                var imgs = $('img');
+                if(imgs){
+                    for(var x in imgs){
+                        if(imgs[x].className=='hideListButton' || imgs[x].className=='showListButton'){
+                            twistSection(imgs[x]);
+                        }
+                    }
+                }
+            });
+        </script>
+
     </apex:form>
 
 </apex:page>

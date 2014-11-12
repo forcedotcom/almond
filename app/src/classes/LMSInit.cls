@@ -30,7 +30,7 @@ public with sharing class LMSInit{
 
     public class LMSInitException extends Exception{}
 
-    private static String fetchInitData(String resourceName){
+    public static String fetchInitData(String resourceName){
         if(UserInfo.getLanguage() != 'en_US'){
             String translatedResourceName = resourceName+'_'+UserInfo.getLanguage();
             List<StaticResource> sResources = [select id from StaticResource where Name = :translatedResourceName];
@@ -42,13 +42,11 @@ public with sharing class LMSInit{
         return body.toString();
     }
 
-    private static String getTimeStamp(){
-        DateTime dtimenow = DateTime.now();
-        String ts = dtimenow.second()+''+dtimenow.millisecond();
-        return ts;
-    }
+    public static void initData(String jsonData, Boolean addTimeStamp){
 
-    public static void initData(String resourceName, Boolean addTimeStamp){
+        if(jsonData == null){
+            throw new LMSInitException(System.Label.ALMS_Invalid_Import_Data);
+        }
 
         //BEGIN Access Check
         Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
@@ -69,20 +67,45 @@ public with sharing class LMSInit{
         try{
 
             String ts = '_'+getTimeStamp();
-            Map<String,Object> dataMap = (Map<String,Object>)JSON.deserializeUntyped(fetchInitData(resourceName));
+            Map<String,Object> dataMap = (Map<String,Object>)JSON.deserializeUntyped(jsonData);
+
+            //Aux maps
+            Map<String,Answer_Sequence__c> answerSequences = new Map<String,Answer_Sequence__c>();
+            Map<String,Answer_Sequence_Item__c> answerSequenceItems = new Map<String,Answer_Sequence_Item__c>();
+            Map<String,Learning__c> learnings = new Map<String,Learning__c>();
+            Map<String,Training_Resource__c> resources = new Map<String,Training_Resource__c>();
+            Map<String,Task__c> tasks = new Map<String,Task__c>();
+            Map<String,Quiz__c> quizzes = new Map<String,Quiz__c>();
+            Map<String,Question_Line__c> questionLines = new Map<String,Question_Line__c>();
+            Map<String,Question__c> questions = new Map<String,Question__c>();
+            Map<String,Achievement__c> achievements = new Map<String,Achievement__c>();
+            Map<String,Training_Plan__c> plans = new Map<String,Training_Plan__c>();
+            Map<String,Training_Plan_Section__c> sections = new Map<String,Training_Plan_Section__c>();
+            Map<String,Training_Plan_Section_Item__c> sectionItems = new Map<String,Training_Plan_Section_Item__c>();
+            Map<String,Training_Plan_Achievement__c> planAchievements = new Map<String,Training_Plan_Achievement__c>();
 
             //Check for existing lookups
             Map<String,Map<String,String>> existingRecordsMap = new Map<String,Map<String,String>>();
+            List<Object> lookupObjects = new List<Object>();
 
-            List<Object> existingObjects = (List<Object>)dataMap.get('lookup-objects');
-            for(Object lo : existingObjects){
-                Map<String,Object> lHeader = (Map<String,Object>)lo;
-                String name = addTimeStamp?(String)lHeader.get('name')+ts:(String)lHeader.get('name');
-                String type = (String)lHeader.get('type');
-                if(!existingRecordsMap.containsKey(type)){
-                    existingRecordsMap.put(type,new Map<String,String>());
+            if(dataMap.get('lookup-objects') != null){
+                lookupObjects = (List<Object>)dataMap.get('lookup-objects');
+                for(Object lo : lookupObjects){
+                    Map<String,Object> lHeader = (Map<String,Object>)lo;
+                    String name = addTimeStamp?(String)lHeader.get('name')+ts:(String)lHeader.get('name');
+                    String type = (String)lHeader.get('type');
+                    if(!existingRecordsMap.containsKey(type)){
+                        existingRecordsMap.put(type,new Map<String,String>());
+                    }
+                    existingRecordsMap.get(type).put(name,null);
+
+                    // Always create answer sequence lookups
+                    if(type == 'answer-sequence'){
+                        Answer_Sequence__c aseq = new Answer_Sequence__c();
+                        answerSequences.put(name,aseq);
+                    }
+
                 }
-                existingRecordsMap.get(type).put(name,null);
             }
 
             if(existingRecordsMap.get('achievement-category') != null){
@@ -109,6 +132,11 @@ public with sharing class LMSInit{
                 }
             }
 
+
+            if(answerSequences.size() > 0){
+                insert answerSequences.values();
+            }
+
             //Create record type map
             Map<String,String> learningRTMap = new Map<String,String>();
             String learningObjectName = LMSUtils.getPackageNamespace()+'Learning__c';
@@ -116,35 +144,7 @@ public with sharing class LMSInit{
                 learningRTMap.put(rt.DeveloperName,rt.Id);
             }
 
-            //Aux maps
-            Map<String,Answer_Sequence__c> answerSequences = new Map<String,Answer_Sequence__c>();
-            Map<String,Answer_Sequence_Item__c> answerSequenceItems = new Map<String,Answer_Sequence_Item__c>();
-            Map<String,Learning__c> learnings = new Map<String,Learning__c>();
-            Map<String,Training_Resource__c> resources = new Map<String,Training_Resource__c>();
-            Map<String,Task__c> tasks = new Map<String,Task__c>();
-            Map<String,Quiz__c> quizzes = new Map<String,Quiz__c>();
-            Map<String,Question_Line__c> questionLines = new Map<String,Question_Line__c>();
-            Map<String,Question__c> questions = new Map<String,Question__c>();
-            Map<String,Achievement__c> achievements = new Map<String,Achievement__c>();
-            Map<String,Training_Plan__c> plans = new Map<String,Training_Plan__c>();
-            Map<String,Training_Plan_Section__c> sections = new Map<String,Training_Plan_Section__c>();
-            Map<String,Training_Plan_Section_Item__c> sectionItems = new Map<String,Training_Plan_Section_Item__c>();
-            Map<String,Training_Plan_Achievement__c> planAchievements = new Map<String,Training_Plan_Achievement__c>();
-
-            //Iterate over lookup objects
-            List<Object> lookupObjects = (List<Object>)dataMap.get('lookup-objects');
-            for(Object lo : lookupObjects){
-                Map<String,Object> lHeader = (Map<String,Object>)lo;
-                String name = addTimeStamp?(String)lHeader.get('name')+ts:(String)lHeader.get('name');
-                String type = (String)lHeader.get('type');
-                if(type == 'answer-sequence'){
-                    Answer_Sequence__c aseq = new Answer_Sequence__c();
-                    answerSequences.put(name,aseq);
-                }
-            }
-
-            insert answerSequences.values();
-
+            //Create lookups children
             for(Object lo : lookupObjects){
                 Map<String,Object> lHeader = (Map<String,Object>)lo;
                 String headerName = addTimeStamp?(String)lHeader.get('name')+ts:(String)lHeader.get('name');
@@ -165,7 +165,9 @@ public with sharing class LMSInit{
                 }
             }
 
-            insert answerSequenceItems.values();
+            if(answerSequenceItems.size() > 0){
+                insert answerSequenceItems.values();
+            }
 
             //Iterate over learning objects
             List<Object> learningObjects = (List<Object>)dataMap.get('learning-objects');
@@ -185,7 +187,9 @@ public with sharing class LMSInit{
 
             }
 
-            insert learnings.values();
+            if(learnings.size() > 0){
+                insert learnings.values();
+            }
 
             //Create learning content
             for(Object lo : learningObjects){
@@ -223,9 +227,17 @@ public with sharing class LMSInit{
                 }
             }
 
-            insert resources.values();
-            insert tasks.values();
-            insert quizzes.values();
+            if(resources.size() > 0){
+                insert resources.values();
+            }
+
+            if(tasks.size() > 0){
+                insert tasks.values();
+            }
+
+            if(quizzes.size() > 0){
+                insert quizzes.values();
+            }
 
             //Create quiz question lines
             for(Object lo : learningObjects){
@@ -251,7 +263,9 @@ public with sharing class LMSInit{
                 }
             }
 
-            insert questionLines.values();
+            if(questionLines.size() > 0){
+                insert questionLines.values();
+            }
 
             //Create quiz questions
             for(Object lo : learningObjects){
@@ -291,8 +305,9 @@ public with sharing class LMSInit{
                 }
             }
 
-            insert questions.values();
-
+            if(questions.size() > 0){
+                insert questions.values();
+            }
 
             //Publish learnings
             Map<String,Learning_Version__c> lVersions = new Map<String,Learning_Version__c>();
@@ -326,7 +341,9 @@ public with sharing class LMSInit{
                 l.Published__c = true;
             }
 
-            update insertedLearnings;
+            if(insertedLearnings.size() > 0){
+                update insertedLearnings;
+            }
 
             //Create achievements
             List<Object> achievementObjects = (List<Object>)dataMap.get('achievement-objects');
@@ -353,7 +370,9 @@ public with sharing class LMSInit{
                 achievements.put(a.Name,a);
             }
 
-            insert achievements.values();
+            if(achievements.size() > 0){
+                insert achievements.values();
+            }
 
             //Create training plans
             List<Object> planObjects = (List<Object>)dataMap.get('plan-objects');
@@ -376,7 +395,9 @@ public with sharing class LMSInit{
 
             }
 
-            insert plans.values();
+            if(plans.size() > 0){
+                insert plans.values();
+            }
 
             //Create sections
             for(Object po : planObjects){
@@ -395,7 +416,9 @@ public with sharing class LMSInit{
                 }
             }
 
-            insert sections.values();
+            if(sections.size() > 0){
+                insert sections.values();
+            }
 
             //Create section items
             for(Object po : planObjects){
@@ -425,7 +448,9 @@ public with sharing class LMSInit{
 
             }
 
-            insert sectionItems.values();
+            if(sectionItems.size() > 0){
+                insert sectionItems.values();
+            }
 
             //Create training plan achievements
             for(Object po : planObjects){
@@ -453,13 +478,21 @@ public with sharing class LMSInit{
 
             }
 
-            insert planAchievements.values();
+            if(planAchievements.size() > 0){
+                insert planAchievements.values();
+            }
 
         }catch(Exception e){
             Database.rollback(sp);
             throw new LMSInitException(e.getMessage());
         }
 
+    }
+
+    private static String getTimeStamp(){
+        DateTime dtimenow = DateTime.now();
+        String ts = dtimenow.second()+''+dtimenow.millisecond();
+        return ts;
     }
 
 }

@@ -880,6 +880,18 @@
         <label>Filtrar Asignados</label>
         <name>ALMS_Filter_Existing_Assignments</name>
     </customLabels>
+    <customLabels>
+        <label>Datos no válidos</label>
+        <name>ALMS_Invalid_Import_Data</name>
+    </customLabels>
+    <customLabels>
+        <label>Opcionales Adicionales</label>
+        <name>ALMS_Additional_Options</name>
+    </customLabels>
+    <customLabels>
+        <label>Cargar JSON</label>
+        <name>ALMS_Load_JSON</name>
+    </customLabels>
     <customTabs>
         <label>Aprendizaje</label>
         <name>Learning</name>

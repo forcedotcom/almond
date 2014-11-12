@@ -87,7 +87,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
         </apex:pageBlock>
 
         <script>
-            $( document ).ready(function() {
+            jQuery(document).ready(function($) {
                 var imgs = $('img');
                 if(imgs){
                     for(var x in imgs){

@@ -60,7 +60,7 @@ public with sharing class AchievementWorkComExt{
                         FROM WorkBadgeDefinition
                         where IsActive = true
                         order by CreatedDate desc
-                        limit 2000];
+                        limit 500];
     }
 
     public PageReference saveBadgeInfo(){

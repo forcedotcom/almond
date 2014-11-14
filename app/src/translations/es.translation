@@ -585,6 +585,10 @@
         <name>ALMS_Role</name>
     </customLabels>
     <customLabels>
+        <label>Nombre</label>
+        <name>ALMS_Search_Field_Name</name>
+    </customLabels>
+    <customLabels>
         <label>Ha ocurrido algo inesperado y no fue posible crear datos de muestra.</label>
         <name>ALMS_Sample_Data_Error</name>
     </customLabels>

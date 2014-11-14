@@ -1049,6 +1049,14 @@
         <value>Role</value>
     </labels>
     <labels>
+        <fullName>ALMS_Search_Field_Name</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Assignment Search Field Name</shortDescription>
+        <value>Name</value>
+    </labels>
+    <labels>
         <fullName>ALMS_Manager</fullName>
         <categories>ALMOND General, ALMOND UI</categories>
         <language>en_US</language>

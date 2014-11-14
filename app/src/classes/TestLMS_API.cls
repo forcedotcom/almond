@@ -151,4 +151,35 @@ public class TestLMS_API {
         System.assertEquals(lmsUsers.size(), achievementAssignments.size());
     }
 
+    static testmethod void testImportData(){
+        System.assertEquals(0,getTrainingPlanCount());
+        System.assertEquals(0,getTrainingTrackCount());
+        Test.startTest();
+        LMSStartController cont = new LMSStartController();
+        LMS_API.importJSON(LMSInit.fetchInitData('almond_LMSInitDataWithTracks'),false);
+        System.assertEquals(1,getTrainingPlanCount());
+        System.assertEquals(1,getTrainingTrackCount());
+        Test.stopTest();
+    }
+
+    static testmethod void testImportDataWithTimeStamps(){
+        System.assertEquals(0,getTrainingPlanCount());
+        System.assertEquals(0,getTrainingTrackCount());
+        Test.startTest();
+        LMSStartController cont = new LMSStartController();
+        LMS_API.importJSON(LMSInit.fetchInitData('almond_LMSInitDataWithTracks'),true);
+        System.assertEquals(1,getTrainingPlanCount());
+        System.assertEquals(1,getTrainingTrackCount());
+        Test.stopTest();
+    }
+
+    static Integer getTrainingPlanCount(){
+        return [select count() from Training_Plan__c];
+    }
+
+    static Integer getTrainingTrackCount(){
+        return [select count() from Training_Track__c];
+    }
+
+
 }

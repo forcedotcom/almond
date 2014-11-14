@@ -585,6 +585,10 @@
         <name>ALMS_Role</name>
     </customLabels>
     <customLabels>
+        <label><!-- Assignment Search Field Name --></label>
+        <name>ALMS_Search_Field_Name</name>
+    </customLabels>
+    <customLabels>
         <label><!-- Sample Data Created Error message --></label>
         <name>ALMS_Sample_Data_Error</name>
     </customLabels>

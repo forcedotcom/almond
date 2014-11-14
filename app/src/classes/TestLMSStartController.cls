@@ -40,9 +40,28 @@ public class TestLMSStartController {
             LMSStartController cont = new LMSStartController();
             PageReference resultRef = cont.initSampleData();
             System.assertEquals(1,getTrainingPlanCount());
+            System.assertEquals(0,getTrainingTrackCount());
             System.assert(cont.jsonData != null);
             resultRef = cont.initFromJSONString();
             System.assertEquals(2,getTrainingPlanCount());
+            System.assertEquals(0,getTrainingTrackCount());
+            System.assert(ApexPages.hasMessages(ApexPages.Severity.ERROR) == false);
+        Test.stopTest();
+    }
+
+    static testmethod void testImportDataWithTrainingTracks(){
+
+        System.assertEquals(0,getTrainingPlanCount());
+
+        PageReference ref = Page.LMSStart;
+        Test.setCurrentPageReference(ref);
+
+        Test.startTest();
+            LMSStartController cont = new LMSStartController();
+            cont.jsonData = LMSInit.fetchInitData('almond_LMSInitDataWithTracks');
+            PageReference resultRef = cont.initFromJSONString();
+            System.assertEquals(1,getTrainingPlanCount());
+            System.assertEquals(1,getTrainingTrackCount());
             System.assert(ApexPages.hasMessages(ApexPages.Severity.ERROR) == false);
         Test.stopTest();
     }
@@ -66,6 +85,10 @@ public class TestLMSStartController {
 
     static Integer getTrainingPlanCount(){
         return [select count() from Training_Plan__c];
+    }
+
+    static Integer getTrainingTrackCount(){
+        return [select count() from Training_Track__c];
     }
 
 }

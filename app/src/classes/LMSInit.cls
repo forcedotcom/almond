@@ -59,6 +59,8 @@ public with sharing class LMSInit{
         relatedFieldsObjects.put(Training_Plan_Section__c.sObjectType,new List<String>{'Name','Training_Plan__c'});
         relatedFieldsObjects.put(Training_Plan_Section_Item__c.sObjectType,new List<String>{'Training_Plan_Section__c'});
         relatedFieldsObjects.put(Training_Plan_Achievement__c.sObjectType,new List<String>{'Training_Plan__c'});
+        relatedFieldsObjects.put(Training_Track__c.sObjectType,new List<String>{'Name'});
+        relatedFieldsObjects.put(Training_Track_Level__c.sObjectType,new List<String>{'Name','Training_Track__c'});
         LMS_ESAPI.isAuthorizedToCreate(relatedFieldsObjects);
         //END Access Check
 
@@ -89,28 +91,26 @@ public with sharing class LMSInit{
 
             //Check for existing lookups
             Map<String,Map<String,String>> existingRecordsMap = new Map<String,Map<String,String>>();
-            List<Object> lookupObjects = new List<Object>();
+            List<Object> lookupObjects = getObjectList(dataMap,'lookup-objects');
 
-            if(dataMap.get('lookup-objects') != null){
-                lookupObjects = (List<Object>)dataMap.get('lookup-objects');
-                for(Object lo : lookupObjects){
-                    Map<String,Object> lHeader = (Map<String,Object>)lo;
-                    String name = addTimeStamp?(String)lHeader.get('name')+ts:(String)lHeader.get('name');
-                    String type = (String)lHeader.get('type');
-                    if(!existingRecordsMap.containsKey(type)){
-                        existingRecordsMap.put(type,new Map<String,String>());
-                    }
-                    existingRecordsMap.get(type).put(name,null);
-
-                    // Always create answer sequence lookups
-                    if(type == 'answer-sequence'){
-                        Answer_Sequence__c aseq = new Answer_Sequence__c();
-                        answerSequences.put(name,aseq);
-                    }
-
+            for(Object lo : lookupObjects){
+                Map<String,Object> lHeader = (Map<String,Object>)lo;
+                String name = addTimeStamp?(String)lHeader.get('name')+ts:(String)lHeader.get('name');
+                String type = (String)lHeader.get('type');
+                if(!existingRecordsMap.containsKey(type)){
+                    existingRecordsMap.put(type,new Map<String,String>());
                 }
+                existingRecordsMap.get(type).put(name,null);
+
+                // Always create answer sequence lookups
+                if(type == 'answer-sequence'){
+                    Answer_Sequence__c aseq = new Answer_Sequence__c();
+                    answerSequences.put(name,aseq);
+                }
+
             }
 
+            //Insert missing lookups
             if(existingRecordsMap.get('achievement-category') != null){
 
                 Map<String,Achievement_Category__c> acMap = new Map<String,Achievement_Category__c>();
@@ -134,13 +134,11 @@ public with sharing class LMSInit{
                     }
                 }
             }
-
-
             if(answerSequences.size() > 0){
                 insert answerSequences.values();
             }
 
-            //Create record type map
+            //Create learning record type map
             Map<String,String> learningRTMap = new Map<String,String>();
             String learningObjectName = LMSUtils.getPackageNamespace()+'Learning__c';
             for(RecordType rt : [select Id,DeveloperName from RecordType where SobjectType = :learningObjectName]){
@@ -154,26 +152,26 @@ public with sharing class LMSInit{
                 String type = (String)lHeader.get('type');
                 if(type == 'answer-sequence'){
                     Map<String,Object> lookUpContent = (Map<String,Object>)lHeader.get('content');
-                    List<Object> sequenceItems = (List<Object>)lookUpContent.get('options');
+                    List<Object> sequenceItems = getObjectList(lookUpContent,'options');
                     for(Object sit : sequenceItems){
                         Map<String,Object> it = (Map<String,Object>)sit;
                         Answer_Sequence_Item__c asi = new Answer_Sequence_Item__c();
-                        asi.Order__c = (Integer)it.get('order');
-                        asi.Answer_Text__c = (String)it.get('answer-text');
-                        asi.Item_Id__c = (String)it.get('answer-id')+'_'+ts;
-                        asi.Is_Correct_Answer__c = (Boolean)it.get('is-correct-answer');
+                        asi.Order__c = getIntegerValue(it.get('order'),null);
+                        asi.Answer_Text__c = getStringValue(it.get('answer-text'),null);
+                        asi.Item_Id__c = getStringValue(it.get('answer-id'),'');
+                        asi.Is_Correct_Answer__c = getBooleanValue(it.get('is-correct-answer'),false);
                         asi.Answer_Sequence__c = answerSequences.get(headerName).Id;
                         answerSequenceItems.put(headerName+asi.Item_Id__c,asi);
                     }
                 }
             }
-
             if(answerSequenceItems.size() > 0){
                 insert answerSequenceItems.values();
             }
 
             //Iterate over learning objects
-            List<Object> learningObjects = (List<Object>)dataMap.get('learning-objects');
+
+            List<Object> learningObjects = getObjectList(dataMap,'learning-objects');
 
             for(Object lo : learningObjects){
 
@@ -183,9 +181,9 @@ public with sharing class LMSInit{
                 String lName = addTimeStamp?(String)lHeader.get('name')+ts:(String)lHeader.get('name');
                 l.Name = lName;
                 l.RecordTypeId = learningRTMap.get((String)lHeader.get('record-type'));
-                l.Duration__c = (Integer)lHeader.get('duration');
-                l.Description__c = (String)lHeader.get('description');
-                l.Sync_progress__c = (Boolean)lHeader.get('sync-progress');
+                l.Duration__c = getIntegerValue(lHeader.get('duration'),null);
+                l.Description__c = getStringValue(lHeader.get('description'),null);
+                l.Sync_progress__c = getBooleanValue(lHeader.get('sync-progress'),false);
                 learnings.put(l.Name,l);
 
             }
@@ -204,29 +202,29 @@ public with sharing class LMSInit{
                 if((String)lHeader.get('record-type') == 'Resource'){
                     Training_Resource__c tr = new Training_Resource__c();
                     tr.Name = (String)lContent.get('name');
-                    tr.Resource_URL__c = (String)lContent.get('resource-url');
-                    tr.Add_training_parameters_to_URL__c = lContent.get('training-params-url')!=null?(Boolean)lContent.get('training-params-url'):false;
-                    tr.Description__c = (String)lContent.get('description');
-                    tr.Display_in_Iframe__c = lContent.get('display-in-iframe')!=null?(Boolean)lContent.get('display-in-iframe'):false;
+                    tr.Resource_URL__c = getStringValue(lContent.get('resource-url'),null);
+                    tr.Add_training_parameters_to_URL__c = getBooleanValue(lContent.get('training-params-url'),false);
+                    tr.Description__c = getStringValue(lContent.get('description'),null);
+                    tr.Display_in_Iframe__c = getBooleanValue(lContent.get('display-in-iframe'),false);
                     tr.Learning__c = learnings.get(headerName).Id;
                     resources.put(tr.Learning__c,tr);
                 }else if((String)lHeader.get('record-type') == 'Task'){
                     Task__c tk = new Task__c();
                     tk.Name = (String)lContent.get('name');
-                    tk.External_Resource_Name__c = (String)lContent.get('resource-name');
-                    tk.External_Resource_URL__c = (String)lContent.get('resource-url');
-                    tk.External_Resource_Target__c = (String)lContent.get('resource-target');
-                    tk.Add_training_parameters_to_URL__c = lContent.get('training-params-url')!=null?(Boolean)lContent.get('training-params-url'):false;
-                    tk.Description__c = (String)lContent.get('description');
+                    tk.External_Resource_Name__c = getStringValue(lContent.get('resource-name'),null);
+                    tk.External_Resource_URL__c = getStringValue(lContent.get('resource-url'),null);
+                    tk.External_Resource_Target__c = getStringValue(lContent.get('resource-target'),null);
+                    tk.Add_training_parameters_to_URL__c = getBooleanValue(lContent.get('training-params-url'),false);
+                    tk.Description__c = getStringValue(lContent.get('description'),null);
                     tk.Learning__c = learnings.get(headerName).Id;
-                    tk.Enable_Image_Upload__c = lContent.get('enable-image-upload')!=null?(Boolean)lContent.get('enable-image-upload'):false;
+                    tk.Enable_Image_Upload__c = getBooleanValue(lContent.get('enable-image-upload'),false);
                     tasks.put(tk.Learning__c ,tk);
                 }else if((String)lHeader.get('record-type') == 'Quiz'){
                     Quiz__c qz = new Quiz__c();
                     qz.Name = (String)lContent.get('name');
-                    qz.Passing_Score__c = (Double)lContent.get('passing-score');
-                    qz.Max_Attempts__c = (Integer)lContent.get('max-attempts');
-                    qz.Description__c = (String)lContent.get('description');
+                    qz.Passing_Score__c = getDoubleValue(lContent.get('passing-score'),null);
+                    qz.Max_Attempts__c = getIntegerValue(lContent.get('max-attempts'),null);
+                    qz.Description__c = getStringValue(lContent.get('description'),null);
                     qz.Learning__c = learnings.get(headerName).Id;
                     quizzes.put(qz.Learning__c,qz);
                 }
@@ -251,7 +249,7 @@ public with sharing class LMSInit{
 
                 if((String)lHeader.get('record-type') == 'Quiz'){
                     Map<String,Object> lContent = (Map<String,Object>)lHeader.get('content');
-                    List<Object> qLineObjects = (List<Object>)lContent.get('question-lines');
+                    List<Object> qLineObjects = getObjectList(lContent,'question-lines');
                     String headerName = addTimeStamp?(String)lHeader.get('name')+ts:(String)lHeader.get('name');
 
                     for(Object qlo : qLineObjects){
@@ -259,8 +257,8 @@ public with sharing class LMSInit{
                         String qlHeaderName = headerName+(String)qlHeader.get('name');
                         Question_Line__c ql = new Question_Line__c();
                         ql.Name = (String)qlHeader.get('name');
-                        ql.Order__c = (Integer)qlHeader.get('order');
-                        ql.Description__c = (String)qlHeader.get('description');
+                        ql.Order__c = getIntegerValue(qlHeader.get('order'),null);
+                        ql.Description__c = getStringValue(qlHeader.get('description'),null);
                         Learning__c l = learnings.get(headerName);
                         ql.Quiz__c = quizzes.get(l.id).Id;
                         questionLines.put(qlHeaderName,ql);
@@ -279,21 +277,21 @@ public with sharing class LMSInit{
 
                 if((String)lHeader.get('record-type') == 'Quiz'){
                     Map<String,Object> lContent = (Map<String,Object>)lHeader.get('content');
-                    List<Object> qLineObjects = (List<Object>)lContent.get('question-lines');
+                    List<Object> qLineObjects = getObjectList(lContent,'question-lines');
                     String headerName = addTimeStamp?(String)lHeader.get('name')+ts:(String)lHeader.get('name');
 
                     for(Object qlo : qLineObjects){
                         Map<String,Object> qlHeader = (Map<String,Object>)qlo;
-                        List<Object> questionObjects = (List<Object>)qlHeader.get('questions');
+                        List<Object> questionObjects = getObjectList(qlHeader,'questions');
                         String qlHeaderName = headerName+(String)qlHeader.get('name');
                         Integer qCount = 0;
 
                         for(Object qo : questionObjects){
                             Map<String,Object> qHeader = (Map<String,Object>)qo;
                             Question__c q = new Question__c();
-                            q.Description__c = (String)qHeader.get('description');
                             q.Type__c = (String)qHeader.get('type');
-                            q.Order__c = (Integer)qHeader.get('order');
+                            q.Order__c = getIntegerValue(qHeader.get('order'),null);
+                            q.Description__c = getStringValue(qHeader.get('description'),null);
                             if(qHeader.get('answer-sequence') != null){
                                 String aswSeqName = addTimeStamp?(String)qHeader.get('answer-sequence')+ts:(String)qHeader.get('answer-sequence');
                                 q.Answer_Sequence__c = answerSequences.get(aswSeqName).Id;
@@ -315,12 +313,17 @@ public with sharing class LMSInit{
             }
 
             //Publish learnings
+
             Map<String,Learning_Version__c> lVersions = new Map<String,Learning_Version__c>();
-            List<Learning__c> insertedLearnings = [select id
-                                        ,Name
-                                        ,RecordType.DeveloperName
-                                        from Learning__c
-                                        where id in :learnings.values()];
+            List<Learning__c> insertedLearnings = new List<Learning__c>();
+
+            if(learnings.size() > 0){
+                insertedLearnings = [select id
+                                            ,Name
+                                            ,RecordType.DeveloperName
+                                            from Learning__c
+                                            where id in :learnings.values()];
+            }
 
             for(Learning__c l : insertedLearnings){
                 Learning_Version__c lv = new Learning_Version__c();
@@ -353,7 +356,7 @@ public with sharing class LMSInit{
             }
 
             //Create achievements
-            List<Object> achievementObjects = (List<Object>)dataMap.get('achievement-objects');
+            List<Object> achievementObjects = getObjectList(dataMap,'achievement-objects');
 
             for(Object ao : achievementObjects){
 
@@ -362,8 +365,8 @@ public with sharing class LMSInit{
                 String aName = addTimeStamp?(String)achievementHeader.get('name')+ts:(String)achievementHeader.get('name');
                 a.Name = aName;
                 a.Type__c = (String)achievementHeader.get('type');
-                a.Eligible_Image__c = (String)achievementHeader.get('eligible-image');
-                a.Acquired_Image__c = (String)achievementHeader.get('acquired-image');
+                a.Eligible_Image__c = getStringValue(achievementHeader.get('eligible-image'),'');
+                a.Acquired_Image__c = getStringValue(achievementHeader.get('acquired-image'),'');
                 if(LMSUtils.getPackageNamespace() != ''){
                     String uiLibNS = LMSUtils.getPackageNamespace()+'almond_uilib';
                     a.Eligible_Image__c = a.Eligible_Image__c.replace('almond_uilib',uiLibNS);
@@ -382,24 +385,26 @@ public with sharing class LMSInit{
             }
 
             //Create training plans
-            List<Object> planObjects = (List<Object>)dataMap.get('plan-objects');
+            List<Object> planObjects = getObjectList(dataMap,'plan-objects');
 
             for(Object po : planObjects){
-
                 //Create plan header
                 Map<String,Object> pHeader = (Map<String,Object>)po;
                 Training_Plan__c tp = new Training_Plan__c();
                 String tplanName = addTimeStamp?(String)pHeader.get('name')+ts:(String)pHeader.get('name');
                 tp.Name = tplanName;
-                tp.Description__c = (String)pHeader.get('description');
-                tp.Status__c = (String)pHeader.get('status');
+                tp.Description__c = getStringValue(pHeader.get('description'),null);
+                tp.Status__c = getStringValue(pHeader.get('status'),null);
                 tp.Start_Date__c = (Date.today()).addDays(-1);
                 tp.End_Date__c = (Date.today()).addDays(365);
-                tp.Enforce_Sequence__c = (Boolean)pHeader.get('enforce-sequence');
-                tp.Enable_Self_Registration__c = (Boolean)pHeader.get('enable-self-registration');
-                tp.Self_Registration_Access__c = (String)pHeader.get('self-registration-access');
+                tp.Intro_Video_URL__c = getStringValue(pHeader.get('intro-video-url'),null);
+                tp.Background_Image_URL__c = getStringValue(pHeader.get('background-image-url'),null);
+                tp.Background_Color__c = getStringValue(pHeader.get('background-color'),null);
+                tp.Text_Color__c = getStringValue(pHeader.get('text-color'),null);
+                tp.Enforce_Sequence__c = getBooleanValue(pHeader.get('enforce-sequence'),false);
+                tp.Enable_Self_Registration__c = getBooleanValue(pHeader.get('enable-self-registration'),false);
+                tp.Self_Registration_Access__c = getStringValue(pHeader.get('self-registration-access'),null);
                 plans.put(tp.Name,tp);
-
             }
 
             if(plans.size() > 0){
@@ -410,7 +415,7 @@ public with sharing class LMSInit{
             for(Object po : planObjects){
                 Map<String,Object> pHeader = (Map<String,Object>)po;
                 String planName = addTimeStamp?(String)pHeader.get('name')+ts:(String)pHeader.get('name');
-                List<Object> sectionObjects = (List<Object>)pHeader.get('sections');
+                List<Object> sectionObjects = getObjectList(pHeader,'sections');
 
                 for(Object so : sectionObjects){
                     Map<String,Object> soHeader = (Map<String,Object>)so;
@@ -418,7 +423,8 @@ public with sharing class LMSInit{
                     String planSectionName = addTimeStamp?(String)soHeader.get('name')+ts:(String)soHeader.get('name');
                     tps.Name = planSectionName;
                     tps.Training_Plan__c = plans.get(planName).Id;
-                    tps.Order__c = (Integer)soHeader.get('order');
+                    tps.Order__c = getIntegerValue(soHeader.get('order'),null);
+                    tps.Optional__c = getBooleanValue(soHeader.get('optional'),false);
                     sections.put(planName+'_'+tps.Name,tps);
                 }
             }
@@ -432,20 +438,21 @@ public with sharing class LMSInit{
                 Map<String,Object> pHeader = (Map<String,Object>)po;
                 String planName = addTimeStamp?(String)pHeader.get('name')+ts:(String)pHeader.get('name');
 
-                List<Object> sectionObjects = (List<Object>)pHeader.get('sections');
+                List<Object> sectionObjects = getObjectList(pHeader,'sections');
 
                 for(Object so : sectionObjects){
                     Map<String,Object> soHeader = (Map<String,Object>)so;
                     String soHeaderName = planName+'_'+(String)soHeader.get('name');
                     soHeaderName += addTimeStamp?ts:'';
 
-                    List<Object> itemObjects = (List<Object>)soHeader.get('items');
+                    List<Object> itemObjects = getObjectList(soHeader,'items');
 
                     for(Object si : itemObjects){
                         Map<String,Object> siHeader = (Map<String,Object>)si;
 
                         Training_Plan_Section_Item__c tpsi = new Training_Plan_Section_Item__c();
-                        tpsi.Order__c = (Integer)siHeader.get('order');
+                        tpsi.Order__c = getIntegerValue(siHeader.get('order'),null);
+                        tpsi.Optional__c = getBooleanValue(siHeader.get('optional'),false);
                         tpsi.Training_Plan_Section__c = sections.get(soHeaderName).Id;
                         String learningName = addTimeStamp?(String)siHeader.get('learning')+ts:(String)siHeader.get('learning');
                         tpsi.Learning__c = learnings.get(learningName).Id;
@@ -464,7 +471,7 @@ public with sharing class LMSInit{
                 Map<String,Object> pHeader = (Map<String,Object>)po;
                 String planName = addTimeStamp?(String)pHeader.get('name')+ts:(String)pHeader.get('name');
 
-                List<Object> tplanAchievementObjects = (List<Object>)pHeader.get('achievements');
+                List<Object> tplanAchievementObjects = getObjectList(pHeader,'achievements');
 
                 for(Object pa : tplanAchievementObjects){
                     Map<String,Object> tpaHeader = (Map<String,Object>)pa;
@@ -493,85 +500,90 @@ public with sharing class LMSInit{
             }
 
             //Create training tracks
-            List<Object> trackObjects = (List<Object>)dataMap.get('track-objects');
+            if(dataMap.get('track-objects') != null){
 
-            for(Object po : trackObjects){
+                List<Object> trackObjects = getObjectList(dataMap,'track-objects');
 
-                //Create plan header
-                Map<String,Object> pHeader = (Map<String,Object>)po;
-                Training_Track__c tk = new Training_Track__c();
-                String trackName = addTimeStamp?(String)pHeader.get('name')+ts:(String)pHeader.get('name');
-                tk.Name = trackName;
-                tk.Description__c = (String)pHeader.get('description');
-                tk.Status__c = (String)pHeader.get('status');
-                tk.Order__C = (Integer)pHeader.get('order');
-                tk.Background_Image_URL__c = (String)pHeader.get('background-image-url');
-                tk.Text_Color__c = (String)pHeader.get('text-color-url');
-                tk.Background_Color__c = (String)pHeader.get('background-color');
-                String achievementName = addTimeStamp?(String)pHeader.get('achievement')+ts:(String)pHeader.get('achievement');
+                for(Object po : trackObjects){
 
-                if(achievements.get(achievementName) != null){
-                  tk.Achievement__c = achievements.get(achievementName).Id;
+                    //Create plan header
+                    Map<String,Object> pHeader = (Map<String,Object>)po;
+                    Training_Track__c tk = new Training_Track__c();
+                    String trackName = addTimeStamp?(String)pHeader.get('name')+ts:(String)pHeader.get('name');
+                    tk.Name = trackName;
+                    tk.Description__c = getStringValue(pHeader.get('description'),null);
+                    tk.Status__c = getStringValue(pHeader.get('status'),'Draft');
+                    tk.Order__C = getIntegerValue(pHeader.get('order'),null);
+                    tk.Background_Image_URL__c = getStringValue(pHeader.get('background-image-url'),null);
+                    tk.Text_Color__c = getStringValue(pHeader.get('text-color-url'),null);
+                    tk.Background_Color__c = getStringValue(pHeader.get('background-color'),null);
+                    String achievementName = addTimeStamp?(String)pHeader.get('achievement')+ts:(String)pHeader.get('achievement');
+
+                    if(achievements.get(achievementName) != null){
+                      tk.Achievement__c = achievements.get(achievementName).Id;
+                    }
+                    tracks.put(tk.Name,tk);
+
                 }
-                tracks.put(tk.Name,tk);
 
-            }
-
-            if(tracks.size() > 0){
-                insert tracks.values();
-            }
-
-            //Create track levels
-            for(Object po : trackObjects){
-                Map<String,Object> pHeader = (Map<String,Object>)po;
-                String trackName = addTimeStamp?(String)pHeader.get('name')+ts:(String)pHeader.get('name');
-                List<Object> levelObjects = (List<Object>)pHeader.get('levels');
-
-                for(Object lv : levelObjects){
-                    Map<String,Object> lvHeader = (Map<String,Object>)lv;
-                    Training_Track_Level__c ttl = new Training_Track_Level__c();
-                    String levelName = addTimeStamp?(String)lvHeader.get('name')+ts:(String)lvHeader.get('name');
-                    ttl.Name = levelName;
-                    ttl.Training_Track__c = tracks.get(trackName).Id;
-                    ttl.Description__c = (String)lvHeader.get('description');
-                    ttl.Order__c = (Integer)lvHeader.get('order');
-                    levels.put(trackName+'_'+ttl.Name,ttl);
+                if(tracks.size() > 0){
+                    insert tracks.values();
                 }
-            }
 
-            if(levels.size() > 0){
-                insert levels.values();
-            }
+                //Create track levels
+                for(Object po : trackObjects){
+                    Map<String,Object> pHeader = (Map<String,Object>)po;
+                    String trackName = addTimeStamp?(String)pHeader.get('name')+ts:(String)pHeader.get('name');
 
-            //Create track items
-            for(Object to : trackObjects){
-                Map<String,Object> tHeader = (Map<String,Object>)to;
-                String trackName = addTimeStamp?(String)tHeader.get('name')+ts:(String)tHeader.get('name');
+                    List<Object> levelObjects = getObjectList(pHeader,'levels');
 
-                List<Object> levelObjects = (List<Object>)tHeader.get('levels');
-
-                for(Object lv : levelObjects){
-                    Map<String,Object> lvHeader = (Map<String,Object>)lv;
-                    String lvHeaderName = trackName+'_'+(String)lvHeader.get('name');
-                    lvHeaderName += addTimeStamp?ts:'';
-
-                    List<Object> itemObjects = (List<Object>)lvHeader.get('items');
-
-                    for(Object ti : itemObjects){
-                        Map<String,Object> tiHeader = (Map<String,Object>)ti;
-                        Training_Track_Level_Item__c ttli = new Training_Track_Level_Item__c();
-                        ttli.Order__c = (Integer)tiHeader.get('order');
-                        ttli.Training_Track_Level__c = levels.get(lvHeaderName).Id;
-                        String planName = addTimeStamp?(String)tiHeader.get('plan')+ts:(String)tiHeader.get('plan');
-                        ttli.Training_Plan__c = plans.get(planName).Id;
-                        trackItems.put(lvHeaderName+'_'+ttli.Order__c,ttli);
+                    for(Object lv : levelObjects){
+                        Map<String,Object> lvHeader = (Map<String,Object>)lv;
+                        Training_Track_Level__c ttl = new Training_Track_Level__c();
+                        String levelName = addTimeStamp?(String)lvHeader.get('name')+ts:(String)lvHeader.get('name');
+                        ttl.Name = levelName;
+                        ttl.Training_Track__c = tracks.get(trackName).Id;
+                        ttl.Description__c = getStringValue(lvHeader.get('description'),null);
+                        ttl.Order__c = getIntegerValue(lvHeader.get('order'),null);
+                        levels.put(trackName+'_'+ttl.Name,ttl);
                     }
                 }
 
-            }
+                if(levels.size() > 0){
+                    insert levels.values();
+                }
 
-            if(trackItems.size() > 0){
-                insert trackItems.values();
+                //Create track items
+                for(Object to : trackObjects){
+                    Map<String,Object> tHeader = (Map<String,Object>)to;
+                    String trackName = addTimeStamp?(String)tHeader.get('name')+ts:(String)tHeader.get('name');
+
+                    List<Object> levelObjects = getObjectList(tHeader,'levels');
+
+                    for(Object lv : levelObjects){
+                        Map<String,Object> lvHeader = (Map<String,Object>)lv;
+                        String lvHeaderName = trackName+'_'+(String)lvHeader.get('name');
+                        lvHeaderName += addTimeStamp?ts:'';
+
+                        List<Object> itemObjects = getObjectList(lvHeader,'items');
+
+                        for(Object ti : itemObjects){
+                            Map<String,Object> tiHeader = (Map<String,Object>)ti;
+                            Training_Track_Level_Item__c ttli = new Training_Track_Level_Item__c();
+                            ttli.Order__c = getIntegerValue(tiHeader.get('order'),null);
+                            ttli.Training_Track_Level__c = levels.get(lvHeaderName).Id;
+                            String planName = addTimeStamp?(String)tiHeader.get('plan')+ts:(String)tiHeader.get('plan');
+                            ttli.Training_Plan__c = plans.get(planName).Id;
+                            trackItems.put(lvHeaderName+'_'+ttli.Order__c,ttli);
+                        }
+                    }
+
+                }
+
+                if(trackItems.size() > 0){
+                    insert trackItems.values();
+                }
+
             }
 
         }catch(Exception e){
@@ -579,6 +591,30 @@ public with sharing class LMSInit{
             throw new LMSInitException(e.getMessage());
         }
 
+    }
+
+    private static List<Object> getObjectList(Map<String,Object> o, String key){
+        if(o != null && o.get(key) != null){
+            return (List<Object>)o.get(key);
+        }else{
+            return new List<Object>();
+        }
+    }
+
+    private static String getStringValue(Object o, String defaultValue){
+        return o!=null?(String)o:defaultValue;
+    }
+
+    private static Boolean getBooleanValue(Object o, Boolean defaultValue){
+        return o!=null?(Boolean)o:defaultValue;
+    }
+
+    private static Integer getIntegerValue(Object o, Integer defaultValue){
+        return o!=null?(Integer)o:defaultValue;
+    }
+
+    private static Double getDoubleValue(Object o, Double defaultValue){
+        return o!=null?(Double)o:defaultValue;
     }
 
     private static String getTimeStamp(){

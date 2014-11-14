@@ -29,32 +29,32 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 @isTest
 public class TestLMSInit {
 
-	static testmethod void testInitWithTimeStamp(){
+    static testmethod void testInitWithTimeStamp(){
 
-		System.assertEquals(0,getTrainingPlanCount());
+        System.assertEquals(0,getTrainingPlanCount());
 
-		Test.startTest();
+        Test.startTest();
 
-			LMSInit.initData(LMSInit.fetchInitData('almond_LMSInitData'),true);
-			System.assertEquals(1,getTrainingPlanCount());
+        LMSInit.initData(LMSInit.fetchInitData('almond_LMSInitData'),true);
+        System.assertEquals(1,getTrainingPlanCount());
 
-		Test.stopTest();
-	}
+        Test.stopTest();
+    }
 
-	static testmethod void testInitWithOutTimeStamp(){
+    static testmethod void testInitWithOutTimeStamp(){
 
-		System.assertEquals(0,getTrainingPlanCount());
+        System.assertEquals(0,getTrainingPlanCount());
 
-		Test.startTest();
+        Test.startTest();
 
-			LMSInit.initData(LMSInit.fetchInitData('almond_LMSInitData'),false);
-			System.assertEquals(1,getTrainingPlanCount());
+        LMSInit.initData(LMSInit.fetchInitData('almond_LMSInitData'),false);
+        System.assertEquals(1,getTrainingPlanCount());
 
-		Test.stopTest();
-	}
+        Test.stopTest();
+    }
 
-	static Integer getTrainingPlanCount(){
-		return [select count() from Training_Plan__c];
-	}
+    static Integer getTrainingPlanCount(){
+        return [select count() from Training_Plan__c];
+    }
 
 }

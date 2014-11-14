@@ -1209,6 +1209,14 @@
         <value>Custom Column Index</value>
     </labels>
     <labels>
+        <fullName>ALMS_User_Report_Id</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Report id specified by the user</shortDescription>
+        <value>Report Id</value>
+    </labels>
+    <labels>
         <fullName>ALMS_Register_Button</fullName>
         <categories>ALMOND General, ALMOND UI</categories>
         <language>en_US</language>

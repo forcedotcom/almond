@@ -553,6 +553,10 @@
         <name>ALMS_Report_Custom_Column_Index</name>
     </customLabels>
     <customLabels>
+        <label>Id de Informe</label>
+        <name>ALMS_User_Report_Id</name>
+    </customLabels>
+    <customLabels>
         <label>Carpeta</label>
         <name>ALMS_Report_Folder</name>
     </customLabels>

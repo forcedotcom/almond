@@ -25,12 +25,12 @@ LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
 OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
 OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
-<apex:page controller="LMSTemplateController" docType="html-5.0" sidebar="false" showHeader="false" standardStylesheets="false" cache="true" >
+<apex:page controller="LMSTemplateController" docType="html-5.0" sidebar="false" showHeader="false" standardStylesheets="false" cache="true" tabStyle="My_Training__tab">
 
     <head>
         <apex:insert name="head"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link href="{!URLFOR($Resource.almond_uilib, '/css/bootstrap.min.css')}" rel="stylesheet" media="screen" />
+        <link href="{!URLFOR($Resource.almond_uilib, '/css/bootstrap-namespaced.css')}" rel="stylesheet" media="screen" />
         <link href="{!URLFOR($Resource.almond_uilib, '/css/almondui.css')}" rel="stylesheet" media="screen" />
 
         <!-- web app config -->
@@ -41,6 +41,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 
     <body>
 
+        <div class="almond almond-hero-tempate almond-bs">
         <div id="lms-container" >
 
             <div id="header" class="noBounce"></div>
@@ -116,6 +117,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
         </script>
 
         <c:LMSCustomJS rendered="{!customJSEnabled}"/>
+        </div>
     </body>
 
 </apex:page>

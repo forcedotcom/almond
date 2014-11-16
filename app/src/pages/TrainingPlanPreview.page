@@ -286,8 +286,8 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                         }
 
                         function showModal(){
-                            $jk('#myModal').modal('show');
                             $jk(".modal-backdrop").appendTo("#lms-template-wrapper");
+                            $jk('#myModal').modal('show');
                         }
                         function hideModal(){
                             $jk('#myModal').modal('hide');
@@ -308,8 +308,8 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                                     almond.redirectHandler(learningURL);
                                 });
                                 $jk('#contentIframe').prop('src',learningURL);
-                                $jk('#myContentModal').modal('show');
                                 $jk(".modal-backdrop").appendTo("#lms-template-wrapper");
+                                $jk('#myContentModal').modal('show');
                             }else{
                                 almond.redirectHandler(learningURL);
                             }

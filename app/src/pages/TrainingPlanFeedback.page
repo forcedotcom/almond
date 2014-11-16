@@ -227,8 +227,8 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                                     almond.redirectHandlerWithTarget(learningURL,'_blank');
                                 });
                                 $jk('#contentIframe').prop('src',learningURL);
-                                $jk('#myContentModal').modal('show');
                                 $jk(".modal-backdrop").appendTo("#lms-template-wrapper");
+                                $jk('#myContentModal').modal('show');
                             }else{
                                 almond.redirectHandler(learningURL);
                             }

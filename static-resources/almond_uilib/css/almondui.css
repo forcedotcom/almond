@@ -665,6 +665,10 @@ td.noSidebarCell{
     padding-left: 0px;
 }
 
+.almond .image-upload-control{
+    width:90%; /* prevent width overflow in task viewer */
+}
+
 /*!
 * Hero Template Activities Section styles
 * ------------------------------------------------------
@@ -1254,8 +1258,7 @@ td.noSidebarCell{
 
     /* scrollable styles */
     .almond .scrollable-content {
-        /* TODO : Test mobile */
-        /*position: absolute;*/
+        position: absolute;
         top: 0px;
         left: 0;
         right: 0; bottom:0px;

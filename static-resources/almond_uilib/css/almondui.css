@@ -67,6 +67,11 @@ td.noSidebarCell{
     background-color:#fff;
 }
 
+.almond .message{
+    background:none;
+    border:none;
+}
+
 .almond h1,
 .almond h2,
 .almond h3,

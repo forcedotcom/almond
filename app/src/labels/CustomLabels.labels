@@ -825,6 +825,14 @@
         <value>Update Assignments</value>
     </labels>
     <labels>
+        <fullName>ALMS_Upload_Image</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Task Viewer Upload Image Title</shortDescription>
+        <value>Upload Image</value>
+    </labels>
+    <labels>
         <fullName>ALMS_Select_Image</fullName>
         <categories>ALMOND General, ALMOND UI</categories>
         <language>en_US</language>

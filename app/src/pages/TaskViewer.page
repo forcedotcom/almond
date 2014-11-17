@@ -31,9 +31,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 
         <apex:define name="head">
             <title>{!task.Name}</title>
-            <!-- TODO: Replace with https://github.com/kartik-v/bootstrap-fileinput/-->
-            <link rel="stylesheet" href="{!$Resource.almond_jasnyBootstrapCSS}" />
-            <script src="{!$Resource.almond_jasnyBootstrapJS}"></script>
+            <script type="text/javascript" src="{!URLFOR($Resource.almond_uilib, '/js/jquery.filepicker.min.js')}"></script>
         </apex:define>
 
         <apex:define name="body">
@@ -79,20 +77,9 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 
                     <apex:outputPanel layout="none" rendered="{!task.Enable_Image_Upload__c}">
                         <div class="panel panel-default">
-                              <div class="panel-body">
-
-                                <div class="fileinput fileinput-new taskviewer-wrap" data-provides="fileinput" >
-                                    <div class="fileinput-preview thumbnail taskviewer-thumbnail-preview" data-trigger="fileinput" ></div>
-                                    <div>
-                                        <span class="btn btn-file btn-lg btn-block">
-                                            <span class="almond-secondary-btn large-btn">{!$Label.ALMS_Select_Image}</span>
-                                            <span class="almond-warning-btn large-btn fileinput-exists">{!$Label.ALMS_Change_Image}</span>
-                                            <apex:inputFile value="{!attachment.body}" filename="{!attachment.name}" id="file"/>
-                                        </span>
-                                        <a href="javascript:void();" class="almond-danger-btn large-btn fileinput-exists" data-dismiss="fileinput">{!$Label.ALMS_Remove_Image}</a>
-                                    </div>
-                                </div>
-
+                            <div class="panel-heading"><b>{!$Label.ALMS_Upload_Image}</b></div>
+                            <div class="panel-body">
+                                <apex:inputFile value="{!attachment.body}" filename="{!attachment.name}" id="file" styleClass="form-control image-upload-control" />
                             </div>
                         </div>
                     </apex:outputPanel>
@@ -139,6 +126,13 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                 </apex:outputPanel>
 
                 <script>
+                    jQuery(document).ready(function($){
+                      $(".image-upload-control").attr('data-label', '{!JSENCODE($Label.ALMS_Select_Image)}');
+                      $("input[type='file']").filepicker({
+                        style: 'bootstrap'
+                      });
+                    });
+
                     function doRedirection(){
                         var retUrl = document.getElementById('{!$Component.redirectURL}').value;
                         if(retUrl && retUrl.length > 0){

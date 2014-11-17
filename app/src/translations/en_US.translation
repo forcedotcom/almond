@@ -653,6 +653,10 @@
         <name>ALMS_Select_All</name>
     </customLabels>
     <customLabels>
+        <label><!-- Upload Image --></label>
+        <name>ALMS_Upload_Image</name>
+    </customLabels>
+    <customLabels>
         <label><!-- Task Viewer Select Image --></label>
         <name>ALMS_Select_Image</name>
     </customLabels>

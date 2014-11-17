@@ -29,9 +29,11 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 public with sharing class LMSTemplateController {
 
     public Boolean customJSEnabled{get;private set;}
+    public Boolean showSFHeader{get;private set;}
 
     public LMSTemplateController(){
         customJSEnabled = LMSSettings.getEnableIOSTapFix();
+        showSFHeader = LMSSettings.getShowSalesforceHeader();
     }
 
 }

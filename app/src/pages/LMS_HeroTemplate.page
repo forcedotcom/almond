@@ -25,7 +25,7 @@ LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
 OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
 OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
-<apex:page controller="LMSTemplateController" docType="html-5.0" sidebar="false" showHeader="false" standardStylesheets="false" cache="true" tabStyle="My_Training__tab">
+<apex:page controller="LMSTemplateController" docType="html-5.0" sidebar="false" showHeader="{!showSFHeader}" standardStylesheets="false" cache="true" tabStyle="My_Training__tab">
 
     <head>
         <apex:insert name="head"/>
@@ -47,7 +47,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
             <div id="header" class="noBounce"></div>
 
             <div id="lms-template-wrapper" class="scrollable-content">
-                <c:LMSHeader id="lms-header" />
+                <c:LMSHeader id="lms-header" hideSFLink="{!showSFHeader}"/>
 
                 <div id="hero-banner">
                     <div class="container hb-container">

@@ -64,5 +64,13 @@
         <label>Enable iOS Tap Fix</label>
         <type>Checkbox</type>
     </fields>
+    <fields>
+        <fullName>Show_Salesforce_Header__c</fullName>
+        <inlineHelpText>Enable this option to show the Salesforce header for the end-user training pages</inlineHelpText>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Show Salesforce Header</label>
+        <type>Checkbox</type>
+    </fields>
     <label>Almond Settings</label>
 </CustomObject>

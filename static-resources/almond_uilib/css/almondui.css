@@ -46,6 +46,11 @@ body{
   padding:0;
 }
 
+.oneContent,
+.oneAlohaPage{
+    background-color:#fff;
+}
+
 .almond .hideElement {
     display: none;
 }
@@ -55,6 +60,7 @@ body{
     font-size: 14px;
     font-weight: 300;
     line-height: 1.42857;
+    background-color:#fff;
 }
 
 .almond h1,
@@ -469,6 +475,7 @@ body{
 .almond .almond-nav .btn{
     float:none !important;
     display: inline-block !important;
+    margin:0;
 }
 .almond .almond-nav-active{
     background-color: #ECEEF0;
@@ -1122,7 +1129,9 @@ body{
 
     .almond,
     .almond .wrap,
-    .almond .almond-nav{
+    .almond .almond-nav,
+    .oneContent,
+    .oneAlohaPage{
         background:none;
         background-color: #f0f1f2;
     }

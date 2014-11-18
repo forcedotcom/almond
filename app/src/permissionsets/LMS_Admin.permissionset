@@ -117,6 +117,10 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>TrainingPlanAssignmentsRecalculateBatch</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>TrainingPlanAssignmentsUpsertBatch</apexClass>
         <enabled>true</enabled>
     </classAccesses>

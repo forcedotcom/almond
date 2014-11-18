@@ -29,89 +29,124 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 @isTest
 private class TestTPlanAssignmentExtensionBatch{
 
-	static testmethod void testMassUpdate(){
+    static testmethod void testMassRecalculation(){
 
-		//Create admin users
-		List<User> adminUsers = TestUtilClass.createUsers(2,'System Administrator');
-		List<User> lmsUsers = TestUtilClass.createUsers(10,'Standard User');
+        //Create admin users
+        List<User> adminUsers = TestUtilClass.createUsers(2,'System Administrator');
+        List<User> lmsUsers = TestUtilClass.createUsers(10,'Standard User');
 
-		System.runAs(adminUsers.get(0)){
-			//Assign corresponding perm sets
-			TestUtilClass.addPermissionSet(adminUsers,'LMS_Admin');
-			TestUtilClass.addPermissionSet(lmsUsers,'LMS_User');
-		}
+        System.runAs(adminUsers.get(0)){
+            //Assign corresponding perm sets
+            TestUtilClass.addPermissionSet(adminUsers,'LMS_Admin');
+            TestUtilClass.addPermissionSet(lmsUsers,'LMS_User');
+        }
 
-		TestTrainingPlanData.createSampleData();
+        TestTrainingPlanData.createSampleData();
 
-		List<Training_Plan__c> tplans = [select id from Training_Plan__c];
-		System.assertEquals(1,tplans.size());
-		Training_Plan__c tplan  = tplans.get(0);
-		Set<Id> selectedUserIds = new Set<Id>();
-		for(User u : lmsUsers){
-			selectedUserIds.add(u.Id);
-		}
+        List<Training_Plan__c> tplans = [select id from Training_Plan__c];
+        System.assertEquals(1,tplans.size());
+        Training_Plan__c tplan  = tplans.get(0);
+        Set<Id> selectedUserIds = new Set<Id>();
+        for(User u : lmsUsers){
+            selectedUserIds.add(u.Id);
+        }
 
-		//Test Insert
+        //Test Insert
         PageReference testPageRef = Page.TrainingPlanAssignmentBatch;
         Test.setCurrentPageReference(testPageRef);
-		Test.startTest();
+        Test.startTest();
 
-			System.runAs(adminUsers.get(0)){
+        System.runAs(adminUsers.get(0)){
+          LMSService.upsertAssignments(selectedUserIds,tplan.Id);
+          System.assertEquals(10,getTrainingPlanAssignmentsCount(tplan.Id));
+          TrainingPlanAssignmentExtensionBatch cont = new TrainingPlanAssignmentExtensionBatch(new ApexPages.StandardController(tplan));
+          cont.recalculateAllAssignments();
+        }
 
-				LMSService.upsertAssignments(selectedUserIds,tplan.Id);
-                System.assertEquals(10,getTrainingPlanAssignmentsCount(tplan.Id));
-
-                TrainingPlanAssignmentExtensionBatch cont = new TrainingPlanAssignmentExtensionBatch(new ApexPages.StandardController(tplan));
-                cont.updateAllAssignments();
-			}
-
-
-		Test.stopTest();
+        Test.stopTest();
         System.assertEquals(10,getTrainingPlanAssignmentsCount(tplan.Id));
 
+    }
 
-	}
+    static testmethod void testMassUpdate(){
 
-	static testmethod void testMassDelete(){
+        //Create admin users
+        List<User> adminUsers = TestUtilClass.createUsers(2,'System Administrator');
+        List<User> lmsUsers = TestUtilClass.createUsers(10,'Standard User');
 
-		//Create admin users
-		List<User> adminUsers = TestUtilClass.createUsers(2,'System Administrator');
-		List<User> lmsUsers = TestUtilClass.createUsers(10,'Standard User');
+        System.runAs(adminUsers.get(0)){
+            //Assign corresponding perm sets
+            TestUtilClass.addPermissionSet(adminUsers,'LMS_Admin');
+            TestUtilClass.addPermissionSet(lmsUsers,'LMS_User');
+        }
 
-		System.runAs(adminUsers.get(0)){
-			//Assign corresponding perm sets
-			TestUtilClass.addPermissionSet(adminUsers,'LMS_Admin');
-			TestUtilClass.addPermissionSet(lmsUsers,'LMS_User');
-		}
+        TestTrainingPlanData.createSampleData();
 
-		TestTrainingPlanData.createSampleData();
+        List<Training_Plan__c> tplans = [select id from Training_Plan__c];
+        System.assertEquals(1,tplans.size());
+        Training_Plan__c tplan  = tplans.get(0);
+        Set<Id> selectedUserIds = new Set<Id>();
+        for(User u : lmsUsers){
+            selectedUserIds.add(u.Id);
+        }
 
-		List<Training_Plan__c> tplans = [select id from Training_Plan__c];
-		System.assertEquals(1,tplans.size());
-		Training_Plan__c tplan  = tplans.get(0);
-		Set<Id> selectedUserIds = new Set<Id>();
-		for(User u : lmsUsers){
-			selectedUserIds.add(u.Id);
-		}
-
-		//Test Insert
+        //Test Insert
         PageReference testPageRef = Page.TrainingPlanAssignmentBatch;
         Test.setCurrentPageReference(testPageRef);
-		Test.startTest();
+        Test.startTest();
 
-			System.runAs(adminUsers.get(0)){
+        System.runAs(adminUsers.get(0)){
+          LMSService.upsertAssignments(selectedUserIds,tplan.Id);
+          System.assertEquals(10,getTrainingPlanAssignmentsCount(tplan.Id));
+          TrainingPlanAssignmentExtensionBatch cont = new TrainingPlanAssignmentExtensionBatch(new ApexPages.StandardController(tplan));
+          cont.updateAllAssignments();
+        }
 
-				LMSService.upsertAssignments(selectedUserIds,tplan.Id);
-                System.assertEquals(10,getTrainingPlanAssignmentsCount(tplan.Id));
-                TrainingPlanAssignmentExtensionBatch cont = new TrainingPlanAssignmentExtensionBatch(new ApexPages.StandardController(tplan));
-                cont.deleteAllAssignments();
-			}
+
+        Test.stopTest();
+        System.assertEquals(10,getTrainingPlanAssignmentsCount(tplan.Id));
+
+    }
+
+    static testmethod void testMassDelete(){
+
+        //Create admin users
+        List<User> adminUsers = TestUtilClass.createUsers(2,'System Administrator');
+        List<User> lmsUsers = TestUtilClass.createUsers(10,'Standard User');
+
+        System.runAs(adminUsers.get(0)){
+            //Assign corresponding perm sets
+            TestUtilClass.addPermissionSet(adminUsers,'LMS_Admin');
+            TestUtilClass.addPermissionSet(lmsUsers,'LMS_User');
+        }
+
+        TestTrainingPlanData.createSampleData();
+
+        List<Training_Plan__c> tplans = [select id from Training_Plan__c];
+        System.assertEquals(1,tplans.size());
+        Training_Plan__c tplan  = tplans.get(0);
+        Set<Id> selectedUserIds = new Set<Id>();
+        for(User u : lmsUsers){
+            selectedUserIds.add(u.Id);
+        }
+
+        //Test Insert
+        PageReference testPageRef = Page.TrainingPlanAssignmentBatch;
+        Test.setCurrentPageReference(testPageRef);
+        Test.startTest();
+
+        System.runAs(adminUsers.get(0)){
+          LMSService.upsertAssignments(selectedUserIds,tplan.Id);
+          System.assertEquals(10,getTrainingPlanAssignmentsCount(tplan.Id));
+          TrainingPlanAssignmentExtensionBatch cont = new TrainingPlanAssignmentExtensionBatch(new ApexPages.StandardController(tplan));
+          cont.deleteAllAssignments();
+        }
 
 
-		Test.stopTest();
+        Test.stopTest();
         System.assertEquals(0,getTrainingPlanAssignmentsCount(tplan.Id));
 
-	}
+    }
 
     private static Integer getTrainingPlanAssignmentsCount(String tplanId){
         return [select count() from Training_Plan_Assignment__c where Training_Plan__c = :tplanId];

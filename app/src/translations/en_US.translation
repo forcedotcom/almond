@@ -825,6 +825,10 @@
         <name>ALMS_Update_Achievements_Assignments</name>
     </customLabels>
     <customLabels>
+        <label><!-- Re-calculate all Assignments --></label>
+        <name>ALMS_Recalculate_All_Assignments</name>
+    </customLabels>
+    <customLabels>
         <label><!-- Update all Assignments --></label>
         <name>ALMS_Update_All_Assignments</name>
     </customLabels>

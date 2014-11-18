@@ -266,7 +266,7 @@ public with sharing class LearningAssignmentsHelper{
             sla.Evaluation_Result__c = la.Evaluation_Result__c;
             sla.Evaluation_Score__c = la.Evaluation_Score__c;
             sla.Evaluation_Times_Taken__c = la.Evaluation_Times_Taken__c;
-            //Set the triggering learning assignment in this field to preventing updating it again
+            //Set the triggering learning assignment in this field to prevent updating it again
             sla.Learning_Assignment_Last_Update__c = la.Id;
             sla.Approved__c = la.Approved__c;
             sla.Approved_By__c = la.Approved_By__c;

@@ -993,6 +993,14 @@
         <value>Batch operations</value>
     </labels>
     <labels>
+        <fullName>ALMS_Recalculate_All_Assignments</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Recalculate all Assignments</shortDescription>
+        <value>Re-calculate all Assignments</value>
+    </labels>
+    <labels>
         <fullName>ALMS_Update_All_Assignments</fullName>
         <categories>ALMOND General, ALMOND UI</categories>
         <language>en_US</language>

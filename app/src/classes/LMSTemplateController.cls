@@ -33,7 +33,7 @@ public with sharing class LMSTemplateController {
 
     public LMSTemplateController(){
         customJSEnabled = LMSSettings.getEnableIOSTapFix();
-        showSFHeader = LMSSettings.getShowSalesforceHeader();
+        showSFHeader =  LMSSettings.getShowSalesforceHeader() && !LMSUtils.isMobileDevice();
     }
 
 }

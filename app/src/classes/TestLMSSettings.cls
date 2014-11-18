@@ -29,52 +29,53 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 @isTest
 private class TestLMSSettings {
 
-	static testMethod void testWithoutCustomSettings(){
+    static testMethod void testWithoutCustomSettings(){
 
-		Test.startTest();
+        Test.startTest();
 
-			String customLogo = LMSSettings.getCustomLogo();
-			System.assert(customLogo == null);
-			String headerBackgroundColor = LMSSettings.getHeaderBackgroundColor();
-			System.assert(headerBackgroundColor != null);
-			String headerTextColor = LMSSettings.getHeaderTextColor();
-			System.assert(headerTextColor != null);
-			Boolean disableTrackAchievements = LMSSettings.getDisableTrackAchievements();
-			System.assert(disableTrackAchievements == false);
-			Boolean disableFutureProgressCalcs = LMSSettings.getDisableFutureProgressCalculation();
-			System.assert(disableFutureProgressCalcs == false);
+            String customLogo = LMSSettings.getCustomLogo();
+            System.assert(customLogo == null);
+            String headerBackgroundColor = LMSSettings.getHeaderBackgroundColor();
+            System.assert(headerBackgroundColor != null);
+            String headerTextColor = LMSSettings.getHeaderTextColor();
+            System.assert(headerTextColor != null);
+            Boolean disableTrackAchievements = LMSSettings.getDisableTrackAchievements();
+            System.assert(disableTrackAchievements == false);
+            Boolean disableFutureProgressCalcs = LMSSettings.getDisableFutureProgressCalculation();
+            System.assert(disableFutureProgressCalcs == false);
 
-		Test.stopTest();
-	}
+        Test.stopTest();
+    }
 
-	static testMethod void testWithCustomSettings(){
+    static testMethod void testWithCustomSettings(){
 
-		createTestCustomSetting();
+        createTestCustomSetting();
 
-		Test.startTest();
+        Test.startTest();
 
-			String customLogo = LMSSettings.getCustomLogo();
-			System.assert(customLogo != null);
-			String headerBackgroundColor = LMSSettings.getHeaderBackgroundColor();
-			System.assert(headerBackgroundColor != null);
-			String headerTextColor = LMSSettings.getHeaderTextColor();
-			System.assert(headerTextColor != null);
-			Boolean disableTrackAchievements = LMSSettings.getDisableTrackAchievements();
-			System.assert(disableTrackAchievements == true);
-			Boolean disableFutureProgressCalcs = LMSSettings.getDisableFutureProgressCalculation();
-			System.assert(disableFutureProgressCalcs == true);
+          String customLogo = LMSSettings.getCustomLogo();
+          System.assert(customLogo != null);
+          String headerBackgroundColor = LMSSettings.getHeaderBackgroundColor();
+          System.assert(headerBackgroundColor != null);
+          String headerTextColor = LMSSettings.getHeaderTextColor();
+          System.assert(headerTextColor != null);
+          Boolean disableTrackAchievements = LMSSettings.getDisableTrackAchievements();
+          System.assert(disableTrackAchievements == true);
+          Boolean disableFutureProgressCalcs = LMSSettings.getDisableFutureProgressCalculation();
+          System.assert(disableFutureProgressCalcs == true);
 
-		Test.stopTest();
-	}
+        Test.stopTest();
+    }
 
-	static void createTestCustomSetting(){
-		Almond_Settings__c cs = new Almond_Settings__c();
-		cs.Company_Logo__c = 'https://www.salesforce.com/logo.png';
-		cs.Header_Background_Color__c = '#2C82B9';
-		cs.Header_Text_Color__c = 'DBE5F2';
-		cs.SetupOwnerId = null; //Org-wide default
-		cs.Disable_Track_Achievements__c = true;
-		cs.Disable_Future_Progress_Calculation__c = true;
-		insert cs;
-	}
+    static void createTestCustomSetting(){
+        Almond_Settings__c cs = new Almond_Settings__c();
+        cs.Company_Logo__c = 'https://www.salesforce.com/logo.png';
+        cs.Header_Background_Color__c = '#2C82B9';
+        cs.Header_Text_Color__c = 'DBE5F2';
+        cs.SetupOwnerId = null; //Org-wide default
+        cs.Disable_Track_Achievements__c = true;
+        cs.Disable_Future_Progress_Calculation__c = true;
+        insert cs;
+    }
+    
 }

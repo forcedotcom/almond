@@ -93,6 +93,11 @@
         <label>Calificación de Curso</label>
         <name>Training_Plan_Rating__c</name>
     </fields>
+    <fields>
+        <help>Habilitar esta opción para esconder las imágenes de perfil de Chatter en el encabezado del curso</help>
+        <label>Esconder imágenes de usuarios</label>
+        <name>Hide_Chatter_Photos__c</name>
+    </fields>
     <layouts>
         <layout>Training Plan Layout</layout>
         <sections>

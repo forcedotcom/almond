@@ -93,6 +93,11 @@
         <label><!-- Training Plan Rating --></label>
         <name>Training_Plan_Rating__c</name>
     </fields>
+    <fields>
+        <help><!-- Enable this option to hide chatter photos for the last users that have acquired the training plan achievement --></help>
+        <label><!-- Hide Chatter Photos --></label>
+        <name>Hide_Chatter_Photos__c</name>
+    </fields>
     <layouts>
         <layout>Training Plan Layout</layout>
         <sections>

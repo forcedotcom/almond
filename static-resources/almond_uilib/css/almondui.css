@@ -89,9 +89,12 @@ td.noSidebarCell{
     font-weight: 300;
     line-height: 1.1;
     display: block;
-    margin: 20px 0 10px 0;
 }
 
+.almond ul li,
+.almond ol li{
+    margin-left:0;
+}
 .almond label {
     font-weight: 300 !important;
     display: inline-block;

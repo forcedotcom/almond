@@ -653,6 +653,10 @@
         <name>ALMS_Select_All</name>
     </customLabels>
     <customLabels>
+        <label><!-- Upload Image --></label>
+        <name>ALMS_Upload_Image</name>
+    </customLabels>
+    <customLabels>
         <label><!-- Task Viewer Select Image --></label>
         <name>ALMS_Select_Image</name>
     </customLabels>
@@ -819,6 +823,10 @@
     <customLabels>
         <label><!-- Update Achievements Assignments button --></label>
         <name>ALMS_Update_Achievements_Assignments</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Re-calculate all Assignments --></label>
+        <name>ALMS_Recalculate_All_Assignments</name>
     </customLabels>
     <customLabels>
         <label><!-- Update all Assignments --></label>

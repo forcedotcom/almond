@@ -138,6 +138,10 @@
                 <fullName>Update Assignments</fullName>
                 <default>false</default>
             </picklistValues>
+            <picklistValues>
+                <fullName>Re-calculate Assignments</fullName>
+                <default>false</default>
+            </picklistValues>
             <sorted>false</sorted>
         </picklist>
         <trackHistory>true</trackHistory>

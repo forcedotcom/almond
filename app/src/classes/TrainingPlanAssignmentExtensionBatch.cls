@@ -40,6 +40,33 @@ public with sharing class TrainingPlanAssignmentExtensionBatch{
         //Nothing to do here for now...
     }
 
+    public PageReference recalculateAllAssignments(){
+
+        checkBatchOperationAccess();
+
+        Training_Plan_Batch_Operation__c tpbo;
+        try{
+
+            tpbo = new Training_Plan_Batch_Operation__c();
+            tpbo.Training_Plan__c = trainingPlanId;
+            tpbo.Type__c = 'Re-calculate Assignments';
+            tpbo.Successes__c = 0;
+            tpbo.Status__c = 'New';
+            tpbo.Errors__c = 0;
+            tpbo.Additional_Information__c = null;
+            insert tpbo;
+
+            Id batchInstanceId = Database.executeBatch(new TrainingPlanAssignmentsRecalculateBatch(trainingPlanId,tpbo.Id),20);
+            LMSUtils.addSuccessMessage(System.Label.ALMS_Batch_Updated_Queued_Success);
+        }catch(Exception e){
+            tpbo.Status__c = 'Failed';
+            tpbo.Additional_Information__c = e.getMessage();
+            update tpbo;
+            ApexPages.addMessages(e);
+        }
+        return null;
+    }
+
     public PageReference updateAllAssignments(){
 
         checkBatchOperationAccess();

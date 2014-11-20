@@ -59,7 +59,9 @@ public with sharing class LMSService{
         List<AggregateResult> groupedResultsOther = getTrainingPlansAssignmentStatusByLAs(new Set<String>{LMSConstants.TPLAN_STATUS_IN_PROGRESS ,LMSConstants.TPLAN_STATUS_COMPLETED},userId);
         */
         List<AggregateResult> groupedResultsNotStarted = getTrainingPlansAssignmentStatus(new Set<String>{LMSConstants.TPLAN_STATUS_NOT_STARTED},userId);
+        /* JR : Uncomment this code to calculate progress based on assignments (more expensive)
         List<AggregateResult> groupedResultsOther = getTrainingPlansAssignmentStatus(new Set<String>{LMSConstants.TPLAN_STATUS_IN_PROGRESS ,LMSConstants.TPLAN_STATUS_COMPLETED},userId);
+        */
 
         for (AggregateResult ar : groupedResultsNotStarted)  {
             if((Integer)ar.get('cnt') > 0){
@@ -67,6 +69,7 @@ public with sharing class LMSService{
             }
         }
 
+        /*
         for (AggregateResult ar : groupedResultsOther)  {
             if((Integer)ar.get('cnt') > 0){
                 String tpId = (String)ar.get(ns+'Training_Plan__c');
@@ -74,7 +77,7 @@ public with sharing class LMSService{
                     trainingPlanIds.remove(tpId);
                 }
             }
-        }
+        }*/
 
         return getTrainingPlans(trainingPlanIds);
 
@@ -90,8 +93,10 @@ public with sharing class LMSService{
         */
         String ns = LMSUtils.getPackageNamespace();
         List<AggregateResult> groupedResults = getTrainingPlansAssignmentStatus(new Set<String>{LMSConstants.TPLAN_STATUS_IN_PROGRESS},userId);
+        /* JR : Uncomment this code to calculate progress based on assignments (more expensive)
         List<AggregateResult> groupedResultsCompleted = getTrainingPlansAssignmentStatus(new Set<String>{LMSConstants.TPLAN_STATUS_COMPLETED},userId);
         List<AggregateResult> groupedResultsNotStarted = getTrainingPlansAssignmentStatus(new Set<String>{LMSConstants.TPLAN_STATUS_NOT_STARTED},userId);
+        */
 
         Set<Id> trainingPlanIds = new Set<Id>();
         for (AggregateResult ar : groupedResults)  {
@@ -100,6 +105,7 @@ public with sharing class LMSService{
             }
         }
 
+        /*
         Set<Id> trainingPlansWithCompleted = new Set<Id>();
         for (AggregateResult ar : groupedResultsCompleted)  {
             if((Integer)ar.get('cnt') > 0){
@@ -115,6 +121,7 @@ public with sharing class LMSService{
                 }
             }
         }
+        */
 
         return getTrainingPlans(trainingPlanIds);
 
@@ -129,7 +136,9 @@ public with sharing class LMSService{
         */
         String ns = LMSUtils.getPackageNamespace();
         List<AggregateResult> groupedResultsCompleted = getTrainingPlansAssignmentStatus(new Set<String>{LMSConstants.TPLAN_STATUS_COMPLETED},userId);
+        /* JR : Uncomment this code to calculate progress based on assignments (more expensive)
         List<AggregateResult> groupedResultsOther = getTrainingPlansAssignmentStatus(new Set<String>{LMSConstants.TPLAN_STATUS_NOT_STARTED,LMSConstants.TPLAN_STATUS_IN_PROGRESS},userId);
+        */
 
         Set<Id> trainingPlanIds = new Set<Id>();
 
@@ -139,6 +148,7 @@ public with sharing class LMSService{
             }
         }
 
+        /*
         for (AggregateResult ar : groupedResultsOther)  {
             if((Integer)ar.get('cnt') > 0){
                 String tpId = (String)ar.get(ns+'Training_Plan__c');
@@ -147,6 +157,7 @@ public with sharing class LMSService{
                 }
             }
         }
+        */
 
         return getTrainingPlans(trainingPlanIds);
     }
@@ -171,6 +182,7 @@ public with sharing class LMSService{
             ,'Background_Color__c'
             ,'Text_Color__c'
             ,'Training_Plan_Rating__c'
+            ,'Hide_Chatter_Photos__c'
         });
         LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
         //END Access Check
@@ -195,6 +207,7 @@ public with sharing class LMSService{
             ,'Background_Color__c'
             ,'Text_Color__c'
             ,'Training_Plan_Rating__c'
+            ,'Hide_Chatter_Photos__c'
         };
 
         String soqlQuery = 'select '+String.join(listSOQLFields,',')+' from Training_Plan__c where Id in :tpIds';
@@ -226,6 +239,7 @@ public with sharing class LMSService{
             ,'Background_Color__c'
             ,'Text_Color__c'
             ,'Training_Plan_Rating__c'
+            ,'Hide_Chatter_Photos__c'
         });
         LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
         //END Access Check
@@ -250,6 +264,7 @@ public with sharing class LMSService{
             ,'Background_Color__c'
             ,'Text_Color__c'
             ,'Training_Plan_Rating__c'
+            ,'Hide_Chatter_Photos__c'
         };
 
         String soqlQuery = 'select '+String.join(listSOQLFields,',')+' from Training_Plan__c where Id in :tpIds';

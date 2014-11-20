@@ -1,10 +1,13 @@
 <apex:component controller="LMSHeaderController">
 
+    <apex:attribute name="hideSFLink" type="Boolean" description="Show a link to go back to the Salesforce UI"  default="false"/>
+
     <style>
-        .lms-nav{
+        .almond .lms-nav{
             background-color: {!JSENCODE(backgroundColor)} !important;
         }
-        .navbar-inverse .navbar-nav > li > a {
+        .almond .navbar-inverse .navbar-nav > li > a,
+        .almond .navbar-inverse .navbar-link {
             color: {!JSENCODE(textColor)};
         }
     </style>
@@ -38,10 +41,12 @@
                     <li class="{!IF(section == 'myprofile','active','')}">
                         <a href="{!$Page.MyProfile}">{!$Label.ALMS_MyProfile}</a>
                     </li>
-                    <li>
-                        <apex:image value="{!URLFOR($Resource.almond_uilib, '/img/white_cloud_embossed.png')}" styleClass="sfdc-logo" />
-                        <a href="/home/home.jsp">&nbsp;</a>
-                    </li>
+                    <apex:outputPanel layout="none" rendered="{!!hideSFLink}">
+                        <li>
+                            <apex:image value="{!URLFOR($Resource.almond_uilib, '/img/white_cloud_embossed.png')}" styleClass="sfdc-logo" />
+                            <a href="/home/home.jsp">&nbsp;</a>
+                        </li>
+                    </apex:outputPanel>
                 </ul>
 
                 <p class="navbar-text pull-right">

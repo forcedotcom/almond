@@ -52,6 +52,10 @@ public with sharing class LMSSettings {
         return (Boolean)getValue('Enable_iOS_Tap_Fix__c',false);
     }
 
+    public static Boolean getShowSalesforceHeader(){
+        return (Boolean)getValue('Show_Salesforce_Header__c',false);
+    }
+
     private static Object getValue(String key, Object defaultValue){
         Almond_Settings__c cs = Almond_Settings__c.getInstance();
         if(cs != null && cs.get(key) != null){

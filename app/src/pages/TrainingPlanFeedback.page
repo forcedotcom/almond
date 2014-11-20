@@ -42,18 +42,20 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                         <h2>{!tPlan.trainingPlan.Name}</h2>
                         <p><apex:outputField value="{!tPlan.trainingPlan.Description__c}"/></p>
 
-                        <div class="user-carousel">
-                            <apex:repeat value="{!lUsersWithAchievement}" var="u">
-                                <a href="javascript:almond.redirectHandlerWithStatus('{!$Page.MyProfile}?id={!u.Id}',true)" class="user-carousel-img">
-                                    <apex:image value="{!u.SmallPhotoUrl}" />
-                                </a>
-                            </apex:repeat>
-                        </div>
+                        <apex:outputPanel layout="none" rendered="{!!tPlan.trainingPlan.Hide_Chatter_Photos__c}">
+                            <div class="user-carousel">
+                                <apex:repeat value="{!lUsersWithAchievement}" var="u">
+                                    <a href="javascript:almond.redirectHandlerWithStatus('{!$Page.MyProfile}?id={!u.Id}',true)" class="user-carousel-img">
+                                        <apex:image value="{!u.SmallPhotoUrl}" />
+                                    </a>
+                                </apex:repeat>
+                            </div>
+                        </apex:outputPanel>
                     </div>
                 </apex:define>
 
                 <apex:define name="hero-banner-footer">
-                	<span>{!$Label.ALMS_Overall_Rating} : {!tPlan.trainingPlan.Training_Plan_Rating__c}</span>
+                    <span>{!$Label.ALMS_Overall_Rating} : {!tPlan.trainingPlan.Training_Plan_Rating__c}</span>
                 </apex:define>
 
                 <apex:define name="hero-banner-badge">
@@ -227,8 +229,8 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                                     almond.redirectHandlerWithTarget(learningURL,'_blank');
                                 });
                                 $jk('#contentIframe').prop('src',learningURL);
-                                $jk('#myContentModal').modal('show');
                                 $jk(".modal-backdrop").appendTo("#lms-template-wrapper");
+                                $jk('#myContentModal').modal('show');
                             }else{
                                 almond.redirectHandler(learningURL);
                             }

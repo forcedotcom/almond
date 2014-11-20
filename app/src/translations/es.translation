@@ -653,6 +653,10 @@
         <name>ALMS_Select_All</name>
     </customLabels>
     <customLabels>
+        <label>Subir Imagen</label>
+        <name>ALMS_Upload_Image</name>
+    </customLabels>
+    <customLabels>
         <label>Seleccionar Imagen</label>
         <name>ALMS_Select_Image</name>
     </customLabels>
@@ -819,6 +823,10 @@
     <customLabels>
         <label>Actualizar Asignaciones de Logros</label>
         <name>ALMS_Update_Achievements_Assignments</name>
+    </customLabels>
+    <customLabels>
+        <label>Re-calcular todas las Asignaciones</label>
+        <name>ALMS_Recalculate_All_Assignments</name>
     </customLabels>
     <customLabels>
         <label>Actualizar todas las Asignaciones</label>

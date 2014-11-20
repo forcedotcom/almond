@@ -29,24 +29,66 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 @isTest
 public class TestLMSStartController {
 
-	static testmethod void testController(){
+    static testmethod void testImportData(){
 
-		System.assertEquals(0,getTrainingPlanCount());
+        System.assertEquals(0,getTrainingPlanCount());
 
         PageReference ref = Page.LMSStart;
         Test.setCurrentPageReference(ref);
 
-		Test.startTest();
+        Test.startTest();
+            LMSStartController cont = new LMSStartController();
+            PageReference resultRef = cont.initSampleData();
+            System.assertEquals(1,getTrainingPlanCount());
+            System.assertEquals(0,getTrainingTrackCount());
+            System.assert(cont.jsonData != null);
+            resultRef = cont.initFromJSONString();
+            System.assertEquals(2,getTrainingPlanCount());
+            System.assertEquals(0,getTrainingTrackCount());
+            System.assert(ApexPages.hasMessages(ApexPages.Severity.ERROR) == false);
+        Test.stopTest();
+    }
 
-			LMSStartController cont = new LMSStartController();
-			PageReference resultRef = cont.initSampleData();
-			System.assertEquals(1,getTrainingPlanCount());
+    static testmethod void testImportDataWithTrainingTracks(){
 
-		Test.stopTest();
-	}
+        System.assertEquals(0,getTrainingPlanCount());
 
-	static Integer getTrainingPlanCount(){
-		return [select count() from Training_Plan__c];
-	}
+        PageReference ref = Page.LMSStart;
+        Test.setCurrentPageReference(ref);
+
+        Test.startTest();
+            LMSStartController cont = new LMSStartController();
+            cont.jsonData = LMSInit.fetchInitData('almond_LMSInitDataWithTracks');
+            PageReference resultRef = cont.initFromJSONString();
+            System.assertEquals(1,getTrainingPlanCount());
+            System.assertEquals(1,getTrainingTrackCount());
+            System.assert(ApexPages.hasMessages(ApexPages.Severity.ERROR) == false);
+        Test.stopTest();
+    }
+
+    static testmethod void testInvalidImportData(){
+
+        System.assertEquals(0,getTrainingPlanCount());
+
+        PageReference ref = Page.LMSStart;
+        Test.setCurrentPageReference(ref);
+
+        Test.startTest();
+
+            LMSStartController cont = new LMSStartController();
+            cont.jsonData = null;
+            PageReference resultRef = cont.initFromJSONString();
+            System.assert(ApexPages.hasMessages(ApexPages.Severity.ERROR) == true);
+
+        Test.stopTest();
+    }
+
+    static Integer getTrainingPlanCount(){
+        return [select count() from Training_Plan__c];
+    }
+
+    static Integer getTrainingTrackCount(){
+        return [select count() from Training_Track__c];
+    }
 
 }

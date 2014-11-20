@@ -108,7 +108,7 @@ public with sharing class LMSUtils{
             Boolean isAndroid = (userAgent.contains('Android'));
             return isIPhone || isIPad || isAndroid;
         }else{
-        	return false;
+            return false;
         }
     }
 

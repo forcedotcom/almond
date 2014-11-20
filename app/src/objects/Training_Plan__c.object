@@ -263,6 +263,17 @@
         <type>Number</type>
         <unique>false</unique>
     </fields>
+    <fields>
+        <fullName>Hide_Chatter_Photos__c</fullName>
+        <inlineHelpText>Enable this option to hide chatter photos for the last users that have acquired the training plan achievement</inlineHelpText>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Hide Chatter Photos</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
     <label>Training Plan</label>
     <listViews>
         <fullName>All</fullName>

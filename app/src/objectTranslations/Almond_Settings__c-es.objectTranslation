@@ -38,5 +38,10 @@
         <label>Encabezado - Color de Texto</label>
         <name>Header_Text_Color__c</name>
     </fields>
+    <fields>
+        <help>Habilitar esta opción para mostrar el encabezado de Salesforce en las paginas</help>
+        <label>Mostrar encabezado de Salesforce</label>
+        <name>Show_Salesforce_Header__c</name>
+    </fields>
     <gender>Feminine</gender>
 </CustomObjectTranslation>

@@ -30,6 +30,7 @@ public with sharing class TrainingPlanImportAssignmentsExt {
 
     public String selectedReportId{get;set;}
     public String selectedFolderId{get;set;}
+    public String userReportId{get;set;}
     public List<SelectOption> importReports{get;set;}
     public String customColumnIndex{get;set;}
     private Id trainingPlanId;
@@ -39,6 +40,7 @@ public with sharing class TrainingPlanImportAssignmentsExt {
         importReports = new List<SelectOption>();
         selectedFolderId = null;
         selectedReportId = null;
+        userReportId = null;
         customColumnIndex = null;
     }
 
@@ -46,7 +48,7 @@ public with sharing class TrainingPlanImportAssignmentsExt {
         List<SelectOption> options = new List<SelectOption>();
         selectedReportId = null;
         options.add(new SelectOption('',System.Label.ALMS_Select_Report_Default_Option));
-        for(Folder f : [select id,name from Folder where Type = 'Report']){
+        for(Folder f : [select id,name from Folder where Type = 'Report' limit 300]){
             if(f.name != null){
                 options.add(new SelectOption(f.Id,f.Name));
             }
@@ -57,7 +59,7 @@ public with sharing class TrainingPlanImportAssignmentsExt {
     public PageReference loadReports(){
         importReports = new List<SelectOption>();
         if(!String.isBlank(selectedFolderId)){
-            for(Report r : [select Format,Id,Name from Report where OwnerId = :selectedFolderId]){
+            for(Report r : [select Format,Id,Name from Report where OwnerId = :selectedFolderId limit 400]){
                 if(r.Format == 'Tabular'){
                     importReports.add(new SelectOption(r.Id,r.Name));
                 }
@@ -70,8 +72,10 @@ public with sharing class TrainingPlanImportAssignmentsExt {
 
     public PageReference importRecords(){
         try{
-            if(selectedReportId != null){
-                runReportAndImportData(selectedReportId);
+
+            String selectedId = !String.isBlank(userReportId)?userReportId:selectedReportId;
+            if(selectedId != null){
+                runReportAndImportData(selectedId);
                 return new PageReference('/'+trainingPlanId);
             }else{
                 LMSUtils.addErrorMessage(System.Label.ALMS_Missing_Report_Item);

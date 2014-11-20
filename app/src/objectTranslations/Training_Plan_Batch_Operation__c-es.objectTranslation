@@ -56,6 +56,10 @@
             <masterLabel>Upsert Assignments</masterLabel>
             <translation>Crear/Actualizar Asignaciones</translation>
         </picklistValues>
+        <picklistValues>
+            <masterLabel>Re-calculate Assignments</masterLabel>
+            <translation>Re-calcular Asignaciones</translation>
+        </picklistValues>
     </fields>
     <layouts>
         <layout>Training Plan Batch Operation Layout</layout>

@@ -3,7 +3,7 @@
     <backgroundEndColor>#FFFFFF</backgroundEndColor>
     <backgroundFadeDirection>Diagonal</backgroundFadeDirection>
     <backgroundStartColor>#FFFFFF</backgroundStartColor>
-    <dashboardType>MyTeamUser</dashboardType>
+    <dashboardType>SpecifiedUser</dashboardType>
     <leftSection>
         <columnSize>Wide</columnSize>
         <components>
@@ -105,7 +105,6 @@
             <sortBy>RowValueDescending</sortBy>
         </components>
     </rightSection>
-    <runningUser>{{RUNNING_USER}}</runningUser>
     <textColor>#000000</textColor>
     <title>Training Plans Dashboard</title>
     <titleColor>#000000</titleColor>

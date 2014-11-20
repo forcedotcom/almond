@@ -553,6 +553,10 @@
         <name>ALMS_Report_Custom_Column_Index</name>
     </customLabels>
     <customLabels>
+        <label>Id de Informe</label>
+        <name>ALMS_User_Report_Id</name>
+    </customLabels>
+    <customLabels>
         <label>Carpeta</label>
         <name>ALMS_Report_Folder</name>
     </customLabels>
@@ -583,6 +587,10 @@
     <customLabels>
         <label>Función</label>
         <name>ALMS_Role</name>
+    </customLabels>
+    <customLabels>
+        <label>Nombre</label>
+        <name>ALMS_Search_Field_Name</name>
     </customLabels>
     <customLabels>
         <label>Ha ocurrido algo inesperado y no fue posible crear datos de muestra.</label>
@@ -643,6 +651,10 @@
     <customLabels>
         <label>Seleccionar todos</label>
         <name>ALMS_Select_All</name>
+    </customLabels>
+    <customLabels>
+        <label>Subir Imagen</label>
+        <name>ALMS_Upload_Image</name>
     </customLabels>
     <customLabels>
         <label>Seleccionar Imagen</label>
@@ -813,6 +825,10 @@
         <name>ALMS_Update_Achievements_Assignments</name>
     </customLabels>
     <customLabels>
+        <label>Re-calcular todas las Asignaciones</label>
+        <name>ALMS_Recalculate_All_Assignments</name>
+    </customLabels>
+    <customLabels>
         <label>Actualizar todas las Asignaciones</label>
         <name>ALMS_Update_All_Assignments</name>
     </customLabels>
@@ -879,6 +895,18 @@
     <customLabels>
         <label>Filtrar Asignados</label>
         <name>ALMS_Filter_Existing_Assignments</name>
+    </customLabels>
+    <customLabels>
+        <label>Datos no válidos</label>
+        <name>ALMS_Invalid_Import_Data</name>
+    </customLabels>
+    <customLabels>
+        <label>Opcionales Adicionales</label>
+        <name>ALMS_Additional_Options</name>
+    </customLabels>
+    <customLabels>
+        <label>Cargar JSON</label>
+        <name>ALMS_Load_JSON</name>
     </customLabels>
     <customTabs>
         <label>Aprendizaje</label>

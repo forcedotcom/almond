@@ -825,6 +825,14 @@
         <value>Update Assignments</value>
     </labels>
     <labels>
+        <fullName>ALMS_Upload_Image</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Task Viewer Upload Image Title</shortDescription>
+        <value>Upload Image</value>
+    </labels>
+    <labels>
         <fullName>ALMS_Select_Image</fullName>
         <categories>ALMOND General, ALMOND UI</categories>
         <language>en_US</language>
@@ -985,6 +993,14 @@
         <value>Batch operations</value>
     </labels>
     <labels>
+        <fullName>ALMS_Recalculate_All_Assignments</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Recalculate all Assignments</shortDescription>
+        <value>Re-calculate all Assignments</value>
+    </labels>
+    <labels>
         <fullName>ALMS_Update_All_Assignments</fullName>
         <categories>ALMOND General, ALMOND UI</categories>
         <language>en_US</language>
@@ -1047,6 +1063,14 @@
         <protected>false</protected>
         <shortDescription>Assignment Page Role</shortDescription>
         <value>Role</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Search_Field_Name</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Assignment Search Field Name</shortDescription>
+        <value>Name</value>
     </labels>
     <labels>
         <fullName>ALMS_Manager</fullName>
@@ -1199,6 +1223,14 @@
         <protected>false</protected>
         <shortDescription>Report custom column index</shortDescription>
         <value>Custom Column Index</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_User_Report_Id</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Report id specified by the user</shortDescription>
+        <value>Report Id</value>
     </labels>
     <labels>
         <fullName>ALMS_Register_Button</fullName>
@@ -1751,6 +1783,30 @@
         <protected>false</protected>
         <shortDescription>Checkbox for filtering existing assignments</shortDescription>
         <value>Filter Assigned Users</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Invalid_Import_Data</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Invalid Import Data</shortDescription>
+        <value>Invalid Import Data</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Additional_Options</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Additional Options</shortDescription>
+        <value>Additional Options</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Load_JSON</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Load JSON</shortDescription>
+        <value>Load JSON</value>
     </labels>
 
 </CustomLabels>

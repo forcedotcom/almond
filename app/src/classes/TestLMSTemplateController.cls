@@ -30,9 +30,31 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 private class TestLMSTemplateController {
 
     static testMethod void testInit(){
+        createTestCustomSetting(false);
         LMSTemplateController cont = new LMSTemplateController();
         // Default value should be false
         System.assert(cont.customJSEnabled == false);
+        System.assert(cont.showSFHeader == false);
+    }
+
+    static testMethod void testInitWithSFHeader(){
+        createTestCustomSetting(true);
+        LMSTemplateController cont = new LMSTemplateController();
+        // Default value should be false
+        System.assert(cont.customJSEnabled == false);
+        System.assert(cont.showSFHeader == true);
+    }
+
+    static void createTestCustomSetting(Boolean showSFHeader){
+        Almond_Settings__c cs = new Almond_Settings__c();
+        cs.Company_Logo__c = 'https://www.salesforce.com/logo.png';
+        cs.Header_Background_Color__c = '#2C82B9';
+        cs.Header_Text_Color__c = 'DBE5F2';
+        cs.SetupOwnerId = null; //Org-wide default
+        cs.Disable_Track_Achievements__c = true;
+        cs.Disable_Future_Progress_Calculation__c = true;
+        cs.Show_Salesforce_Header__c = showSFHeader;
+        insert cs;
     }
 
 }

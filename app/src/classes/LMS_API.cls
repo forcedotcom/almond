@@ -51,4 +51,8 @@ global with sharing class LMS_API {
 
     }
 
+    global static void importJSON(String jsonData, Boolean addTimeStamps){
+        LMSInit.initData(jsonData,addTimeStamps);
+    }
+
 }

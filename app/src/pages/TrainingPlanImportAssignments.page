@@ -70,6 +70,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                     </apex:selectList>
                 </apex:pageBlockSectionItem>
 
+
                 <apex:pageBlockSectionItem rendered="{!importReports.size == 0 && selectedFolderId != null}">
                     <apex:pageMessage summary="{!$Label.ALMS_No_Reports_Found}" severity="info" strength="1" />
                 </apex:pageBlockSectionItem>
@@ -78,6 +79,12 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 
             <apex:pageBlockSection columns="1" title="{!$Label.ALMS_Additional_Report_Options}" collapsible="true" id="additionalOptionsSection">
                 <apex:pageMessage summary="{!$Label.ALMS_Additional_Report_Options_Msg}" severity="info" strength="1" />
+
+                <apex:pageBlockSectionItem>
+                    <apex:outputLabel value="{!$Label.ALMS_User_Report_Id} :" for="userReportId"/>
+                    <apex:inputText id="userReportId" value="{!userReportId}" />
+                </apex:pageBlockSectionItem>
+
                 <apex:pageBlockSectionItem>
                     <apex:outputLabel value="{!$Label.ALMS_Report_Custom_Column_Index} :" for="colIndex"/>
                     <apex:inputText id="colIndex" value="{!customColumnIndex}" size="2"/>
@@ -87,7 +94,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
         </apex:pageBlock>
 
         <script>
-            $( document ).ready(function() {
+            jQuery(document).ready(function($) {
                 var imgs = $('img');
                 if(imgs){
                     for(var x in imgs){

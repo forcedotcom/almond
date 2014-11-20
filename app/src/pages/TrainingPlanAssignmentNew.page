@@ -62,11 +62,19 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                                         <apex:selectOptions value="{!profiles}" />
                                     </apex:selectList>
                                 </apex:pageBlockSectionItem>
+                                <apex:pageBlockSectionItem>
+                                    <apex:outputLabel value="{!$Label.ALMS_Profile} ({!$Label.ALMS_Search_Field_Name})" for="profile__SearchName"/>
+                                    <apex:inputText id="profile__SearchText" value="{!profileName}" style="width:90%;" styleClass="noEnter"/>
+                                </apex:pageBlockSectionItem>
                                 <apex:pageBlockSectionItem >
                                     <apex:outputLabel value="{!$Label.ALMS_Role}" for="role__Search"/>
                                     <apex:selectList value="{!roleId}" size="1">
                                         <apex:selectOptions value="{!roles}"/>
                                     </apex:selectList>
+                                </apex:pageBlockSectionItem>
+                                <apex:pageBlockSectionItem>
+                                    <apex:outputLabel value="{!$Label.ALMS_Role} ({!$Label.ALMS_Search_Field_Name})" for="role__SearchName"/>
+                                    <apex:inputText id="role__SearchText" value="{!roleName}" style="width:90%;" styleClass="noEnter"/>
                                 </apex:pageBlockSectionItem>
                                 <apex:pageBlockSectionItem >
                                     <apex:outputLabel value="{!$Label.ALMS_Manager}" for="manager__Search"/>

@@ -33,6 +33,8 @@ public with sharing class TrainingPlanAssignmentExtensionNew{
     public String email{get;set;}
     public String profileId{get;set;}
     public String roleId{get;set;}
+    public String profileName{get;set;}
+    public String roleName{get;set;}
     public Training_Plan_Assignment__c dummyAssignment{get;set;}
     private String trainingPlanId;
     public Boolean filterExistingUsers{get;set;}
@@ -57,6 +59,8 @@ public with sharing class TrainingPlanAssignmentExtensionNew{
         firstName = null;
         lastName = null;
         email = null;
+        profileName = null;
+        roleName = null;
         profileId = '';
         roleId = '';
         users = new List<UserWrapper>();
@@ -65,7 +69,7 @@ public with sharing class TrainingPlanAssignmentExtensionNew{
     public List<SelectOption> getProfiles() {
         List<SelectOption> options = new List<SelectOption>();
         options.add(new SelectOption('','--None--'));
-        for(Profile p : [select id,Name from Profile where UserType IN ('Standard','CsnOnly') limit 1000]){
+        for(Profile p : [select id,Name from Profile where UserType IN ('Standard','CsnOnly') limit 300]){
             options.add(new SelectOption(p.Id,p.Name));
         }
         return options;
@@ -74,7 +78,7 @@ public with sharing class TrainingPlanAssignmentExtensionNew{
     public List<SelectOption> getRoles() {
         List<SelectOption> options = new List<SelectOption>();
         options.add(new SelectOption('','--None--'));
-        for(UserRole ur : [select id,Name from UserRole where PortalType = 'None' limit 1000]){
+        for(UserRole ur : [select id,Name from UserRole where PortalType = 'None' limit 300]){
             options.add(new SelectOption(ur.Id,ur.Name));
         }
         return options;
@@ -113,6 +117,12 @@ public with sharing class TrainingPlanAssignmentExtensionNew{
         if (!String.isBlank(roleId)){
             soql += ' AND userroleId = :roleId';
         }
+        if (!String.isBlank(profileName)){
+            soql += ' AND profile.Name = :profileName';
+        }
+        if (!String.isBlank(roleName)){
+            soql += ' AND userrole.name = :roleName';
+        }
         if(dummyAssignment != null && dummyAssignment.User__c != null){
         	Id mgrId = dummyAssignment.User__c;
         	soql += ' AND managerId = :mgrId';
@@ -123,7 +133,7 @@ public with sharing class TrainingPlanAssignmentExtensionNew{
             soql+=' AND id NOT IN :existingUserIds';
         }
 
-        soql+=' limit 1000';
+        soql+=' limit 500';
 
         Map<Id,User> userMap = new Map<Id,User>();
         for(User u : (List<User>)Database.query(soql)){

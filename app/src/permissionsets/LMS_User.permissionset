@@ -117,6 +117,10 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>TrainingPlanAssignmentsRecalculateBatch</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>TrainingPlanAssignmentsUpsertBatch</apexClass>
         <enabled>false</enabled>
     </classAccesses>
@@ -1033,6 +1037,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Training_Plan__c.Training_Plan_Rating__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Training_Plan__c.Hide_Chatter_Photos__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

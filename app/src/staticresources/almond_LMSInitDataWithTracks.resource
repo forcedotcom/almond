@@ -308,6 +308,31 @@
                 }
             ]
         }
+    ],
+    "track-objects":[
+        {
+            "name" : "Sample Track",
+            "description" : "Sample Track description",
+            "status" : "Active",
+            "order" : null,
+            "background-image-url" : null,
+            "text-color-url" : null,
+            "background-color" : null,
+            "achievement" : "Sample Track Achievement",
+            "levels" : [
+                {
+                    "name" : "Level 1",
+                    "order" : 1,
+                    "description" : "Sample Level 1 description",
+                    "items" : [
+                        {
+                            "order" : 1,
+                            "plan" : "Sample Training Plan"
+                        }
+                    ]
+                }
+            ]
+        }
     ]
 
 }

@@ -54,30 +54,13 @@ public with sharing class LMSService{
         Set<Id> trainingPlanIds = new Set<Id>();
         String ns = LMSUtils.getPackageNamespace();
 
-        /* JR : Uncomment this code to calculate progress based on assignments (more expensive)
-        List<AggregateResult> groupedResultsNotStarted = getTrainingPlansAssignmentStatusByLAs(new Set<String>{LMSConstants.TPLAN_STATUS_NOT_STARTED},userId);
-        List<AggregateResult> groupedResultsOther = getTrainingPlansAssignmentStatusByLAs(new Set<String>{LMSConstants.TPLAN_STATUS_IN_PROGRESS ,LMSConstants.TPLAN_STATUS_COMPLETED},userId);
-        */
         List<AggregateResult> groupedResultsNotStarted = getTrainingPlansAssignmentStatus(new Set<String>{LMSConstants.TPLAN_STATUS_NOT_STARTED},userId);
-        /* JR : Uncomment this code to calculate progress based on assignments (more expensive)
-        List<AggregateResult> groupedResultsOther = getTrainingPlansAssignmentStatus(new Set<String>{LMSConstants.TPLAN_STATUS_IN_PROGRESS ,LMSConstants.TPLAN_STATUS_COMPLETED},userId);
-        */
 
         for (AggregateResult ar : groupedResultsNotStarted)  {
             if((Integer)ar.get('cnt') > 0){
                 trainingPlanIds.add((String)ar.get(ns+'Training_Plan__c'));
             }
         }
-
-        /*
-        for (AggregateResult ar : groupedResultsOther)  {
-            if((Integer)ar.get('cnt') > 0){
-                String tpId = (String)ar.get(ns+'Training_Plan__c');
-                if(trainingPlanIds.contains(tpId)){
-                    trainingPlanIds.remove(tpId);
-                }
-            }
-        }*/
 
         return getTrainingPlans(trainingPlanIds);
 
@@ -86,17 +69,8 @@ public with sharing class LMSService{
     //Return a list of all training plans with "In Progress" status for the specified user
     public static List<Training_Plan__c> getInProgressTrainingPlans(String userId){
 
-        /* JR : Uncomment this code to calculate progress based on assignments (more expensive)
-        List<AggregateResult> groupedResults = getTrainingPlansAssignmentStatusByLAs(new Set<String>{LMSConstants.TPLAN_STATUS_IN_PROGRESS},userId);
-        List<AggregateResult> groupedResultsCompleted = getTrainingPlansAssignmentStatusByLAs(new Set<String>{LMSConstants.TPLAN_STATUS_COMPLETED},userId);
-        List<AggregateResult> groupedResultsNotStarted = getTrainingPlansAssignmentStatusByLAs(new Set<String>{LMSConstants.TPLAN_STATUS_NOT_STARTED},userId);
-        */
         String ns = LMSUtils.getPackageNamespace();
         List<AggregateResult> groupedResults = getTrainingPlansAssignmentStatus(new Set<String>{LMSConstants.TPLAN_STATUS_IN_PROGRESS},userId);
-        /* JR : Uncomment this code to calculate progress based on assignments (more expensive)
-        List<AggregateResult> groupedResultsCompleted = getTrainingPlansAssignmentStatus(new Set<String>{LMSConstants.TPLAN_STATUS_COMPLETED},userId);
-        List<AggregateResult> groupedResultsNotStarted = getTrainingPlansAssignmentStatus(new Set<String>{LMSConstants.TPLAN_STATUS_NOT_STARTED},userId);
-        */
 
         Set<Id> trainingPlanIds = new Set<Id>();
         for (AggregateResult ar : groupedResults)  {
@@ -105,24 +79,6 @@ public with sharing class LMSService{
             }
         }
 
-        /*
-        Set<Id> trainingPlansWithCompleted = new Set<Id>();
-        for (AggregateResult ar : groupedResultsCompleted)  {
-            if((Integer)ar.get('cnt') > 0){
-                trainingPlansWithCompleted.add((String)ar.get(ns+'Training_Plan__c'));
-            }
-        }
-
-        for (AggregateResult ar : groupedResultsNotStarted)  {
-            if((Integer)ar.get('cnt') > 0){
-                String notStartedTPlanId = (String)ar.get(ns+'Training_Plan__c');
-                if(trainingPlansWithCompleted.contains(notStartedTPlanId)){
-                    trainingPlanIds.add(notStartedTPlanId);
-                }
-            }
-        }
-        */
-
         return getTrainingPlans(trainingPlanIds);
 
     }
@@ -130,15 +86,8 @@ public with sharing class LMSService{
     //Return a list of all training plans with "Completed" status for the specified user
     public static List<Training_Plan__c> getCompletedTrainingPlans(String userId){
 
-        /* JR : Uncomment this code to calculate progress based on assignments (more expensive)
-        List<AggregateResult> groupedResultsCompleted = getTrainingPlansAssignmentStatusByLAs(new Set<String>{LMSConstants.TPLAN_STATUS_COMPLETED},userId);
-        List<AggregateResult> groupedResultsOther = getTrainingPlansAssignmentStatusByLAs(new Set<String>{LMSConstants.TPLAN_STATUS_NOT_STARTED,LMSConstants.TPLAN_STATUS_IN_PROGRESS},userId);
-        */
         String ns = LMSUtils.getPackageNamespace();
         List<AggregateResult> groupedResultsCompleted = getTrainingPlansAssignmentStatus(new Set<String>{LMSConstants.TPLAN_STATUS_COMPLETED},userId);
-        /* JR : Uncomment this code to calculate progress based on assignments (more expensive)
-        List<AggregateResult> groupedResultsOther = getTrainingPlansAssignmentStatus(new Set<String>{LMSConstants.TPLAN_STATUS_NOT_STARTED,LMSConstants.TPLAN_STATUS_IN_PROGRESS},userId);
-        */
 
         Set<Id> trainingPlanIds = new Set<Id>();
 
@@ -147,17 +96,6 @@ public with sharing class LMSService{
                 trainingPlanIds.add((String)ar.get(ns+'Training_Plan__c'));
             }
         }
-
-        /*
-        for (AggregateResult ar : groupedResultsOther)  {
-            if((Integer)ar.get('cnt') > 0){
-                String tpId = (String)ar.get(ns+'Training_Plan__c');
-                if(trainingPlanIds.contains(tpId)){
-                    trainingPlanIds.remove(tpId);
-                }
-            }
-        }
-        */
 
         return getTrainingPlans(trainingPlanIds);
     }

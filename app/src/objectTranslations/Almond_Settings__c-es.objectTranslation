@@ -43,5 +43,10 @@
         <label>Mostrar encabezado de Salesforce</label>
         <name>Show_Salesforce_Header__c</name>
     </fields>
+    <fields>
+        <help>Debe ser una URL relativa (e.g. /home/home.jsp)</help>
+        <label>URL de regreso a Salesforce</label>
+        <name>Back_to_SF_URL__c</name>
+    </fields>
     <gender>Feminine</gender>
 </CustomObjectTranslation>

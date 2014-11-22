@@ -28,12 +28,13 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 public with sharing class LMSHeaderController {
 
-    public String loggedUsername {get;set;}
-    public string loggedUsernameImageUrl { get; set; }
-    public String section {get;set;}
-    public String customLogo {get; private set;}
-    public String backgroundColor {get; private set;}
-    public String textColor {get; private set;}
+    public transient String loggedUsername {get;set;}
+    public transient String loggedUsernameImageUrl { get; set; }
+    public transient String section {get;set;}
+    public transient String customLogo {get; private set;}
+    public transient String backgroundColor {get; private set;}
+    public transient String textColor {get; private set;}
+    public transient String backToSFURL {get; private set;}
 
     public LMSHeaderController(){
         loggedUsername = UserInfo.getName();
@@ -59,6 +60,7 @@ public with sharing class LMSHeaderController {
         customLogo = LMSSettings.getCustomLogo();
         backgroundColor = LMSSettings.getHeaderBackgroundColor();
         textColor = LMSSettings.getHeaderTextColor();
+        backToSFURL = LMSSettings.getBacktoSFUrl();
 
     }
 

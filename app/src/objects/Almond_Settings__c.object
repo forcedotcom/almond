@@ -72,5 +72,17 @@
         <label>Show Salesforce Header</label>
         <type>Checkbox</type>
     </fields>
+    <fields>
+        <fullName>Back_to_SF_URL__c</fullName>
+        <description>URL used by the back to SF button</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Must be a relative url path (e.g. /home/home.jsp)</inlineHelpText>
+        <label>Back to SF URL</label>
+        <length>150</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
     <label>Almond Settings</label>
 </CustomObject>

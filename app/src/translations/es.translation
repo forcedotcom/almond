@@ -908,6 +908,10 @@
         <label>Cargar JSON</label>
         <name>ALMS_Load_JSON</name>
     </customLabels>
+    <customLabels>
+        <label>Regresar a Salesforce</label>
+        <name>ALMS_Back_SF</name>
+    </customLabels>
     <customTabs>
         <label>Aprendizaje</label>
         <name>Learning</name>

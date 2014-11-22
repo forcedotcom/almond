@@ -1808,5 +1808,12 @@
         <shortDescription>Load JSON</shortDescription>
         <value>Load JSON</value>
     </labels>
-
+    <labels>
+        <fullName>ALMS_Back_SF</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Back to Salesforce link</shortDescription>
+        <value>Back to Salesforce</value>
+    </labels>
 </CustomLabels>

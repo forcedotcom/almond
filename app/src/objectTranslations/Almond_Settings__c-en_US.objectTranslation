@@ -43,5 +43,10 @@
         <label><!-- Show Salesforce Header --></label>
         <name>Show_Salesforce_Header__c</name>
     </fields>
+    <fields>
+        <help><!-- Must be a relative url path (e.g. /home/home.jsp) --></help>
+        <label><!-- Back to SF URL --></label>
+        <name>Back_to_SF_URL__c</name>
+    </fields>
     <startsWith>Consonant</startsWith>
 </CustomObjectTranslation>

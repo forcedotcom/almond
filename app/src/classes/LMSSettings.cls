@@ -56,6 +56,10 @@ public with sharing class LMSSettings {
         return (Boolean)getValue('Show_Salesforce_Header__c',false);
     }
 
+    public static String getBacktoSFUrl(){
+      return (String)getValue('Back_to_SF_URL__c','/home/home.jsp');
+    }
+
     private static Object getValue(String key, Object defaultValue){
         Almond_Settings__c cs = Almond_Settings__c.getInstance();
         if(cs != null && cs.get(key) != null){

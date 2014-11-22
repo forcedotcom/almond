@@ -753,6 +753,14 @@
         <name>ALMS_Task_Done_Button</name>
     </customLabels>
     <customLabels>
+        <label><!-- Task Undo button --></label>
+        <name>ALMS_Task_Undo_Button</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Task Undo Error Message --></label>
+        <name>ALMS_Task_Undo_Error_Message</name>
+    </customLabels>
+    <customLabels>
         <label><!-- Task In Review message --></label>
         <name>ALMS_Task_In_Review_Message</name>
     </customLabels>

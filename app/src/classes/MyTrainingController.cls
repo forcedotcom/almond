@@ -39,6 +39,12 @@ public with sharing class MyTrainingController {
     private void init(){
         tPlans = new List<TrainingPlanWithAchievement>();
         selectedType = LMSConstants.TPLAN_STATUS_NOT_STARTED;
+
+        String urlStatus = Apexpages.currentPage().getParameters().get('status');
+        if(!String.isBlank(urlStatus)){
+            selectedType = urlStatus;
+        }
+
         loadTrainingPlans();
     }
 

@@ -49,6 +49,10 @@
         <label><!-- Requires Manager Approval to Complete --></label>
         <name>Requires_Manager_Approval__c</name>
     </fields>
+    <fields>
+        <label><!-- Disable undo --></label>
+        <name>Disable_Undo__c</name>
+    </fields>
     <layouts>
         <layout>Task Layout</layout>
         <sections>

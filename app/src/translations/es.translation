@@ -285,7 +285,7 @@
         <name>ALMS_Insufficient_CRUD_FLS</name>
     </customLabels>
     <customLabels>
-        <label>Video Introductorio</label>
+        <label>Introducción</label>
         <name>ALMS_Intro_Video</name>
     </customLabels>
     <customLabels>
@@ -751,6 +751,14 @@
     <customLabels>
         <label>¡Listo!</label>
         <name>ALMS_Task_Done_Button</name>
+    </customLabels>
+    <customLabels>
+        <label>Deshacer</label>
+        <name>ALMS_Task_Undo_Button</name>
+    </customLabels>
+    <customLabels>
+        <label>Sólo se pueden deshacer cambios en tareas completas que no requiren aprobación</label>
+        <name>ALMS_Task_Undo_Error_Message</name>
     </customLabels>
     <customLabels>
         <label>Esta tarea ha sido completada y se encuentra bajo revisión</label>

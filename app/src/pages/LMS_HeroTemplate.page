@@ -29,7 +29,6 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 
     <head>
         <apex:insert name="head"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link href="{!URLFOR($Resource.almond_uilib, '/css/bootstrap-namespaced.css')}" rel="stylesheet" media="screen" />
         <link href="{!URLFOR($Resource.almond_uilib, '/css/almondui.css')}" rel="stylesheet" media="screen" />
 
@@ -97,8 +96,6 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                 <apex:includeScript value="{!URLFOR($Resource.almond_uilib, '/js/bootstrap.min.js')}"/>
                 <apex:includeScript value="{!URLFOR($Resource.almond_uilib, '/js/jquery.rateit.min.js')}"/>
                 <apex:includeScript value="{!URLFOR($Resource.almond_uilib, '/js/almondutils.js')}"/>
-                <apex:includeScript value="{!URLFOR($Resource.almond_uilib, '/js/jquery.hammer.min.js')}"/>
-
                 <apex:includeScript value="{!URLFOR($Resource.almond_uilib, '/js/fastclick.js')}"/>
             </div>
         </div>

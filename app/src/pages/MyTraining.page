@@ -36,31 +36,24 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
         <apex:define name="container-header">
             <div class="row almond-nav" >
                 <div class="btn-group col-xs-12 col-sm-12 col-md-12">
-                  <a class="btn btn-default col-xs-4 col-sm-3 col-md-3 almond-nav-item almond-nav-active" href="javascript:void(0)" onclick="almond.myTrainingMenuHandler(this);" lms-status-id="Not Started">{!$Label.ALMS_NotStarted}</a>
-                  <a class="btn btn-default col-xs-4 col-sm-3 col-md-3 almond-nav-item" href="javascript:void(0)" onclick="almond.myTrainingMenuHandler(this);" lms-status-id="In Progress">{!$Label.ALMS_InProgress}</a>
-                  <a class="btn btn-default col-xs-4 col-sm-3 col-md-3 almond-nav-item" href="javascript:void(0)" onclick="almond.myTrainingMenuHandler(this);" lms-status-id="Completed">{!$Label.ALMS_Completed}</a>
+                  <a class="btn btn-default col-xs-4 col-sm-3 col-md-3 almond-nav-item {!IF(selectedType=='Not Started','almond-nav-active','')}" href="javascript:void(0)" onclick="almond.myTrainingMenuHandler(this,'{!$Page.MyTraining}');" lms-status-id="Not Started">{!$Label.ALMS_NotStarted}</a>
+                  <a class="btn btn-default col-xs-4 col-sm-3 col-md-3 almond-nav-item {!IF(selectedType=='In Progress','almond-nav-active','')}" href="javascript:void(0)" onclick="almond.myTrainingMenuHandler(this,'{!$Page.MyTraining}');" lms-status-id="In Progress">{!$Label.ALMS_InProgress}</a>
+                  <a class="btn btn-default col-xs-4 col-sm-3 col-md-3 almond-nav-item {!IF(selectedType=='Completed','almond-nav-active','')}" href="javascript:void(0)" onclick="almond.myTrainingMenuHandler(this,'{!$Page.MyTraining}');" lms-status-id="Completed">{!$Label.ALMS_Completed}</a>
                 </div>
             </div>
         </apex:define>
         <apex:define name="body">
 
-            <apex:form id="mytrainingform">
+            <c:trainingPlanInfo tplanObj="{!tPlans}" id="body_comp"/>
 
-                <apex:actionFunction name="loadtplansJS" action="{!loadTrainingPlans}" rerender="body_comp" status="status" >
-                    <apex:param name="stype" assignTo="{!selectedType}" value="" />
-                </apex:actionFunction>
+            <apex:actionStatus id="status">
+                <apex:facet name="start">
+                    <apex:outputPanel >
+                        <c:LMSStatus statusComponentId="{!$Component.status}"/>
+                    </apex:outputPanel>
+                </apex:facet>
+            </apex:actionStatus>
 
-                <c:trainingPlanInfo tplanObj="{!tPlans}" id="body_comp"/>
-
-                <apex:actionStatus id="status">
-                    <apex:facet name="start">
-                        <apex:outputPanel >
-                            <c:LMSStatus statusComponentId="{!$Component.status}"/>
-                        </apex:outputPanel>
-                    </apex:facet>
-                </apex:actionStatus>
-
-             </apex:form>
 
         </apex:define>
 

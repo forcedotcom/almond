@@ -49,6 +49,10 @@
         <label>Requiere aprobación del Gestor para completar</label>
         <name>Requires_Manager_Approval__c</name>
     </fields>
+    <fields>
+        <label>Deshabilitar deshacer cambios a tareas completas</label>
+        <name>Disable_Undo__c</name>
+    </fields>
     <layouts>
         <layout>Task Layout</layout>
         <sections>

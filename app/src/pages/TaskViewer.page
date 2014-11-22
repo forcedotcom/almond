@@ -84,7 +84,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                         </div>
                     </apex:outputPanel>
 
-                    <a href="javascript:doCancel()" class="almond-primary-btn large-btn" style="margin-bottom:10px;">{!$Label.ALMS_Task_Working_Button}</a>
+                    <a href="javascript:doCancel()" class="almond-primary-btn large-btn" style="margin-bottom:15px;">{!$Label.ALMS_Task_Working_Button}</a>
 
                     <apex:outputPanel layout="none" rendered="{!task.Enable_Image_Upload__c}">
                       <apex:commandButton value="{!$Label.ALMS_Task_Done_Button}" action="{!markCompletedAndRedirect}" styleClass="almond-default-btn large-btn" onclick="forceShowStatus();"/>
@@ -120,6 +120,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                         </apex:outputPanel>
                     </apex:outputPanel>
 
+                    <apex:commandButton value="{!$Label.ALMS_Task_Undo_Button}" action="{!resetTask}" styleClass="almond-warning-btn large-btn" style="margin-bottom:15px;" onclick="if(!confirm('{!JSENCODE($Label.ALMS_Confirm_Alert)}')){return false}else{forceShowStatus()};" rerender="resultsPanel" oncomplete="doRedirection()" rendered="{!isTaskValidForReset}"/>
 
                     <apex:commandButton value="{!$Label.ALMS_Task_Back_Button}" action="{!cancelTask}" styleClass="almond-danger-btn large-btn" onclick="forceShowStatus();" rerender="resultsPanel" oncomplete="doRedirection()"/>
 

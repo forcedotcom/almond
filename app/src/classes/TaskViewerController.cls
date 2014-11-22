@@ -98,6 +98,7 @@ public with sharing class TaskViewerController{
                 ,'Description__c'
                 ,'Add_training_parameters_to_URL__c'
                 ,'Enable_Image_Upload__c'
+                ,'Disable_Undo__c'
             });
             LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
             //END Access Check
@@ -121,6 +122,7 @@ public with sharing class TaskViewerController{
                                     ,Learning_Version__r.Task__r.Add_training_parameters_to_URL__c
                                     ,Learning_Version__r.Task__r.Requires_Manager_Approval__c
                                     ,Learning_Version__r.Task__r.Enable_Image_Upload__c
+                                    ,Learning_Version__r.Task__r.Disable_Undo__c
                                     ,Progress__c
                                     ,Progress_Percentage__c
                                     ,Evaluation_Result__c
@@ -203,21 +205,7 @@ public with sharing class TaskViewerController{
             //Update assignment status
             if(assignment.Progress__c != LMSConstants.ASSIGNMENT_STATUS_COMPLETED){
 
-                Set<Id> taskApprovers = new Set<Id>();
-
-                //Get active task approvers
-                for(Task_Approver__c ta : [select id
-                                                ,User__c
-                                                ,User__r.IsActive
-                                                ,Task__c
-                                                from Task_Approver__c
-                                                where Task__c = :task.Id]){
-
-                    if(ta.User__c != null && ta.User__r.IsActive){
-                        taskApprovers.add(ta.User__c);
-                    }
-                }
-
+                Set<Id> taskApprovers = getTaskApprovers();
 
                 //If we have task approvers, share the assignment with them so that they can see the record in the SF UI
                 if(taskApprovers.size()>0){
@@ -270,6 +258,32 @@ public with sharing class TaskViewerController{
       return null;
     }
 
+    public PageReference resetTask(){
+        redirectURL = null;
+        try{
+
+            //BEGIN Access Check
+            //We don't enforce CRUD/FLS here since LMS Users shouldn't have access to read task approvers and we dont expose this data in the UI
+            //Additionally, we bypass CRUD/FLS settings for updating learning assignments as LMS Users have read only access
+            //END Access Check
+
+            if(getIsTaskValidForReset()){
+                assignment.Progress__c = LMSConstants.ASSIGNMENT_STATUS_NOT_STARTED;
+                assignment.Progress_Percentage__c = 0;
+                update assignment;
+                PageReference ref = finalRedirection();
+                redirectURL = ref.getUrl();
+            }else{
+                LMSUtils.addErrorMessage(System.Label.ALMS_Task_Undo_Error_Message);
+            }
+            return null;
+        }catch(Exception e){
+            LMSUtils.logException(e,'TaskViewerController');
+            LMSUtils.addGenericUnknownErrorMessage('TaskViewerController - undoCompleted (1)');
+            return null;
+        }
+    }
+
     private PageReference finalRedirection(){
         PageReference ref = Page.MyTraining;
         if(isPreviewMode){
@@ -289,8 +303,55 @@ public with sharing class TaskViewerController{
         return ref;
     }
 
+    public Boolean getIsTaskValidForReset(){
+
+        if(assignment.Learning_Version__r.Task__r.Disable_Undo__c == true){
+            return false;
+        }
+
+        //Fetch training plan assignment information
+        List<Learning_Assignment__c> planAssignment = [select id
+                                                            ,Training_Plan_Section_Assignment__r.Training_Plan_Assignment__c
+                                                            ,Training_Plan_Section_Assignment__r.Training_Plan_Assignment__r.Status__c
+                                                            from Learning_Assignment__c
+                                                            where id = :assignment.id];
+        if(planAssignment.size() == 0){
+            return false;
+        }
+
+        String tplanStatus = planAssignment.get(0).Training_Plan_Section_Assignment__r.Training_Plan_Assignment__r.Status__c;
+
+        if(tplanStatus != null && tplanStatus != LMSConstants.TPLAN_STATUS_COMPLETED && assignment.Progress__c == LMSConstants.ASSIGNMENT_STATUS_COMPLETED){
+            Set<Id> taskApprovers = getTaskApprovers();
+            if(task.Requires_Manager_Approval__c == false && taskApprovers.size() == 0){
+                return true;
+            }
+        }
+        return false;
+    }
+
     private void shareLearningAssignmentsWithApprovers(Set<Id> approverIds, Set<Id> learningAssignmentIds){
         LMSService.WithoutSharingOps wsops = new LMSService.WithoutSharingOps();
         wsops.shareLearningAssignmentsWithApprovers(approverIds, learningAssignmentIds);
     }
+
+    private Set<Id> getTaskApprovers(){
+        Set<Id> taskApprovers = new Set<Id>();
+
+        //Get active task approvers
+        for(Task_Approver__c ta : [select id
+            ,User__c
+            ,User__r.IsActive
+            ,Task__c
+            from Task_Approver__c
+            where Task__c = :task.id]){
+
+            if(ta.User__c != null && ta.User__r.IsActive){
+                taskApprovers.add(ta.User__c);
+            }
+        }
+
+        return taskApprovers;
+    }
+
 }

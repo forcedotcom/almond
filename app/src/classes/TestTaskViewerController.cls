@@ -198,6 +198,48 @@ private class TestTaskViewerController{
     }
 
 
+    static testMethod void testUndoTask(){
+
+        //Create admin users
+        List<User> adminUsers = TestUtilClass.createUsers(1,'System Administrator');
+        List<User> lmsUsers = TestUtilClass.createUsers(1,'Standard User');
+
+        System.runAs(adminUsers.get(0)){
+            //Assign corresponding perm sets
+            TestUtilClass.addPermissionSet(adminUsers,'LMS_Admin');
+            TestUtilClass.addPermissionSet(lmsUsers,'LMS_User');
+        }
+
+        Id learningAssignmentId = createTaskViewerData(adminUsers,lmsUsers,false);
+
+        //Test Insert
+        PageReference pageRef = Page.TaskViewer;
+        pageRef.getParameters().put('aid',learningAssignmentId);
+        Test.setCurrentPage(pageRef);
+        Test.startTest();
+        System.runAs(lmsUsers.get(0)){
+            TaskViewerController cont = new TaskViewerController();
+            PageReference contRef;
+            //Test cancel
+            contRef = cont.cancelTask();
+            System.assert(cont.redirectURL != null);
+            PageReference dummyRef = new PageReference(cont.redirectURL);
+            System.assert(dummyRef.getParameters().get('section') != null);
+            List<Learning_Assignment__c> assignments;
+            assignments = [select id,Progress__c from Learning_Assignment__c where id = :learningAssignmentId];
+            System.assertEquals(LMSConstants.ASSIGNMENT_STATUS_NOT_STARTED,assignments.get(0).Progress__c);
+            contRef = cont.markCompleted();
+            assignments = [select id,Progress__c from Learning_Assignment__c where id = :learningAssignmentId];
+            System.assertEquals(LMSConstants.ASSIGNMENT_STATUS_COMPLETED,assignments.get(0).Progress__c);
+            contRef = cont.resetTask();
+            assignments = [select id,Progress__c from Learning_Assignment__c where id = :learningAssignmentId];
+            System.assertEquals(LMSConstants.ASSIGNMENT_STATUS_NOT_STARTED,assignments.get(0).Progress__c);
+
+        }
+
+        Test.stopTest();
+    }
+
     private static Id createTaskViewerData(List<User> adminUsers, List<User> lmsUsers, Boolean hasApprovers){
 
         //create task learnings

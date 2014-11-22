@@ -44,7 +44,7 @@
                     <apex:outputPanel layout="none" rendered="{!!hideSFLink}">
                         <li>
                             <apex:image value="{!URLFOR($Resource.almond_uilib, '/img/white_cloud_embossed.png')}" styleClass="sfdc-logo" />
-                            <a href="/home/home.jsp">&nbsp;</a>
+                            <a data-toggle="almond-tooltip" data-placement="bottom" title="{!$Label.ALMS_Back_SF}" href="{!backToSFURL}">&nbsp;</a>
                         </li>
                     </apex:outputPanel>
                 </ul>
@@ -62,6 +62,7 @@
             if(almond.isSF1()){
                 $('#lms-nav-header').hide();
             }
+            $('[data-toggle="almond-tooltip"]').tooltip();
             FastClick.attach(document.body);
         });
     </script>

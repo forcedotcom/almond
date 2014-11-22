@@ -43,7 +43,8 @@ private class TestLMSSettings {
             System.assert(disableTrackAchievements == false);
             Boolean disableFutureProgressCalcs = LMSSettings.getDisableFutureProgressCalculation();
             System.assert(disableFutureProgressCalcs == false);
-
+            String backToSFURL = LMSSettings.getBacktoSFUrl();
+            System.assert(backToSFURL != null);
         Test.stopTest();
     }
 
@@ -63,7 +64,8 @@ private class TestLMSSettings {
           System.assert(disableTrackAchievements == true);
           Boolean disableFutureProgressCalcs = LMSSettings.getDisableFutureProgressCalculation();
           System.assert(disableFutureProgressCalcs == true);
-
+          String backToSFURL = LMSSettings.getBacktoSFUrl();
+          System.assert(backToSFURL != null);
         Test.stopTest();
     }
 
@@ -75,7 +77,8 @@ private class TestLMSSettings {
         cs.SetupOwnerId = null; //Org-wide default
         cs.Disable_Track_Achievements__c = true;
         cs.Disable_Future_Progress_Calculation__c = true;
+        cs.Back_to_SF_URL__c = '/apex/somepage';
         insert cs;
     }
-    
+
 }

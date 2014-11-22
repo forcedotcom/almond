@@ -81,15 +81,12 @@ var almond = (function($){
         }
     }
 
-    var myTrainingMenuHandler = function(elem){
-        //remove existing active
-        var old_active = $(elem).parent().find('.almond-nav-active');
-        old_active.removeClass('almond-nav-active');
-
-        $(elem).addClass('almond-nav-active');
-
+    var myTrainingMenuHandler = function(elem,redirectURL){
+        var selectedStatus = $(elem).attr('lms-status-id');
         //call apex controller
-        loadtplansJS($(elem).attr('lms-status-id'));
+        if(redirectURL){
+            redirectHandlerWithStatus(redirectURL+'?status='+selectedStatus,false);
+        }
     };
 
     return {

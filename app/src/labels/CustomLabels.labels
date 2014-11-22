@@ -1813,7 +1813,7 @@
         <categories>ALMOND General, ALMOND UI</categories>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>Back to Salesforce link</shortDescription>
-        <value>Back to Salesforce</value>
+        <shortDescription>Return to Salesforce link</shortDescription>
+        <value>Return to Salesforce</value>
     </labels>
 </CustomLabels>

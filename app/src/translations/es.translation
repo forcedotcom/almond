@@ -237,6 +237,10 @@
         <name>ALMS_Feedback_Existing_Rating</name>
     </customLabels>
     <customLabels>
+        <label>Favor de proporcionar comentarios o una calificación para este curso</label>
+        <name>ALMS_Feedback_No_Data</name>
+    </customLabels>
+    <customLabels>
         <label>Favor de proporcionar comentarios</label>
         <name>ALMS_Feedback_Missing_Comments</name>
     </customLabels>

@@ -274,6 +274,17 @@
         <trackTrending>false</trackTrending>
         <type>Checkbox</type>
     </fields>
+    <fields>
+        <fullName>Optional_Feedback_Comments__c</fullName>
+        <inlineHelpText>Enable this option to make feedback comments not required</inlineHelpText>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Optioanl Feedback Comments</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
     <label>Training Plan</label>
     <listViews>
         <fullName>All</fullName>

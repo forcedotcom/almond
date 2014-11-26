@@ -80,10 +80,12 @@ public with sharing class TrainingPlanFeedbackController{
     }
 
     public PageReference submitFeedback(){
-        if(String.isBlank(feedback.Comments__c)){
+        if(!tPlan.trainingPlan.Optional_Feedback_Comments__c && String.isBlank(feedback.Comments__c)){
             LMSUtils.addErrorMessage(System.Label.ALMS_Feedback_Missing_Comments);
         }else if (feedback.Rating__c  != null && feedback.Rating__c != 0 && existingFeedback != null){
             LMSUtils.addErrorMessage(System.Label.ALMS_Feedback_Existing_Rating);
+        }else if ((feedback.Rating__c  == null || feedback.Rating__c == 0) && String.isBlank(feedback.Comments__c)){
+          LMSUtils.addErrorMessage(System.Label.ALMS_Feedback_No_Data);
         }else{
             try{
                 LMSService.insertTrainingPlanFeedback(feedback);

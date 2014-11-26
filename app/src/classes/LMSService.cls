@@ -121,6 +121,7 @@ public with sharing class LMSService{
             ,'Text_Color__c'
             ,'Training_Plan_Rating__c'
             ,'Hide_Chatter_Photos__c'
+            ,'Optional_Feedback_Comments__c'
         });
         LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
         //END Access Check
@@ -146,6 +147,7 @@ public with sharing class LMSService{
             ,'Text_Color__c'
             ,'Training_Plan_Rating__c'
             ,'Hide_Chatter_Photos__c'
+            ,'Optional_Feedback_Comments__c'
         };
 
         String soqlQuery = 'select '+String.join(listSOQLFields,',')+' from Training_Plan__c where Id in :tpIds';
@@ -178,6 +180,7 @@ public with sharing class LMSService{
             ,'Text_Color__c'
             ,'Training_Plan_Rating__c'
             ,'Hide_Chatter_Photos__c'
+            ,'Optional_Feedback_Comments__c'
         });
         LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
         //END Access Check
@@ -203,6 +206,7 @@ public with sharing class LMSService{
             ,'Text_Color__c'
             ,'Training_Plan_Rating__c'
             ,'Hide_Chatter_Photos__c'
+            ,'Optional_Feedback_Comments__c'
         };
 
         String soqlQuery = 'select '+String.join(listSOQLFields,',')+' from Training_Plan__c where Id in :tpIds';

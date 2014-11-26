@@ -68,7 +68,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                     <div class="panel panel-default">
                       <div class="panel-heading"><b>{!$Label.ALMS_Additional_Information}</b></div>
                       <div class="panel-body">
-                          <a href="javascript:almond.redirectHandlerWithTarget('{!externalResourceURL}','_{!task.External_Resource_Target__c}',true)">{!IF(task.External_Resource_Name__c!=null,task.External_Resource_Name__c,externalResourceURL)}</a>
+                          <a href="javascript:almond.redirectHandlerWithTarget('{!JSENCODE(externalResourceURL)}','_{!JSENCODE(task.External_Resource_Target__c)}',true)">{!IF(task.External_Resource_Name__c!=null,task.External_Resource_Name__c,externalResourceURL)}</a>
                       </div>
                     </div>
                 </apex:outputPanel>

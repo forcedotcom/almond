@@ -1649,6 +1649,14 @@
         <value>You&apos;ve already given a rating to this training plan</value>
     </labels>
     <labels>
+        <fullName>ALMS_Feedback_No_Data</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Feedback with no comments or rating</shortDescription>
+        <value>You must provide a Rating or Comments to submit feedback</value>
+    </labels>
+    <labels>
         <fullName>ALMS_Select_Report_Default_Option</fullName>
         <categories>ALMOND General, ALMOND UI</categories>
         <language>en_US</language>

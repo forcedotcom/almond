@@ -1313,3 +1313,16 @@ td.noSidebarCell{
     }
 
 }
+
+/* CSS Star rating */
+.almond .rating_bar {
+    width: 80px;
+    height: 16px;
+    background-repeat: repeat-x;
+    text-align: left;
+    margin-bottom:5px;
+}
+.almond .rating {
+    height: 16px;
+    background-repeat: repeat-x;
+}

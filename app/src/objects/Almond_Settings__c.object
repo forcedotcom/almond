@@ -73,6 +73,14 @@
         <type>Checkbox</type>
     </fields>
     <fields>
+        <fullName>Disable_Correct_Response_Checkbox__c</fullName>
+        <inlineHelpText>Enable this option if you'd like to disable setting the correct response checkbox on every response</inlineHelpText>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Disable Correct Response Checkbox</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
         <fullName>Back_to_SF_URL__c</fullName>
         <description>URL used by the back to SF button</description>
         <externalId>false</externalId>

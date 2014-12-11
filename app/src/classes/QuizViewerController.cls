@@ -489,6 +489,7 @@ public with sharing class QuizViewerController{
         Map<Id,Response__c> responseMap = fetchExistingResponses(assignment.Id,assignment.Shared_Learning_Assignment__c,null,quiz.Id);
 
         Integer correctQuestionCounter = 0;
+        List<Response__c> responsesToUpdate = new List<Response__c>();
 
         for(Id questionId : responseMap.keySet()){
 
@@ -497,6 +498,7 @@ public with sharing class QuizViewerController{
             if(q != null){
 
                 Response__c resp = responseMap.get(questionId);
+                Boolean isCorrect = false;
 
                 //Get correct answers for the current question
                 Set<String> correctAnswers =new Set<String>();
@@ -521,10 +523,12 @@ public with sharing class QuizViewerController{
                                 if(resp.Question_Type__c == 'SelectOneQuestion'){
                                     if(correctAnswers.removeAll(selectedAnswersSet)){
                                         correctQuestionCounter++;
+                                        isCorrect = true;
                                     }
                                 }else if(resp.Question_Type__c== 'SelectMultipleQuestion'){
-                                    if(selectedAnswersSet.containsAll(correctAnswers)){
+                                    if(selectedAnswersSet.containsAll(correctAnswers) && selectedAnswersSet.size() == correctAnswers.size()){
                                         correctQuestionCounter++;
+                                        isCorrect = true;
                                     }
                                 }
                             }
@@ -535,15 +539,23 @@ public with sharing class QuizViewerController{
 
                     if(resp.Number_Response__c == q.Correct_Number__c){
                         correctQuestionCounter++;
+                        isCorrect = true;
                     }
                 }else if(q.Type__c == 'Boolean' && q.Correct_Boolean__c != null){
 
                     if(resp.Boolean_Response__c == q.Correct_Boolean__c){
                         correctQuestionCounter++;
+                        isCorrect = true;
                     }
                 }else{
                     //Unsupported types will be marked as correct
                     correctQuestionCounter++;
+                    isCorrect = true;
+                }
+
+                if(resp != null){
+                    resp.Correct_Response__c = isCorrect;
+                    responsesToUpdate.add(resp);
                 }
 
             }
@@ -563,6 +575,12 @@ public with sharing class QuizViewerController{
 
         //No CRUD/FLS enforced here as Users don't have access to update the learning assignment object
         update assignment;
+
+        //Update correct response flag at the response level
+        //No CRUD/FLS enforced here as Users don't have access to update the correct response flag object
+        if(!LMSSettings.getDisableCorrectResponseCheckbox() && responsesToUpdate.size()>0){
+            update responsesToUpdate;
+        }
 
     }
 
@@ -607,6 +625,7 @@ public with sharing class QuizViewerController{
                 ,'Response_Text_Long__c'
                 ,'User__c'
                 ,'Contact__c'
+                ,'Correct_Response__c'
         };
 
         String soqlQuery = 'select '+String.join(listSOQLFields,',')+' from Response__c where';

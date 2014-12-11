@@ -671,6 +671,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Response__c.Correct_Response__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Shared_Learning_Assignment__c.Approved_By__c</field>
         <readable>true</readable>
     </fieldPermissions>

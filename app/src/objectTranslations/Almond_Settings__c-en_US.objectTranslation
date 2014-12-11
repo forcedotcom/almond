@@ -48,5 +48,10 @@
         <label><!-- Back to SF URL --></label>
         <name>Back_to_SF_URL__c</name>
     </fields>
+    <fields>
+        <help><!-- Enable this option if you'd like to disable setting the correct response checkbox on every response --></help>
+        <label><!-- Disable Correct Response Checkbox --></label>
+        <name>Disable_Correct_Response_Checkbox__c</name>
+    </fields>
     <startsWith>Consonant</startsWith>
 </CustomObjectTranslation>

@@ -73,6 +73,10 @@
         <name>User__c</name>
         <relationshipLabel>Respuestas</relationshipLabel>
     </fields>
+    <fields>
+        <label>Respuesta Correcta</label>
+        <name>Correct_Response__c</name>
+    </fields>
     <layouts>
         <layout>Response Layout</layout>
         <sections>

@@ -60,6 +60,10 @@ public with sharing class LMSSettings {
       return (String)getValue('Back_to_SF_URL__c','/home/home.jsp');
     }
 
+    public static Boolean getDisableCorrectResponseCheckbox(){
+      return (Boolean)getValue('Disable_Correct_Response_Checkbox__c',false);
+    }
+
     private static Object getValue(String key, Object defaultValue){
         Almond_Settings__c cs = Almond_Settings__c.getInstance();
         if(cs != null && cs.get(key) != null){

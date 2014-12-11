@@ -436,6 +436,24 @@
             <field>User__c</field>
             <table>Learning_Assignment__c.Responses__r</table>
         </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Correct_Response__c</field>
+            <table>Learning_Assignment__c.Responses__r</table>
+        </columns>
         <masterLabel>Responses (Quiz Assignments)</masterLabel>
+    </sections>
+    <sections>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Question__c.Description__c</field>
+            <table>Learning_Assignment__c.Responses__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Question__c.Description_RTA__c</field>
+            <table>Learning_Assignment__c.Responses__r</table>
+        </columns>
+        <masterLabel>Questions</masterLabel>
     </sections>
 </ReportType>

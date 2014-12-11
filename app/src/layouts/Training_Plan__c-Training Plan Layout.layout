@@ -128,6 +128,10 @@
         <label>Rating Information</label>
         <layoutColumns>
             <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Optional_Feedback_Comments__c</field>
+            </layoutItems>
+            <layoutItems>
                 <behavior>Readonly</behavior>
                 <field>Training_Plan_Rating__c</field>
             </layoutItems>

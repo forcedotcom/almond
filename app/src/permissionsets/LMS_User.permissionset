@@ -671,6 +671,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Response__c.Correct_Response__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Shared_Learning_Assignment__c.Approved_By__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1047,6 +1052,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Training_Plan__c.Hide_Chatter_Photos__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Training_Plan__c.Optional_Feedback_Comments__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

@@ -98,6 +98,11 @@
         <label>Esconder imágenes de usuarios</label>
         <name>Hide_Chatter_Photos__c</name>
     </fields>
+    <fields>
+        <help>Habilitar esta opción para evitar que los comentarios sean requeridos al proveer una calificación</help>
+        <label>Comentatrios de Calificación Opcionales</label>
+        <name>Optional_Feedback_Comments__c</name>
+    </fields>
     <layouts>
         <layout>Training Plan Layout</layout>
         <sections>

@@ -98,6 +98,11 @@
         <label><!-- Hide Chatter Photos --></label>
         <name>Hide_Chatter_Photos__c</name>
     </fields>
+    <fields>
+        <help><!-- Enable this option to make feedback comments not required --></help>
+        <label><!-- Optional Feedback Comments --></label>
+        <name>Optional_Feedback_Comments__c</name>
+    </fields>
     <layouts>
         <layout>Training Plan Layout</layout>
         <sections>

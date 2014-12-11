@@ -406,6 +406,7 @@ public with sharing class LMSInit{
                 tp.Enable_Self_Registration__c = getBooleanValue(pHeader.get('enable-self-registration'),false);
                 tp.Self_Registration_Access__c = getStringValue(pHeader.get('self-registration-access'),null);
                 tp.Hide_Chatter_Photos__c = getBooleanValue(pHeader.get('hide-chatter-photos'),false);
+                tp.Optional_Feedback_Comments__c = getBooleanValue(pHeader.get('optional-feedback-comments'),false);
                 plans.put(tp.Name,tp);
             }
 

@@ -237,6 +237,10 @@
         <name>ALMS_Feedback_Existing_Rating</name>
     </customLabels>
     <customLabels>
+        <label><!-- Feedback with no comments or rating --></label>
+        <name>ALMS_Feedback_No_Data</name>
+    </customLabels>
+    <customLabels>
         <label><!-- Missing feedback comments error message --></label>
         <name>ALMS_Feedback_Missing_Comments</name>
     </customLabels>

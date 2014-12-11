@@ -79,6 +79,17 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 
                 <apex:define name="body">
 
+                    <style>
+                      .almond .rating_bar{
+                          background: url({!URLFOR($Resource.almond_uilib, '/img/stars.png')});
+                          background-position: 0 0;
+                      }
+                      .almond .rating{
+                          background: url({!URLFOR($Resource.almond_uilib, '/img/stars.png')});
+                          background-position: 0 -16px;
+                      }
+                    </style>
+
                     <apex:form id="feedbackForm">
 
                         <apex:outputPanel layout="none" rendered="{!isAssignedToTrainingPlan}">
@@ -126,7 +137,12 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                                             </apex:outputPanel>
                                         </div>
                                         <div class="col-md-6">
-                                            <div class="well">
+                                                <div class="well">
+                                                  <apex:outputPanel layout="none" rendered="{!c.Rating__c != null && c.Rating__c > 0}">
+                                                    <div class="rating_bar">
+                                                      <div  class="rating" style="width:{!c.Rating__c*20}%;"></div>
+                                                    </div>
+                                                  </apex:outputPanel>
                                                 <apex:outputField value="{!c.Comments__c}"/>
                                             </div>
                                         </div>

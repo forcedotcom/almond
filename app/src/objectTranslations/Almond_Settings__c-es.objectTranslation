@@ -48,5 +48,10 @@
         <label>URL de regreso a Salesforce</label>
         <name>Back_to_SF_URL__c</name>
     </fields>
+    <fields>
+        <help>Habilitar esta opción para deshabilitar la casilla que indica si una respuesta es correcta</help>
+        <label>Deshabilitar la casilla de Respuesta Correcta</label>
+        <name>Disable_Correct_Response_Checkbox__c</name>
+    </fields>
     <gender>Feminine</gender>
 </CustomObjectTranslation>

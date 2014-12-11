@@ -43,6 +43,10 @@
                 <behavior>Edit</behavior>
                 <field>Boolean_Response__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Correct_Response__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

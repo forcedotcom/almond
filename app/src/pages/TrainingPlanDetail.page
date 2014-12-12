@@ -58,7 +58,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
         </apex:define>
 
         <apex:define name="hero-banner-footer">
-          <apex:outputPanel layout="none" rendered="{!tPlan.totalMins > 0}">
+          <apex:outputPanel layout="none" rendered="{!tPlan.totalMins != null && tPlan.totalMins > 0}">
             <span>{!$Label.ALMS_Duration} : {!tPlan.TotalDuration}</span>
           </apex:outputPanel>
         </apex:define>

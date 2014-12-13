@@ -39,10 +39,12 @@ public with sharing class TrainingPlanFeedbackController{
     public Boolean isAllowedToView{get;private set;}
 
     public Boolean hasMessages{get{return ApexPages.hasMessages();}}
+    public transient Boolean feedbackSuccess{get;private set;}
 
     public TrainingPlanFeedbackController(){
         tplanId = ApexPages.currentPage().getParameters().get('id');
         isPreview = false;
+        feedbackSuccess = false;
         if(!String.isBlank(ApexPages.currentPage().getParameters().get('preview'))){
             isPreview = true;
         }
@@ -90,6 +92,8 @@ public with sharing class TrainingPlanFeedbackController{
             try{
                 LMSService.insertTrainingPlanFeedback(feedback);
                 init();
+                feedbackSuccess = true;
+                LMSUtils.addSuccessMessage(System.Label.ALMS_Feedback_Submitted);
             }catch(Exception e){
                 LMSUtils.addErrorMessage(e.getMessage());
             }

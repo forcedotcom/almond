@@ -241,6 +241,10 @@
         <name>ALMS_Feedback_No_Data</name>
     </customLabels>
     <customLabels>
+        <label><!-- Your feedback has been successfully submitted --></label>
+        <name>ALMS_Feedback_Submitted</name>
+    </customLabels>
+    <customLabels>
         <label><!-- Missing feedback comments error message --></label>
         <name>ALMS_Feedback_Missing_Comments</name>
     </customLabels>

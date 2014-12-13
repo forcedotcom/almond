@@ -241,6 +241,10 @@
         <name>ALMS_Feedback_No_Data</name>
     </customLabels>
     <customLabels>
+        <label>Sus comentarios han sido enviados existosamente</label>
+        <name>ALMS_Feedback_Submitted</name>
+    </customLabels>
+    <customLabels>
         <label>Favor de proporcionar comentarios</label>
         <name>ALMS_Feedback_Missing_Comments</name>
     </customLabels>

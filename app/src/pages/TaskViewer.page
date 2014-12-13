@@ -84,14 +84,14 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                         </div>
                     </apex:outputPanel>
 
-                    <a href="javascript:doCancel()" class="almond-primary-btn large-btn" style="margin-bottom:15px;">{!$Label.ALMS_Task_Working_Button}</a>
-
                     <apex:outputPanel layout="none" rendered="{!task.Enable_Image_Upload__c}">
                       <apex:commandButton value="{!$Label.ALMS_Task_Done_Button}" action="{!markCompletedAndRedirect}" styleClass="almond-default-btn large-btn" onclick="forceShowStatus();"/>
                     </apex:outputPanel>
                     <apex:outputPanel layout="none" rendered="{!!task.Enable_Image_Upload__c}">
                       <apex:commandButton value="{!$Label.ALMS_Task_Done_Button}" action="{!markCompleted}" styleClass="almond-default-btn large-btn" onclick="forceShowStatus();" rerender="resultsPanel,pmessages" oncomplete="doRedirection()"/>
                     </apex:outputPanel>
+
+                    <a href="javascript:doCancel()" class="almond-primary-btn large-btn" style="margin-top:15px;">{!$Label.ALMS_Task_Working_Button}</a>
 
                 </apex:outputPanel>
 

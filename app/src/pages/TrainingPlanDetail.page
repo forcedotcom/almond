@@ -58,7 +58,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
         </apex:define>
 
         <apex:define name="hero-banner-footer">
-          <apex:outputPanel layout="none" rendered="{!tPlan.totalMins > 0}">
+          <apex:outputPanel layout="none" rendered="{!tPlan.totalMins != null && tPlan.totalMins > 0}">
             <span>{!$Label.ALMS_Duration} : {!tPlan.TotalDuration}</span>
           </apex:outputPanel>
         </apex:define>
@@ -173,9 +173,9 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                                 <apex:outputPanel rendered="{!i.assignments != null}" layout="none">
                                     <a href="javascript:void(0)" lms-data-sectionId="{!o.trainingPlanSection.Id}" lms-data-itemId="{!i.trainingPlanSectionItem.Id}" class="launch-learning-btn almond-primary-btn small-btn" >{!$Label.ALMS_Launch}</a>
 
-                                    <a href="javascript:void(0)" class="launch-btn-mobile">
+                                    <div class="launch-btn-mobile">
                                         <span class="glyphicon glyphicon-{!IF(i.latestAssignment.Progress__c != 'Completed',IF(i.latestAssignment.Progress__c == 'In Review','time','unchecked'),'check')}"></span>
-                                    </a>
+                                    </div>
                                 </apex:outputPanel>
 
                             </div>

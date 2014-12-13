@@ -170,7 +170,9 @@ public with sharing class LMSWrappersService{
                                 learningIds.add(si.Learning__c);
                             }
                             tps.items.add(tpsi);
-                            tps.totalMins += (Integer)si.Duration__c;
+                            if(si.Duration__c != null){
+                                tps.totalMins += (Integer)si.Duration__c;
+                            }
 
                             if(!previousSectionItemOptional){
                             	tpsi.previousSectionItemId = previousSectionItem;

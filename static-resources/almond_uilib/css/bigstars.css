@@ -27,26 +27,26 @@
 *
 */
 div.bigstars div.rateit-range{
-    background: url('../img/star-white32.png');
+    background: url('../img/star-white32.svg');
     height: 32px;
 }
 
 div.bigstars div.rateit-hover{
-    background: url('../img/star-gold32.png');
+    background: url('../img/star-gold32.svg');
 }
 
 div.bigstars div.rateit-selected{
-    background: url('../img/star-red32.png');
+    background: url('../img/star-gold32.svg');
 }
 
 div.bigstars div.rateit-reset{
-    background: url('../img/star-black32.png');
+    background: url('../img/star-black32.svg');
     width: 32px;
     height: 32px;
 }
 
 div.bigstars div.rateit-reset:hover{
-    background: url('../img/star-white32.png');
+    background: url('../img/star-white32.svg');
 }
 
 .rateit button.rateit-reset{

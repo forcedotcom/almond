@@ -1657,6 +1657,14 @@
         <value>You must provide a Rating or Comments to submit feedback</value>
     </labels>
     <labels>
+        <fullName>ALMS_Feedback_Submitted</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Feedback submitted message</shortDescription>
+        <value>Your feedback has been successfully submitted</value>
+    </labels>
+    <labels>
         <fullName>ALMS_Select_Report_Default_Option</fullName>
         <categories>ALMOND General, ALMOND UI</categories>
         <language>en_US</language>
@@ -1734,7 +1742,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>In Progress Status picklist value</shortDescription>
-        <value>Not Started</value>
+        <value>In Progress</value>
     </labels>
     <labels>
         <fullName>ALMS_Training_Status_Completed</fullName>

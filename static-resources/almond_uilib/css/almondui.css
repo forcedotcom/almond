@@ -796,6 +796,7 @@ td.noSidebarCell{
 .almond .launch-btn-mobile .glyphicon{
     text-decoration:none;
     color: #000;
+    opacity: 0.5;
 }
 
 /* LMS Search styles */

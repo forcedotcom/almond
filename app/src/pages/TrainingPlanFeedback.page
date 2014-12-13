@@ -121,7 +121,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                         <apex:outputPanel id="feedbackContent" layout="block">
 
                             <apex:outputPanel layout="none" id="pageMessages">
-                                <apex:outputPanel layout="block" styleClass="alert alert-danger" rendered="{!hasMessages}">
+                                <apex:outputPanel layout="block" styleClass="col-md-6 col-md-offset-4 alert alert-{!IF(feedbackSuccess,'success','danger')}" rendered="{!hasMessages}">
                                     <apex:pageMessages />
                                 </apex:outputPanel>
                             </apex:outputPanel>

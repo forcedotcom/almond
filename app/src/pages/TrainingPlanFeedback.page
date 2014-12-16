@@ -255,6 +255,8 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                         $jk('#myContentModal').on('hidden.bs.modal', function () {
                             $jk('#contentIframe').prop('src','');
                         });
+
+                        almond.enableSF1Shortcuts();
                     </script>
               </apex:define>
 

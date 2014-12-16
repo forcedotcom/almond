@@ -369,6 +369,10 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                     </apex:facet>
                 </apex:actionStatus>
 
+                <script>
+                    almond.enableSF1Shortcuts();
+                </script>
+
             </apex:form>
         </apex:define>
 

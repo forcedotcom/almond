@@ -89,6 +89,25 @@ var almond = (function($){
         }
     };
 
+    var enableSF1Shortcuts = function(){
+        if(isSF1()){
+            $(window).bind('keydown', function(event) {
+                if (event.ctrlKey){
+                    switch (String.fromCharCode(event.which).toLowerCase()) {
+                    case 't':
+                        event.preventDefault();
+                        SfdcApp.projectOneNavigator.fireContainerEvent("one:toggleNav");
+                        break;
+                    case 'r':
+                        event.preventDefault();
+                        location.reload();
+                        break;
+                    }
+                }
+            });
+        }
+    };
+
     return {
         redirectHandler : redirectHandler,
         isSF1 : isSF1,
@@ -96,7 +115,8 @@ var almond = (function($){
         redirectHandlerWithTarget : redirectHandlerWithTarget,
         redirectHandlerWithStatus : redirectHandlerWithStatus,
         redirectHandlerWithTargetPopUp : redirectHandlerWithTargetPopUp,
-        isMobileDevice : isMobileDevice
+        isMobileDevice : isMobileDevice,
+        enableSF1Shortcuts : enableSF1Shortcuts
     };
 
 })(jQuery);

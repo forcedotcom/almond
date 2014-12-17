@@ -87,7 +87,6 @@ public with sharing class QuizViewerController{
             relatedFieldsObjects.put(Learning_Assignment__c.sObjectType,new List<String>{
                 'Id'
                 ,'User__c'
-                ,'Contact__c'
                 ,'Learning__c'
                 ,'Learning_Version__c'
                 ,'Progress__c'
@@ -594,7 +593,6 @@ public with sharing class QuizViewerController{
             ,'Question__c'
             ,'Question_Type__c'
             ,'User__c'
-            ,'Contact__c'
             ,'Number_Response__c'
             ,'Boolean_Response__c'
             ,'Response_Answer_Sequence_Long__c'

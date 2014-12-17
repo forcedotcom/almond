@@ -109,7 +109,6 @@ global with sharing class ResourceViewerController{
             'Id'
             ,'Name'
             ,'User__c'
-            ,'Contact__c'
             ,'Learning__c'
             ,'Progress__c'
             ,'Training_Plan__c'

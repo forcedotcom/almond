@@ -438,7 +438,6 @@ public with sharing class LMSService{
         relatedFieldsObjects.put(Learning_Assignment__c.sObjectType,new List<String>{
             'Id'
             ,'Name'
-            ,'Contact__c'
             ,'User__c'
             ,'OwnerId'
             ,'Learning__c'
@@ -535,7 +534,6 @@ public with sharing class LMSService{
         relatedFieldsObjectsView.put(Shared_Learning_Assignment__c.sObjectType,new List<String>{
             'Id'
             ,'Name'
-            ,'Contact__c'
             ,'OwnerId'
             ,'User__c'
             ,'Learning__c'
@@ -823,7 +821,6 @@ public with sharing class LMSService{
             ,'Name'
             ,'Status__c'
             ,'User__c'
-            ,'Contact__c'
             ,'Training_Plan_Achievement__c'
             ,'Achievement__c'
         });

@@ -86,15 +86,25 @@ global with sharing class ResourceViewerController{
         //Redirect to external resource
         String resourceURL = resource.Resource_URL__c;
 
+        if(resourceURL == null){
+            return '';
+        }
         //Add https prefix in case protocol is not present in the resource url
         if(!resourceURL.startsWith('http')){
-        	resourceURL = 'https://'+resourceURL;
+            resourceURL = 'https://'+resourceURL;
         }
 
+        //Extract anchor component from url if present
+        List<String> urlAnchorComponents = resourceURL.split('#');
+
         PageReference ref = new PageReference(resourceURL);
+
         if(resource.Add_training_parameters_to_URL__c){
             ref.getParameters().put('aid',assignment.Id);
             ref.getParameters().put('tid',assignment.Training_Plan__c);
+            if(urlAnchorComponents.size() > 1){
+                ref.setAnchor(urlAnchorComponents[1]);
+            }
         }
         String resultURL = ref.getURL();
         return resultURL;

@@ -130,7 +130,9 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                                 <apex:repeat value="{!comments}" var="c">
                                     <div class="row">
                                         <div class="col-md-2 col-md-offset-2" style="text-align:center;padding:0 0 10px 0;margin-bottom:10px;">
-                                            <div><img src="{!c.User__r.SmallPhotoUrl}" class="profilePic-header-45"/></div>
+                                            <a href="javascript:almond.redirectHandlerWithStatus('{!$Page.MyProfile}?id={!c.User__c}',true)">
+                                              <img src="{!c.User__r.SmallPhotoUrl}" class="profilePic-header-45"/>
+                                            </a>
                                             <div><span class="feedback-username">{!c.User__r.Name}</span></div>
                                             <apex:outputPanel layout="none" rendered="{!c.Rating__c != null && c.Rating__c > 0 }">
                                                 <div><span class="feedback-rating">{!$Label.ALMS_Feedback_Rating} : {!c.Rating__c}</span></div>

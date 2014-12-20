@@ -38,7 +38,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                 margin-left:0;
                 margin-right:0;
             }
-            .almond,.almond .wrap,.almond .almond-nav{
+            body,.almond,.almond .wrap,.almond .almond-nav,.oneContent,.oneAlohaPage{
                 background-color: #fff !important;
             }
         </style>

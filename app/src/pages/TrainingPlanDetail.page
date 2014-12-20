@@ -79,7 +79,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 
         <apex:define name="body">
 
-            <apex:form >
+            <apex:form styleClass="tplan-form">
 
                 <apex:actionFunction action="{!retrieveItemDetails}" name="retrieveItemDetails" rerender="itemModalPanel,resultsPanel"  status="status" oncomplete="processSelectedItem()">
                     <apex:param name="sectionId" assignTo="{!selectedSectionId}" value="" />
@@ -102,17 +102,21 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                     <div class="activity-section-wrap" >
                     <div class="activity-section-head row" >
 
-                        <div class="col-xs-1 col-sm-1 col-md-1 learn-icon">
-
-                            <apex:outputPanel layout="none" rendered="{!o.mainAchievement.Work_Badge_Image_URL__c == null}">
-                                <apex:outputField value="{!o.mainAchievement.Acquired_Image__c}" rendered="{!o.sectionAssignment.Status__c == 'Completed'}" />
-                                <apex:outputField value="{!o.mainAchievement.Eligible_Image__c}" rendered="{!o.sectionAssignment.Status__c != 'Completed'}" />
-                            </apex:outputPanel>
-                            <apex:outputPanel layout="none" rendered="{!o.mainAchievement.Work_Badge_Image_URL__c != null}">
-                                <apex:image url="{!o.mainAchievement.Work_Badge_Image_URL__c}" styleClass="{!IF(o.sectionAssignment.Status__c != 'Completed','badge-disabled','')}"/>
-                            </apex:outputPanel>
-
-                        </div>
+                        <apex:outputPanel layout="none" rendered="{!o.mainAchievement.Work_Badge_Image_URL__c == null && o.mainAchievement.Acquired_Image__c == null}">
+                            <div class="col-xs-1 col-sm-1 col-md-1 learn-icon-offset">
+                            </div>
+                        </apex:outputPanel>
+                        <apex:outputPanel layout="none" rendered="{!o.mainAchievement.Work_Badge_Image_URL__c != null || o.mainAchievement.Acquired_Image__c != null}">
+                            <div class="col-xs-1 col-sm-1 col-md-1 learn-icon">
+                                <apex:outputPanel layout="none" rendered="{!o.mainAchievement.Work_Badge_Image_URL__c == null}">
+                                    <apex:outputField value="{!o.mainAchievement.Acquired_Image__c}" rendered="{!o.sectionAssignment.Status__c == 'Completed'}" />
+                                    <apex:outputField value="{!o.mainAchievement.Eligible_Image__c}" rendered="{!o.sectionAssignment.Status__c != 'Completed'}" />
+                                </apex:outputPanel>
+                                <apex:outputPanel layout="none" rendered="{!o.mainAchievement.Work_Badge_Image_URL__c != null}">
+                                    <apex:image url="{!o.mainAchievement.Work_Badge_Image_URL__c}" styleClass="{!IF(o.sectionAssignment.Status__c != 'Completed','badge-disabled','')}"/>
+                                </apex:outputPanel>
+                            </div>
+                        </apex:outputPanel>
 
                         <div class="col-xs-4 col-sm-4 col-md-4 title">
                             <apex:outputField value="{!o.trainingPlanSection.Name}"  />
@@ -142,18 +146,18 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                             </div>
 
                             <div class="col-xs-10 col-sm-4 col-md-4 title ls-learning-wrapper">
+                            <apex:outputPanel layout="none" rendered="{!!i.trainingPlanSectionItem.Optional__c}">
+                                <div class="requiredItem">*</div>
+                            </apex:outputPanel>
                                 <apex:outputField value="{!i.learning.Name}"  />
-                                <apex:outputPanel layout="none" rendered="{!!i.trainingPlanSectionItem.Optional__c}">
-                                    <span class="required_asterisk">*</span>
-                                </apex:outputPanel>
                             </div>
 
                             <a href="javascript:void(0)" class="mobile-learning-wrapper launch-learning-btn" lms-data-sectionId="{!o.trainingPlanSection.Id}" lms-data-itemId="{!i.trainingPlanSectionItem.Id}">
-                                <div class="col-xs-10 col-sm-4 col-md-4 title">
-                                    <apex:outputField value="{!i.learning.Name}"  />
+                                    <div class="col-xs-10 col-sm-4 col-md-4 title">
                                     <apex:outputPanel layout="none" rendered="{!!i.trainingPlanSectionItem.Optional__c}">
-                                        <span class="required_asterisk">*</span>
+                                        <div class="requiredItem">*</div>
                                     </apex:outputPanel>
+                                    <apex:outputField value="{!i.learning.Name}"  />
                                 </div>
                             </a>
 

@@ -77,7 +77,6 @@ public with sharing class TaskViewerController{
             relatedFieldsObjects.put(Learning_Assignment__c.sObjectType,new List<String>{
                 'Id'
                 ,'User__c'
-                ,'Contact__c'
                 ,'Learning__c'
                 ,'Learning_Version__c'
                 ,'Progress__c'

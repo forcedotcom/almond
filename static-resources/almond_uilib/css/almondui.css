@@ -114,6 +114,15 @@ td.noSidebarCell{
     padding: 7px;
 }
 
+.almond .requiredItem{
+    color: #c00;
+    font-size: 14px;
+    font-weight: bold;
+    position: absolute;
+    left: 6px;
+    top: 1px;
+    bottom: 1px;
+}
 /* reformat padding on modal screens*/
 .almond .modal-footer {
     padding: 10px 20px;
@@ -124,6 +133,9 @@ td.noSidebarCell{
     min-height: 300px;
 }
 
+.almond .tplan-form{
+    padding:0 0 20px 0;
+}
 /*!
 * Header/Nav styles
 * ------------------------------------------------------
@@ -242,6 +254,10 @@ td.noSidebarCell{
 }
 
 .almond .center-pills { display: inline-block; }
+
+.almond .btn-plan-feedback{
+    width:100%;
+}
 
 /*!
 * LMS Form styles
@@ -707,6 +723,10 @@ td.noSidebarCell{
     width: auto !important;
 }
 
+.almond .activity-section-head .learn-icon-offset{
+    display:none;
+}
+
 .almond .activity-section-head .title,
 .almond .activity-section-head .prog-status {
     margin-top: 4px;
@@ -843,6 +863,10 @@ td.noSidebarCell{
 
     .almond .launch-btn-mobile{
         display: none;
+    }
+
+    .almond .activity-section-head .learn-icon-offset{
+        display:block;
     }
 }
 

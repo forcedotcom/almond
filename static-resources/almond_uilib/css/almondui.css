@@ -255,6 +255,10 @@ td.noSidebarCell{
 
 .almond .center-pills { display: inline-block; }
 
+.almond .btn-plan-feedback{
+    width:100%;
+}
+
 /*!
 * LMS Form styles
 * ------------------------------------------------------

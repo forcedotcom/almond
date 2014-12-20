@@ -111,7 +111,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                                             <label>{!$Label.ALMS_Feedback_Comments} : </label>
                                             <apex:inputField value="{!feedback.Comments__c}" styleClass="form-control" />
                                         </div>
-                                        <apex:commandButton value="{!$Label.ALMS_Feedback_Submit}" action="{!submitFeedback}" styleClass="btn btn-success" status="status" rerender="feedbackContent" />
+                                        <apex:commandButton value="{!$Label.ALMS_Feedback_Submit}" action="{!submitFeedback}" styleClass="btn btn-success btn-plan-feedback" status="status" rerender="feedbackContent" />
                                     </div>
                                 </div>
                             </div>

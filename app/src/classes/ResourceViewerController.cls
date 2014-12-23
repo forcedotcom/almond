@@ -30,6 +30,7 @@ global with sharing class ResourceViewerController{
 
     public Boolean continueRedirection{get;private set;}
     private Boolean isPreviewMode{get;set;}{isPreviewMode = false;}
+    public transient String retURL{get;private set;}
 
     public ResourceViewerController(){
         init();
@@ -37,12 +38,19 @@ global with sharing class ResourceViewerController{
 
     private void init(){
 
+        retURL = null;
+
         //Retrieve assignment id
         String aid = Apexpages.currentPage().getParameters().get('aid');
         //Retrieve preview mode flag
         if(!String.isBlank(Apexpages.currentPage().getParameters().get('pMode'))){
             isPreviewMode = true;
         }
+        //Retrieve retURL value from URL
+        if(!String.isBlank(Apexpages.currentPage().getParameters().get('retURL'))){
+            retURL = Apexpages.currentPage().getParameters().get('retURL');
+        }
+
         continueRedirection = false;
 
         try{

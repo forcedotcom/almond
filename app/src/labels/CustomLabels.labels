@@ -1848,4 +1848,12 @@
         <shortDescription>Return to Salesforce link</shortDescription>
         <value>Return to Salesforce</value>
     </labels>
+    <labels>
+        <fullName>ALMS_Back_To_Previous_Page</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Back to previous page</shortDescription>
+        <value>Back to previous page</value>
+    </labels>
 </CustomLabels>

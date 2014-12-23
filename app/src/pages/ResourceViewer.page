@@ -30,6 +30,12 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
     <apex:pageMessages />
     <apex:pageMessage summary="{!$Label.ALMS_Resource_Redirect}" severity="info" strength="1" />
 
+    <apex:outputPanel layout="none" rendered="{!retURL != null}">
+        <div style="width:100%;text-align:center;padding:10px 0;">
+            <a href="javascript:almond.redirectHandler('{!JSENCODE(retURL)}',false)">{!$Label.ALMS_Back_To_Previous_Page}</a>
+        </div>
+    </apex:outputPanel>
+
     <apex:includeScript value="{!URLFOR($Resource.almond_uilib, '/js/jquery.min.js')}"/>
     <apex:includeScript value="{!URLFOR($Resource.almond_uilib, '/js/almondutils.js')}"/>
 

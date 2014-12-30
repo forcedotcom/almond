@@ -133,8 +133,9 @@ td.noSidebarCell{
     min-height: 300px;
 }
 
-.almond .tplan-form{
-    padding:0 0 20px 0;
+.almond .tplan-form,
+.almond .tplan-preview-form{
+    padding:0 0 40px 0;
 }
 /*!
 * Header/Nav styles
@@ -1299,7 +1300,7 @@ td.noSidebarCell{
         overflow: scroll;
         -webkit-overflow-scrolling: touch;
         min-height: 100%;
-        padding-bottom: 1px;
+        padding-bottom: 20px; /* added this fix for SF1 bottom margin issues */
     }
 
     .almond .lms-template-hr{

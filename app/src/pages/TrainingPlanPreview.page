@@ -91,7 +91,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 
             <apex:define name="body">
 
-                <apex:form id="trainingPreviewForm">
+                <apex:form id="trainingPreviewForm" styleClass="tplan-preview-form">
 
                     <apex:outputPanel layout="none" id="pageMessages">
                         <apex:outputPanel layout="block" styleClass="alert alert-info" rendered="{!hasMessages}">

@@ -1,7 +1,7 @@
 module.exports = function(grunt) {
 
   require("matchdep").filterDev("grunt-*").forEach(grunt.loadNpmTasks);
-  
+
   grunt.initConfig({
 
     pkg: grunt.file.readJSON('package.json'),
@@ -17,9 +17,9 @@ module.exports = function(grunt) {
     uglify: {
       build: {
         files: {
-          './dist/js/almondutils.js': ['./dist/js/almondutils.js'],
-          './dist/js/fastclick.js': ['./dist/js/fastclick.js'],
-          './dist/js/scrollfix.js': ['./dist/js/scrollfix.js']
+          './dist/js/almondutils.min.js': ['./dist/js/almondutils.js'],
+          './dist/js/fastclick.min.js': ['./dist/js/fastclick.js'],
+          './dist/js/scrollfix.min.js': ['./dist/js/scrollfix.js']
         }
       }
     },
@@ -29,7 +29,7 @@ module.exports = function(grunt) {
         cwd: './dist/css/',
         src: ['*.css', '!*.min.css'],
         dest: './dist/css/',
-        ext: '.css'
+        ext: '.min.css'
       }
     },
     compress: {
@@ -39,7 +39,7 @@ module.exports = function(grunt) {
           mode: 'zip'
         },
         files: [
-          { src: './dist/**' }
+            { expand: true, src: '**/*', cwd : "./dist" }
           ]
       }
     },
@@ -60,7 +60,7 @@ module.exports = function(grunt) {
     }
 
   });
-  
+
   // Default task(s).
   grunt.registerTask('default', ['copy', 'uglify', 'cssmin', 'compress', 'clean']);
 

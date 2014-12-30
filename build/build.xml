@@ -241,6 +241,19 @@
 	</target>
 
 	<!-- Create static resource zip file from exploded directory structure -->
+	<!-- <target name="create-static-res" depends="checkMetaHasPackageVersions">
+		<dirset id="dist.contents" dir="../static-resources" includes="static-resources *"/>
+		<property name="prop.dist.contents" refid="dist.contents"/>
+		<for list="${prop.dist.contents}" delimiter=";" param = "val">
+			<sequential>
+				<echo message = "Processing @{val} static resource ..."/>
+				<delete file="${src.dir}/staticresources/@{val}.resource"/>
+				<zip destfile="${src.dir}/staticresources/@{val}.resource" basedir="${staticres.src.dir}/@{val}" />
+			</sequential>
+		</for>
+	</target> -->
+
+	<!-- Create static resource zip file from exploded directory structure -->
 	<target name="create-static-res" depends="checkMetaHasPackageVersions, grunt">
 		<echo message = "Processing static resource ..."/>
 	</target>

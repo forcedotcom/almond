@@ -27,8 +27,8 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 <apex:page controller="MyProfileController" docType="html-5.0" sidebar="false" showHeader="false" standardStylesheets="false">
     <head>
-        <link href="{!URLFOR($Resource.almond_uilib, '/css/bootstrap-namespaced.css')}" rel="stylesheet" media="screen" />
-        <link href="{!URLFOR($Resource.almond_uilib, '/css/almondui.css')}" rel="stylesheet" media="screen" />
+        <link href="{!URLFOR($Resource.almond_uilib, '/css/bootstrap-namespaced.min.css')}" rel="stylesheet" media="screen" />
+        <link href="{!URLFOR($Resource.almond_uilib, '/css/almondui.min.css')}" rel="stylesheet" media="screen" />
     </head>
     <body>
 

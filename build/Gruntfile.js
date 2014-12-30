@@ -18,8 +18,7 @@ module.exports = function(grunt) {
       build: {
         files: {
           './dist/js/almondutils.min.js': ['./dist/js/almondutils.js'],
-          './dist/js/fastclick.min.js': ['./dist/js/fastclick.js'],
-          './dist/js/scrollfix.min.js': ['./dist/js/scrollfix.js']
+          './dist/js/fastclick.min.js': ['./dist/js/fastclick.js']
         }
       }
     },

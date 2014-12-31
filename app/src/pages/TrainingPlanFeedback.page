@@ -27,14 +27,13 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 <apex:page controller="TrainingPlanFeedbackController" docType="html-5.0" sidebar="false" showHeader="false" standardStylesheets="false" >
 
+
     <apex:outputPanel layout="none" rendered="{!isAllowedToView}">
 
         <apex:composition template="LMS_HeroTemplate">
 
                 <apex:define name="head">
                     <title>{!tPlan.trainingPlan.Name}</title>
-                    <link href="{!URLFOR($Resource.almond_uilib, '/css/rateit.css')}" rel="stylesheet" media="screen" />
-                    <link href="{!URLFOR($Resource.almond_uilib, '/css/bigstars.css')}" rel="stylesheet" media="screen" />
                 </apex:define>
 
                 <apex:define name="hero-banner">
@@ -258,6 +257,12 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                             $jk('#contentIframe').prop('src','');
                         });
                     </script>
+
+
+              </apex:define>
+
+              <apex:define name="additional-scripts">
+                    <apex:includeScript value="{!URLFOR($Resource.almond_uilib, '/js/jquery.rateit.min.js')}"/>
               </apex:define>
 
         </apex:composition>

@@ -928,6 +928,10 @@
         <label><!-- Return to Salesforce --></label>
         <name>ALMS_Back_SF</name>
     </customLabels>
+    <customLabels>
+        <label><!-- Back to previous page--></label>
+        <name>ALMS_Back_To_Previous_Page</name>
+    </customLabels>
     <customTabs>
         <label><!-- Learning --></label>
         <name>Learning</name>

@@ -29,8 +29,8 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 
     <head>
         <apex:insert name="head"/>
-        <link href="{!URLFOR($Resource.almond_uilib, '/css/bootstrap-namespaced.css')}" rel="stylesheet" media="screen" />
-        <link href="{!URLFOR($Resource.almond_uilib, '/css/almondui.css')}" rel="stylesheet" media="screen" />
+        <link href="{!URLFOR($Resource.almond_uilib, '/css/bootstrap-namespaced.min.css')}" rel="stylesheet" media="screen" />
+        <link href="{!URLFOR($Resource.almond_uilib, '/css/almondui.min.css')}" rel="stylesheet" media="screen" />
 
         <!-- web app config -->
         <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -94,13 +94,14 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                 <!-- js files needed to load -->
                 <apex:includeScript value="{!URLFOR($Resource.almond_uilib, '/js/jquery.min.js')}"/>
                 <apex:includeScript value="{!URLFOR($Resource.almond_uilib, '/js/bootstrap.min.js')}"/>
-                <apex:includeScript value="{!URLFOR($Resource.almond_uilib, '/js/jquery.rateit.min.js')}"/>
-                <apex:includeScript value="{!URLFOR($Resource.almond_uilib, '/js/almondutils.js')}"/>
-                <apex:includeScript value="{!URLFOR($Resource.almond_uilib, '/js/fastclick.js')}"/>
+                <apex:includeScript value="{!URLFOR($Resource.almond_uilib, '/js/almondutils.min.js')}"/>
+                <apex:includeScript value="{!URLFOR($Resource.almond_uilib, '/js/fastclick.min.js')}"/>
+
+                <apex:insert name="additional-scripts" />
+
             </div>
         </div>
 
-        <script type="text/javascript" src="{!URLFOR($Resource.almond_uilib, '/js/scrollfix.js')}"></script>
         <script type="text/javascript">
             //Prevent Header & Footer From Showing Browser Chrome
             document.addEventListener('touchmove', function(event) {

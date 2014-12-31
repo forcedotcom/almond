@@ -241,7 +241,7 @@
 	</target>
 
 	<!-- Create static resource zip file from exploded directory structure -->
-	<target name="create-static-res" depends="checkMetaHasPackageVersions">
+	<!-- <target name="create-static-res" depends="checkMetaHasPackageVersions">
 		<dirset id="dist.contents" dir="../static-resources" includes="static-resources *"/>
 		<property name="prop.dist.contents" refid="dist.contents"/>
 		<for list="${prop.dist.contents}" delimiter=";" param = "val">
@@ -251,7 +251,65 @@
 				<zip destfile="${src.dir}/staticresources/@{val}.resource" basedir="${staticres.src.dir}/@{val}" />
 			</sequential>
 		</for>
+	</target> -->
+
+	<!-- Create static resource zip file from exploded directory structure -->
+	<target name="create-static-res" depends="checkMetaHasPackageVersions, grunt">
+		<echo message = "Processing static resource ..."/>
 	</target>
+
+	<!-- ###################################### -->
+  <!-- TASK FOR PRE PROCESING FRONT END FILES -->
+  <!-- ###################################### -->
+
+  <!-- Tools path -->
+  <property name="tools.node.version" location="./tools/nodejs/v0.10.22" />
+  <property name="tools.node.modules" location="./node_modules" />
+
+  <!-- Path to nodejs -->
+  <condition property="tools.node.exec" value="${tools.node.version}/win-x86_64/node.exe">
+    <and>
+      <os family="windows"/>
+      <os arch="x86_64"/>
+    </and>
+  </condition>
+  <condition property="tools.node.exec" value="${tools.node.version}/win-x86_64/node.exe">
+    <and>
+      <os family="windows"/>
+      <os arch="amd64"/>
+    </and>
+  </condition>
+  <condition property="tools.node.exec" value="${tools.node.version}/win-x86/node.exe">
+    <and>
+      <os family="windows"/>
+      <os arch="x86"/>
+    </and>
+  </condition>
+  <condition property="tools.node.exec" value="${tools.node.version}/osx-x86/bin/node">
+     <os family="mac"/>
+  </condition>
+  <condition property="tools.node.exec" value="${tools.node.version}/linux-x86/bin/node">
+     <os family="unix"/>
+  </condition>
+  <fail unless="tools.node.exec">No nodejs path defined for this OS!</fail>
+
+  <!-- Install all dev dependencies -->
+  <target name="npminstall">
+      <exec executable="npm" failonerror="true" taskname="npminstall">
+         <arg line="install"/>
+      </exec>
+  </target>
+
+	<!-- Path to Grunt -->
+  <property name="tools.grunt.exec" location="${tools.node.modules}/grunt-cli/bin/grunt" />
+
+  <!-- Run grunt task to process static resources -->
+  <target name="grunt" depends="npminstall" >
+      <exec executable="${tools.node.exec}" failonerror="true" taskname="grunt">
+         <arg line="${tools.grunt.exec}"/>
+         <arg line="default"/>
+      </exec>
+  </target>
 
 	<!-- Run target validations to prevent unintended deployments to production -->
 	<target name="runTargetValidations" >

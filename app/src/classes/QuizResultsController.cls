@@ -48,20 +48,6 @@ public with sharing class QuizResultsController{
 
         try{
 
-            //BEGIN Access Check
-            //Note: we're excluding the following fields from the FLS check since some installations may want to remove view permissions
-            //'Evaluation_Score__c','Evaluation_Result__c','Evaluation_Times_Taken__c'
-            Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
-            relatedFieldsObjects.put(Learning_Assignment__c.sObjectType,new List<String>{
-                'Id'
-                ,'Learning__c'
-                ,'Training_Plan__c'
-                ,'Learning__c'
-                ,'Training_Plan_Section__c'
-            });
-            LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
-            //END Access Check
-
             maxAttemptsReached = false;
             isPreview = false;
             showErrorButtons = false;
@@ -80,16 +66,8 @@ public with sharing class QuizResultsController{
             if(!String.isBlank(aid)){
 
                 //Fetch assignment information
-                assignment = [select id
-                                    ,Evaluation_Score__c
-                                    ,Evaluation_Result__c
-                                    ,Learning__c
-                                    ,Training_Plan__c
-                                    ,Training_Plan_Section__c
-                                    ,Learning_Version__r.Quiz__r.Max_Attempts__c
-                                    ,Evaluation_Times_Taken__c
-                                    from Learning_Assignment__c
-                                    where id = :aid limit 1];
+                LMSService.WithoutSharingOps wsops = new LMSService.WithoutSharingOps();
+                assignment = wsops.getQuizAssignmentDetailsForResults(aid,UserInfo.getUserId());
 
                 evalResult = assignment.Evaluation_Result__c;
                 Decimal score = assignment.Evaluation_Score__c;

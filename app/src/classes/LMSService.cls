@@ -891,6 +891,7 @@ public with sharing class LMSService{
                             ,Email
                             ,isActive
                             ,ProfileId
+                            ,UserType
                             from User
                             where Id in :userIds]){
             results.put(u.Id,u);
@@ -950,7 +951,6 @@ public with sharing class LMSService{
         Map<Id,List<Learning_Assignment__c>> results = new Map<Id,List<Learning_Assignment__c>>();
         List<Learning_Assignment__c> assignmentsToInsert = new List<Learning_Assignment__c>();
         Set<Id> newUsersWithAssignments = new Set<Id>();
-        Map<Id,Set<Id>> learningsUserSharing = new Map<Id,Set<Id>>();
         Map<Id,Set<String>> excludedLearnings = new Map<Id,Set<String>>();
         Map<Id,Training_Plan_Assignment__c> planAssignmentsToUpdate = new Map<Id,Training_Plan_Assignment__c>();
 
@@ -958,11 +958,12 @@ public with sharing class LMSService{
         Map<Id,Set<Id>> trainingPlanLearnings = getTrainingPlanLearningIds(new Set<Id>{trainingPlanId});
         Map<Id,Learning_Assignment__c> updatedOptionalAssignments = new  Map<Id,Learning_Assignment__c>();
 
+        LMSService.WithoutSharingOps wsops = new LMSService.WithoutSharingOps();
+
         //Get existing assignments for the user + learnings under the training plan, and add them to excluded learnings
         if(trainingPlanLearnings.get(trainingPlanId) != null){
 
-            //Fetch additional information for related trainign plan section items
-            LMSService.WithoutSharingOps wsops = new LMSService.WithoutSharingOps();
+            //Fetch additional information for related training plan section items
             Map<Id,List<Training_Plan_Section_Item__c>> tPlanSectionItems = wsops.getTrainingPlanSectionItemsFromTrainingPlans(new Set<Id>{trainingPlanId});
 
             //Fetch optional attribute from related training plan section and section items
@@ -1027,6 +1028,7 @@ public with sharing class LMSService{
 
                             if(!excludedLearnings.containsKey(userId) || (excludedLearnings.containsKey(userId) && !excludedLearnings.get(userId).contains(sectionItem.Learning__c+'_'+sectionItem.Id))){
 
+                                User uInfo = addUserInfo.get(userId);
                                 //Add learning to insert map
                                 Learning_Assignment__c newLA = new Learning_Assignment__c();
                                 newLA.OwnerId = userId;
@@ -1038,19 +1040,17 @@ public with sharing class LMSService{
                                 newLA.Progress_Percentage__c = 0;
                                 newLA.Training_Plan_Section__c = sectionItem.Training_Plan_Section__c;
                                 newLA.Training_Plan_Section_Item__c = sectionItem.Id;
-                                newLA.Contact__c = addUserInfo.get(userId).ContactId;
+                                newLA.Contact__c = uInfo.ContactId;
                                 newLA.Optional__c = sectionItem.Optional__c;
                                 if(!results.containsKey(userId)){
                                     results.put(userId,new List<Learning_Assignment__c>());
                                 }
 
                                 assignmentsToInsert.add(newLA);
-                                newUsersWithAssignments.add(userId);
-
-                                if(!learningsUserSharing.containsKey(sectionItem.Learning__c)){
-                                    learningsUserSharing.put(sectionItem.Learning__c,new Set<Id>());
+                                // Only share the training plan with supported licenses
+                                if(uInfo.UserType == 'Standard' || uInfo.UserType == 'CsnOnly'){
+                                    newUsersWithAssignments.add(userId);
                                 }
-                                learningsUserSharing.get(sectionItem.Learning__c).add(userId);
 
                                 results.get(userId).add(newLA);
                             }
@@ -1060,30 +1060,32 @@ public with sharing class LMSService{
             }
         }
 
-        if(learningsUserSharing.size()>0){
+        if(newUsersWithAssignments.size()>0){
             //Share the training and learnings with corresponding users
-            LMSService.WithoutSharingOps wsops = new LMSService.WithoutSharingOps();
             wsops.shareTrainingPlanWithUsers(newUsersWithAssignments,new Set<Id>{trainingPlanId});
-            wsops.shareLearningsWithUsers(learningsUserSharing);
         }
 
         // Regular users dont' have permissions to insert these objects, however it's possible that they create assignments
         // for training plans with self-registration enabled. Therefore, we leave CRUD/FLS enforcement to the caller
+        // We need to insert these records in without sharing context to prevent insufficient cross reference errors since we don't
+        // share the learnings associated to the assignments due to limitations with portal users
         if(assignmentsToInsert.size()>0){
-            insert assignmentsToInsert;
+            wsops.insertAssignments(assignmentsToInsert);
         }
 
-        //Update optional flag for assignments where the parent section item or section has changed
+        // Update optional flag for assignments where the parent section item or section has changed
+        // We need to update these records in without sharing context to prevent insufficient cross reference errors since we don't
+        // share the learnings associated to the assignments due to limitations with portal users
         if(updatedOptionalAssignments.size()>0){
-            update updatedOptionalAssignments.values();
+            wsops.updateAssignments(updatedOptionalAssignments.values());
         }
 
 
         if(planAssignmentsToUpdate.size()>0){
-            update planAssignmentsToUpdate.values();
+            wsops.updateTrainingPlanAssignments(planAssignmentsToUpdate.values());
         }
 
-        //Create Badge Assignments
+        // Create Badge Assignments
         upsertAchievementAssignments(activeUserIds,trainingPlanId);
 
         return results;
@@ -1102,21 +1104,19 @@ public with sharing class LMSService{
         List<Achievement_Assignment__c> aasToInsert = new List<Achievement_Assignment__c>();
         Map<Id,Set<Id>> existingAATrainingPlanBadges = new Map<Id,Set<Id>>();
 
+        LMSService.WithoutSharingOps wsops = new LMSService.WithoutSharingOps();
+
         //Fetch training plan achievements associated to the specified training plan
-        Map<Id,Training_Plan_Achievement__c> tpasMap = new Map<Id,Training_Plan_Achievement__c>([select id
-                                                ,Type__c
-                                                ,Training_Plan__c
-                                                ,Achievement__c
-                                                from Training_Plan_Achievement__c
-                                                where Training_Plan__c = :trainingPlanId]);
+        List<Training_Plan_Achievement__c> tPlanAchievements = wsops.getTrainingPlanAchievements(trainingPlanId);
+        Map<Id,Training_Plan_Achievement__c> tpasMap = new Map<Id,Training_Plan_Achievement__c>(tPlanAchievements);
 
         if(tpasMap != null && tpasMap.size()>0){
 
             //Fetch existing achievement assignments for current users
             for(Achievement_Assignment__c aa : [select id
-                                                ,User__c
-                                                ,Training_Plan_Achievement__c
-                                                ,Achievement__c
+                                                        ,User__c
+                                                        ,Training_Plan_Achievement__c
+                                                        ,Achievement__c
                                                 from Achievement_Assignment__c
                                                 where User__c in :activeUserIds
                                                 and Training_Plan_Achievement__c in :tpasMap.keySet()]){
@@ -1152,7 +1152,7 @@ public with sharing class LMSService{
             }
 
             if(aasToInsert.size()>0){
-                insert aasToInsert;
+                wsops.insertAchievementAssignments(aasToInsert);
             }
 
         }
@@ -1578,26 +1578,6 @@ public with sharing class LMSService{
 
         //Needs to run without sharing otherwise we get field not writable exceptions
         //Create sharing entries for the specifies users + learnings
-        public void shareLearningsWithUsers(Map<Id,Set<Id>> learningsUserSharing){
-            List<Learning__Share> results = new List<Learning__Share>();
-            //Iterate over learnings and create apex sharing for the corresponding users
-            for(Id learningId : learningsUserSharing.keySet()){
-                for(Id uId : learningsUserSharing.get(learningId)){
-                    Learning__Share learningShare = new Learning__Share();
-                    learningShare.UserOrGroupId = uId;
-                    learningShare.ParentId = learningId;
-                    learningShare.AccessLevel = 'read';
-                    learningShare.RowCause = Schema.Learning__Share.RowCause.LMS_Sharing__c;
-                    results.add(learningShare);
-                }
-            }
-            if(results.size()>0){
-                insert results;
-            }
-        }
-
-        //Needs to run without sharing otherwise we get field not writable exceptions
-        //Create sharing entries for the specifies users + learnings
         public void shareLearningsWithApprovers(Map<Id,Set<Id>> learningsUserSharing){
             List<Learning__Share> results = new List<Learning__Share>();
             //Iterate over learnings and create apex sharing for the corresponding users
@@ -1873,6 +1853,498 @@ public with sharing class LMSService{
             }else{
                 return new Map<Id,Answer_Sequence__c>();
             }
+        }
+
+        //Fetch resource learning details, this is used by the tplan detail controller before launching a learning
+        public Learning__c getLearningDetails(Id learningId){
+
+            //BEGIN Access Check
+            Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
+            relatedFieldsObjects.put(Learning__c.sObjectType,new List<String>{
+                'Name'
+                ,'Current_Published_Version__c'
+            });
+            LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
+            //END Access Check
+
+            List<Learning__c> results = [select id
+                                        ,Current_Published_Version__r.Training_Resource__r.Display_in_Iframe__c
+                                        ,Current_Published_Version__r.Training_Resource__r.Resource_URL__c
+                                        from Learning__c
+                                        where id = :learningId];
+            if(results.size()>0){
+                return results.get(0);
+            }else{
+                return null;
+            }
+        }
+
+        //Fetch resource assignment information, learnings won't be shared with end-users so we need to by-pass sharing rules
+        public Learning_Assignment__c getResourceAssignmentDetails(String assignmentId, Id userId){
+            //BEGIN Access Check
+            Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
+            relatedFieldsObjects.put(Learning_Assignment__c.sObjectType,new List<String>{
+                'Id'
+                ,'Name'
+                ,'User__c'
+                ,'Learning__c'
+                ,'Progress__c'
+                ,'Training_Plan__c'
+                ,'Shared_Learning_Assignment__c'
+            });
+            relatedFieldsObjects.put(Training_Resource__c.sObjectType,new List<String>{
+                'Id'
+                ,'Name'
+                ,'Resource_URL__c'
+                ,'Add_training_parameters_to_URL__c'
+            });
+            LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
+            //END Access Check
+
+            Learning_Assignment__c assignment = [select id
+                                                        ,User__c
+                                                        ,Contact__c
+                                                        ,Name
+                                                        ,Learning__c
+                                                        ,Learning_Version__c
+                                                        ,Learning_Version__r.Training_Resource__c
+                                                        ,Learning_Version__r.Training_Resource__r.Id
+                                                        ,Learning_Version__r.Training_Resource__r.Name
+                                                        ,Learning_Version__r.Training_Resource__r.Resource_URL__c
+                                                        ,Learning_Version__r.Training_Resource__r.Add_training_parameters_to_URL__c
+                                                        ,Learning_Version__r.Training_Resource__r.Prevent_completion_on_launch__c
+                                                        ,Progress__c
+                                                        ,Progress_Percentage__c
+                                                        ,Evaluation_Result__c
+                                                        ,Evaluation_Score__c
+                                                        ,Training_Plan__c
+                                                        ,Shared_Learning_Assignment__c
+                                                    from Learning_Assignment__c
+                                                    where id = :assignmentId
+                                                    and User__c = :userId
+                                                    limit 1];
+            return assignment;
+        }
+
+        //Fetch task assignment information, learnings won't be shared with end-users so we need to by-pass sharing rules
+        public Learning_Assignment__c getTaskAssignmentDetails(String assignmentId, Id userId){
+            //BEGIN Access Check
+            // Note: we're excluding the following fields from the FLS check since some installations may want to remove view permissions
+            // Learning Assignment : 'Evaluation_Score__c','Evaluation_Result__c','Evaluation_Times_Taken__c'
+            Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
+            relatedFieldsObjects.put(Learning_Assignment__c.sObjectType,new List<String>{
+                'Id'
+                ,'User__c'
+                ,'Learning__c'
+                ,'Learning_Version__c'
+                ,'Progress__c'
+                ,'Progress_Percentage__c'
+                ,'Training_Plan__c'
+                ,'Shared_Learning_Assignment__c'
+                ,'Approver_Notes__c'
+            });
+            relatedFieldsObjects.put(Learning__c.sObjectType,new List<String>{
+                'Description__c'
+            });
+            relatedFieldsObjects.put(Task__c.sObjectType,new List<String>{
+                'Id'
+                ,'Name'
+                ,'External_Resource_Target__c'
+                ,'External_Resource_URL__c'
+                ,'External_Resource_Name__c'
+                ,'Description__c'
+                ,'Add_training_parameters_to_URL__c'
+                ,'Enable_Image_Upload__c'
+                ,'Disable_Undo__c'
+            });
+            LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
+            //END Access Check
+
+            Learning_Assignment__c assignment = [select id
+                                                        ,User__c
+                                                        ,Contact__c
+                                                        ,Name
+                                                        ,Learning__c
+                                                        ,Learning__r.Description__c
+                                                        ,Learning_Version__c
+                                                        ,Learning_Version__r.Task__c
+                                                        ,Learning_Version__r.Task__r.Id
+                                                        ,Learning_Version__r.Task__r.Name
+                                                        ,Learning_Version__r.Task__r.External_Resource_Target__c
+                                                        ,Learning_Version__r.Task__r.External_Resource_URL__c
+                                                        ,Learning_Version__r.Task__r.External_Resource_Name__c
+                                                        ,Learning_Version__r.Task__r.Description__c
+                                                        ,Learning_Version__r.Task__r.Add_training_parameters_to_URL__c
+                                                        ,Learning_Version__r.Task__r.Requires_Manager_Approval__c
+                                                        ,Learning_Version__r.Task__r.Enable_Image_Upload__c
+                                                        ,Learning_Version__r.Task__r.Disable_Undo__c
+                                                        ,Progress__c
+                                                        ,Progress_Percentage__c
+                                                        ,Evaluation_Result__c
+                                                        ,Evaluation_Score__c
+                                                        ,Training_Plan__c
+                                                        ,Training_Plan_Section__c
+                                                        ,Shared_Learning_Assignment__c
+                                                        ,Approver_Notes__c
+                                                    from Learning_Assignment__c
+                                                    where id = :assignmentId
+                                                    and User__c = :userId
+                                                    limit 1];
+            return assignment;
+        }
+
+        //Get a list of the task approvers for a specific task.
+        //No CRUD/FLS is applied here as end-users shouldn't have access to this object
+        public List<Task_Approver__c> getTaskApprovers(Id taskId){
+            List<Task_Approver__c>  results =  [select id
+                                                        ,User__c
+                                                        ,User__r.IsActive
+                                                        ,Task__c
+                                                    from Task_Approver__c
+                                                    where Task__c = :taskId];
+            return results;
+        }
+
+        //Fetch quiz assignment information, learnings won't be shared with end-users so we need to by-pass sharing rules
+        public Learning_Assignment__c getQuizAssignmentDetails(String assignmentId, Id userId){
+
+            //BEGIN Access Check
+            // Note: we're excluding the following fields from the FLS check since some installations may want to remove view permissions
+            // Learning Assignment : 'Evaluation_Score__c','Evaluation_Result__c','Evaluation_Times_Taken__c'
+            // Quiz : 'Passing_Score__c','Total_Questions__c','Max_Attempts__c'
+            Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
+            relatedFieldsObjects.put(Learning_Assignment__c.sObjectType,new List<String>{
+                'Id'
+                ,'User__c'
+                ,'Learning__c'
+                ,'Learning_Version__c'
+                ,'Progress__c'
+                ,'Progress_Percentage__c'
+                ,'Training_Plan__c'
+                ,'Shared_Learning_Assignment__c'
+            });
+            relatedFieldsObjects.put(Learning__c.sObjectType,new List<String>{
+                'Description__c'
+            });
+            relatedFieldsObjects.put(Quiz__c.sObjectType,new List<String>{
+                'Id'
+                ,'Name'
+                ,'Description__c'
+                ,'Total_Questions__c'
+            });
+            LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
+            //END Access Check
+
+            Learning_Assignment__c assignment = [select id
+                                                        ,User__c
+                                                        ,Contact__c
+                                                        ,Name
+                                                        ,Learning__c
+                                                        ,Learning__r.Description__c
+                                                        ,Learning_Version__c
+                                                        ,Learning_Version__r.Quiz__c
+                                                        ,Learning_Version__r.Quiz__r.Id
+                                                        ,Learning_Version__r.Quiz__r.Name
+                                                        ,Learning_Version__r.Quiz__r.Description__c
+                                                        ,Learning_Version__r.Quiz__r.Passing_Score__c
+                                                        ,Learning_Version__r.Quiz__r.Total_Questions__c
+                                                        ,Learning_Version__r.Quiz__r.Max_Attempts__c
+                                                        ,Progress__c
+                                                        ,Progress_Percentage__c
+                                                        ,Evaluation_Result__c
+                                                        ,Evaluation_Score__c
+                                                        ,Evaluation_Times_Taken__c
+                                                        ,Training_Plan__c
+                                                        ,Shared_Learning_Assignment__c
+                                                    from Learning_Assignment__c
+                                                    where id = :assignmentId
+                                                    and User__c = :userId limit 1];
+            return assignment;
+        }
+
+        //Fetch quiz assignment information, learnings won't be shared with end-users so we need to by-pass sharing rules
+        public Learning_Assignment__c getQuizAssignmentDetailsForResults(String assignmentId, Id userId){
+            //BEGIN Access Check
+            //Note: we're excluding the following fields from the FLS check since some installations may want to remove view permissions
+            //'Evaluation_Score__c','Evaluation_Result__c','Evaluation_Times_Taken__c'
+            Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
+            relatedFieldsObjects.put(Learning_Assignment__c.sObjectType,new List<String>{
+                'Id'
+                ,'Learning__c'
+                ,'Training_Plan__c'
+                ,'Learning__c'
+                ,'Training_Plan_Section__c'
+                });
+            LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
+            //END Access Check
+
+            Learning_Assignment__c assignment = [select id
+                                                        ,Evaluation_Score__c
+                                                        ,Evaluation_Result__c
+                                                        ,Learning__c
+                                                        ,Training_Plan__c
+                                                        ,Training_Plan_Section__c
+                                                        ,Learning_Version__r.Quiz__r.Max_Attempts__c
+                                                        ,Evaluation_Times_Taken__c
+                                                        from Learning_Assignment__c
+                                                        where id = :assignmentId
+                                                        and User__c = :userId
+                                                        limit 1];
+
+            return assignment;
+        }
+
+        public List<Question_Line__c> getQuizQuestionLines(Id quizId){
+
+            //BEGIN Access Check
+            Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
+            relatedFieldsObjects.put(Question_Line__c.sObjectType,new List<String>{
+                'Id'
+                ,'Name'
+                ,'Order__c'
+                ,'Description__c'
+            });
+            LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
+            //END Access Check
+
+            List<Question_Line__c> results = new List<Question_Line__c>();
+
+            results = [select id
+                            ,Name
+                            ,Order__c
+                            ,Description__c
+                            from Question_Line__c
+                            where Quiz__c = :quizId
+                            order by Order__c asc,CreatedDate asc];
+
+            return results;
+
+        }
+
+        public List<Question_Line__c> getQuizOrderedQuestionLines(Id quizId, Id questionLineId, Decimal questionLineOrder){
+
+            //BEGIN Access Check
+            Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
+            relatedFieldsObjects.put(Question_Line__c.sObjectType,new List<String>{
+                'Id'
+                ,'Name'
+                ,'Order__c'
+                ,'Quiz__c'
+            });
+            LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
+            //END Access Check
+
+            List<Question_Line__c> results = new List<Question_Line__c>();
+
+            results = [select id
+                            ,Name
+                            ,Order__c
+                            ,Quiz__c
+                            from Question_Line__c
+                            where Order__c >= :questionLineOrder
+                            and Quiz__c = :quizId
+                            and id != :questionLineId
+                            order by order__c asc,CreatedDate asc];
+
+            return results;
+
+        }
+
+        public Question_Line__c getQuestionLineDetails(Id quizId, Id questionLineId){
+            //BEGIN Access Check
+            Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
+            relatedFieldsObjects.put(Question_Line__c.sObjectType,new List<String>{
+                'Id'
+                ,'Name'
+                ,'Order__c'
+                ,'Description__c'
+            });
+            LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
+            //END Access Check
+
+            //Retrieve question line information
+            Question_Line__c questionLine = [select Id
+                                                    ,Name
+                                                    ,Quiz__c
+                                                    ,Quiz__r.Name
+                                                    ,Order__c
+                                                    ,Description__c
+                                                    from Question_Line__c
+                                                    where id =:questionLineId
+                                                    and Quiz__c = :quizId limit 1];
+            return questionLine;
+        }
+
+        public List<Question__c> getQuestionsForQuestionLine(Id questionLineId){
+
+            //BEGIN Access Check
+            Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
+            relatedFieldsObjects.put(Question__c.sObjectType,new List<String>{
+                'Id'
+                ,'Name'
+                ,'Description_RTA__c'
+                ,'Description__c'
+                ,'Type__c'
+            });
+            LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
+            //END Access Check
+
+            List<Question__c> results = new List<Question__c>();
+
+            results = [select id
+                            ,Name
+                            ,Answer_Sequence__c
+                            ,Description__c
+                            ,Description_RTA__c
+                            ,Type__c
+                            from Question__c
+                            where Question_Line__c = :questionLineId
+                            order by Order__c asc,CreatedDate asc];
+
+            return results;
+        }
+
+        //Fetch all questions for the specified quiz
+        public Map<Id,Question__c> getQuestionsForQuiz(Id quizId){
+
+            //BEGIN Access Check
+            Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
+            relatedFieldsObjects.put(Question__c.sObjectType,new List<String>{
+                'Id'
+                ,'Name'
+                ,'Type__c'
+            });
+            LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
+            //END Access Check
+
+            Map<Id,Question__c> results = new Map<Id,Question__c>();
+            for(Question__c q : [select id
+                                        ,Answer_Sequence__c
+                                        ,Correct_Boolean__c
+                                        ,Correct_Number__c
+                                        ,Type__c
+                                        from Question__c
+                                        where Question_Line__r.Quiz__c = :quizId]){
+                results.put(q.Id,q);
+            }
+
+            return results;
+        }
+
+        //Retrieve existing responses for a Quiz assignment
+        public List<Response__c> getQuizResponses(Id quizId, Id questionLineId, Id assignmentId, Id sharedAssignmentId){
+
+            //Local vars for dynamic binding
+            Id aid = assignmentId;
+            Id qlid = questionLineId;
+            Id qid = quizId;
+            Id said = sharedAssignmentId;
+
+            //BEGIN Access Check
+            Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
+            relatedFieldsObjects.put(Response__c.sObjectType,new List<String>{
+                'Id'
+                ,'Name'
+                ,'Question__c'
+                ,'Question_Type__c'
+                ,'User__c'
+                ,'Number_Response__c'
+                ,'Boolean_Response__c'
+                ,'Response_Answer_Sequence_Long__c'
+                ,'Response_Answer_Sequence_Label__c'
+                ,'Response_Text_Long__c'
+                });
+            LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
+            //END Access Check
+
+            List<String> listSOQLFields = new List<String>{
+                'Id'
+                ,'Name'
+                ,'Number_Response__c'
+                ,'Boolean_Response__c'
+                ,'Question__c'
+                ,'Question_Type__c'
+                ,'Question__r.Question_Line__c'
+                ,'Response_Answer_Sequence_Long__c'
+                ,'Response_Answer_Sequence_Label__c'
+                ,'Response_Text_Long__c'
+                ,'User__c'
+                ,'Contact__c'
+                ,'Correct_Response__c'
+            };
+
+            String soqlQuery = 'select '+String.join(listSOQLFields,',')+' from Response__c where';
+
+            if(said != null){
+                soqlQuery+= ' Shared_Learning_Assignment__c = :said';
+            }else{
+                soqlQuery+= ' Learning_Assignment__c = :aid';
+            }
+
+            if(qid != null){
+                soqlQuery += ' and Question__r.Question_Line__r.Quiz__c = :qid';
+            }else{
+                soqlQuery += ' and Question__r.Question_Line__c = :qlid';
+            }
+
+            List<Response__c> responses = (List<Response__c>)Database.query(soqlQuery);
+            return responses;
+        }
+
+        // Upsert responses, this has to be done in a WOS as the response has reference to Quiz objects that are not visible to the learner
+        public void upsertResponses(List<Response__c> tosave){
+
+            //BEGIN Access Check
+            Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
+            relatedFieldsObjects.put(Response__c.sObjectType,new List<String>{
+                'Response_Answer_Sequence_Long__c'
+                ,'Response_Answer_Sequence_Label__c'
+                ,'Number_Response__c'
+                ,'Response_Text_Long__c'
+                ,'Boolean_Response__c'
+                });
+            LMS_ESAPI.isAuthorizedToUpdate(relatedFieldsObjects);
+            //END Access Check
+
+            upsert tosave;
+        }
+
+        //Get the total number of response count for a specific quiz assignment
+        public Integer getAssignmentResponseCount(Id assignmentId, Id quizId){
+            Integer respCount = [select count()
+                                        from Response__c
+                                        where Learning_Assignment__c = :assignmentId
+                                        and Question__r.Question_Line__r.Quiz__c = :quizId];
+            return respCount;
+        }
+
+        //Insert assignments
+        public void insertAssignments(List<Learning_Assignment__c> assignments){
+            insert assignments;
+        }
+
+        //Update assignments
+        public void updateAssignments(List<Learning_Assignment__c> assignments){
+            update assignments;
+        }
+
+        //Update training plan assignments
+        public void updateTrainingPlanAssignments(List<Training_Plan_Assignment__c> assignments){
+            update assignments;
+        }
+
+        public void insertAchievementAssignments(List<Achievement_Assignment__c> achievementAssignments){
+            insert achievementAssignments;
+        }
+
+        public List<Training_Plan_Achievement__c> getTrainingPlanAchievements(Id trainingPlanId){
+            List<Training_Plan_Achievement__c>  results = [select id
+                                                                ,Type__c
+                                                                ,Training_Plan__c
+                                                                ,Achievement__c
+                                                                from Training_Plan_Achievement__c
+                                                                where Training_Plan__c = :trainingPlanId];
+            return results;
         }
 
     }

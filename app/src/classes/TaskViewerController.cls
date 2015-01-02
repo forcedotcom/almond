@@ -31,10 +31,10 @@ public with sharing class TaskViewerController{
     public Task__c task{get;set;}
     public Learning_Assignment__c assignment {get;private set;}
     private Boolean isPreviewMode{get;set;}{isPreviewMode = false;}
-    public boolean hasMessages{get{return ApexPages.hasMessages();}}
+    public Boolean hasMessages{get{return ApexPages.hasMessages();}}
     public String externalResourceURL{get;private set;}
-    public boolean taskCompleted{get;private set;}
-    public boolean taskInReview{get;private set;}
+    public Boolean taskCompleted{get;private set;}
+    public Boolean taskInReview{get;private set;}
     public String latestImageAttachment{get;private set;}
     public String redirectURL{get;set;}
     public String cancelURL{get;set;}
@@ -70,68 +70,10 @@ public with sharing class TaskViewerController{
 
         try{
 
-            //BEGIN Access Check
-            // Note: we're excluding the following fields from the FLS check since some installations may want to remove view permissions
-            // Learning Assignment : 'Evaluation_Score__c','Evaluation_Result__c','Evaluation_Times_Taken__c'
-            Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
-            relatedFieldsObjects.put(Learning_Assignment__c.sObjectType,new List<String>{
-                'Id'
-                ,'User__c'
-                ,'Learning__c'
-                ,'Learning_Version__c'
-                ,'Progress__c'
-                ,'Progress_Percentage__c'
-                ,'Training_Plan__c'
-                ,'Shared_Learning_Assignment__c'
-                ,'Approver_Notes__c'
-            });
-            relatedFieldsObjects.put(Learning__c.sObjectType,new List<String>{
-                'Description__c'
-            });
-            relatedFieldsObjects.put(Task__c.sObjectType,new List<String>{
-                'Id'
-                ,'Name'
-                ,'External_Resource_Target__c'
-                ,'External_Resource_URL__c'
-                ,'External_Resource_Name__c'
-                ,'Description__c'
-                ,'Add_training_parameters_to_URL__c'
-                ,'Enable_Image_Upload__c'
-                ,'Disable_Undo__c'
-            });
-            LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
-            //END Access Check
-
             if(!String.isBlank(aid)){
 
-                assignment = [select id
-                                    ,User__c
-                                    ,Contact__c
-                                    ,Name
-                                    ,Learning__c
-                                    ,Learning__r.Description__c
-                                    ,Learning_Version__c
-                                    ,Learning_Version__r.Task__c
-                                    ,Learning_Version__r.Task__r.Id
-                                    ,Learning_Version__r.Task__r.Name
-                                    ,Learning_Version__r.Task__r.External_Resource_Target__c
-                                    ,Learning_Version__r.Task__r.External_Resource_URL__c
-                                    ,Learning_Version__r.Task__r.External_Resource_Name__c
-                                    ,Learning_Version__r.Task__r.Description__c
-                                    ,Learning_Version__r.Task__r.Add_training_parameters_to_URL__c
-                                    ,Learning_Version__r.Task__r.Requires_Manager_Approval__c
-                                    ,Learning_Version__r.Task__r.Enable_Image_Upload__c
-                                    ,Learning_Version__r.Task__r.Disable_Undo__c
-                                    ,Progress__c
-                                    ,Progress_Percentage__c
-                                    ,Evaluation_Result__c
-                                    ,Evaluation_Score__c
-                                    ,Training_Plan__c
-                                    ,Training_Plan_Section__c
-                                    ,Shared_Learning_Assignment__c
-                                    ,Approver_Notes__c
-                                    from Learning_Assignment__c
-                                    where id = :aid];
+                LMSService.WithoutSharingOps wsops = new LMSService.WithoutSharingOps();
+                assignment = wsops.getTaskAssignmentDetails(aid,UserInfo.getUserId());
 
                 List<Attachment> assignmentAtts = [select id
                                                     from Attachment
@@ -338,13 +280,9 @@ public with sharing class TaskViewerController{
         Set<Id> taskApprovers = new Set<Id>();
 
         //Get active task approvers
-        for(Task_Approver__c ta : [select id
-            ,User__c
-            ,User__r.IsActive
-            ,Task__c
-            from Task_Approver__c
-            where Task__c = :task.id]){
-
+        LMSService.WithoutSharingOps wsops = new LMSService.WithoutSharingOps();
+        List<Task_Approver__c> approvers = wsops.getTaskApprovers(task.Id);
+        for(Task_Approver__c ta : approvers){
             if(ta.User__c != null && ta.User__r.IsActive){
                 taskApprovers.add(ta.User__c);
             }

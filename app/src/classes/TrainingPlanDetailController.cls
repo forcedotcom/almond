@@ -188,11 +188,9 @@ public with sharing class TrainingPlanDetailController{
             learningTarget = '_self';
         }else if(currentRecordType == LMSConstants.RT_TRAINING_RESOURCE){
             //Not necessary to enforce CRUD/FLS here, this is just to determine how to handle the content no data is exposed to the user
-            Learning__c l = [select id
-                                ,Current_Published_Version__r.Training_Resource__r.Display_in_Iframe__c
-                                ,Current_Published_Version__r.Training_Resource__r.Resource_URL__c
-                                from Learning__c
-                                where id = :learning.Id];
+            LMSService.WithoutSharingOps wsops = new LMSService.WithoutSharingOps();
+            Learning__c l = wsops.getLearningDetails(learning.Id);
+            
             lPR = Page.ResourceViewer;
 
             if(l.Current_Published_Version__r.Training_Resource__r.Display_in_Iframe__c){

@@ -35,9 +35,9 @@ public with sharing class LMSWrappersService{
         List<Training_Plan__c> tPlans = new List<Training_Plan__c>();
 
         if(isPreview){
-            tPlans = LMSService.getPreviewTrainingPlans(new Set<Id>{trainingPlanId});
+            tPlans = LMSService.getPreviewTrainingPlans(new Set<Id>{trainingPlanId},LMSUtils.isPortalUser());
         }else{
-            tPlans = LMSService.getTrainingPlans(new Set<Id>{trainingPlanId});
+            tPlans = LMSService.getTrainingPlans(new Set<Id>{trainingPlanId}, LMSUtils.isPortalUser());
         }
 
         if(tPlans.size()>0){
@@ -115,7 +115,7 @@ public with sharing class LMSWrappersService{
         List<TrainingPlanSection> result = new List<TrainingPlanSection>();
 
         //Get training plan section custom object records
-        Map<Id,List<Training_Plan_Section__c>> tPlansSections = LMSService.getTrainingPlanSections(new Set<Id>{trainingPlanId});
+        Map<Id,List<Training_Plan_Section__c>> tPlansSections = LMSService.getTrainingPlanSections(new Set<Id>{trainingPlanId}, LMSUtils.isPortalUser());
 
         //If matches are found, continue creating wrapper objects
         if(tPlansSections.size()>0){

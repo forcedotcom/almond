@@ -28,6 +28,8 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 public with sharing class LMSUtils{
 
+    private static User userDetails;
+
     public static void addSuccessMessage(String message){
         ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.CONFIRM,message));
     }
@@ -122,6 +124,27 @@ public with sharing class LMSUtils{
 
     public static String getPackageNamespace(){
         return SObjectType.Learning__c.Name.substringBefore('Learning__c');
+    }
+
+    public static Id getUserAccountId(){
+        User u = getUserDetails();
+        return u.AccountId;
+    }
+
+    public static Boolean isPortalUser(){
+        User u = getUserDetails();
+        return u.AccountId != null;
+    }
+
+    public static User getUserDetails(){
+        if(userDetails == null){
+            userDetails = [select Id
+                                ,ContactId
+                                ,AccountId
+                                from User
+                                where id = :UserInfo.getUserId()];
+        }
+        return userDetails;
     }
 
 }

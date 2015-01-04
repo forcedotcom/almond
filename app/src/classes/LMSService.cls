@@ -62,7 +62,7 @@ public with sharing class LMSService{
             }
         }
 
-        return getTrainingPlans(trainingPlanIds);
+        return getTrainingPlans(trainingPlanIds, false);
 
     }
 
@@ -79,7 +79,7 @@ public with sharing class LMSService{
             }
         }
 
-        return getTrainingPlans(trainingPlanIds);
+        return getTrainingPlans(trainingPlanIds, false);
 
     }
 
@@ -97,11 +97,11 @@ public with sharing class LMSService{
             }
         }
 
-        return getTrainingPlans(trainingPlanIds);
+        return getTrainingPlans(trainingPlanIds, false);
     }
 
     //Return a list of training plans for the specified training plan ids
-    public static List<Training_Plan__c> getTrainingPlans(Set<Id> trainingPlanIds){
+    public static List<Training_Plan__c> getTrainingPlans(Set<Id> trainingPlanIds, Boolean isPortalUser){
 
         //BEGIN Access Check
         Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
@@ -153,14 +153,19 @@ public with sharing class LMSService{
         String soqlQuery = 'select '+String.join(listSOQLFields,',')+' from Training_Plan__c where Id in :tpIds';
         soqlQuery += ' order by LastModifiedDate desc';
 
-        results = (List<Training_Plan__c>)Database.query(soqlQuery);
+        if(isPortalUser){
+            LMSService.WithoutSharingOps wsops = new LMSService.WithoutSharingOps();
+            results = wsops.queryTrainingPlans(soqlQuery,tpIds, null);
+        }else{
+            results = (List<Training_Plan__c>)Database.query(soqlQuery);
+        }
 
         return results;
 
     }
 
     //Return a list of training plans enabled for preview for the specified training plan ids
-    public static List<Training_Plan__c> getPreviewTrainingPlans(Set<Id> trainingPlanIds){
+    public static List<Training_Plan__c> getPreviewTrainingPlans(Set<Id> trainingPlanIds,Boolean isPortalUser){
 
         //BEGIN Access Check
         Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
@@ -209,11 +214,20 @@ public with sharing class LMSService{
             ,'Optional_Feedback_Comments__c'
         };
 
+        String registrationAccess = LMSConstants.TPLAN_PUBLIC_EXTERNAL;
         String soqlQuery = 'select '+String.join(listSOQLFields,',')+' from Training_Plan__c where Id in :tpIds';
         soqlQuery += ' and Enable_Self_Registration__c = true';
+        if(isPortalUser){
+            soqlQuery += ' and Self_Registration_Access__c = :registrationAccess';
+        }
         soqlQuery += ' order by CreatedDate desc';
 
-        results = (List<Training_Plan__c>)Database.query(soqlQuery);
+        if(isPortalUser){
+            LMSService.WithoutSharingOps wsops = new LMSService.WithoutSharingOps();
+            results = wsops.queryTrainingPlans(soqlQuery, tpIds, registrationAccess);
+        }else{
+            results = (List<Training_Plan__c>)Database.query(soqlQuery);
+        }
 
         return results;
 
@@ -230,11 +244,6 @@ public with sharing class LMSService{
         });
         LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
         //END Access Check
-
-        List<String> listSOQLFields = new List<String>{
-            'Id'
-            ,'Name'
-        };
 
         List<Id> matchedTplanIds = new List<Id>();
 
@@ -386,7 +395,7 @@ public with sharing class LMSService{
     }
 
     //Return a map of training plan sections for the specified training plan ids
-    public static Map<Id,List<Training_Plan_Section__c>> getTrainingPlanSections(Set<Id> trainingPlanIds){
+    public static Map<Id,List<Training_Plan_Section__c>> getTrainingPlanSections(Set<Id> trainingPlanIds, Boolean isPortalUser){
 
         //BEGIN Access Check
         Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
@@ -416,7 +425,13 @@ public with sharing class LMSService{
         String soqlQuery = 'select '+String.join(listSOQLFields,',')+' from Training_Plan_Section__c where Training_Plan__c in :tpIds';
         soqlQuery += ' order by Order__c asc,CreatedDate desc';
 
-        List<Training_Plan_Section__c> tpSections = (List<Training_Plan_Section__c>)Database.query(soqlQuery);
+        List<Training_Plan_Section__c> tpSections = new List<Training_Plan_Section__c>();
+        if(isPortalUser){
+            LMSService.WithoutSharingOps wsops = new LMSService.WithoutSharingOps();
+            tpSections = wsops.queryTrainingPlanSections(soqlQuery, tpIds);
+        }else{
+            tpSections = (List<Training_Plan_Section__c>)Database.query(soqlQuery);
+        }
 
         for(Training_Plan_Section__c tpSection : tpSections){
 
@@ -737,7 +752,9 @@ public with sharing class LMSService{
         String soqlQuery = 'select '+String.join(listSOQLFields,',')+' from Training_Plan_Achievement__c where Training_Plan__c in :tplIds and Type__c = :tpaType';
         soqlQuery += ' order by CreatedDate desc';
 
-        List<Training_Plan_Achievement__c> tplanAchievements = (List<Training_Plan_Achievement__c>)Database.query(soqlQuery);
+        LMSService.WithoutSharingOps wsops = new LMSService.WithoutSharingOps();
+        List<Training_Plan_Achievement__c> tplanAchievements = wsops.queryTrainingPlanAchievements(soqlQuery, tplIds, tpaType);
+
         for(Training_Plan_Achievement__c tpa : tplanAchievements){
             if(!results.containsKey(tpa.Training_Plan__c)){
                 results.put(tpa.Training_Plan__c, new List<Training_Plan_Achievement__c>());
@@ -800,7 +817,9 @@ public with sharing class LMSService{
         String soqlQuery = 'select '+String.join(listSOQLFields,',')+' from Training_Plan_Achievement__c where Training_Plan_Section__c in :tpsIds and Type__c = :tpaType';
         soqlQuery += ' order by CreatedDate desc';
 
-        List<Training_Plan_Achievement__c> tplanAchievements = (List<Training_Plan_Achievement__c>)Database.query(soqlQuery);
+        LMSService.WithoutSharingOps wsops = new LMSService.WithoutSharingOps();
+        List<Training_Plan_Achievement__c> tplanAchievements = wsops.queryTrainingPlanSectionAchievements(soqlQuery, tpsIds, tpaType);
+
         for(Training_Plan_Achievement__c tpa : tplanAchievements){
             if(!results.containsKey(tpa.Training_Plan_Section__c)){
                 results.put(tpa.Training_Plan_Section__c, new List<Training_Plan_Achievement__c>());
@@ -1188,7 +1207,7 @@ public with sharing class LMSService{
     }
 
     //Return a list of all public training plans that are not associated to the current user
-    public static List<Training_Plan__c> getTrainingPlansWithItems(String userId,Set<Id> trainingPlanIds, Boolean publicOnly){
+    public static List<Training_Plan__c> getTrainingPlansWithItems(String userId,Set<Id> trainingPlanIds, Boolean publicOnly, Boolean isPortalUser){
 
         //BEGIN Access Check
         Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
@@ -1203,6 +1222,7 @@ public with sharing class LMSService{
         //END Access Check
 
         Set<Id> availableTrainingPlans = new Set<Id>();
+        String registrationAccess = LMSConstants.TPLAN_PUBLIC_EXTERNAL;
 
         //Get training plans marked as public, but exclude the ones that are contained in the previous set
         Set<Id> tplanIds = trainingPlanIds;
@@ -1210,15 +1230,28 @@ public with sharing class LMSService{
         if(publicOnly){
           soqlQuery += ' and Enable_Self_Registration__c = true';
         }
+
+        if(isPortalUser){
+            soqlQuery += ' and Self_Registration_Access__c = :registrationAccess';
+        }
+
         if(tplanIds != null && tplanIds.size()>0){
             soqlQuery+=' and id in :tplanIds';
         }
 
-        for(Training_Plan__c tp : (List<Training_Plan__c>)Database.query(soqlQuery)){
+        List<Training_Plan__c> tplans = new List<Training_Plan__c>();
+        if(isPortalUser){
+            LMSService.WithoutSharingOps wsops = new LMSService.WithoutSharingOps();
+            tplans = wsops.queryTrainingPlansWithItems(soqlQuery, tplanIds, registrationAccess);
+        }else{
+            tplans = (List<Training_Plan__c>)Database.query(soqlQuery);
+        }
+
+        for(Training_Plan__c tp : tplans){
             availableTrainingPlans.add(tp.Id);
         }
 
-        return getTrainingPlans(availableTrainingPlans);
+        return getTrainingPlans(availableTrainingPlans,isPortalUser);
 
     }
 
@@ -2346,6 +2379,30 @@ public with sharing class LMSService{
                                                                 where Training_Plan__c = :trainingPlanId];
             return results;
         }
+
+        //Query training Plans
+        public List<Training_Plan__c> queryTrainingPlans(String soqlQuery,Set<Id> tpIds, String registrationAccess){
+            return (List<Training_Plan__c>)Database.query(soqlQuery);
+        }
+
+        public List<Training_Plan__c> queryTrainingPlansWithItems(String soqlQuery,Set<Id> tplanIds, String registrationAccess){
+            return (List<Training_Plan__c>)Database.query(soqlQuery);
+        }
+
+        //Query training plan achievements
+        public List<Training_Plan_Achievement__c> queryTrainingPlanAchievements(String soqlQuery, Set<Id> tplIds, String tpaType){
+            return (List<Training_Plan_Achievement__c>)Database.query(soqlQuery);
+        }
+
+        //Query training plan section achievements
+        public List<Training_Plan_Achievement__c> queryTrainingPlanSectionAchievements(String soqlQuery, Set<Id> tpsIds, String tpaType){
+            return (List<Training_Plan_Achievement__c>)Database.query(soqlQuery);
+        }
+
+        public List<Training_Plan_Section__c> queryTrainingPlanSections(String soqlQuery,Set<Id> tpIds){
+            return (List<Training_Plan_Section__c>)Database.query(soqlQuery);
+        }
+
 
     }
 

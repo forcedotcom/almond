@@ -51,12 +51,20 @@ public with sharing class TrainingCatalogDetailController {
             if(lcats.size()>0){
                 learningcategory = lcats.get(0);
 
-                List<Id> sortedTPlanIds = LMSService.getTrainingPlanIdsForCategory(new Set<Id>{categoryId});
+                List<Id> sortedTPlanIds = new List<Id>();
+
+                if(LMSUtils.isPortalUser()){
+                    sortedTPlanIds = LMSCommunitiesService.getTrainingPlanIdsForCategory(new Set<Id>{categoryId},LMSUtils.getUserAccountId());
+                }else{
+                    sortedTPlanIds = LMSService.getTrainingPlanIdsForCategory(new Set<Id>{categoryId});
+                }
+
                 if(sortedTPlanIds.size()>0){
                     //Return a sorted list of training plans
                     Map<Id,Training_Plan__c> trainingPlansMap = new Map<Id,Training_Plan__c>();
 
-                    List<Training_Plan__c> unsortedTrainingPlans = LMSService.getTrainingPlansWithItems(UserInfo.getUserId(),new Set<Id>(sortedTPlanIds),false);
+                    List<Training_Plan__c> unsortedTrainingPlans = LMSService.getTrainingPlansWithItems(UserInfo.getUserId(),new Set<Id>(sortedTPlanIds),false, LMSUtils.isPortalUser());
+
                     for(Training_Plan__c tplan : unsortedTrainingPlans){
                         trainingPlansMap.put(tplan.Id,tplan);
                     }
@@ -81,6 +89,8 @@ public with sharing class TrainingCatalogDetailController {
 
             //Get assignments for existing training plans
             Map<Id,Training_Plan_Assignment__c> assignedTrainingPlanIds = new Map<Id,Training_Plan_Assignment__c>();
+
+            //This query should always run with sharing as the end-user should be the full owner of the assignment
             for(Training_Plan_Assignment__c tpa : [select id
                                                         ,Status__c
                                                         ,Training_Plan__c

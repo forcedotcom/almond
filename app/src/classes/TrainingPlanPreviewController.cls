@@ -84,7 +84,7 @@ public with sharing class TrainingPlanPreviewController{
         redirectURL = null;
         try{
 
-            List<Training_Plan__c> selectedTPlans = LMSService.getTrainingPlans(new Set<Id>{trainingPlanId});
+            List<Training_Plan__c> selectedTPlans = LMSService.getTrainingPlans(new Set<Id>{trainingPlanId}, LMSUtils.isPortalUser());
 
             Training_Plan__c selectedPlan = selectedTPlans.get(0);
             if(selectedPlan.Self_Registration_Access__c != 'Requires Approval' && LMSService.isPublicTrainingPlanAvailable(trainingPlanId,UserInfo.getUserId())){
@@ -106,7 +106,7 @@ public with sharing class TrainingPlanPreviewController{
 
     public PageReference fetchTrainingPlanInfo(){
         existingRequest = null;
-        List<Training_Plan__c> selectedTPlans= LMSService.getTrainingPlans(new Set<Id>{trainingPlanId});
+        List<Training_Plan__c> selectedTPlans= LMSService.getTrainingPlans(new Set<Id>{trainingPlanId}, LMSUtils.isPortalUser());
         List<Training_Plan_Access_Request__c> existingReqs = LMSService.fetchTrainingPlanAccessRequest(UserInfo.getUserId(),trainingPlanId,null);
         if(existingReqs.size()>0){
             existingRequest = existingReqs.get(0);

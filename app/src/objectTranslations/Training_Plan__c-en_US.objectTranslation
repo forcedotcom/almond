@@ -50,7 +50,11 @@
         <name>Self_Registration_Access__c</name>
         <picklistValues>
             <masterLabel>Public</masterLabel>
-            <translation><!-- Public --></translation>
+            <translation>Public (Internal)</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Public (External)</masterLabel>
+            <translation><!-- Public (External) --></translation>
         </picklistValues>
         <picklistValues>
             <masterLabel>Requires Approval</masterLabel>

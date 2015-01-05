@@ -51,7 +51,7 @@ public with sharing class TaskViewerController{
     public TaskViewerController(){
         init();
         PageReference cancelRef = finalRedirection();
-        cancelURL = cancelRef.getUrl();
+        cancelURL = LMSUtils.updateURLCommunityPath(cancelRef.getUrl());
     }
 
     private void init(){
@@ -181,7 +181,7 @@ public with sharing class TaskViewerController{
             update assignment;
 
             PageReference ref = finalRedirection();
-            redirectURL = ref.getUrl();
+            redirectURL = LMSUtils.updateURLCommunityPath(ref.getUrl());
             return null;
 
         }catch(Exception e){
@@ -195,7 +195,7 @@ public with sharing class TaskViewerController{
 
     public PageReference cancelTask(){
       PageReference ref = finalRedirection();
-      redirectURL = ref.getUrl();
+      redirectURL = LMSUtils.updateURLCommunityPath(ref.getUrl());
       return null;
     }
 
@@ -213,7 +213,7 @@ public with sharing class TaskViewerController{
                 assignment.Progress_Percentage__c = 0;
                 update assignment;
                 PageReference ref = finalRedirection();
-                redirectURL = ref.getUrl();
+                redirectURL = LMSUtils.updateURLCommunityPath(ref.getUrl());
             }else{
                 LMSUtils.addErrorMessage(System.Label.ALMS_Task_Undo_Error_Message);
             }

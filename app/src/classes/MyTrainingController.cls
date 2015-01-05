@@ -51,11 +51,11 @@ public with sharing class MyTrainingController {
     public void loadTrainingPlans(){
 
         if(selectedType == LMSConstants.TPLAN_STATUS_COMPLETED){
-            trainingPlans = LMSService.getCompletedTrainingPlans(UserInfo.getUserId());
+            trainingPlans = LMSService.getCompletedTrainingPlans(UserInfo.getUserId(),LMSUtils.isPortalUser());
         }else if(selectedType == LMSConstants.TPLAN_STATUS_IN_PROGRESS){
-            trainingPlans = LMSService.getInProgressTrainingPlans(UserInfo.getUserId());
+            trainingPlans = LMSService.getInProgressTrainingPlans(UserInfo.getUserId(),LMSUtils.isPortalUser());
         }else if(selectedType == LMSConstants.TPLAN_STATUS_NOT_STARTED){
-            trainingPlans = LMSService.getNewTrainingPlans(UserInfo.getUserId());
+            trainingPlans = LMSService.getNewTrainingPlans(UserInfo.getUserId(),LMSUtils.isPortalUser());
         }else{
             trainingPlans = new List<Training_Plan__c>();
         }
@@ -76,7 +76,7 @@ public with sharing class MyTrainingController {
 
             for(Training_Plan__c tp : trainingPlans){
                 if(tp.Status__c == LMSConstants.TPLAN_STATUS_ACTIVE || LMSUtils.isAdminUser()){
-                    tPlans.add(new TrainingPlanWithAchievement(tp, tmp.get(tp.Id),tempRef.getUrl(), true));
+                    tPlans.add(new TrainingPlanWithAchievement(tp, tmp.get(tp.Id),LMSUtils.updateURLCommunityPath(tempRef.getUrl()), true));
                 }
             }
         }

@@ -115,7 +115,7 @@ public with sharing class QuizResultsController{
 
         ref.getParameters().put('aid',assignment.id);
         ref.setRedirect(true);
-        redirectURL = ref.getUrl();
+        redirectURL = LMSUtils.updateURLCommunityPath(ref.getUrl());
         return null;
 
     }

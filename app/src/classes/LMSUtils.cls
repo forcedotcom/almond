@@ -29,6 +29,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 public with sharing class LMSUtils{
 
     private static User userDetails;
+    private static Network networkDetails;
 
     public static void addSuccessMessage(String message){
         ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.CONFIRM,message));
@@ -145,6 +146,32 @@ public with sharing class LMSUtils{
                                 where id = :UserInfo.getUserId()];
         }
         return userDetails;
+    }
+
+    public static Network getNetworkDetails(){
+        if(networkDetails == null){
+            networkDetails = [select Id
+                                    ,Name
+                                    from Network
+                                    where id = :Network.getNetworkId()];
+        }
+        return networkDetails;
+    }
+
+    public static Id getCurrentNetworkId(){
+        return Network.getNetworkId();
+    }
+
+    public static String getCurrentNetworkName(){
+        Network n = getNetworkDetails();
+        return n.Name.toLowerCase();
+    }
+
+    public static String updateURLCommunityPath(String urlPath){
+        if(isPortalUser() && getCurrentNetworkId() != null){
+            urlPath = '/'+getCurrentNetworkName()+urlPath;
+        }
+        return urlPath;
     }
 
 }

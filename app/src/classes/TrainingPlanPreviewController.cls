@@ -87,7 +87,7 @@ public with sharing class TrainingPlanPreviewController{
             List<Training_Plan__c> selectedTPlans = LMSService.getTrainingPlans(new Set<Id>{trainingPlanId}, LMSUtils.isPortalUser());
 
             Training_Plan__c selectedPlan = selectedTPlans.get(0);
-            if(selectedPlan.Self_Registration_Access__c != 'Requires Approval' && LMSService.isPublicTrainingPlanAvailable(trainingPlanId,UserInfo.getUserId())){
+            if(selectedPlan.Self_Registration_Access__c != 'Requires Approval' && LMSService.isPublicTrainingPlanAvailable(trainingPlanId,UserInfo.getUserId(), LMSUtils.isPortalUser())){
                 LMSService.upsertAssignments(new Set<Id>{UserInfo.getUserId()}, trainingPlanId);
             }else{
                 LMSUtils.addErrorMessage(System.Label.ALMS_Public_Plan_Assignment_Error);
@@ -107,7 +107,7 @@ public with sharing class TrainingPlanPreviewController{
     public PageReference fetchTrainingPlanInfo(){
         existingRequest = null;
         List<Training_Plan__c> selectedTPlans= LMSService.getTrainingPlans(new Set<Id>{trainingPlanId}, LMSUtils.isPortalUser());
-        List<Training_Plan_Access_Request__c> existingReqs = LMSService.fetchTrainingPlanAccessRequest(UserInfo.getUserId(),trainingPlanId,null);
+        List<Training_Plan_Access_Request__c> existingReqs = LMSService.fetchTrainingPlanAccessRequest(UserInfo.getUserId(),trainingPlanId,null,LMSUtils.isPortalUser());
         if(existingReqs.size()>0){
             existingRequest = existingReqs.get(0);
         }
@@ -117,7 +117,7 @@ public with sharing class TrainingPlanPreviewController{
     public PageReference requestAccessForTrainingPlan(){
 
         try{
-            Training_Plan_Access_Request__c tpar = LMSService.createTrainingPlanAccessRequest(UserInfo.getUserId(),trainingPlanId,dummyRequest.Comments__c);
+            Training_Plan_Access_Request__c tpar = LMSService.createTrainingPlanAccessRequest(UserInfo.getUserId(),trainingPlanId,dummyRequest.Comments__c, LMSUtils.isPortalUser());
             dummyRequest = new Training_Plan_Access_Request__c();
             LMSUtils.addSuccessMessage(System.Label.ALMS_Public_Plan_Request_Submitted);
             return null;
@@ -128,7 +128,7 @@ public with sharing class TrainingPlanPreviewController{
     }
 
     private PageReference redirectToPlanDetailPage(){
-        PageReference ref = Page.TrainingPlanDetail;
+        PageReference ref = new PageReference(LMSUtils.updateURLCommunityPath('/apex/TrainingPlanDetail'));
         ref.getParameters().put('id',trainingPlanId);
         ref.setRedirect(true);
         return ref;

@@ -64,6 +64,11 @@ public with sharing class TrainingPlanDetailController{
         init();
     }
 
+    public TrainingPlanDetailController(){
+        trainingPlanId = ApexPages.currentPage().getParameters().get('id');
+        init();
+    }
+
     @TestVisible
     private void init(){
         try{
@@ -190,7 +195,7 @@ public with sharing class TrainingPlanDetailController{
             //Not necessary to enforce CRUD/FLS here, this is just to determine how to handle the content no data is exposed to the user
             LMSService.WithoutSharingOps wsops = new LMSService.WithoutSharingOps();
             Learning__c l = wsops.getLearningDetails(learning.Id);
-            
+
             lPR = Page.ResourceViewer;
 
             if(l.Current_Published_Version__r.Training_Resource__r.Display_in_Iframe__c){
@@ -223,7 +228,7 @@ public with sharing class TrainingPlanDetailController{
             ref.getParameters().put('retURL',tempRef.getUrl());
         }
 
-        learningLaunchURL = ref.getUrl();
+        learningLaunchURL = LMSUtils.updateURLCommunityPath(ref.getUrl());
         return null;
 
     }

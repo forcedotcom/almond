@@ -152,14 +152,25 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                                 <apex:outputField value="{!i.learning.Name}"  />
                             </div>
 
-                            <a href="javascript:void(0)" class="mobile-learning-wrapper launch-learning-btn" lms-data-sectionId="{!o.trainingPlanSection.Id}" lms-data-itemId="{!i.trainingPlanSectionItem.Id}">
+                            <apex:outputPanel rendered="{!i.assignments != null}" layout="none">
+                                <a href="javascript:void(0)" class="mobile-learning-wrapper launch-learning-btn" lms-data-sectionId="{!o.trainingPlanSection.Id}" lms-data-itemId="{!i.trainingPlanSectionItem.Id}">
                                     <div class="col-xs-10 col-sm-4 col-md-4 title">
+                                        <apex:outputPanel layout="none" rendered="{!!i.trainingPlanSectionItem.Optional__c}">
+                                            <div class="requiredItem">*</div>
+                                        </apex:outputPanel>
+                                        <apex:outputField value="{!i.learning.Name}"  />
+                                    </div>
+                                </a>
+                            </apex:outputPanel>
+
+                            <apex:outputPanel rendered="{!i.assignments == null}" layout="none">
+                                <div class="mobile-learning-wrapper col-xs-10 col-sm-4 col-md-4 title">
                                     <apex:outputPanel layout="none" rendered="{!!i.trainingPlanSectionItem.Optional__c}">
                                         <div class="requiredItem">*</div>
                                     </apex:outputPanel>
                                     <apex:outputField value="{!i.learning.Name}"  />
                                 </div>
-                            </a>
+                            </apex:outputPanel>
 
                             <div class="col-xs-5 col-sm-5 col-md-5 prog-status">
                                 <div class="progress">

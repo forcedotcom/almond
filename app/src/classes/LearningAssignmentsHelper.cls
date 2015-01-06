@@ -261,7 +261,7 @@ public with sharing class LearningAssignmentsHelper{
             Shared_Learning_Assignment__c sla = new Shared_Learning_Assignment__c(Id=saId);
             sla.Progress__c = la.Progress__c;
             sla.Progress_Percentage__c = la.Progress_Percentage__c;
-            sla.Last_Published_Learning_Version__c = la.Last_Published_Learning_Version_Decision__c;
+            sla.Last_Published_Learning_Version__c = la.Last_Published_Learning_Version__c;
             sla.Last_Published_Learning_Version_Decision__c = la.Last_Published_Learning_Version_Decision__c;
             sla.Evaluation_Result__c = la.Evaluation_Result__c;
             sla.Evaluation_Score__c = la.Evaluation_Score__c;

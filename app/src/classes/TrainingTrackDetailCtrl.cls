@@ -42,12 +42,12 @@ public with sharing class TrainingTrackDetailCtrl{
     private void init(){
         totalItems = 0;
         totalCompleted = 0;
-        List<Training_Track__c> tracks = LMSService.getTrainingTracks('Active',trackId);
+        List<Training_Track__c> tracks = LMSService.getTrainingTracks('Active',trackId, LMSUtils.isPortalUser());
 
         // If we have access to the track header, proceed to fetch track item details
         if(tracks.size()>0){
             track = tracks.get(0);
-            trackLevels = LMSWrappersService.getTrainingTrackLevels(LMSService.getTrainingTrackLevels(trackId));
+            trackLevels = LMSWrappersService.getTrainingTrackLevels(LMSService.getTrainingTrackLevels(trackId, LMSUtils.isPortalUser()));
 
             //Fetch overall progress
             for(TrainingTrackLevel ttlevel : trackLevels){

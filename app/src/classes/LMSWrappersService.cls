@@ -195,10 +195,11 @@ public with sharing class LMSWrappersService{
                 //Get assignment info for all the training plan sections
                 Map<Id,List<Learning_Assignment__c>> assignments = new Map<Id,List<Learning_Assignment__c>>();
                 Map<Id,Map<Id,Shared_Learning_Assignment__c>> sharedAssignments = new Map<Id,Map<Id,Shared_Learning_Assignment__c>>();
-
+                Map<Id, Learning_Version__c> learningVersionMap = new Map<Id,Learning_Version__c>();
                 if(!isPreview){
                     assignments = LMSService.getAssignmentsForLearnings(learningIds, trainingPlanId,new Set<Id>{userId});
                     sharedAssignments = LMSService.getSharedAssignmentsForLearnings(learningIds,new Set<Id>{userId});
+                    learningVersionMap = wsops.getLearningVersionDetails(learningIds);
                 }
 
                 //Update training plan sections with achievement info / assignment progress and section items with assignment info
@@ -257,6 +258,8 @@ public with sharing class LMSWrappersService{
                                         //Get user's latest/oldest versions from assignments
                                         for(Learning_Assignment__c a : sItem.assignments){
 
+                                            Learning_Version__c assignmentLV = learningVersionMap.get(a.Learning_Version__c);
+
                                             if(!sItem.learning.Sync_progress__c && a.Training_Plan_Section_Item__c != sItem.trainingPlanSectionItem.Id){
                                                 continue;
                                             }
@@ -265,9 +268,9 @@ public with sharing class LMSWrappersService{
                                                 sItem.latestAssignment = a;
                                                 sItem.oldestAssignment = a;
                                             }else{
-                                                if(a.Learning_Version__r.Version__c > sItem.latestAssignment.Learning_Version__r.Version__c){
+                                                if(assignmentLV.Version__c > sItem.latestAssignment.Learning_Version__r.Version__c){
                                                     sItem.latestAssignment = a;
-                                                }else if(a.Learning_Version__r.Version__c < sItem.oldestAssignment.Learning_Version__r.Version__c){
+                                                }else if(assignmentLV.Version__c < sItem.oldestAssignment.Learning_Version__r.Version__c){
                                                     sItem.oldestAssignment = a;
                                                 }
                                             }
@@ -288,7 +291,8 @@ public with sharing class LMSWrappersService{
                                         }
 
                                         //Turn on the outdatedAssignment flag if latest version is behind the learning current version
-                                        if(sItem.latestAssignment.Learning_Version__r.Version__c < sItem.trainingPlanSectionItem.Learning__r.Current_Published_Version__r.Version__c){
+                                        Learning_Version__c latestAssignmentLV = learningVersionMap.get(sItem.latestAssignment.Learning_Version__c);
+                                        if(latestAssignmentLV != null && latestAssignmentLV.Version__c < sItem.trainingPlanSectionItem.Learning__r.Current_Published_Version__r.Version__c){
                                             sItem.outdatedAssignment = true;
 
                                             //Get the latest version decision

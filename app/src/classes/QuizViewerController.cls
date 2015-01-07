@@ -36,6 +36,7 @@ public with sharing class QuizViewerController{
     public Integer totalPages{get; private set;}
     public Integer progress{get; private set;}
     public Learning_Assignment__c assignment {get;private set;}
+    private Learning_Version__c learningVersion;
 
     private List<Id> qlNavigation = new List<Id>();
     private Map<Id,Response__c> responseMap = new Map<Id, Response__c>();
@@ -81,16 +82,18 @@ public with sharing class QuizViewerController{
 
             if(String.isNotBlank(aid)){
 
+                assignment = LMSService.getLearningAssignmentDetails(aid,UserInfo.getUserId());
                 LMSService.WithoutSharingOps wsops = new LMSService.WithoutSharingOps();
-                assignment = wsops.getQuizAssignmentDetails(aid,UserInfo.getUserId());
+                learningVersion = wsops.getLearningVersionDetails(assignment.Learning_Version__c,'Quiz');
+                Learning__c assignmentLearning = wsops.getLearningDetails(assignment.Learning__c);
 
-                if(assignment.Learning_Version__r.Quiz__c == null){
+                if(learningVersion.Quiz__c == null){
                     LMSUtils.addErrorMessage(System.Label.ALMS_Invalid_Assignment_Id);
                     return;
                 }else{
-                    quiz = assignment.Learning_Version__r.Quiz__r;
+                    quiz = learningVersion.Quiz__r;
                     if(quiz.Description__c == null){
-                        quiz.Description__c = assignment.Learning__r.Description__c;
+                        quiz.Description__c = assignmentLearning.Description__c;
                     }
                 }
 
@@ -340,13 +343,13 @@ public with sharing class QuizViewerController{
             LearningAssignmentsHelper.previewMode = true;
         }
 
-        if(assignment.Learning_Version__r.Quiz__r.Total_Questions__c != null){
+        if(learningVersion.Quiz__r.Total_Questions__c != null){
 
             LMSService.WithoutSharingOps wsops = new LMSService.WithoutSharingOps();
 
-            Integer respCount = wsops.getAssignmentResponseCount(assignment.Id, assignment.Learning_Version__r.Quiz__c);
+            Integer respCount = wsops.getAssignmentResponseCount(assignment.Id, learningVersion.Quiz__c);
 
-            Double newProgress = respCount/assignment.Learning_Version__r.Quiz__r.Total_Questions__c;
+            Double newProgress = respCount/learningVersion.Quiz__r.Total_Questions__c;
             assignment.Progress_Percentage__c = newProgress*100;
             assignment.Progress__c = LMSConstants.ASSIGNMENT_STATUS_IN_PROGRESS;
 
@@ -509,8 +512,8 @@ public with sharing class QuizViewerController{
                 return false;
             }
 
-            if(assignment.Learning_Version__r.Quiz__r.Max_Attempts__c != null && assignment.Evaluation_Result__c != LMSConstants.ASSIGNMENT_EVAL_PASSED){
-                if(assignment.Evaluation_Times_Taken__c == assignment.Learning_Version__r.Quiz__r.Max_Attempts__c){
+            if(learningVersion.Quiz__r.Max_Attempts__c != null && assignment.Evaluation_Result__c != LMSConstants.ASSIGNMENT_EVAL_PASSED){
+                if(assignment.Evaluation_Times_Taken__c == learningVersion.Quiz__r.Max_Attempts__c){
                     return false;
                 }
             }

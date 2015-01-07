@@ -51,6 +51,7 @@ public with sharing class TrainingPlanSectionAssignmentHelper{
     //This method recalculates progress at the training plan level for the users related to the specified assignments
     public static void updateRelatedTrainingPlanAssignments(List<Training_Plan_Section_Assignment__c> assignments){
 
+        TrainingPlanSectionAssignmentHelper.WithoutSharingOps wosHelper = new TrainingPlanSectionAssignmentHelper.WithoutSharingOps();
         Set<Id> relatedTPlanSections = new Set<Id>();
         Set<Id> relatedTPlans = new Set<Id>();
         Set<Id> relatedUsers = new Set<Id>();
@@ -75,10 +76,8 @@ public with sharing class TrainingPlanSectionAssignmentHelper{
 
         if(relatedTPlanSections.size()>0){
             //Fetch additional information for the related training plan sections
-            for(Training_Plan_Section__c tps : [select id
-                                                        ,Training_Plan__c
-                                                        from Training_Plan_Section__c
-                                                        where id in :relatedTPlanSections]){
+            List<Training_Plan_Section__c> relatedSectionsInfo = wosHelper.getTrainingPlanSectionInfo(relatedTPlanSections);
+            for(Training_Plan_Section__c tps : relatedSectionsInfo){
                 if(tps.Training_Plan__c  != null){
                     relatedTPlans.add(tps.Training_Plan__c);
                 }
@@ -167,6 +166,10 @@ public with sharing class TrainingPlanSectionAssignmentHelper{
     }
 
     public without sharing class WithoutSharingOps{
+
+        public List<Training_Plan_Section__c> getTrainingPlanSectionInfo(Set<Id> relatedTPlanSections){
+            return [select id,Training_Plan__c from Training_Plan_Section__c where id in :relatedTPlanSections];
+        }
 
         // We want to make sure we don't leave flying records if the running user doesn't have access to the associated learning assingments
         public void deleteAssociatedLearningAssignmentsWOS(List<Training_Plan_Section_Assignment__c> assignments){

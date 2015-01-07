@@ -29,6 +29,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 public with sharing class TaskViewerController{
 
     public Task__c task{get;set;}
+    public Learning_Version__c learningVersion{get;set;}
     public Learning_Assignment__c assignment {get;private set;}
     private Boolean isPreviewMode{get;set;}{isPreviewMode = false;}
     public Boolean hasMessages{get{return ApexPages.hasMessages();}}
@@ -72,8 +73,10 @@ public with sharing class TaskViewerController{
 
             if(!String.isBlank(aid)){
 
+                assignment = LMSService.getLearningAssignmentDetails(aid,UserInfo.getUserId());
                 LMSService.WithoutSharingOps wsops = new LMSService.WithoutSharingOps();
-                assignment = wsops.getTaskAssignmentDetails(aid,UserInfo.getUserId());
+                learningVersion = wsops.getLearningVersionDetails(assignment.Learning_Version__c,'Task');
+                Learning__c assignmentLearning = wsops.getLearningDetails(assignment.Learning__c);
 
                 List<Attachment> assignmentAtts = [select id
                                                     from Attachment
@@ -86,13 +89,13 @@ public with sharing class TaskViewerController{
                     latestImageAttachment = assignmentAtts.get(0).Id;
                 }
 
-                if(assignment.Learning_Version__r.Task__c == null){
+                if(learningVersion.Task__c == null){
                     LMSUtils.addErrorMessage(System.Label.ALMS_Invalid_Assignment_Id);
                     return;
                 }else{
-                    task = assignment.Learning_Version__r.Task__r;
+                    task = learningVersion.Task__r;
                     if(task.Description__c == null){
-                        task.Description__c = assignment.Learning__r.Description__c;
+                        task.Description__c = assignmentLearning.Description__c;
                     }
                 }
 
@@ -103,9 +106,9 @@ public with sharing class TaskViewerController{
                     taskInReview = true;
                 }
 
-                if(assignment.Learning_Version__r.Task__r.External_Resource_URL__c != null){
-                    PageReference extRef = new PageReference(assignment.Learning_Version__r.Task__r.External_Resource_URL__c);
-                    if(assignment.Learning_Version__r.Task__r.Add_training_parameters_to_URL__c){
+                if(learningVersion.Task__r.External_Resource_URL__c != null){
+                    PageReference extRef = new PageReference(learningVersion.Task__r.External_Resource_URL__c);
+                    if(learningVersion.Task__r.Add_training_parameters_to_URL__c){
                         extRef.getParameters().put('aid',assignment.id);
                         extRef.getParameters().put('tid',assignment.Training_Plan__c);
                     }
@@ -125,13 +128,13 @@ public with sharing class TaskViewerController{
     }
 
     public PageReference markCompletedAndRedirect(){
-      PageReference completedRef = markCompleted();
-      if(redirectURL != null){
-        PageReference redirectRef = new PageReference(redirectURL);
-        return redirectRef;
-      }else{
-        return null;
-      }
+        PageReference completedRef = markCompleted();
+        if(redirectURL != null){
+            PageReference redirectRef = new PageReference(redirectURL);
+            return redirectRef;
+        }else{
+            return null;
+        }
     }
 
     public PageReference markCompleted(){
@@ -163,7 +166,7 @@ public with sharing class TaskViewerController{
 
             }
 
-            if(assignment.Learning_Version__r.Task__r.Enable_Image_Upload__c && (attachment == null || attachment.body == null)){
+            if(learningVersion.Task__r.Enable_Image_Upload__c && (attachment == null || attachment.body == null)){
                 LMSUtils.addErrorMessage(System.Label.ALMS_Task_Missing_Image);
                 return null;
             }
@@ -194,9 +197,9 @@ public with sharing class TaskViewerController{
     }
 
     public PageReference cancelTask(){
-      PageReference ref = finalRedirection();
-      redirectURL = LMSUtils.updateURLCommunityPath(ref.getUrl());
-      return null;
+        PageReference ref = finalRedirection();
+        redirectURL = LMSUtils.updateURLCommunityPath(ref.getUrl());
+        return null;
     }
 
     public PageReference resetTask(){
@@ -246,7 +249,7 @@ public with sharing class TaskViewerController{
 
     public Boolean getIsTaskValidForReset(){
 
-        if(assignment.Learning_Version__r.Task__r.Disable_Undo__c == true){
+        if(learningVersion.Task__r.Disable_Undo__c == true){
             return false;
         }
 

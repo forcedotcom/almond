@@ -35,7 +35,7 @@ public with sharing class TrainingTracksController{
     }
 
     private void init(){
-        this.tTracks = LMSService.getTrainingTracks('Active','All');
+        this.tTracks = LMSService.getTrainingTracks('Active','All', LMSUtils.isPortalUser());
     }
 
 }

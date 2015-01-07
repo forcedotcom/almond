@@ -66,8 +66,10 @@ public with sharing class QuizResultsController{
             if(!String.isBlank(aid)){
 
                 //Fetch assignment information
+
+                assignment = LMSService.getLearningAssignmentDetails(aid,UserInfo.getUserId());
                 LMSService.WithoutSharingOps wsops = new LMSService.WithoutSharingOps();
-                assignment = wsops.getQuizAssignmentDetailsForResults(aid,UserInfo.getUserId());
+                Learning_Version__c learningVersion = wsops.getLearningVersionDetails(assignment.Learning_Version__c,'Task');
 
                 evalResult = assignment.Evaluation_Result__c;
                 Decimal score = assignment.Evaluation_Score__c;
@@ -81,8 +83,8 @@ public with sharing class QuizResultsController{
                     evalResultLabel = System.Label.ALMS_Quiz_Failed;
                 }
 
-                if(!isPreview && assignment.Learning_Version__r.Quiz__r.Max_Attempts__c != null && evalResult != LMSConstants.ASSIGNMENT_EVAL_PASSED){
-                    if(assignment.Evaluation_Times_Taken__c == assignment.Learning_Version__r.Quiz__r.Max_Attempts__c){
+                if(!isPreview && learningVersion.Quiz__r.Max_Attempts__c != null && evalResult != LMSConstants.ASSIGNMENT_EVAL_PASSED){
+                    if(assignment.Evaluation_Times_Taken__c == learningVersion.Quiz__r.Max_Attempts__c){
                         maxAttemptsReached = true;
                     }
                 }

@@ -98,6 +98,7 @@ public with sharing class LMSCommunitiesService{
         public Set<Id> filterTrainingPlansForAccount(Set<Id> tplanIds, Id accountId){
             Set<Id> validAccountTrainingPlanIds = new Set<Id>();
             if(tplanIds != null && tplanIds.size()>0){
+
                 for(Training_Plan_Account__c tpa : [select Id,
                                                             Training_Plan__c
                                                             from Training_Plan_Account__c
@@ -106,15 +107,51 @@ public with sharing class LMSCommunitiesService{
                     validAccountTrainingPlanIds.add(tpa.Training_Plan__c);
                 }
 
-                for(Training_Plan__C tp : [select Id
-                                                from Training_Plan__c
-                                                where Id in :tplanIds
-                                                and Enable_Self_Registration__c = true
-                                                and Self_Registration_Access__c = :LMSConstants.TPLAN_PUBLIC_EXTERNAL]){
-                    validAccountTrainingPlanIds.add(tp.Id);
+                if(validAccountTrainingPlanIds.size() != tplanIds.size()){
+                    //Run additional query for all externally available plans
+                    for(Training_Plan__c tp : [select Id
+                                                    from Training_Plan__c
+                                                    where Id in :tplanIds
+                                                    and Enable_Self_Registration__c = true
+                                                    and Self_Registration_Access__c = :LMSConstants.TPLAN_PUBLIC_EXTERNAL]){
+                        validAccountTrainingPlanIds.add(tp.Id);
+                    }
                 }
             }
             return validAccountTrainingPlanIds;
+        }
+
+        public Set<Id> filterTrainingTracksForAccount(Set<Id> trackIds, Id accountId){
+            Set<Id> validAccountTrainingTrackIds = new Set<Id>();
+            if(trackIds != null && trackIds.size()>0){
+
+                for(Training_Track_Account__c tpa : [select Id,
+                                                            Training_Track__c
+                                                            from Training_Track_Account__c
+                                                            where Training_Track__c in :trackIds
+                                                            and Account__c = :accountId]){
+                    validAccountTrainingTrackIds.add(tpa.Training_Track__c);
+                }
+
+                if(validAccountTrainingTrackIds.size() != trackIds.size()){
+                    //Run additional query for all externally available plans
+                    //TODO : Query based on access field in training track
+                }
+            }
+            return validAccountTrainingTrackIds;
+        }
+
+        public Set<Id> getAccountTrainingTracks(Id accountId){
+            Set<Id> validAccountTrainingTrackIds = new Set<Id>();
+
+            for(Training_Track_Account__c tpa : [select Id,
+                                                        Training_Track__c
+                                                        from Training_Track_Account__c
+                                                        where Account__c = :accountId]){
+                validAccountTrainingTrackIds.add(tpa.Training_Track__c);
+            }
+
+            return validAccountTrainingTrackIds;
         }
 
     }

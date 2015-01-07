@@ -159,7 +159,7 @@
                 <default>false</default>
             </picklistValues>
             <picklistValues>
-                <fullName>Public (External)</fullName>
+                <fullName>External</fullName>
                 <controllingFieldValues>checked</controllingFieldValues>
                 <default>false</default>
             </picklistValues>

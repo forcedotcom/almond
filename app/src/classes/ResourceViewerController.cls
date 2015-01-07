@@ -59,7 +59,10 @@ global with sharing class ResourceViewerController{
 
                 Learning_Assignment__c assignment = getAssignment(aid);
 
-                if(assignment.Learning_Version__r.Training_Resource__c == null){
+                LMSService.WithoutSharingOps wsops = new LMSService.WithoutSharingOps();
+                Learning_Version__c learningVersion = wsops.getLearningVersionDetails(assignment.Learning_Version__c,'Resource');
+
+                if(learningVersion.Training_Resource__c == null){
                     LMSUtils.addErrorMessage(System.Label.ALMS_Invalid_Assignment_Id);
                 }else{
                     continueRedirection = true;
@@ -80,11 +83,14 @@ global with sharing class ResourceViewerController{
     global static String redirectToResource(String aid){
 
         Learning_Assignment__c assignment = getAssignment(aid);
-        Training_Resource__c resource = assignment.Learning_Version__r.Training_Resource__r;
+        LMSService.WithoutSharingOps wsops = new LMSService.WithoutSharingOps();
+        Learning_Version__c learningVersion = wsops.getLearningVersionDetails(assignment.Learning_Version__c,'Resource');
+
+        Training_Resource__c resource = learningVersion.Training_Resource__r;
 
         //CRUD/FLS not enforced here as we don't want to give update create or edit access to the learning assignment object to LMS Users
         //Update assignment status
-        if(!assignment.Learning_Version__r.Training_Resource__r.Prevent_completion_on_launch__c){
+        if(!learningVersion.Training_Resource__r.Prevent_completion_on_launch__c){
             assignment.Progress__c = LMSConstants.ASSIGNMENT_STATUS_COMPLETED;
             assignment.Progress_Percentage__c = 100;
             assignment.Evaluation_Result__c = 'N/A';
@@ -120,8 +126,7 @@ global with sharing class ResourceViewerController{
     }
 
     private static Learning_Assignment__c getAssignment(String aid){
-        LMSService.WithoutSharingOps wsops = new LMSService.WithoutSharingOps();
-        return wsops.getResourceAssignmentDetails(aid,UserInfo.getUserId());
+        return LMSService.getLearningAssignmentDetails(aid,UserInfo.getUserId());
     }
 
 }

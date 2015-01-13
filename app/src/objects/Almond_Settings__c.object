@@ -81,6 +81,14 @@
         <type>Checkbox</type>
     </fields>
     <fields>
+        <fullName>Disable_Feed_Item_Audit_Fields__c</fullName>
+        <inlineHelpText>Enable this option if you'd like to disable setting the created by id for achievement feed items</inlineHelpText>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Disable Audit Fields for Feed Items</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
         <fullName>Back_to_SF_URL__c</fullName>
         <description>URL used by the back to SF button</description>
         <externalId>false</externalId>

@@ -104,6 +104,7 @@ public with sharing class AchievementAssignmentsHelper{
                 //Do partial insert of work thanks records
                 Database.SaveResult[] wThanksResults = Database.insert(workThanksInsert,false);
 
+                Boolean setAuditFields = !LMSSettings.getDisableFeedItemAuditFields();
                 for(Integer i = 0; i < wThanksResults.size(); i++) {
                     Database.SaveResult sr = wThanksResults[i];
 
@@ -123,6 +124,9 @@ public with sharing class AchievementAssignmentsHelper{
                         fi.RelatedRecordId = workBadges[i].get('sourceid');
                         fi.ParentId = workBadges[i].get('recipientid');
                         fi.Type = 'RypplePost';
+                        if(setAuditFields && workBadges[i].get('giverid') != null){
+                            fi.CreatedById = workBadges[i].get('giverid');
+                        }
                         feedItemInsert.add(fi);
 
                     }else{

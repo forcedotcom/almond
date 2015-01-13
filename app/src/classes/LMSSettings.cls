@@ -57,11 +57,15 @@ public with sharing class LMSSettings {
     }
 
     public static String getBacktoSFUrl(){
-      return (String)getValue('Back_to_SF_URL__c','/home/home.jsp');
+        return (String)getValue('Back_to_SF_URL__c','/home/home.jsp');
     }
 
     public static Boolean getDisableCorrectResponseCheckbox(){
-      return (Boolean)getValue('Disable_Correct_Response_Checkbox__c',false);
+        return (Boolean)getValue('Disable_Correct_Response_Checkbox__c',false);
+    }
+
+    public static Boolean getDisableFeedItemAuditFields(){
+        return (Boolean)getValue('Disable_Feed_Item_Audit_Fields__c',false);
     }
 
     private static Object getValue(String key, Object defaultValue){

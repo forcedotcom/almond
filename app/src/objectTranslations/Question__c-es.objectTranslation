@@ -30,7 +30,7 @@
         <name>Correct_Number__c</name>
     </fields>
     <fields>
-        <label>Descripción (texto enriquecido)</label>
+        <label>Descripción (Adicional)</label>
         <name>Description_RTA__c</name>
     </fields>
     <fields>

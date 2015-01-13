@@ -481,6 +481,10 @@
         <name>ALMS_Question</name>
     </customLabels>
     <customLabels>
+        <label><!-- Question (Additional Information) --></label>
+        <name>ALMS_Question_Additional</name>
+    </customLabels>
+    <customLabels>
         <label><!-- Question Line --></label>
         <name>ALMS_Question_Line</name>
     </customLabels>

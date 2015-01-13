@@ -50,7 +50,7 @@ public with sharing class QuestionNewController{
 
             if(!Test.isRunningTest()){
                 //add all Question__c fields used on vf page
-                controller.addFields(new List<String>{'Name','Description__c','Type__c', 'Order__c', 'Correct_Number__c' , 'Correct_Boolean__c', 'Answer_Sequence__c'});
+                controller.addFields(new List<String>{'Name','Description__c','Description_RTA__c','Type__c', 'Order__c', 'Correct_Number__c' , 'Correct_Boolean__c', 'Answer_Sequence__c'});
             }
 
             //record id
@@ -59,8 +59,11 @@ public with sharing class QuestionNewController{
             //initliaize question record
             if(String.isNotBlank(recid)){
                 question = (Question__c)controller.getRecord();
+                Question__c questionDetails = getQuestionDetails(question.Id);
+                if(questionDetails != null){
+                    qlid = questionDetails.Question_Line__c;
+                }
                 editmode();
-
             }else{
                 answerSequence = new Answer_Sequence__c();
                 question = new Question__c();
@@ -75,12 +78,22 @@ public with sharing class QuestionNewController{
 
     }
 
+    private Question__c getQuestionDetails(Id questionId){
+        List<Question__c> qDetails = [select id,Question_Line__c from Question__c where id = :questionId limit 1];
+        if(qDetails.size() > 0){
+            return qDetails.get(0);
+        }else{
+            return null;
+        }
+    }
+
     public void editmode(){
 
         //BEGIN Access Check
         Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
         relatedFieldsObjects.put(Question__c.sObjectType,new List<String>{
             'Description__c'
+            ,'Description_RTA__c'
             ,'Type__c'
             ,'Order__c'
             ,'Correct_Number__c'
@@ -121,33 +134,25 @@ public with sharing class QuestionNewController{
     //enable types of question
     public PageReference answerseqenabler(){
 
+        setDefaults();
+
         if(!String.isBlank(questiontype) ){
 
             if(questiontype == 'SelectMultipleQuestion' || questiontype == 'SelectOneQuestion'){
-                setDefaults();
                 banswerseq = true;
-
                 //initializes Answer Sequence Item list
                 lanswerseqitems = new List<Answer_Sequence_Item__c>();
                 lanswerseqitems.add(new Answer_Sequence_Item__c());
             }
 
             if(questiontype == 'Number'){
-                setDefaults();
                 banswernum = true;
             }
 
             if(questiontype == 'Boolean'){
-                setDefaults();
                 banswerbool = true;
             }
 
-            if(questiontype == 'Text'){
-                setDefaults();
-            }
-
-        }else{
-            setDefaults();
         }
 
         return null;
@@ -173,6 +178,7 @@ public with sharing class QuestionNewController{
             Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
             relatedFieldsObjects.put(Question__c.sObjectType,new List<String>{
                 'Description__c'
+                ,'Description_RTA__c'
                 ,'Type__c'
                 ,'Order__c'
                 ,'Correct_Number__c'
@@ -217,6 +223,20 @@ public with sharing class QuestionNewController{
         PageReference refPage = new PageReference ('/' + question.id);
         refPage.setRedirect(true);
         return refPage;
+    }
+
+    public PageReference c_save_new(){
+
+        PageReference saveRef = c_save();
+        if(saveRef != null){
+            PageReference refPage = Page.QuestionNew;
+            refPage.getParameters().put('retURL','/'+qlid);
+            refPage.setRedirect(true);
+            return refPage;
+        }else{
+            return saveRef;
+        }
+
     }
 
     public PageReference cancel(){

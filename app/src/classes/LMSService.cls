@@ -151,7 +151,7 @@ public with sharing class LMSService{
         };
 
         String soqlQuery = 'select '+String.join(listSOQLFields,',')+' from Training_Plan__c where Id in :tpIds';
-        soqlQuery += ' order by LastModifiedDate desc';
+        soqlQuery += ' order by SystemModStamp desc';
 
         results = (List<Training_Plan__c>)Database.query(soqlQuery);
 
@@ -919,7 +919,7 @@ public with sharing class LMSService{
                                             from Achievement_Assignment__c
                                             where Achievement__c = :achievementId
                                             and Status__c = :status
-                                            order by LastModifiedDate desc
+                                            order by SystemModStamp desc
                                             limit :maxRecords]){
 
             if(aa.User__c != null){

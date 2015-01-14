@@ -60,6 +60,10 @@
             <section>Custom Links</section>
         </sections>
         <sections>
+            <label><!-- Additional Information --></label>
+            <section>Additional Information</section>
+        </sections>
+        <sections>
             <label><!-- Optional Information --></label>
             <section>Optional Information</section>
         </sections>

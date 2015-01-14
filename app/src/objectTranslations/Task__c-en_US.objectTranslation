@@ -17,6 +17,10 @@
         <name>Description__c</name>
     </fields>
     <fields>
+        <label><!-- Additional Description --></label>
+        <name>Description_RTA__c</name>
+    </fields>
+    <fields>
         <label><!-- Enable Image Upload --></label>
         <name>Enable_Image_Upload__c</name>
     </fields>

@@ -49,6 +49,9 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
         <apex:sectionHeader title="{!$Label.ALMS_Question_Line}" subtitle="{!IF(question.Name != null, question.Name, $Label.ALMS_New_Question)}"/>
 
         <apex:pageBlock >
+
+            <apex:pageMessages />
+
             <apex:pageBlockButtons location="top" >
                 <apex:commandButton action="{!c_save}" value="{!$Label.ALMS_Save}" id="savebtn" />
                 <apex:commandButton action="{!c_save_new}" value="{!$Label.ALMS_Save_And_New}" id="savenewbtn" />

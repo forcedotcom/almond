@@ -826,6 +826,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Task__c.Description_RTA__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Task__c.Enable_Image_Upload__c</field>
         <readable>true</readable>
     </fieldPermissions>

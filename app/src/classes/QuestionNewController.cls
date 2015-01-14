@@ -215,6 +215,7 @@ public with sharing class QuestionNewController{
                 //Note: need to handle deleting Answer Sequence & Answer Sequence Items in case Type changes on edit from options to Text, Boolean or Number
             }
         }catch(Exception e){
+            LMSUtils.addErrorMessage(e.getMessage());
             LMSUtils.logException(e,'QuestionNewController');
             LMSUtils.addGenericUnknownErrorMessage('QuestionNewController - c_save (2)');
             return null;

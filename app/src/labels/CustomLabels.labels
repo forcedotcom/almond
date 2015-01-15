@@ -201,6 +201,14 @@
         <value>Save</value>
     </labels>
     <labels>
+        <fullName>ALMS_Save_And_New</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Save &amp; New</shortDescription>
+        <value>Save &amp; New</value>
+    </labels>
+    <labels>
         <fullName>ALMS_Update</fullName>
         <categories>ALMOND General, ALMOND UI</categories>
         <language>en_US</language>
@@ -657,6 +665,14 @@
         <value>Question</value>
     </labels>
     <labels>
+        <fullName>ALMS_Question_Additional</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Question (Additional Information)</shortDescription>
+        <value>Question (Additional Information)</value>
+    </labels>
+    <labels>
         <fullName>ALMS_Question_Type</fullName>
         <categories>ALMOND General, ALMOND UI</categories>
         <language>en_US</language>
@@ -678,7 +694,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Number Question</shortDescription>
-        <value>Number</value>
+        <value>Number (Correct Answer)</value>
     </labels>
     <labels>
         <fullName>ALMS_Boolean_Question</fullName>
@@ -686,7 +702,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Boolean Question</shortDescription>
-        <value>Boolean</value>
+        <value>Boolean (Correct Answer)</value>
     </labels>
     <labels>
         <fullName>ALMS_Add_Answer_Sequence_Item</fullName>

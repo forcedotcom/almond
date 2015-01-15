@@ -279,7 +279,7 @@
         <inlineHelpText>Enable this option to make feedback comments not required</inlineHelpText>
         <defaultValue>false</defaultValue>
         <externalId>false</externalId>
-        <label>Optioanl Feedback Comments</label>
+        <label>Optional Feedback Comments</label>
         <trackFeedHistory>false</trackFeedHistory>
         <trackHistory>false</trackHistory>
         <trackTrending>false</trackTrending>

@@ -64,6 +64,14 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                     <div class="col-md-12"><p>{!task.Description__c}</p></div>
                 </div>
 
+                <apex:outputPanel layout="block" rendered="{!task.Description_RTA__c != null}" style="padding:10px 0;">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <apex:outputField value="{!task.Description_RTA__c}"/>
+                        </div>
+                    </div>
+                </apex:outputPanel>
+
                 <apex:outputPanel layout="none" rendered="{!externalResourceURL != null}">
                     <div class="panel panel-default">
                       <div class="panel-heading"><b>{!$Label.ALMS_Additional_Information}</b></div>

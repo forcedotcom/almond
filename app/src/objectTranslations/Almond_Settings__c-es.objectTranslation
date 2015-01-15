@@ -53,5 +53,10 @@
         <label>Deshabilitar la casilla de Respuesta Correcta</label>
         <name>Disable_Correct_Response_Checkbox__c</name>
     </fields>
+    <fields>
+        <help>Habilitar esta opción para deshabilitar asignar valores a campos de auditoria en objetos de Chatter</help>
+        <label>Deshabilitar campos de auditoria en Chatter</label>
+        <name>Disable_Feed_Item_Audit_Fields__c</name>
+    </fields>
     <gender>Feminine</gender>
 </CustomObjectTranslation>

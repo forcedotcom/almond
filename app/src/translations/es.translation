@@ -101,7 +101,7 @@
         <name>ALMS_Boolean_False</name>
     </customLabels>
     <customLabels>
-        <label>Verdadero/Falso</label>
+        <label>Verdadero/Falso (Respuesta Correcta)</label>
         <name>ALMS_Boolean_Question</name>
     </customLabels>
     <customLabels>
@@ -425,7 +425,7 @@
         <name>ALMS_Nothing_to_see</name>
     </customLabels>
     <customLabels>
-        <label>Numérica</label>
+        <label>Numérica (Respuesta Correcta)</label>
         <name>ALMS_Number_Question</name>
     </customLabels>
     <customLabels>
@@ -479,6 +479,10 @@
     <customLabels>
         <label>Pregunta</label>
         <name>ALMS_Question</name>
+    </customLabels>
+    <customLabels>
+        <label>Pregunta (Información Adicional)</label>
+        <name>ALMS_Question_Additional</name>
     </customLabels>
     <customLabels>
         <label>Sección de Evaluación</label>

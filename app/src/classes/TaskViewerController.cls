@@ -95,6 +95,7 @@ public with sharing class TaskViewerController{
                 ,'External_Resource_URL__c'
                 ,'External_Resource_Name__c'
                 ,'Description__c'
+                ,'Description_RTA__c'
                 ,'Add_training_parameters_to_URL__c'
                 ,'Enable_Image_Upload__c'
                 ,'Disable_Undo__c'
@@ -118,6 +119,7 @@ public with sharing class TaskViewerController{
                                     ,Learning_Version__r.Task__r.External_Resource_URL__c
                                     ,Learning_Version__r.Task__r.External_Resource_Name__c
                                     ,Learning_Version__r.Task__r.Description__c
+                                    ,Learning_Version__r.Task__r.Description_RTA__c
                                     ,Learning_Version__r.Task__r.Add_training_parameters_to_URL__c
                                     ,Learning_Version__r.Task__r.Requires_Manager_Approval__c
                                     ,Learning_Version__r.Task__r.Enable_Image_Upload__c

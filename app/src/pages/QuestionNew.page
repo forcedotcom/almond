@@ -39,6 +39,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
             width: 7%;
         }
     </style>
+    <script src="{!URLFOR($Resource.almond_uilib, '/js/jquery.min.js')}" />
     <apex:form >
 
         <apex:actionFunction action="{!answerseqenabler}" name="answerseqenablerJS" rerender="therepeater, qsection2" >
@@ -48,8 +49,12 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
         <apex:sectionHeader title="{!$Label.ALMS_Question_Line}" subtitle="{!IF(question.Name != null, question.Name, $Label.ALMS_New_Question)}"/>
 
         <apex:pageBlock >
+
+            <apex:pageMessages />
+
             <apex:pageBlockButtons location="top" >
                 <apex:commandButton action="{!c_save}" value="{!$Label.ALMS_Save}" id="savebtn" />
+                <apex:commandButton action="{!c_save_new}" value="{!$Label.ALMS_Save_And_New}" id="savenewbtn" />
                 <apex:commandButton action="{!cancel}" value="{!$Label.ALMS_Cancel}" id="cancelbtn" />
             </apex:pageBlockButtons>
 
@@ -68,6 +73,15 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                 <apex:pageBlockSectionItem >
                     <apex:outputLabel value="{!$Label.ALMS_Question_Order}" for="qorder" ></apex:outputLabel>
                     <apex:inputField value="{!question.Order__c}" id="qorder" styleClass="qorder"/>
+                </apex:pageBlockSectionItem>
+
+            </apex:pageBlockSection>
+
+            <apex:pageBlockSection id="qsectionopts" columns="2" collapsible="true" title="{!$Label.ALMS_Additional_Information}" >
+
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="{!$Label.ALMS_Question_Additional}" for="qdescrta" ></apex:outputLabel>
+                    <apex:inputField value="{!question.Description_RTA__c}"  id="qdescrta" styleClass="qtxtinput"/>
                 </apex:pageBlockSectionItem>
 
             </apex:pageBlockSection>
@@ -102,6 +116,19 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
             </apex:pageBlockSection>
 
         </apex:pageBlock>
+
+        <script>
+            jQuery(document).ready(function($) {
+                var imgs = $('img');
+                if(imgs){
+                    for(var x in imgs){
+                        if(imgs[x].className=='hideListButton' || imgs[x].className=='showListButton'){
+                            twistSection(imgs[x]);
+                        }
+                    }
+                }
+            });
+        </script>
 
     </apex:form>
 

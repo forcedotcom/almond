@@ -67,6 +67,11 @@ td.noSidebarCell{
     background-color:#fff;
 }
 
+.almond .sfdc_richtext{
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 14px;
+}
+
 .almond .message{
     background:none;
     border:none;

@@ -31,8 +31,8 @@ public with sharing class TrainingPlan{
     public Training_Plan__c trainingPlan{get;set;}
     public List<TrainingPlanSection> sections{get;set;}
 
-    public List<Training_Plan_Achievement__c> achievements{get;set;}
-    public Achievement__c mainAchievement{get;set;}
+    public transient List<Training_Plan_Achievement__c> achievements{get;set;}
+    public transient Achievement__c mainAchievement{get;set;}
     public Integer totalMins{get;set;}
     public String totalDuration{get;set;}
 

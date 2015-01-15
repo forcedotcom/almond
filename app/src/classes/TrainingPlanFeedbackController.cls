@@ -75,9 +75,9 @@ public with sharing class TrainingPlanFeedbackController{
 
     private void loadTrainingPlanInfo(){
         if(isPreview){
-            this.tPlan = LMSWrappersService.getTrainingPlanDetails(tplanId,UserInfo.getUserId(),true);
+            this.tPlan = LMSWrappersService.getTrainingPlanDetails(tplanId,UserInfo.getUserId(),true, false);
         }else{
-            this.tPlan = LMSWrappersService.getTrainingPlanDetails(tplanId,UserInfo.getUserId(),false);
+            this.tPlan = LMSWrappersService.getTrainingPlanDetails(tplanId,UserInfo.getUserId(),false, false);
         }
     }
 

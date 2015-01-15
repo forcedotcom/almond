@@ -68,7 +68,7 @@ public with sharing class TrainingPlanPreviewController{
     }
 
     private void loadTrainingPlanInfo(){
-        tPlan = LMSWrappersService.getTrainingPlanDetails(trainingPlanId,UserInfo.getUserId(),true);
+        tPlan = LMSWrappersService.getTrainingPlanDetails(trainingPlanId,UserInfo.getUserId(),true, true);
     }
 
     public PageReference checkAssignment(){

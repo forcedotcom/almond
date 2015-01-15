@@ -29,7 +29,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 public with sharing class LMSWrappersService{
 
     //Get wrapper object with all training plan info
-    public static TrainingPlan getTrainingPlanDetails(String trainingPlanId,Id userId,Boolean isPreview){
+    public static TrainingPlan getTrainingPlanDetails(String trainingPlanId,Id userId,Boolean isPreview, Boolean includeSectionDetails){
 
         TrainingPlan result = null;
         List<Training_Plan__c> tPlans = new List<Training_Plan__c>();
@@ -43,14 +43,17 @@ public with sharing class LMSWrappersService{
         if(tPlans.size()>0){
             result = new TrainingPlan();
             result.trainingPlan = tPlans.get(0);
-            result.sections = getTrainingPlanSectionsDetails(trainingPlanId,userId,isPreview);
 
-            for(TrainingPlanSection s : result.sections){
-                result.totalMins += s.totalMins;
-            }
+            if(includeSectionDetails){
+                result.sections = getTrainingPlanSectionsDetails(trainingPlanId,userId,isPreview);
 
-            if(result.totalMins != null){
-                result.totalDuration = LMSUtils.getMinutesToHours(result.totalMins);
+                for(TrainingPlanSection s : result.sections){
+                    result.totalMins += s.totalMins;
+                }
+
+                if(result.totalMins != null){
+                    result.totalDuration = LMSUtils.getMinutesToHours(result.totalMins);
+                }
             }
 
             //Set achievement information

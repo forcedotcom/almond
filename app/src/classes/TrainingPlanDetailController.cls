@@ -29,7 +29,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 public with sharing class TrainingPlanDetailController{
 
     public TrainingPlan tPlan{get;set;}
-    public List<User> lUsersWithAchievement {get;set;}
+    public transient List<User> lUsersWithAchievement {get;set;}
     public String learningLaunchURL{get;set;}
     public String learningTarget{get;set;}
 
@@ -85,7 +85,7 @@ public with sharing class TrainingPlanDetailController{
     }
 
     private void loadTrainingPlanInfo(){
-        tPlan = LMSWrappersService.getTrainingPlanDetails(trainingPlanId,UserInfo.getUserId(),false);
+        tPlan = LMSWrappersService.getTrainingPlanDetails(trainingPlanId,UserInfo.getUserId(),false, true);
     }
 
     public void retrieveItemDetails(){

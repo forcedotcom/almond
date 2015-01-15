@@ -1355,12 +1355,8 @@ public with sharing class LMSService{
                 }else{
                     //This is not a publicly availble training plan,
                     //verify the current user has been assigned to this training plan
-                    List<Training_Plan_Assignment__c> tplanAssignments = [select id
-                                                                                ,name
-                                                                                from Training_Plan_Assignment__c
-                                                                                where User__c = :userId
-                                                                                and Training_Plan__c = :tplanId];
-                    if(tplanAssignments.size()>0){
+                    Integer asgmtCount = [select count() from Training_Plan_Assignment__c where User__c = :userId and Training_Plan__c = :tplanId limit 1];
+                    if(asgmtCount >0){
                         return true;
                     }
                 }

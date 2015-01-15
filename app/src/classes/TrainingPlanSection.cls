@@ -31,10 +31,10 @@ public with sharing class TrainingPlanSection{
     public Training_Plan_Section__c trainingPlanSection{get;set;}
     public List<TrainingPlanSectionItem> items{get;set;}
 
-    public List<Training_Plan_Achievement__c> achievements{get;set;}
-    public Achievement__c mainAchievement{get;set;}
+    public transient List<Training_Plan_Achievement__c> achievements{get;set;}
+    public transient Achievement__c mainAchievement{get;set;}
 
-    public Training_Plan_Section_Assignment__c sectionAssignment{get;set;}
+    public transient Training_Plan_Section_Assignment__c sectionAssignment{get;set;}
 
     public Id previousSectionId{get;set;}
     public Boolean previousSectionOptional{get;set;}

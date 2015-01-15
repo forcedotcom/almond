@@ -30,7 +30,7 @@ public with sharing class TrainingPlanFeedbackController{
 
     public ApexPages.StandardSetController setCon;
     public Training_Plan_Feedback__c feedback{get;set;}
-    public List<User> lUsersWithAchievement {get;set;}
+    public transient List<User> lUsersWithAchievement {get;set;}
     public User currentUser{get;private set;}
     public String tplanId{get;private set;}
     public TrainingPlan tPlan{get;private set;}

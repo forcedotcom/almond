@@ -28,10 +28,11 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 public with sharing class TrainingPlanSectionItem{
 
-    public Training_Plan_Section_Item__c trainingPlanSectionItem{get;set;}
+    public Id currentSectionItemId{get;set;}
+    public transient Training_Plan_Section_Item__c trainingPlanSectionItem{get;set;}
     public Learning__c learning{get;set;}
-    public List<Learning_Assignment__c> assignments{get;set;}
-    public List<Shared_Learning_Assignment__c> sharedAssignments{get;set;}
+    public transient List<Learning_Assignment__c> assignments{get;set;}
+    public transient List<Shared_Learning_Assignment__c> sharedAssignments{get;set;}
     public Id previousSectionItemId{get;set;}
     public Boolean previousSectionItemOptional{get;set;}
     public Id previousOptionalSectionItemId{get;set;}
@@ -44,6 +45,7 @@ public with sharing class TrainingPlanSectionItem{
     public String launchBehavior{get;set;}
 
     public TrainingPlanSectionItem(){
+        currentSectionItemId = null;
         trainingPlanSectionItem = null;
         learning = null;
         assignments = null;

@@ -165,6 +165,7 @@ public with sharing class LMSWrappersService{
                         TrainingPlanSection tps = sectionsMap.get(si.Training_Plan_Section__c);
                         if(tps != null){
                             TrainingPlanSectionItem tpsi = new TrainingPlanSectionItem();
+                            tpsi.currentSectionItemId = si.Id;
                             tpsi.trainingPlanSectionItem = si;
                             tpsi.latestLearningVersionId = si.Learning__r.Current_Published_Version__c;
 

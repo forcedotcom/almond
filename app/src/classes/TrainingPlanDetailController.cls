@@ -115,7 +115,7 @@ public with sharing class TrainingPlanDetailController{
 
                         for(TrainingPlanSectionItem item : items){
 
-                            if(item.trainingPlanSectionItem.Id == selectedItemId){
+                            if(item.currentSectionItemId == selectedItemId){
                                 currentItem = item;
                                 break;
                             }

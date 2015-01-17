@@ -29,7 +29,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 public with sharing class MyProfileController {
 
     public User oUser{get;set;}
-    public List<AchievementCategoryWrapper> lcategories{get;set;}
+    public transient List<AchievementCategoryWrapper> lcategories{get;set;}
     public User oManager{get;set;}
     public String achievementType{get;private set;}
     private String profileUserId{get;set;}

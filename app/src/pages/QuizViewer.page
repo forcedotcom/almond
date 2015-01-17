@@ -109,15 +109,19 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                                 <div class="row">
                                     <div class="col-xs-12 col-sm-12 col-md-12 quiz-question-panel">
                                         <apex:outputField value="{!qi.question.Description__c}" rendered="{!qi.question.Description__c != null}"/>
-                                        <apex:outputField value="{!qi.question.Description_RTA__c}" rendered="{!qi.question.Description__c != null}"/>
+                                        <apex:outputPanel layout="block" rendered="{!qi.question.Description_RTA__c != null}" style="padding: 10px 0;">
+                                            <apex:outputField value="{!qi.question.Description_RTA__c}" />
+                                        </apex:outputPanel>
                                     </div>
                                     <div class="col-xs-12 col-sm-12 col-md-12 quiz-response-panel">
                                         <c:SelectOneQuestion QuizItem="{!qi}" rendered="{!qi.question.Type__c == 'SelectOneQuestion'}"/>
                                         <c:SelectMultipleQuestion QuizItem="{!qi}" rendered="{!qi.question.Type__c == 'SelectMultipleQuestion'}"/>
                                         <c:SelectBooleanQuestion QuizItem="{!qi}" rendered="{!qi.question.Type__c == 'Boolean'}"/>
 
-                                        <apex:inputField value="{!qi.response.Number_Response__c}" rendered="{!qi.question.Type__c == 'Number'}" />
-                                        <apex:inputField value="{!qi.response.Response_Text_Long__c}" rendered="{!qi.question.Type__c == 'Text'}" />
+                                        <apex:outputPanel layout="block" rendered="{!qi.question.Type__c == 'Number' || qi.question.Type__c == 'Text'}" style="padding: 10px 0 0 0;">
+                                            <apex:inputField value="{!qi.response.Number_Response__c}" rendered="{!qi.question.Type__c == 'Number'}" style="width:100%;"/>
+                                            <apex:inputField value="{!qi.response.Response_Text_Long__c}" rendered="{!qi.question.Type__c == 'Text'}" style="width:100%;"/>
+                                        </apex:outputPanel>
                                     </div>
                                 </div>
                             </div>

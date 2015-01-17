@@ -148,6 +148,16 @@
         <trackTrending>false</trackTrending>
         <type>Checkbox</type>
     </fields>
+    <fields>
+        <fullName>Description_RTA__c</fullName>
+        <externalId>false</externalId>
+        <label>Additional Description</label>
+        <length>32768</length>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Html</type>
+        <visibleLines>25</visibleLines>
+    </fields>
     <label>Task</label>
     <nameField>
         <label>Task Title</label>

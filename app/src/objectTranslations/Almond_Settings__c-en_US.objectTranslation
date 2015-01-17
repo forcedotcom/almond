@@ -53,5 +53,10 @@
         <label><!-- Disable Correct Response Checkbox --></label>
         <name>Disable_Correct_Response_Checkbox__c</name>
     </fields>
+    <fields>
+        <help><!-- Enable this option if you'd like to disable setting the created by id for achievement feed items --></help>
+        <label><!-- Disable Audit Fields for Feed Items --></label>
+        <name>Disable_Feed_Item_Audit_Fields__c</name>
+    </fields>
     <startsWith>Consonant</startsWith>
 </CustomObjectTranslation>

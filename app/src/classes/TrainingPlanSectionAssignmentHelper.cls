@@ -165,7 +165,7 @@ public with sharing class TrainingPlanSectionAssignmentHelper{
 
     }
 
-    public without sharing class WithoutSharingOps{
+    private without sharing class WithoutSharingOps{
 
         public List<Training_Plan_Section__c> getTrainingPlanSectionInfo(Set<Id> relatedTPlanSections){
             return [select id,Training_Plan__c from Training_Plan_Section__c where id in :relatedTPlanSections];

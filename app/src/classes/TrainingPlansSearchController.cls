@@ -166,7 +166,7 @@ public with sharing class TrainingPlansSearchController {
 
     }
 
-    public without sharing class WithoutSharingOps{
+    private without sharing class WithoutSharingOps{
         public ApexPages.StandardSetController getSetCon(String searchTerm){
             LMSCommunitiesService.WithoutSharingOps wsops = new LMSCommunitiesService.WithoutSharingOps();
             Set<Id> accountTPlanIds = wsops.getTrainingPlanIdsForAccount(LMSUtils.getUserAccountId());

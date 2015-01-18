@@ -159,7 +159,7 @@ public with sharing class TrainingPlanFeedbackController{
        return tplanAssignments.size()>0;
     }
 
-    public without sharing class WithoutSharingOps{
+    private without sharing class WithoutSharingOps{
         public ApexPages.StandardSetController getSetCon(Id tplanId){
             ApexPages.StandardSetController setCon = new ApexPages.StandardSetController(Database.getQueryLocator(
                 [select Id

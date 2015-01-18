@@ -334,7 +334,7 @@ public with sharing class LearningAssignmentsHelper{
         wosHelper.updateTrainingPlanAssignmentsWOS(relatedTPlans,relatedUsers);
     }
 
-    public without sharing class WithoutSharingOps{
+    private without sharing class WithoutSharingOps{
 
         // We need to make sure progress recalculation has access to all assignment records even if some are not shared
         // with the running user

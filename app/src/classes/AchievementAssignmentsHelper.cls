@@ -61,7 +61,7 @@ public with sharing class AchievementAssignmentsHelper{
 
     }
 
-	public without sharing class WithoutSharingOps{
+	private without sharing class WithoutSharingOps{
 
         // Work.com objects are not managed by our package
         // We want to create records for these objects in a without sharing context to bypass any sharing restrictions

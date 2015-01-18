@@ -274,7 +274,7 @@ public with sharing class TrainingPlanAssignmentHelper{
         wosHelper.calculateTrainingTrackProgressWOS(uIds,trackIds);
     }
 
-    public without sharing class WithoutSharingOps{
+    private without sharing class WithoutSharingOps{
 
         // We need to run this without sharing to make sure we clean related assignment record even if the records are not available to the running user
         public void deleteAssociatedLearningAssignmentsWOS(List<Training_Plan_Assignment__c> assignments,Map<Id,Set<Id>> mapTPlanUserIds){

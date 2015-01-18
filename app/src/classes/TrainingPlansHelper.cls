@@ -104,7 +104,7 @@ public with sharing class TrainingPlansHelper {
 
     }
 
-    public without sharing class WithoutSharingOps{
+    private without sharing class WithoutSharingOps{
         //We need to insert custom apex shares in the without sharing context to avoid granting MAD permissions for LMS Admins
         public void insertTPlanSharesWOS(List<Training_Plan__Share> newShares){
             insert newShares;

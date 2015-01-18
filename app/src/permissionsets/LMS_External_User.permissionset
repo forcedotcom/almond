@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
-    <applicationVisibilities>
-        <application>almond_LMS</application>
-        <visible>true</visible>
-    </applicationVisibilities>
     <classAccesses>
         <apexClass>LMSConstants</apexClass>
         <enabled>false</enabled>
@@ -1283,8 +1279,8 @@
         <field>Training_Track_Account__c.Training_Track__c</field>
         <readable>true</readable>
     </fieldPermissions>
-    <label>LMS User</label>
-    <description>Almond - Permission Set used for internal users</description>
+    <label>LMS External User</label>
+    <description>Almond - Permission Set used for portal/community users</description>
     <objectPermissions>
         <allowCreate>false</allowCreate>
         <allowDelete>false</allowDelete>

@@ -1284,6 +1284,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <label>LMS Admin</label>
+    <description>Almond - Permission Set used for internal admin users</description>
     <objectPermissions>
         <allowCreate>true</allowCreate>
         <allowDelete>true</allowDelete>

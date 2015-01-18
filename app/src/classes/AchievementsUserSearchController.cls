@@ -56,11 +56,16 @@ public with sharing class AchievementsUserSearchController {
                 System.debug('serchTerm ' +searchTerm);
                 searchTerm = '%'+searchTerm+'%';
 
-                Set<String> userTypes = null;
+                Set<String> userTypes = new Set<String>{'Standard','CsnOnly'};
+                Set<String> partnerTypes = new Set<String>{'PowerPartner','PowerCustomerSuccess'};
+                Set<String> customerTypes = new Set<String>{'CSPLitePortal','CustomerSuccess'};
+
                 if(LMSUtils.isPortalUser()){
-                    userTypes = new Set<String>{'PowerPartner','CSPLitePortal','CustomerSuccess','PowerCustomerSuccess'};
-                }else{
-                    userTypes = new Set<String>{'Standard','CsnOnly'};
+                    if(partnerTypes.contains(UserInfo.getUserType())){
+                        userTypes.addAll(partnerTypes);
+                    }else{
+                        userTypes.addAll(customerTypes);
+                    }
                 }
 
                 this.setCon = new ApexPages.StandardSetController(Database.getQueryLocator(

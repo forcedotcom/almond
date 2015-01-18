@@ -95,6 +95,19 @@ public with sharing class LMSCommunitiesService{
             return result;
         }
 
+        public Set<Id> getTrainingPlanIdsForAccount(Id accountId){
+            Set<Id> validAccountTrainingPlanIds = new Set<Id>();
+            if(accountId != null){
+                for(Training_Plan_Account__c tpa : [select Id,
+                                                            Training_Plan__c
+                                                            from Training_Plan_Account__c
+                                                            where Account__c = :accountId]){
+                    validAccountTrainingPlanIds.add(tpa.Training_Plan__c);
+                }
+            }
+            return validAccountTrainingPlanIds;
+        }
+
         public Set<Id> filterTrainingPlansForAccount(Set<Id> tplanIds, Id accountId){
             Set<Id> validAccountTrainingPlanIds = new Set<Id>();
             if(tplanIds != null && tplanIds.size()>0){
@@ -121,7 +134,7 @@ public with sharing class LMSCommunitiesService{
             return validAccountTrainingPlanIds;
         }
 
-        public Set<Id> filterTrainingTracksForAccount(Set<Id> trackIds, Id accountId){
+        public Set<Id> filterTrainingTracksForAccount(Set<Id> trackIds, Id accountId, String filterStatus){
             Set<Id> validAccountTrainingTrackIds = new Set<Id>();
             if(trackIds != null && trackIds.size()>0){
 
@@ -134,8 +147,15 @@ public with sharing class LMSCommunitiesService{
                 }
 
                 if(validAccountTrainingTrackIds.size() != trackIds.size()){
-                    //Run additional query for all externally available plans
-                    //TODO : Query based on access field in training track
+
+                    String soqlQuery = 'select Id from Training_Track__c where Enable_all_external_accounts__c = true';
+                    if(filterStatus != null){
+                        soqlQuery += ' and Status__c = :filterStatus';
+                    }
+                    List<Training_Track__c> ttracks = (List<Training_Track__c>)Database.query(soqlQuery);
+                    for(Training_Track__c ttk : ttracks){
+                        validAccountTrainingTrackIds.add(ttk.Id);
+                    }
                 }
             }
             return validAccountTrainingTrackIds;

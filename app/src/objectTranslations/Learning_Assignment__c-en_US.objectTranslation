@@ -152,6 +152,10 @@
         <name>User__c</name>
         <relationshipLabel><!-- Learning Assignments (User) --></relationshipLabel>
     </fields>
+    <fields>
+        <label><!-- Community Id --></label>
+        <name>Community_Id__c</name>
+    </fields>
     <layouts>
         <layout>Learning Assignment Layout</layout>
         <sections>

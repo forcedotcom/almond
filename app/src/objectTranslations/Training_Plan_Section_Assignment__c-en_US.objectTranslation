@@ -39,6 +39,10 @@
         <name>User__c</name>
         <relationshipLabel><!-- Training Plan Section Assignments --></relationshipLabel>
     </fields>
+    <fields>
+        <label><!-- Community Id --></label>
+        <name>Community_Id__c</name>
+    </fields>
     <layouts>
         <layout>Training Plan Section Assignment Layout</layout>
         <sections>

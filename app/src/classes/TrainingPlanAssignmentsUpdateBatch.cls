@@ -101,7 +101,7 @@ global with sharing class TrainingPlanAssignmentsUpdateBatch implements Database
 
         if(trainingplanId != null && selectedUserIds.size()>0){
             try{
-                LMSService.upsertAssignments(selectedUserIds,trainingPlanId);
+                LMSService.upsertAssignments(selectedUserIds,trainingPlanId,null);
             }catch(Exception e){
                 success = false;
                 errorMessage = e.getMessage();

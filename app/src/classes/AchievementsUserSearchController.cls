@@ -55,17 +55,26 @@ public with sharing class AchievementsUserSearchController {
             if(searchTerm != null && !String.isBlank(searchTerm) && searchTerm.trim().length() > 2){
                 System.debug('serchTerm ' +searchTerm);
                 searchTerm = '%'+searchTerm+'%';
-                this.setCon= new ApexPages.StandardSetController(Database.getQueryLocator(
+
+                Set<String> userTypes = null;
+                if(LMSUtils.isPortalUser()){
+                    userTypes = new Set<String>{'PowerPartner','CSPLitePortal','CustomerSuccess','PowerCustomerSuccess'};
+                }else{
+                    userTypes = new Set<String>{'Standard','CsnOnly'};
+                }
+
+                this.setCon = new ApexPages.StandardSetController(Database.getQueryLocator(
                     [SELECT Id
                             ,Name
                             ,SmallPhotoUrl
                             FROM User
                             WHERE IsActive = true
-                            AND UserType IN ('Standard','CsnOnly')
+                            AND UserType IN :userTypes
                             AND Name LIKE :searchTerm
                             ORDER BY CreatedDate desc
                             LIMIT 200]
                 ));
+
                 this.setCon.setpageNumber(1);
                 this.setCon.setPageSize(10);
             }else{

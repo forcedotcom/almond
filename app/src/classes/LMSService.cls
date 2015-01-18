@@ -814,8 +814,6 @@ public with sharing class LMSService{
             ,'User__c'
             ,'Contact__c'
             ,'Training_Plan_Achievement__c'
-            ,'Training_Plan_Achievement__r.Training_Plan__c'
-            ,'Training_Plan_Achievement__r.Training_Plan_Section__c'
             ,'Achievement__c'
             ,'Achievement__r.Override_Completed_Status__c'
         };
@@ -823,17 +821,37 @@ public with sharing class LMSService{
         String soqlQuery = 'select '+String.join(listSOQLFields,',')+' from Achievement_Assignment__c where Training_Plan_Achievement__c in :tplanIds and User__c in :uIds';
         soqlQuery += ' order by CreatedDate desc';
 
+
         List<Achievement_Assignment__c> achievementAssignments = (List<Achievement_Assignment__c>)Database.query(soqlQuery);
+
+        Set<Id> tplanAchievementIds = new Set<Id>();
+
+        //Extract tplan achievement data
+        for(Achievement_Assignment__c aa : achievementAssignments){
+            if(aa.Training_Plan_Achievement__c != null){
+                tplanAchievementIds.add(aa.Training_Plan_Achievement__c);
+            }
+        }
+
+        //Query training plan achievemnt information
+        LMSService.WithoutSharingOps wsops = new LMSService.WithoutSharingOps();
+        Map<Id,Training_Plan_Achievement__c> tplanAchievementsMap = wsops.getTrainingPlanAchievementDetails(tplanAchievementIds);
+
         for(Achievement_Assignment__c aa : achievementAssignments){
             String key = aa.User__c+'_';
+            Training_Plan_Achievement__c tplanAchievement = tplanAchievementsMap.get(aa.Training_Plan_Achievement__c);
 
-            if(aa.Training_Plan_Achievement__r.Training_Plan__c == null){
+            if(tplanAchievement == null){
+                continue;
+            }
+
+            if(tplanAchievement.Training_Plan__c == null){
                 continue;
             }else{
-                if(aa.Training_Plan_Achievement__r.Training_Plan_Section__c != null){
-                    key+=aa.Training_Plan_Achievement__r.Training_Plan_Section__c;
+                if(tplanAchievement.Training_Plan_Section__c != null){
+                    key+=tplanAchievement.Training_Plan_Section__c;
                 }else{
-                    key+=aa.Training_Plan_Achievement__r.Training_Plan__c;
+                    key+=tplanAchievement.Training_Plan__c;
                 }
             }
 
@@ -906,7 +924,7 @@ public with sharing class LMSService{
     }
 
     //Upsert learning assignments for the specified users under the specified training plan Id
-    public static Map<Id,List<Learning_Assignment__c>> upsertAssignments(Set<Id> userIds, Id trainingPlanId){
+    public static Map<Id,List<Learning_Assignment__c>> upsertAssignments(Set<Id> userIds, Id trainingPlanId, Id communityId){
 
         //Ignore inactive users
         Set<Id> activeUserIds = new Set<Id>();
@@ -1010,6 +1028,9 @@ public with sharing class LMSService{
                                 newLA.Training_Plan_Section_Item__c = sectionItem.Id;
                                 newLA.Contact__c = uInfo.ContactId;
                                 newLA.Optional__c = sectionItem.Optional__c;
+                                if(communityId != null){
+                                    newLA.Community_Id__c = communityId;
+                                }
                                 if(!results.containsKey(userId)){
                                     results.put(userId,new List<Learning_Assignment__c>());
                                 }
@@ -1097,6 +1118,8 @@ public with sharing class LMSService{
             }
 
             //Create new AA records
+            Id currentNetworkId = LMSUtils.getCurrentNetworkId();
+
             for(Training_Plan_Achievement__c tpa : tpasMap.values()){
 
                 for(Id uId : activeUserIds){
@@ -1109,6 +1132,9 @@ public with sharing class LMSService{
                         aa.Achievement__c = tpa.Achievement__c;
                         aa.Status__c = LMSConstants.AA_ELIGIBLE_STATUS;
                         aa.OwnerId = uId;
+                        if(currentNetworkId != null){
+                            aa.Community_Id__c = currentNetworkId;
+                        }
                         aasToInsert.add(aa);
                         if(!results.containsKey(uId)){
                             results.put(uId,new List<Achievement_Assignment__c>());
@@ -1399,6 +1425,7 @@ public with sharing class LMSService{
             ,'Text_Color__c'
             ,'Hide_From_Catalog_Home__c'
             ,'Order__c'
+            ,'Is_Internal__c'
         });
         LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
         //END Access Check
@@ -1412,14 +1439,21 @@ public with sharing class LMSService{
             ,'Total_Training_Plans__c'
             ,'Hide_From_Catalog_Home__c'
             ,'Order__c'
+            ,'Is_Internal__c'
         };
 
         String soqlQuery = 'select '+String.join(listSOQLFields,',')+' from Learning_Category__c';
         if(catId != null){
             soqlQuery+= ' where id = :catId';
         }else{
-            soqlQuery+= ' where Total_Training_Plans__c > 0 and Hide_From_Catalog_Home__c = false order by Order__c asc NULLS LAST';
+            soqlQuery+= ' where Total_Training_Plans__c > 0 and Hide_From_Catalog_Home__c = false';
         }
+
+        if(LMSUtils.isPortalUser()){
+            soqlQuery+= ' and Is_Internal__c = false';
+        }
+
+        soqlQuery+= ' order by Order__c asc NULLS LAST';
 
         results = (List<Learning_Category__c>)Database.query(soqlQuery);
         return results;
@@ -1473,7 +1507,7 @@ public with sharing class LMSService{
         if(trackFilter != 'All'){
             if(isPortalUser){
                 LMSCommunitiesService.WithoutSharingOps commwsops = new LMSCommunitiesService.WithoutSharingOps();
-                trIds = commwsops.filterTrainingTracksForAccount(new Set<Id>{trackFilter},LMSUtils.getUserAccountId());
+                trIds = commwsops.filterTrainingTracksForAccount(new Set<Id>{trackFilter},LMSUtils.getUserAccountId(), filterStatus);
                 if(trIds.size() == 0){
                     return results;
                 }
@@ -1569,7 +1603,7 @@ public with sharing class LMSService{
 
         if(isPortalUser){
             LMSCommunitiesService.WithoutSharingOps commwsops = new LMSCommunitiesService.WithoutSharingOps();
-            Set<Id> trIds = commwsops.filterTrainingTracksForAccount(new Set<Id>{trackId},LMSUtils.getUserAccountId());
+            Set<Id> trIds = commwsops.filterTrainingTracksForAccount(new Set<Id>{trackId},LMSUtils.getUserAccountId(), null);
             if(trIds.size()>0){
                 LMSService.WithoutSharingOps wsops = new LMSService.WithoutSharingOps();
                 results = wsops.queryTrainingTrackLevels(soqlQuery,trId);
@@ -2388,6 +2422,19 @@ public with sharing class LMSService{
 
         public List<Training_Track_Level__c> queryTrainingTrackLevels(String soqlQuery, Id trId){
             return (List<Training_Track_Level__c>)Database.query(soqlQuery);
+        }
+
+        public Map<Id,Training_Plan_Achievement__c> getTrainingPlanAchievementDetails(Set<Id> tplanAchievementIds){
+            Map<Id,Training_Plan_Achievement__c> results = new Map<Id,Training_Plan_Achievement__c>();
+            for(Training_Plan_Achievement__c tpa : [select id
+                                                          ,Training_Plan__c
+                                                          ,Training_Plan_Section__c
+                                                          from Training_Plan_Achievement__c
+                                                          where id in :tplanAchievementIds]){
+                results.put(tpa.Id,tpa);
+
+            }
+            return results;
         }
     }
 

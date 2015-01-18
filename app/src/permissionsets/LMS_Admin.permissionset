@@ -260,6 +260,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Achievement_Assignment__c.Community_Id__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Achievement__c.Achievement_Category__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -451,6 +456,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Learning_Assignment__c.Optional__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Learning_Assignment__c.Community_Id__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -925,6 +935,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Training_Plan_Assignment__c.Community_Id__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Training_Plan_Section_Assignment__c.Status__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -936,6 +951,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Training_Plan_Section_Assignment__c.User__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Training_Plan_Section_Assignment__c.Community_Id__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -1180,6 +1200,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Learning_Category__c.Is_Internal__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Training_Track_Level__c.Order__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1231,6 +1256,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Training_Track__c.Order__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Training_Track__c.Enable_all_external_accounts__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

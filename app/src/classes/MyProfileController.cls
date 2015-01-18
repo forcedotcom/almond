@@ -137,10 +137,6 @@ public with sharing class MyProfileController {
                                                     ,Achievement__r.Expiration_Date__c
                                                     ,Achievement__r.Achievement_Category__r.Name
                                                     ,Achievement__r.Type__c
-                                                    ,Training_Plan_Achievement__c
-                                                    ,Training_Plan_Achievement__r.Type__c
-                                                    ,Training_Plan_Achievement__r.Training_Plan__c
-                                                    ,Training_Plan_Achievement__r.Training_Plan_Section__c
                                                     ,User__c
                                                     from Achievement_Assignment__c
                                                     where User__c = :profileUserId

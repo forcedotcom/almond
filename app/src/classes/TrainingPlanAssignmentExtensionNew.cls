@@ -193,7 +193,7 @@ public with sharing class TrainingPlanAssignmentExtensionNew{
             }
 
             if(trainingPlanId != null && selectedUserIds.size() >0){
-                LMSService.upsertAssignments(selectedUserIds,trainingPlanId);
+                LMSService.upsertAssignments(selectedUserIds,trainingPlanId,null);
             }
         }catch(Exception e){
             LMSUtils.logException(e,'TrainingPlanAssignmentExtensionNew');

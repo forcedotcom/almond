@@ -53,7 +53,7 @@ private class TestTPlanAchievementManagementExt{
 		}
 
 		System.runAs(adminUsers.get(0)){
-			LMSService.upsertAssignments(selectedUserIds,tplan.Id);
+			LMSService.upsertAssignments(selectedUserIds,tplan.Id,null);
             System.assertEquals(10,getTrainingPlanAssignmentsCount(tplan.Id));
         }
 

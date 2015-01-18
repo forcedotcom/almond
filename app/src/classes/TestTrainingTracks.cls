@@ -54,9 +54,9 @@ public class TestTrainingTracks {
 
 		System.runAs(adminUsers.get(0)){
 			//Upsert assignemtns for tplan 1
-			LMSService.upsertAssignments(selectedUserIds,tplanId1);
-			LMSService.upsertAssignments(selectedUserIds,tplanId2);
-			LMSService.upsertAssignments(selectedUserIds,tplanId3);
+			LMSService.upsertAssignments(selectedUserIds,tplanId1,null);
+			LMSService.upsertAssignments(selectedUserIds,tplanId2,null);
+			LMSService.upsertAssignments(selectedUserIds,tplanId3,null);
 		}
 
 		//Add achievement to the training track

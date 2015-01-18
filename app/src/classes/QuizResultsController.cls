@@ -69,7 +69,7 @@ public with sharing class QuizResultsController{
 
                 assignment = LMSService.getLearningAssignmentDetails(aid,UserInfo.getUserId());
                 LMSService.WithoutSharingOps wsops = new LMSService.WithoutSharingOps();
-                Learning_Version__c learningVersion = wsops.getLearningVersionDetails(assignment.Learning_Version__c,'Task');
+                Learning_Version__c learningVersion = wsops.getLearningVersionDetails(assignment.Learning_Version__c,'Quiz');
 
                 evalResult = assignment.Evaluation_Result__c;
                 Decimal score = assignment.Evaluation_Score__c;

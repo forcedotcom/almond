@@ -61,7 +61,7 @@ public class TestLearningDeleteSharedAsgmtsExt {
 		}
 
 		System.runAs(adminUsers.get(0)){
-			LMSService.upsertAssignments(selectedUserIds,tplanId);
+			LMSService.upsertAssignments(selectedUserIds,tplanId,null);
 		}
 
         List<Learning_Assignment__c> las = [select id,Shared_Learning_Assignment__c,User__c from Learning_Assignment__c];

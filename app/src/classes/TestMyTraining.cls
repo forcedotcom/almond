@@ -59,7 +59,7 @@ public class TestMyTraining {
 		//Test Insert
 		Test.startTest();
 			System.runAs(adminUsers.get(0)){
-				LMSService.upsertAssignments(selectedUserIds,tplanId);
+				LMSService.upsertAssignments(selectedUserIds,tplanId,null);
 			}
 		Test.stopTest();
 
@@ -114,7 +114,7 @@ public class TestMyTraining {
 		//Test Insert
 		Test.startTest();
 			System.runAs(adminUsers.get(0)){
-				LMSService.upsertAssignments(selectedUserIds,tplanId);
+				LMSService.upsertAssignments(selectedUserIds,tplanId,null);
 
 				List<Training_Plan_Assignment__c> ltpa = [select id,
 																Status__c,

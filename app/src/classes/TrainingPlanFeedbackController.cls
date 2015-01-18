@@ -64,11 +64,12 @@ public with sharing class TrainingPlanFeedbackController{
         existingFeedback = getExistingRating();
         feedback.Training_Plan__c = tplanId;
         feedback.User__c = UserInfo.getUserId();
-        currentUser = [select id,Name,SmallPhotoUrl from User where id = :UserInfo.getUserId()];
-        TrainingPlanFeedbackController.WithoutSharingOps wsops = new TrainingPlanFeedbackController.WithoutSharingOps();
-        setCon = wsops.getSetCon(tplanId);
 
         if(tPlan != null){
+            currentUser = [select id,Name,SmallPhotoUrl from User where id = :UserInfo.getUserId()];
+            TrainingPlanFeedbackController.WithoutSharingOps wsops = new TrainingPlanFeedbackController.WithoutSharingOps();
+            setCon = wsops.getSetCon(tplanId);
+
             if(tPlan.mainAchievement != null){
                 lUsersWithAchievement = LMSService.getUsersForAchievement(tPlan.mainAchievement.Id, LMSConstants.AA_ACQUIRED_STATUS, 12);
             }

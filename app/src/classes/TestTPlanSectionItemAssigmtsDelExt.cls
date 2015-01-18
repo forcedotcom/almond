@@ -52,7 +52,7 @@ private class TestTPlanSectionItemAssigmtsDelExt{
 		}
 
     	System.runAs(adminUsers.get(0)){
-    		LMSService.upsertAssignments(selectedUserIds,tplan.Id);
+    		LMSService.upsertAssignments(selectedUserIds,tplan.Id,null);
         }
 
         //Select one of the training plan secion items

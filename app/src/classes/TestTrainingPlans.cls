@@ -86,7 +86,7 @@ public class TestTrainingPlans {
 		//Test Insert
 		Test.startTest();
 			System.runAs(adminUsers.get(0)){
-				LMSService.upsertAssignments(selectedUserIds,tplanId);
+				LMSService.upsertAssignments(selectedUserIds,tplanId, null);
 			}
 
 			List<Training_Plan_Assignment__c> assignments = [select id from Training_Plan_Assignment__c where Training_Plan__c = :tplanId];
@@ -107,7 +107,7 @@ public class TestTrainingPlans {
 				//Add to training plan section
 				List<Training_Plan_Section_Item__c> tplanSectionItemUpdate = TestTrainingPlanData.createTrainingPlanSectionItems(tplanSections.get(0).Id,resourceLearnings);
 
-				LMSService.upsertAssignments(selectedUserIds,tplanId);
+				LMSService.upsertAssignments(selectedUserIds,tplanId,null);
 			}
 
 		Test.stopTest();
@@ -149,7 +149,7 @@ public class TestTrainingPlans {
 		//Test Insert
 		Test.startTest();
 			System.runAs(adminUsers.get(0)){
-				LMSService.upsertAssignments(selectedUserIds,tplanId);
+				LMSService.upsertAssignments(selectedUserIds,tplanId,null);
 			}
 
 			List<Training_Plan_Assignment__c> assignments = [select id from Training_Plan_Assignment__c where Training_Plan__c = :tplanId];
@@ -170,7 +170,7 @@ public class TestTrainingPlans {
 				//Add to training plan section
 				List<Training_Plan_Section_Item__c> tplanSectionItemUpdate = TestTrainingPlanData.createTrainingPlanSectionItems(tplanSections.get(0).Id,resourceLearnings);
 
-				LMSService.upsertAssignments(selectedUserIds,tplanId);
+				LMSService.upsertAssignments(selectedUserIds,tplanId,null);
 			}
 
 		Test.stopTest();
@@ -211,7 +211,7 @@ public class TestTrainingPlans {
 		//Test Insert
 		Test.startTest();
 			System.runAs(adminUsers.get(0)){
-				LMSService.upsertAssignments(selectedUserIds,tplanId);
+				LMSService.upsertAssignments(selectedUserIds,tplanId,null);
 				assignments = [select id from Training_Plan_Assignment__c where Training_Plan__c = :tplanId];
 				System.assertEquals(5,assignments.size());
 				learningAssignments = [select id from Learning_Assignment__c where Training_Plan_Section_Assignment__r.Training_Plan_Section__r.Training_Plan__c = :tplanId];
@@ -288,9 +288,9 @@ public class TestTrainingPlans {
 		}
 		System.runAs(adminUsers.get(0)){
 			//Upsert assignemtns for tplan 1
-			LMSService.upsertAssignments(selectedUserIds,tplanId);
+			LMSService.upsertAssignments(selectedUserIds,tplanId,null);
 			//Upsert assignemtns for tplan 2
-			LMSService.upsertAssignments(selectedUserIds,tplanId2);
+			LMSService.upsertAssignments(selectedUserIds,tplanId2,null);
 		}
 
 		//Test Insert

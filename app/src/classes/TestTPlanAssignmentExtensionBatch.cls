@@ -57,7 +57,7 @@ private class TestTPlanAssignmentExtensionBatch{
         Test.startTest();
 
         System.runAs(adminUsers.get(0)){
-          LMSService.upsertAssignments(selectedUserIds,tplan.Id);
+          LMSService.upsertAssignments(selectedUserIds,tplan.Id,null);
           System.assertEquals(10,getTrainingPlanAssignmentsCount(tplan.Id));
           TrainingPlanAssignmentExtensionBatch cont = new TrainingPlanAssignmentExtensionBatch(new ApexPages.StandardController(tplan));
           cont.recalculateAllAssignments();
@@ -96,7 +96,7 @@ private class TestTPlanAssignmentExtensionBatch{
         Test.startTest();
 
         System.runAs(adminUsers.get(0)){
-          LMSService.upsertAssignments(selectedUserIds,tplan.Id);
+          LMSService.upsertAssignments(selectedUserIds,tplan.Id,null);
           System.assertEquals(10,getTrainingPlanAssignmentsCount(tplan.Id));
           TrainingPlanAssignmentExtensionBatch cont = new TrainingPlanAssignmentExtensionBatch(new ApexPages.StandardController(tplan));
           cont.updateAllAssignments();
@@ -136,7 +136,7 @@ private class TestTPlanAssignmentExtensionBatch{
         Test.startTest();
 
         System.runAs(adminUsers.get(0)){
-          LMSService.upsertAssignments(selectedUserIds,tplan.Id);
+          LMSService.upsertAssignments(selectedUserIds,tplan.Id,null);
           System.assertEquals(10,getTrainingPlanAssignmentsCount(tplan.Id));
           TrainingPlanAssignmentExtensionBatch cont = new TrainingPlanAssignmentExtensionBatch(new ApexPages.StandardController(tplan));
           cont.deleteAllAssignments();

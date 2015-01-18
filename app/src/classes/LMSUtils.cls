@@ -29,7 +29,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 public with sharing class LMSUtils{
 
     private static User userDetails;
-    private static Network networkDetails;
+    private static SObject networkDetails;
 
     public static void addSuccessMessage(String message){
         ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.CONFIRM,message));
@@ -148,12 +148,16 @@ public with sharing class LMSUtils{
         return userDetails;
     }
 
-    public static Network getNetworkDetails(){
-        if(networkDetails == null){
-            networkDetails = [select Id
-                                    ,Name
-                                    from Network
-                                    where id = :Network.getNetworkId()];
+    public static SObject getNetworkDetails(){
+        Id networkId = getCurrentNetworkId();
+        if(networkId == null){
+            return null;
+        }else{
+            if(networkDetails == null){
+                String soqlQuery = 'select Id,Name from Network where Id = :networkId';
+                List<SObject> results = Database.query(soqlQuery);
+                networkDetails = results.get(0);
+            }
         }
         return networkDetails;
     }
@@ -163,8 +167,11 @@ public with sharing class LMSUtils{
     }
 
     public static String getCurrentNetworkName(){
-        Network n = getNetworkDetails();
-        return n.Name.toLowerCase();
+        if(getCurrentNetworkId() == null){
+            return null;
+        }
+        SObject n = getNetworkDetails();
+        return ((String)n.get('Name')).toLowerCase();
     }
 
     public static String updateURLCommunityPath(String urlPath){
@@ -174,4 +181,10 @@ public with sharing class LMSUtils{
         return urlPath;
     }
 
+    public static String updateURLCommunityPath(String urlPath, String communityName){
+        if(communityName != null){
+            urlPath = '/'+communityName.toLowerCase()+urlPath;
+        }
+        return urlPath;
+    }
 }

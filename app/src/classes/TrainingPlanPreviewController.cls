@@ -88,7 +88,7 @@ public with sharing class TrainingPlanPreviewController{
 
             Training_Plan__c selectedPlan = selectedTPlans.get(0);
             if(selectedPlan.Self_Registration_Access__c != 'Requires Approval' && LMSService.isPublicTrainingPlanAvailable(trainingPlanId,UserInfo.getUserId(), LMSUtils.isPortalUser())){
-                LMSService.upsertAssignments(new Set<Id>{UserInfo.getUserId()}, trainingPlanId);
+                LMSService.upsertAssignments(new Set<Id>{UserInfo.getUserId()}, trainingPlanId, LMSUtils.getCurrentNetworkId());
             }else{
                 LMSUtils.addErrorMessage(System.Label.ALMS_Public_Plan_Assignment_Error);
                 return null;

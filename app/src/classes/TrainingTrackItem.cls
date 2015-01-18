@@ -49,7 +49,7 @@ public with sharing class TrainingTrackItem{
             }
             if(tmp != null){
                 tmp.getParameters().put('id',trackItem.Training_Plan__c);
-                result = tmp.getUrl();
+                result = LMSUtils.updateURLCommunityPath(tmp.getUrl());
             }
         }
         return result;

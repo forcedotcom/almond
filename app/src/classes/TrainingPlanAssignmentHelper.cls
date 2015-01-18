@@ -149,6 +149,8 @@ public with sharing class TrainingPlanAssignmentHelper{
 
         Map<String,Set<Id>> mapTrainingPlanAssignments = new Map<String,Set<Id>>();
         Map<String,Training_Plan__c> mapTrainingPlanInfo = new Map<String,Training_Plan__c>();
+        Map<Id,String> communityUserMap = new Map<Id,String>();
+        Map<Id,String> communityNamesMap = new Map<Id,String>();
 
         //Collect all training plan assignments
         for(Training_Plan_Assignment__c tpa : assignments){
@@ -160,16 +162,25 @@ public with sharing class TrainingPlanAssignmentHelper{
                 }
 
                 mapTrainingPlanAssignments.get(tpa.Training_Plan__c).add(tpa.User__c);
+                //Collect related community ids
+                if(tpa.Community_Id__c != null){
+                    communityUserMap.put(tpa.User__c , tpa.Community_Id__c);
+                }
             }
 
         }
 
+        TrainingPlanAssignmentHelper.WithoutSharingOps wosHelper = new TrainingPlanAssignmentHelper.WithoutSharingOps();
+
+        //Fetch additional community information
+        if(communityUserMap.size()>0){
+            for(SObject r : wosHelper.getCommunitiesInfoWOS(communityUserMap.values())){
+                communityNamesMap.put(r.Id, (String)r.get('Name'));
+            }
+        }
+
         if(mapTrainingPlanAssignments.size()>0){
-            for(Training_Plan__c tp : [select id
-                                            ,Name
-                                            ,Chatter_Notifications_Enabled__c
-                                            from Training_Plan__c
-                                            where id in :mapTrainingPlanAssignments.keySet()]){
+            for(Training_Plan__c tp : wosHelper.getTrainingPlansInfoWOS(mapTrainingPlanAssignments.keySet())){
                 mapTrainingPlanInfo.put(tp.Id,tp);
             }
         }
@@ -205,7 +216,14 @@ public with sharing class TrainingPlanAssignmentHelper{
                         ConnectApi.LinkAttachmentInput linkSegment = new ConnectApi.LinkAttachmentInput();
                         String sfUrl=URL.getSalesforceBaseUrl().getHost();
                         PageReference tPlanDetailPageRef = Page.TrainingPlanDetail;
-                        String tPlanURL = 'https://'+sfUrl+''+tPlanDetailPageRef.getUrl()+'?id='+tplanId;
+
+                        String tplanRefURL = tPlanDetailPageRef.getUrl();
+
+                        if(communityUserMap.get(uId) != null){
+                            tplanRefURL = LMSUtils.updateURLCommunityPath(tplanRefURL, communityNamesMap.get(communityUserMap.get(uId)));
+                        }
+
+                        String tPlanURL = 'https://'+sfUrl+''+tplanRefURL+'?id='+tplanId;
                         linkSegment.url = tPlanURL;
                         linkSegment.urlName = tPlanInfo.Name;
 
@@ -214,7 +232,7 @@ public with sharing class TrainingPlanAssignmentHelper{
                         input.body = messageInput;
                         input.attachment = linkSegment;
                         //params(communityId, feedType, subjectId, input,filebody);
-                        ConnectApi.ChatterFeeds.postFeedItem(null,ConnectApi.FeedType.Record,uId,Input,null);
+                        ConnectApi.ChatterFeeds.postFeedItem(communityUserMap.get(uId),ConnectApi.FeedType.Record,uId,Input,null);
                     }catch(Exception e){
                         LMSUtils.logException(e,'TrainingPlanAssignmentHelper');
                     }
@@ -514,6 +532,20 @@ public with sharing class TrainingPlanAssignmentHelper{
 
             return result;
 
+        }
+
+        public List<SObject> getCommunitiesInfoWOS(List<String> communityIds){
+            String soqlQuery = 'select Id,Name from Network where Id in :communityIds';
+            return Database.query(soqlQuery);
+        }
+
+        public List<Training_Plan__c> getTrainingPlansInfoWOS(Set<String> tplanIds){
+            List<Training_Plan__c> results = [select id
+                                                    ,Name
+                                                    ,Chatter_Notifications_Enabled__c
+                                                    from Training_Plan__c
+                                                    where id in :tplanIds];
+            return results;
         }
 
     }

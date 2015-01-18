@@ -57,7 +57,7 @@ private class TestMyProfileController {
 		}
 
 		System.runAs(adminUsers.get(0)){
-			LMSService.upsertAssignments(selectedUserIds,tplanId);
+			LMSService.upsertAssignments(selectedUserIds,tplanId,null);
 		}
 
         PageReference ref = Page.MyProfile;
@@ -122,7 +122,7 @@ private class TestMyProfileController {
 		}
 
 		System.runAs(adminUsers.get(0)){
-			LMSService.upsertAssignments(selectedUserIds,tplanId);
+			LMSService.upsertAssignments(selectedUserIds,tplanId,null);
 		}
 
         PageReference ref = Page.MyProfile;
@@ -188,7 +188,7 @@ private class TestMyProfileController {
 		}
 
 		System.runAs(adminUsers.get(0)){
-			LMSService.upsertAssignments(selectedUserIds,tplanId);
+			LMSService.upsertAssignments(selectedUserIds,tplanId,null);
 		}
 
 

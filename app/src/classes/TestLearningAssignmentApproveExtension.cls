@@ -120,7 +120,7 @@ private class TestLearningAssignmentApproveExtension {
 
 		System.runAs(adminUsers.get(0)){
 			Set<Id> selectedUserIds = new Set<Id>{lmsUsers.get(0).Id};
-			LMSService.upsertAssignments(selectedUserIds,tplanId);
+			LMSService.upsertAssignments(selectedUserIds,tplanId,null);
 		}
 
 		List<Learning_Assignment__c> learningAssignments = [select id,Approved__c,Progress__c from Learning_Assignment__c];

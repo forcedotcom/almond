@@ -58,7 +58,7 @@ private class TestTPlanAssignmentExtensionExisting{
 
 			System.runAs(adminUsers.get(0)){
 
-				LMSService.upsertAssignments(selectedUserIds,tplan.Id);
+				LMSService.upsertAssignments(selectedUserIds,tplan.Id,null);
 
                 TrainingPlanAssignmentExtensionExisting cont = new TrainingPlanAssignmentExtensionExisting(new ApexPages.StandardController(tplan));
 
@@ -112,7 +112,7 @@ private class TestTPlanAssignmentExtensionExisting{
 
 			System.runAs(adminUsers.get(0)){
 
-				LMSService.upsertAssignments(selectedUserIds,tplan.Id);
+				LMSService.upsertAssignments(selectedUserIds,tplan.Id,null);
 
                 TrainingPlanAssignmentExtensionExisting cont = new TrainingPlanAssignmentExtensionExisting(new ApexPages.StandardController(tplan));
                 List<TrainingPlanAssignmentExtensionExisting.TPlanAssignmentWrapper> currentRows = cont.rows;
@@ -159,7 +159,7 @@ private class TestTPlanAssignmentExtensionExisting{
 
 			System.runAs(adminUsers.get(0)){
 
-				LMSService.upsertAssignments(selectedUserIds,tplan.Id);
+				LMSService.upsertAssignments(selectedUserIds,tplan.Id,null);
 
                 TrainingPlanAssignmentExtensionExisting cont = new TrainingPlanAssignmentExtensionExisting(new ApexPages.StandardController(tplan));
                 cont.setCon.setPageSize(5);

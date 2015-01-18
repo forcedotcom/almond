@@ -87,6 +87,7 @@ public with sharing class TrainingPlansHelper {
 
                 //Delete existing shares for deletions
                 if(publicSharingDeletions.size()>0){
+                    //No need to query without sharing here as it's only executed by admins
                     List<Training_Plan__Share> existingShares = [SELECT Id
                                                                         FROM Training_Plan__Share
                                                                         WHERE ParentId in :publicSharingDeletions

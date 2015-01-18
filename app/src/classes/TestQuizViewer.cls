@@ -58,7 +58,7 @@ public class TestQuizViewer {
 		//Test Insert
 		Test.startTest();
 			System.runAs(adminUsers.get(0)){
-				LMSService.upsertAssignments(selectedUserIds,tplanId);
+				LMSService.upsertAssignments(selectedUserIds,tplanId,null);
 			}
 		Test.stopTest();
 
@@ -150,7 +150,7 @@ public class TestQuizViewer {
 		//Test Insert
 		Test.startTest();
 			System.runAs(adminUsers.get(0)){
-				LMSService.upsertAssignments(selectedUserIds,tplanId);
+				LMSService.upsertAssignments(selectedUserIds,tplanId,null);
 			}
 		Test.stopTest();
 
@@ -240,7 +240,7 @@ public class TestQuizViewer {
 		//Test Insert
 		Test.startTest();
 			System.runAs(adminUsers.get(0)){
-				LMSService.upsertAssignments(selectedUserIds,tplanId);
+				LMSService.upsertAssignments(selectedUserIds,tplanId,null);
 			}
 		Test.stopTest();
 
@@ -332,7 +332,7 @@ public class TestQuizViewer {
 		//Test Insert
 		Test.startTest();
 			System.runAs(adminUsers.get(0)){
-				LMSService.upsertAssignments(selectedUserIds,tplanId);
+				LMSService.upsertAssignments(selectedUserIds,tplanId,null);
 			}
 		Test.stopTest();
 
@@ -420,7 +420,7 @@ public class TestQuizViewer {
 		//Test Insert
 		Test.startTest();
 			System.runAs(adminUsers.get(0)){
-				LMSService.upsertAssignments(selectedUserIds,tplanId);
+				LMSService.upsertAssignments(selectedUserIds,tplanId,null);
 			}
 		Test.stopTest();
 

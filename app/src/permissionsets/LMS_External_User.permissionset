@@ -1780,6 +1780,6 @@
     </tabSettings>
     <tabSettings>
         <tab>Learning</tab>
-        <visibility>Available</visibility>
+        <visibility>Visible</visibility>
     </tabSettings>
 </PermissionSet>

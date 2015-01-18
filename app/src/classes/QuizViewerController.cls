@@ -292,6 +292,10 @@ public with sharing class QuizViewerController{
     //Redirect to results page
     public PageReference redirectToResultsPage() {
         PageReference ret = Page.QuizResults;
+        String networkName = LMSUtils.getCurrentNetworkName();
+        if(networkName != null){
+            ret = new PageReference('/'+networkName+'/apex/QuizResults');
+        }
         ret.setRedirect( true );
         ret.getParameters().put('aid',Apexpages.currentPage().getParameters().get('aid') );
 

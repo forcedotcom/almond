@@ -93,7 +93,7 @@ public with sharing class TrainingPlanFeedbackController{
           LMSUtils.addErrorMessage(System.Label.ALMS_Feedback_No_Data);
         }else{
             try{
-                LMSService.insertTrainingPlanFeedback(feedback);
+                LMSService.insertTrainingPlanFeedback(new List<Training_Plan_Feedback__c>{feedback});
                 init();
                 feedbackSuccess = true;
                 LMSUtils.addSuccessMessage(System.Label.ALMS_Feedback_Submitted);

@@ -31,6 +31,17 @@ var almond = (function($){
     var redirectHandler = function(url,retainHistory){
         retainHistory = typeof retainHistory !== "undefined" ? retainHistory : false;
         if(isSF1()){
+            //Added a relative urls fix for Communities in SF1
+            //Not having /apex/ in the path is causing some issues
+            if(new RegExp('^\/').test(url)){
+                // Ignore /0 paths as this are normally standard paths
+                if(url.indexOf('/apex/') == -1 && !new RegExp('^\/0').test(url)){
+                    var lasPathIndex = url.lastIndexOf('/');
+                    var communityPath = url.substring(0,lasPathIndex);
+                    url = communityPath+'/apex'+url.substring(lasPathIndex,url.length);
+                }
+            }
+
             sforce.one.navigateToURL(url,!retainHistory);
         }else{
             window.location.href = url;

@@ -1395,7 +1395,7 @@ public with sharing class LMSService{
     }
 
     //Insert a training plan feedback record
-    public static void insertTrainingPlanFeedback(Training_Plan_Feedback__c feedback){
+    public static void insertTrainingPlanFeedback(List<Training_Plan_Feedback__c> feedback){
 
         //BEGIN Access Check
         List<String> lvFields =  new List<String>{'Rating__c','Comments__c'};
@@ -1405,7 +1405,9 @@ public with sharing class LMSService{
         LMS_ESAPI.isAuthorizedToCreate(relatedFieldsObjectsCreate);
         //END Access Check
 
-        insert feedback;
+        LMSService.WithoutSharingOps wsops = new LMSService.WithoutSharingOps();
+        wsops.insertFeedback(feedback);
+
 
     }
 
@@ -2436,6 +2438,12 @@ public with sharing class LMSService{
             }
             return results;
         }
+
+        //Insert feedback records
+        public void insertFeedback(List<Training_Plan_Feedback__c> feedbacks){
+            insert feedbacks;
+        }
+
     }
 
 }

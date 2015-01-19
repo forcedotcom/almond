@@ -30,24 +30,26 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 public class TestLearning {
 
 	static testmethod void testLearningQuizAndPreview(){
-		//create learning
-		List<Learning__c> learning = TestLearningData.createTestLearning(1, 'Quiz', false);
-
-		//create quiz
-		List<Quiz__c> quiz = TestLearningData.createTestQuiz(learning);
-
-		//create question line
-		List<Question_Line__c> qline = TestLearningData.createTestQuestionLine(quiz, 3);
-
-		//create question
-		List<Question__c> question = TestLearningData.createTestQuestions(qline, 4, null);
 
 		//create users
 		List<User> systemUsers = TestUtilClass.createUsers(1,'System Administrator');
-
+		TestUtilClass.addPermissionSet(systemUsers, 'LMS_Admin');
 
 		System.runAs(systemUsers.get(0)){
-			TestUtilClass.addPermissionSet(systemUsers, 'LMS_Admin');
+
+			//create learning
+			List<Learning__c> learning = TestLearningData.createTestLearning(1, 'Quiz', false);
+
+			//create quiz
+			List<Quiz__c> quiz = TestLearningData.createTestQuiz(learning);
+
+			//create question line
+			List<Question_Line__c> qline = TestLearningData.createTestQuestionLine(quiz, 3);
+
+			//create question
+			List<Question__c> question = TestLearningData.createTestQuestions(qline, 4, null);
+
+
 			List<Learning_Version__c> learningversions = [select id from Learning_Version__c
 																where Type__c = 'Preview'
 																and Learning__c = :learning.get(0).Id];
@@ -76,24 +78,26 @@ public class TestLearning {
 	                                                                where Learning__c = :learning.get(0).Id
 	                                                                and Is_Test_Assignment__c = true];
 
-	        System.assert(previewAssignments.size() == 1, 'previewAssignments failed, size = ' + previewAssignments.size());
+	    System.assert(previewAssignments.size() == 1, 'previewAssignments failed, size = ' + previewAssignments.size());
 		}
 
 	}
 
 	static testmethod void testLearningTrainingResourceAndPreview(){
-		//create learning
-		List<Learning__c> learning = TestLearningData.createTestLearning(1, 'Resource', false);
-
-		//create training resource
-		List<Training_Resource__c> tresource = TestLearningData.createTestTrainingResource(learning);
 
 		//create users
 		List<User> systemUsers = TestUtilClass.createUsers(1,'System Administrator');
-
+		TestUtilClass.addPermissionSet(systemUsers, 'LMS_Admin');
 
 		System.runAs(systemUsers.get(0)){
-			TestUtilClass.addPermissionSet(systemUsers, 'LMS_Admin');
+
+			//create learning
+			List<Learning__c> learning = TestLearningData.createTestLearning(1, 'Resource', false);
+
+			//create training resource
+			List<Training_Resource__c> tresource = TestLearningData.createTestTrainingResource(learning);
+
+
 			List<Learning_Version__c> learningversions = [select id from Learning_Version__c
 																where Type__c = 'Preview'
 																and Learning__c = :learning.get(0).Id];
@@ -128,18 +132,19 @@ public class TestLearning {
 	}
 
 	static testmethod void testLearningTaskAndPreview(){
-		//create learning
-		List<Learning__c> learning = TestLearningData.createTestLearning(1, 'Task', false);
-
-		//create task
-		List<Task__c> task = TestLearningData.createTestTask(learning);
 
 		//create users
 		List<User> systemUsers = TestUtilClass.createUsers(1,'System Administrator');
-
+		TestUtilClass.addPermissionSet(systemUsers, 'LMS_Admin');
 
 		System.runAs(systemUsers.get(0)){
-			TestUtilClass.addPermissionSet(systemUsers, 'LMS_Admin');
+
+			//create learning
+			List<Learning__c> learning = TestLearningData.createTestLearning(1, 'Task', false);
+
+			//create task
+			List<Task__c> task = TestLearningData.createTestTask(learning);
+
 			List<Learning_Version__c> learningversions = [select id from Learning_Version__c
 																where Type__c = 'Preview'
 																and Learning__c = :learning.get(0).Id];
@@ -174,18 +179,23 @@ public class TestLearning {
 	}
 
 	static testmethod void testExistingLearningPreview(){
-		//create learning
-		List<Learning__c> learning = TestLearningData.createTestLearning(1, 'Task', false);
-
-		//create task
-		List<Task__c> task = TestLearningData.createTestTask(learning);
 
 		//create users
 		List<User> systemUsers = TestUtilClass.createUsers(2,'System Administrator');
+		TestUtilClass.addPermissionSet(systemUsers, 'LMS_Admin');
 
+		List<Learning__c> learning;
+		List<Task__c> task;
 
 		System.runAs(systemUsers.get(0)){
-			TestUtilClass.addPermissionSet(systemUsers, 'LMS_Admin');
+
+			//create learning
+			learning = TestLearningData.createTestLearning(1, 'Task', false);
+
+			//create task
+			task = TestLearningData.createTestTask(learning);
+
+
 			List<Learning_Version__c> learningversions = [select id from Learning_Version__c
 																where Type__c = 'Preview'
 																and Learning__c = :learning.get(0).Id];
@@ -246,18 +256,20 @@ public class TestLearning {
 	}
 
 	static testmethod void testLearningPreviewFail(){
-		//create learning
-		List<Learning__c> learning = TestLearningData.createTestLearning(1, 'Task', false);
-
-		//create task
-		List<Task__c> task = TestLearningData.createTestTask(learning);
 
 		//create users
 		List<User> systemUsers = TestUtilClass.createUsers(1,'System Administrator');
 
+		TestUtilClass.addPermissionSet(systemUsers, 'LMS_Admin');
 
 		System.runAs(systemUsers.get(0)){
-			TestUtilClass.addPermissionSet(systemUsers, 'LMS_Admin');
+
+			//create learning
+			List<Learning__c> learning = TestLearningData.createTestLearning(1, 'Task', false);
+
+			//create task
+			List<Task__c> task = TestLearningData.createTestTask(learning);
+
 			List<Learning_Version__c> learningversions = [select id from Learning_Version__c
 																where Type__c = 'Preview'
 																and Learning__c = :learning.get(0).Id];
@@ -294,24 +306,25 @@ public class TestLearning {
 	}
 
 	static testmethod void testLearningQuizAndPublish(){
-		//create learning
-		List<Learning__c> learning = TestLearningData.createTestLearning(1, 'Quiz', false);
-
-		//create quiz
-		List<Quiz__c> quiz = TestLearningData.createTestQuiz(learning);
-
-		//create question line
-		List<Question_Line__c> qline = TestLearningData.createTestQuestionLine(quiz, 3);
-
-		//create question
-		List<Question__c> question = TestLearningData.createTestQuestions(qline, 4, null);
 
 		//create users
 		List<User> systemUsers = TestUtilClass.createUsers(1,'System Administrator');
-
+		TestUtilClass.addPermissionSet(systemUsers, 'LMS_Admin');
 
 		System.runAs(systemUsers.get(0)){
-			TestUtilClass.addPermissionSet(systemUsers, 'LMS_Admin');
+
+			//create learning
+			List<Learning__c> learning = TestLearningData.createTestLearning(1, 'Quiz', false);
+
+			//create quiz
+			List<Quiz__c> quiz = TestLearningData.createTestQuiz(learning);
+
+			//create question line
+			List<Question_Line__c> qline = TestLearningData.createTestQuestionLine(quiz, 3);
+
+			//create question
+			List<Question__c> question = TestLearningData.createTestQuestions(qline, 4, null);
+
 			List<Learning_Version__c> learningversions = [select id from Learning_Version__c
 																where Type__c = 'Publish'
 																and Learning__c = :learning.get(0).Id];
@@ -342,18 +355,19 @@ public class TestLearning {
 	}
 
 	static testmethod void testLearningTrainingResourceAndPublish(){
-		//create learning
-		List<Learning__c> learning = TestLearningData.createTestLearning(1, 'Resource', false);
-
-		//create training resource
-		List<Training_Resource__c> tresource = TestLearningData.createTestTrainingResource(learning);
 
 		//create users
 		List<User> systemUsers = TestUtilClass.createUsers(1,'System Administrator');
-
+		TestUtilClass.addPermissionSet(systemUsers, 'LMS_Admin');
 
 		System.runAs(systemUsers.get(0)){
-			TestUtilClass.addPermissionSet(systemUsers, 'LMS_Admin');
+
+			//create learning
+			List<Learning__c> learning = TestLearningData.createTestLearning(1, 'Resource', false);
+
+			//create training resource
+			List<Training_Resource__c> tresource = TestLearningData.createTestTrainingResource(learning);
+
 			List<Learning_Version__c> learningversions = [select id from Learning_Version__c
 																where Type__c = 'Published'
 																and Learning__c = :learning.get(0).Id];
@@ -383,18 +397,18 @@ public class TestLearning {
 	}
 
 	static testmethod void testLearningTaskAndPublish(){
-		//create learning
-		List<Learning__c> learning = TestLearningData.createTestLearning(1, 'Task', false);
-
-		//create task
-		List<Task__c> task = TestLearningData.createTestTask(learning);
-
 		//create users
 		List<User> systemUsers = TestUtilClass.createUsers(1,'System Administrator');
-
+		TestUtilClass.addPermissionSet(systemUsers, 'LMS_Admin');
 
 		System.runAs(systemUsers.get(0)){
-			TestUtilClass.addPermissionSet(systemUsers, 'LMS_Admin');
+
+			//create learning
+			List<Learning__c> learning = TestLearningData.createTestLearning(1, 'Task', false);
+
+			//create task
+			List<Task__c> task = TestLearningData.createTestTask(learning);
+
 			List<Learning_Version__c> learningversions = [select id from Learning_Version__c
 																where Type__c = 'Published'
 																and Learning__c = :learning.get(0).Id];
@@ -424,18 +438,22 @@ public class TestLearning {
 	}
 
 	static testmethod void testLearningTaskRePublish(){
-		//create learning
-		List<Learning__c> learning = TestLearningData.createTestLearning(1, 'Task', false);
-
-		//create task
-		List<Task__c> task = TestLearningData.createTestTask(learning);
 
 		//create users
 		List<User> systemUsers = TestUtilClass.createUsers(2,'System Administrator');
+		TestUtilClass.addPermissionSet(systemUsers, 'LMS_Admin');
 
+		List<Learning__c> learning;
+		List<Task__c> task;
 
 		System.runAs(systemUsers.get(0)){
-			TestUtilClass.addPermissionSet(systemUsers, 'LMS_Admin');
+
+			//create learning
+			learning = TestLearningData.createTestLearning(1, 'Task', false);
+
+			//create task
+			task = TestLearningData.createTestTask(learning);
+
 			List<Learning_Version__c> learningversions = [select id from Learning_Version__c
 																where Type__c = 'Published'
 																and Learning__c = :learning.get(0).Id];

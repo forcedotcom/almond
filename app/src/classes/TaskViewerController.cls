@@ -26,7 +26,7 @@ OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISE
 OF THE POSSIBILITY OF SUCH DAMAGE.
 
 */
-public with sharing class TaskViewerController{
+public with sharing class TaskViewerController extends LMSBaseController{
 
     public Task__c task{get;set;}
     public Learning_Version__c learningVersion{get;set;}

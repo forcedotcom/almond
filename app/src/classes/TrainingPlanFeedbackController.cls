@@ -26,7 +26,7 @@ OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISE
 OF THE POSSIBILITY OF SUCH DAMAGE.
 
 */
-public with sharing class TrainingPlanFeedbackController{
+public with sharing class TrainingPlanFeedbackController extends LMSBaseController{
 
     public ApexPages.StandardSetController setCon;
     public Training_Plan_Feedback__c feedback{get;set;}

@@ -25,7 +25,7 @@ LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
 OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
 OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
-<apex:page controller="AchievementsUserSearchController" docType="html-5.0" sidebar="false" showHeader="false" standardStylesheets="false" cache="false">
+<apex:page controller="AchievementsUserSearchController" readOnly="true" docType="html-5.0" sidebar="false" showHeader="{!showSFHeader}" standardStylesheets="false" cache="false">
 
     <apex:composition template="LMS_Template">
 

@@ -26,7 +26,7 @@ OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISE
 OF THE POSSIBILITY OF SUCH DAMAGE.
 
 */
-public with sharing class TrainingCatalogDetailController {
+public with sharing class TrainingCatalogDetailController extends LMSBaseController{
 
     private transient List<Training_Plan__c> trainingPlans{get;private set;}
     public transient List<TrainingPlanWithAchievement> tPlans{get;private set;}

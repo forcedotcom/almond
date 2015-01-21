@@ -57,7 +57,11 @@ public with sharing class LMSSettings {
     }
 
     public static String getBacktoSFUrl(){
-        return (String)getValue('Back_to_SF_URL__c','/home/home.jsp');
+        String defaultURL = '/home/home.jsp';
+        if(LMSUtils.getCurrentNetworkId() != null){
+            defaultURL = '/'+LMSUtils.getCurrentNetworkName()+defaultURL;
+        }
+        return (String)getValue('Back_to_SF_URL__c',defaultURL);
     }
 
     public static Boolean getDisableCorrectResponseCheckbox(){

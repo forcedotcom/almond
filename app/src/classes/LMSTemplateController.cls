@@ -26,10 +26,10 @@ OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISE
 OF THE POSSIBILITY OF SUCH DAMAGE.
 
 */
-public with sharing class LMSTemplateController {
+public with sharing class LMSTemplateController{
 
-    public Boolean customJSEnabled{get;private set;}
-    public Boolean showSFHeader{get;private set;}
+    public transient Boolean customJSEnabled{get;private set;}
+    public transient Boolean showSFHeader{get;private set;}
 
     public LMSTemplateController(){
         customJSEnabled = LMSSettings.getEnableIOSTapFix();

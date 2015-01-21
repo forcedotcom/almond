@@ -175,7 +175,7 @@ public with sharing class LMSUtils{
     }
 
     public static String updateURLCommunityPath(String urlPath){
-        if(isPortalUser() && getCurrentNetworkId() != null){
+        if(getCurrentNetworkId() != null){
             urlPath = '/'+getCurrentNetworkName()+urlPath;
         }
         return urlPath;

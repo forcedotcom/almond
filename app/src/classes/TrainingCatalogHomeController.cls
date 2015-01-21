@@ -26,7 +26,7 @@ OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISE
 OF THE POSSIBILITY OF SUCH DAMAGE.
 
 */
-public with sharing class TrainingCatalogHomeController {
+public with sharing class TrainingCatalogHomeController extends LMSBaseController{
 
     public List<Learning_Category__c> lcategories {get;private set;}
 

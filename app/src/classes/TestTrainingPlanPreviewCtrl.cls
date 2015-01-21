@@ -27,7 +27,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 
 */
 @isTest
-private class TestTrainingPlanPreviewCtrl {
+private class TestTrainingPlanPreviewCtrl extends LMSBaseController{
 
     static testMethod void testPreviewRedirection(){
 

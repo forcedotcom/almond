@@ -26,7 +26,7 @@ OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISE
 OF THE POSSIBILITY OF SUCH DAMAGE.
 
 */
-public with sharing class TrainingPlanPreviewController{
+public with sharing class TrainingPlanPreviewController extends LMSBaseController{
 
     public TrainingPlan tPlan{get;private set;}
     public List<User> lUsersWithAchievement {get;private set;}
@@ -128,7 +128,11 @@ public with sharing class TrainingPlanPreviewController{
     }
 
     private PageReference redirectToPlanDetailPage(){
-        PageReference ref = new PageReference(LMSUtils.updateURLCommunityPath('/apex/TrainingPlanDetail'));
+        String namespace = '';
+        if(LMSUtils.getPackageNamespace() != null){
+            namespace = LMSUtils.getPackageNamespace()+'__';
+        }
+        PageReference ref = new PageReference(LMSUtils.updateURLCommunityPath('/apex/'+namespace+'TrainingPlanDetail'));
         ref.getParameters().put('id',trainingPlanId);
         ref.setRedirect(true);
         return ref;

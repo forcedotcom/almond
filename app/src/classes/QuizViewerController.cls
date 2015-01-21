@@ -26,7 +26,7 @@ OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISE
 OF THE POSSIBILITY OF SUCH DAMAGE.
 
 */
-public with sharing class QuizViewerController{
+public with sharing class QuizViewerController extends LMSBaseController{
 
     public Quiz__c quiz{get;set;}
     public Question_Line__c questionLine{get; private set;}
@@ -293,8 +293,12 @@ public with sharing class QuizViewerController{
     public PageReference redirectToResultsPage() {
         PageReference ret = Page.QuizResults;
         String networkName = LMSUtils.getCurrentNetworkName();
+        String namespace = '';
+        if(LMSUtils.getPackageNamespace() != null){
+            namespace = LMSUtils.getPackageNamespace()+'__';
+        }
         if(networkName != null){
-            ret = new PageReference('/'+networkName+'/apex/QuizResults');
+            ret = new PageReference('/'+networkName+'/apex/'+namespace+'QuizResults');
         }
         ret.setRedirect( true );
         ret.getParameters().put('aid',Apexpages.currentPage().getParameters().get('aid') );

@@ -1451,7 +1451,7 @@ public with sharing class LMSService{
             soqlQuery+= ' where Total_Training_Plans__c > 0 and Hide_From_Catalog_Home__c = false';
         }
 
-        if(LMSUtils.isPortalUser()){
+        if(LMSUtils.isPortalUser() || LMSUtils.getCurrentNetworkId() != null){
             soqlQuery+= ' and Is_Internal__c = false';
         }
 

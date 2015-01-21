@@ -26,7 +26,7 @@ OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISE
 OF THE POSSIBILITY OF SUCH DAMAGE.
 
 */
-public with sharing class AchievementsUserSearchController {
+public with sharing class AchievementsUserSearchController extends LMSBaseController{
 
     @TestVisible
     private ApexPages.StandardSetController setCon;
@@ -66,6 +66,9 @@ public with sharing class AchievementsUserSearchController {
                     }else{
                         userTypes.addAll(customerTypes);
                     }
+                }else if(LMSUtils.getCurrentNetworkId() != null){
+                    userTypes.addAll(partnerTypes);
+                    userTypes.addAll(customerTypes);
                 }
 
                 this.setCon = new ApexPages.StandardSetController(Database.getQueryLocator(

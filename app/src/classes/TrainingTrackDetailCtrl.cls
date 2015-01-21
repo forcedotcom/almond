@@ -26,7 +26,7 @@ OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISE
 OF THE POSSIBILITY OF SUCH DAMAGE.
 
 */
-public with sharing class TrainingTrackDetailCtrl{
+public with sharing class TrainingTrackDetailCtrl extends LMSBaseController{
 
     private String trackId{get;private set;}
     public transient Training_Track__c track{get;private set;}

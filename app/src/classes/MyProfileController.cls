@@ -26,7 +26,7 @@ OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISE
 OF THE POSSIBILITY OF SUCH DAMAGE.
 
 */
-public with sharing class MyProfileController {
+public with sharing class MyProfileController extends LMSBaseController{
 
     public User oUser{get;set;}
     public transient List<AchievementCategoryWrapper> lcategories{get;set;}

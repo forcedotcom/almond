@@ -175,7 +175,7 @@ public with sharing class TrainingPlanAssignmentHelper{
         //Fetch additional community information
         if(communityUserMap.size()>0){
             for(SObject r : wosHelper.getCommunitiesInfoWOS(communityUserMap.values())){
-                communityNamesMap.put(r.Id, (String)r.get('Name'));
+                communityNamesMap.put(r.Id, (String)r.get('UrlPathPrefix'));
             }
         }
 
@@ -535,7 +535,7 @@ public with sharing class TrainingPlanAssignmentHelper{
         }
 
         public List<SObject> getCommunitiesInfoWOS(List<String> communityIds){
-            String soqlQuery = 'select Id,Name from Network where Id in :communityIds';
+            String soqlQuery = 'select Id,UrlPathPrefix from Network where Id in :communityIds';
             return Database.query(soqlQuery);
         }
 

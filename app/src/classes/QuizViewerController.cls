@@ -292,7 +292,7 @@ public with sharing class QuizViewerController extends LMSBaseController{
     //Redirect to results page
     public PageReference redirectToResultsPage() {
         PageReference ret = Page.QuizResults;
-        String networkName = LMSUtils.getCurrentNetworkName();
+        String networkName = LMSUtils.getCurrentNetworkURLPath();
         String namespace = '';
         if(LMSUtils.getPackageNamespace() != null){
             namespace = LMSUtils.getPackageNamespace()+'__';

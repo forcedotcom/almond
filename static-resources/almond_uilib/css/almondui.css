@@ -163,6 +163,13 @@ td.noSidebarCell{
     box-shadow: 0 2px 2px rgba(0, 0, 0, 0.35);
 }
 
+.almond .lms-nav nav{
+    /* Reset the nav position, sometimes communities css overrides this */
+    float: initial;
+    position: initial;
+    top: initial;
+}
+
 .almond .navbar-inverse .navbar-brand {
     float: left;
     font-size: 20px;

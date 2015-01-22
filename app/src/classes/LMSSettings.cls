@@ -59,7 +59,7 @@ public with sharing class LMSSettings {
     public static String getBacktoSFUrl(){
         String defaultURL = '/home/home.jsp';
         if(LMSUtils.getCurrentNetworkId() != null){
-            defaultURL = '/'+LMSUtils.getCurrentNetworkName()+defaultURL;
+            defaultURL = '/'+LMSUtils.getCurrentNetworkURLPath()+defaultURL;
         }
         return (String)getValue('Back_to_SF_URL__c',defaultURL);
     }

@@ -154,7 +154,7 @@ public with sharing class LMSUtils{
             return null;
         }else{
             if(networkDetails == null){
-                String soqlQuery = 'select Id,Name from Network where Id = :networkId';
+                String soqlQuery = 'select Id,UrlPathPrefix from Network where Id = :networkId';
                 List<SObject> results = Database.query(soqlQuery);
                 networkDetails = results.get(0);
             }
@@ -166,17 +166,17 @@ public with sharing class LMSUtils{
         return Network.getNetworkId();
     }
 
-    public static String getCurrentNetworkName(){
+    public static String getCurrentNetworkURLPath(){
         if(getCurrentNetworkId() == null){
             return null;
         }
         SObject n = getNetworkDetails();
-        return ((String)n.get('Name')).toLowerCase();
+        return ((String)n.get('UrlPathPrefix'));
     }
 
     public static String updateURLCommunityPath(String urlPath){
         if(getCurrentNetworkId() != null){
-            urlPath = '/'+getCurrentNetworkName()+urlPath;
+            urlPath = '/'+getCurrentNetworkURLPath()+urlPath;
         }
         return urlPath;
     }

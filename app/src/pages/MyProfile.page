@@ -54,7 +54,9 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
         </apex:define>
 
         <apex:define name="hero-banner-badge">
-            <div class="thumb achievements-avatar" style="background:url({!JSENCODE(oUser.FullPhotoUrl)});background-size: cover;">
+            <div id="hb-right" class="col-xs-12 col-sm-4 col-md-3">
+                <div class="thumb achievements-avatar" style="background:url({!JSENCODE(oUser.FullPhotoUrl)});background-size: cover;">
+                </div>
             </div>
         </apex:define>
 

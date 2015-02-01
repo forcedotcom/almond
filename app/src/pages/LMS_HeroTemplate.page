@@ -55,9 +55,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 
                         <div class="row">
 
-                            <div id="hb-right" class="col-xs-12 col-sm-4 col-md-3">
-                                <apex:insert name="hero-banner-badge" />
-                            </div>
+                            <apex:insert name="hero-banner-badge" />
 
                             <div class="col-xs-12 col-sm-8 col-md-9">
                                 <apex:insert name="hero-banner" />

@@ -133,9 +133,8 @@ td.noSidebarCell{
     padding: 10px 20px;
 }
 
-.almond..almond-template .tmpl-body-container{
-    margin-top: 20px;
-    min-height: 300px;
+.almond.almond-template .tmpl-body-container{
+    min-height: 400px;
 }
 
 .almond .tplan-form,

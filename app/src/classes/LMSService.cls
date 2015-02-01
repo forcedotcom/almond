@@ -1312,7 +1312,13 @@ public with sharing class LMSService{
             tpar.Training_Plan__c = tplanId;
             tpar.Comments__c = comments;
             tpar.Status__c = 'Pending';
-            insert tpar;
+            if(isPortalUser){
+                LMSService.WithoutSharingOps wsops = new LMSService.WithoutSharingOps();
+                wsops.insertTPlanAccessRequest(new List<Training_Plan_Access_Request__c>{tpar});
+            }else{
+                insert tpar;
+            }
+
             return tpar;
         }
 
@@ -2442,6 +2448,11 @@ public with sharing class LMSService{
         //Insert feedback records
         public void insertFeedback(List<Training_Plan_Feedback__c> feedbacks){
             insert feedbacks;
+        }
+
+        //Insert training plan access records
+        public void insertTPlanAccessRequest(List<Training_Plan_Access_Request__c> tplanRequests){
+            insert tplanRequests;
         }
 
     }

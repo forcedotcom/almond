@@ -493,7 +493,7 @@ public with sharing class QuizViewerController extends LMSBaseController{
         //Update correct response flag at the response level
         //No CRUD/FLS enforced here as Users don't have access to update the correct response flag object
         if(!LMSSettings.getDisableCorrectResponseCheckbox() && responsesToUpdate.size()>0){
-            update responsesToUpdate;
+            wsops.upsertResponses(responsesToUpdate);
         }
 
     }

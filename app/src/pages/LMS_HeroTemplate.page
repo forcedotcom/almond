@@ -74,7 +74,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                     </div>
                 </div> <!-- /hero-banner -->
 
-                <div class="container">
+                <div class="lms-body-container container">
                     <div class="herotmpl-body-container" >
 
                         <div id="container-header">

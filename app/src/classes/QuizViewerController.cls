@@ -324,7 +324,7 @@ public with sharing class QuizViewerController{
                                             where Order__c >= :questionLine.Order__c
                                             and Quiz__c = :quiz.Id
                                             and id != :questionLine.Id
-                                            order by order__c asc,CreatedDate asc]) {
+                                            order by Order__c asc,CreatedDate asc]) {
 
 
                     //Store the question we came from in navigation list

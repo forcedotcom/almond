@@ -51,9 +51,11 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
         </apex:define>
 
         <apex:define name="hero-banner-badge">
-            <div class="badge-container">
-                <apex:outputfield value="{!tPlan.mainAchievement.Acquired_Image__c}" rendered="{!tPlan.mainAchievement.Work_Badge_Image_URL__c == null}"/>
-                <apex:image url="{!tPlan.mainAchievement.Work_Badge_Image_URL__c}" rendered="{!tPlan.mainAchievement.Work_Badge_Image_URL__c != null}"/>
+            <div id="hb-right" class="col-xs-12 col-sm-4 col-md-3">
+                <div class="badge-container">
+                    <apex:outputfield value="{!tPlan.mainAchievement.Acquired_Image__c}" rendered="{!tPlan.mainAchievement.Work_Badge_Image_URL__c == null}"/>
+                    <apex:image url="{!tPlan.mainAchievement.Work_Badge_Image_URL__c}" rendered="{!tPlan.mainAchievement.Work_Badge_Image_URL__c != null}"/>
+                </div>
             </div>
         </apex:define>
 

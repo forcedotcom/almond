@@ -40,11 +40,12 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
         </apex:define>
 
         <apex:define name="hero-banner-badge">
-            <div class="banner-title-left" style="color:{!JSENCODE(learningcategory.Text_Color__c)}">
-                <span>{!$Label.ALMS_Category}</span>
-                <h1>{!learningcategory.Name}</h1>
+            <div id="hb-right" class="col-xs-12 col-sm-12 col-md-12">
+                <div class="banner-title-left" style="color:{!JSENCODE(learningcategory.Text_Color__c)}">
+                    <span>{!$Label.ALMS_Category}</span>
+                    <h1>{!learningcategory.Name}</h1>
+                </div>
            </div>
-
         </apex:define>
 
         <apex:define name="hero-banner-footer">

@@ -62,7 +62,10 @@
             if(almond.isSF1()){
                 $('#lms-nav-header').hide();
             }
-            $('[data-toggle="almond-tooltip"]').tooltip();
+            var almondtooltipElements = $('[data-toggle="almond-tooltip"]');
+            if(almondtooltipElements.length > 0){
+                almondtooltipElements.tooltip();
+            }
             FastClick.attach(document.body);
         });
     </script>

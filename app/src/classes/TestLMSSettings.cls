@@ -39,6 +39,8 @@ private class TestLMSSettings {
             System.assert(headerBackgroundColor != null);
             String headerTextColor = LMSSettings.getHeaderTextColor();
             System.assert(headerTextColor != null);
+            String headerTextHoverColor = LMSSettings.getHeaderTextHoverColor();
+            System.assert(headerTextHoverColor != null);
             Boolean disableTrackAchievements = LMSSettings.getDisableTrackAchievements();
             System.assert(disableTrackAchievements == false);
             Boolean disableFutureProgressCalcs = LMSSettings.getDisableFutureProgressCalculation();
@@ -60,6 +62,8 @@ private class TestLMSSettings {
           System.assert(headerBackgroundColor != null);
           String headerTextColor = LMSSettings.getHeaderTextColor();
           System.assert(headerTextColor != null);
+          String headerTextHoverColor = LMSSettings.getHeaderTextHoverColor();
+          System.assert(headerTextHoverColor != null);
           Boolean disableTrackAchievements = LMSSettings.getDisableTrackAchievements();
           System.assert(disableTrackAchievements == true);
           Boolean disableFutureProgressCalcs = LMSSettings.getDisableFutureProgressCalculation();
@@ -73,7 +77,8 @@ private class TestLMSSettings {
         Almond_Settings__c cs = new Almond_Settings__c();
         cs.Company_Logo__c = 'https://www.salesforce.com/logo.png';
         cs.Header_Background_Color__c = '#2C82B9';
-        cs.Header_Text_Color__c = 'DBE5F2';
+        cs.Header_Text_Color__c = '#DBE5F2';
+        cs.Header_Text_Hover_Color__c = '#000000';
         cs.SetupOwnerId = null; //Org-wide default
         cs.Disable_Track_Achievements__c = true;
         cs.Disable_Future_Progress_Calculation__c = true;

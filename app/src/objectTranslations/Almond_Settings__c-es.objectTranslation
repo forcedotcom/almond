@@ -39,6 +39,11 @@
         <name>Header_Text_Color__c</name>
     </fields>
     <fields>
+        <help>Valor hexadecimal para el color de texto (hover) (ej. #EEEEEE)</help>
+        <label>Encabezado - Color de Texto (Hover)</label>
+        <name>Header_Text_Hover_Color__c</name>
+    </fields>
+    <fields>
         <help>Habilitar esta opción para mostrar el encabezado de Salesforce en las paginas</help>
         <label>Mostrar encabezado de Salesforce</label>
         <name>Show_Salesforce_Header__c</name>

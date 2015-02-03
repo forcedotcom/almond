@@ -39,6 +39,11 @@
         <name>Header_Text_Color__c</name>
     </fields>
     <fields>
+        <help><!-- HEX value for the header text hover color. (e.g. #EEEEEE) --></help>
+        <label><!-- Header Text Hover Color --></label>
+        <name>Header_Text_Hover_Color__c</name>
+    </fields>
+    <fields>
         <help><!-- Enable this option to show the Salesforce header for the end-user training pages --></help>
         <label><!-- Show Salesforce Header --></label>
         <name>Show_Salesforce_Header__c</name>

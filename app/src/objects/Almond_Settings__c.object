@@ -41,6 +41,18 @@
         <unique>false</unique>
     </fields>
     <fields>
+        <fullName>Header_Text_Hover_Color__c</fullName>
+        <description>HEX value for the header text hover color. (e.g. #EEEEEE)</description>
+        <externalId>false</externalId>
+        <inlineHelpText>HEX value for the header text hover color. (e.g. #EEEEEE)</inlineHelpText>
+        <label>Header Text Hover Color</label>
+        <length>10</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
         <fullName>Disable_Track_Achievements__c</fullName>
         <inlineHelpText>Enable this option to prevent automatic achievement assignment for track achievements</inlineHelpText>
         <defaultValue>false</defaultValue>

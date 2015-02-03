@@ -32,16 +32,18 @@ public class TestQuestionNewController {
 	static testmethod void testCreateBooleanQuestion(){
 		//Create admin users
 		List<User> adminUsers = TestUtilClass.createUsers(2,'System Administrator');
-		//Create quiz learnings
-		List<Learning__c> quizLearnings = TestLearningData.createTestLearning(1, 'Quiz', true);
-		//create quiz
-		List<Quiz__c> quiz = TestLearningData.createTestQuiz(quizLearnings);
-		//create question line
-		List<Question_Line__c> qline = TestLearningData.createTestQuestionLine(quiz, 1);
+
+		//Assign corresponding perm sets
+		TestUtilClass.addPermissionSet(adminUsers,'LMS_Admin');
 
 		System.runAs(adminUsers.get(0)){
-			//Assign corresponding perm sets
-			TestUtilClass.addPermissionSet(adminUsers,'LMS_Admin');
+
+			//Create quiz learnings
+			List<Learning__c> quizLearnings = TestLearningData.createTestLearning(1, 'Quiz', true);
+			//create quiz
+			List<Quiz__c> quiz = TestLearningData.createTestQuiz(quizLearnings);
+			//create question line
+			List<Question_Line__c> qline = TestLearningData.createTestQuestionLine(quiz, 1);
 
 			//go to QuestionNew page
 			PageReference pageRef = Page.QuestionNew;
@@ -70,16 +72,18 @@ public class TestQuestionNewController {
 	static testmethod void testCreateNumberQuestion(){
 		//Create admin users
 		List<User> adminUsers = TestUtilClass.createUsers(2,'System Administrator');
-		//Create quiz learnings
-		List<Learning__c> quizLearnings = TestLearningData.createTestLearning(1, 'Quiz', true);
-		//create quiz
-		List<Quiz__c> quiz = TestLearningData.createTestQuiz(quizLearnings);
-		//create question line
-		List<Question_Line__c> qline = TestLearningData.createTestQuestionLine(quiz, 1);
+
+		//Assign corresponding perm sets
+		TestUtilClass.addPermissionSet(adminUsers,'LMS_Admin');
 
 		System.runAs(adminUsers.get(0)){
-			//Assign corresponding perm sets
-			TestUtilClass.addPermissionSet(adminUsers,'LMS_Admin');
+
+			//Create quiz learnings
+			List<Learning__c> quizLearnings = TestLearningData.createTestLearning(1, 'Quiz', true);
+			//create quiz
+			List<Quiz__c> quiz = TestLearningData.createTestQuiz(quizLearnings);
+			//create question line
+			List<Question_Line__c> qline = TestLearningData.createTestQuestionLine(quiz, 1);
 
 			//go to QuestionNew page
 			PageReference pageRef = Page.QuestionNew;
@@ -108,16 +112,18 @@ public class TestQuestionNewController {
 	static testmethod void testCreateTextQuestion(){
 		//Create admin users
 		List<User> adminUsers = TestUtilClass.createUsers(2,'System Administrator');
-		//Create quiz learnings
-		List<Learning__c> quizLearnings = TestLearningData.createTestLearning(1, 'Quiz', true);
-		//create quiz
-		List<Quiz__c> quiz = TestLearningData.createTestQuiz(quizLearnings);
-		//create question line
-		List<Question_Line__c> qline = TestLearningData.createTestQuestionLine(quiz, 1);
+
+		//Assign corresponding perm sets
+		TestUtilClass.addPermissionSet(adminUsers,'LMS_Admin');
 
 		System.runAs(adminUsers.get(0)){
-			//Assign corresponding perm sets
-			TestUtilClass.addPermissionSet(adminUsers,'LMS_Admin');
+
+			//Create quiz learnings
+			List<Learning__c> quizLearnings = TestLearningData.createTestLearning(1, 'Quiz', true);
+			//create quiz
+			List<Quiz__c> quiz = TestLearningData.createTestQuiz(quizLearnings);
+			//create question line
+			List<Question_Line__c> qline = TestLearningData.createTestQuestionLine(quiz, 1);
 
 			//go to QuestionNew page
 			PageReference pageRef = Page.QuestionNew;
@@ -144,16 +150,18 @@ public class TestQuestionNewController {
 	static testmethod void testCreateSelectOneQuestion(){
 		//Create admin users
 		List<User> adminUsers = TestUtilClass.createUsers(2,'System Administrator');
-		//Create quiz learnings
-		List<Learning__c> quizLearnings = TestLearningData.createTestLearning(1, 'Quiz', true);
-		//create quiz
-		List<Quiz__c> quiz = TestLearningData.createTestQuiz(quizLearnings);
-		//create question line
-		List<Question_Line__c> qline = TestLearningData.createTestQuestionLine(quiz, 1);
+
+		//Assign corresponding perm sets
+		TestUtilClass.addPermissionSet(adminUsers,'LMS_Admin');
 
 		System.runAs(adminUsers.get(0)){
-			//Assign corresponding perm sets
-			TestUtilClass.addPermissionSet(adminUsers,'LMS_Admin');
+
+			//Create quiz learnings
+			List<Learning__c> quizLearnings = TestLearningData.createTestLearning(1, 'Quiz', true);
+			//create quiz
+			List<Quiz__c> quiz = TestLearningData.createTestQuiz(quizLearnings);
+			//create question line
+			List<Question_Line__c> qline = TestLearningData.createTestQuestionLine(quiz, 1);
 
 			//go to QuestionNew page
 			PageReference pageRef = Page.QuestionNew;
@@ -203,16 +211,18 @@ public class TestQuestionNewController {
 	static testmethod void testCreateSelectMultipleQuestion(){
 		//Create admin users
 		List<User> adminUsers = TestUtilClass.createUsers(2,'System Administrator');
-		//Create quiz learnings
-		List<Learning__c> quizLearnings = TestLearningData.createTestLearning(1, 'Quiz', true);
-		//create quiz
-		List<Quiz__c> quiz = TestLearningData.createTestQuiz(quizLearnings);
-		//create question line
-		List<Question_Line__c> qline = TestLearningData.createTestQuestionLine(quiz, 1);
+
+		//Assign corresponding perm sets
+		TestUtilClass.addPermissionSet(adminUsers,'LMS_Admin');
 
 		System.runAs(adminUsers.get(0)){
-			//Assign corresponding perm sets
-			TestUtilClass.addPermissionSet(adminUsers,'LMS_Admin');
+
+			//Create quiz learnings
+			List<Learning__c> quizLearnings = TestLearningData.createTestLearning(1, 'Quiz', true);
+			//create quiz
+			List<Quiz__c> quiz = TestLearningData.createTestQuiz(quizLearnings);
+			//create question line
+			List<Question_Line__c> qline = TestLearningData.createTestQuestionLine(quiz, 1);
 
 			//go to QuestionNew page
 			PageReference pageRef = Page.QuestionNew;
@@ -268,16 +278,18 @@ public class TestQuestionNewController {
 	static testmethod void testCancelCreateQuestion(){
 		//Create admin users
 		List<User> adminUsers = TestUtilClass.createUsers(2,'System Administrator');
-		//Create quiz learnings
-		List<Learning__c> quizLearnings = TestLearningData.createTestLearning(1, 'Quiz', true);
-		//create quiz
-		List<Quiz__c> quiz = TestLearningData.createTestQuiz(quizLearnings);
-		//create question line
-		List<Question_Line__c> qline = TestLearningData.createTestQuestionLine(quiz, 1);
+
+		//Assign corresponding perm sets
+		TestUtilClass.addPermissionSet(adminUsers,'LMS_Admin');
 
 		System.runAs(adminUsers.get(0)){
-			//Assign corresponding perm sets
-			TestUtilClass.addPermissionSet(adminUsers,'LMS_Admin');
+
+			//Create quiz learnings
+			List<Learning__c> quizLearnings = TestLearningData.createTestLearning(1, 'Quiz', true);
+			//create quiz
+			List<Quiz__c> quiz = TestLearningData.createTestQuiz(quizLearnings);
+			//create question line
+			List<Question_Line__c> qline = TestLearningData.createTestQuestionLine(quiz, 1);
 
 			//go to QuestionNew page
 			PageReference pageRef = Page.QuestionNew;
@@ -302,16 +314,18 @@ public class TestQuestionNewController {
 	static testmethod void testCreateBooleanQuestionAndEdit(){
 		//Create admin users
 		List<User> adminUsers = TestUtilClass.createUsers(2,'System Administrator');
-		//Create quiz learnings
-		List<Learning__c> quizLearnings = TestLearningData.createTestLearning(1, 'Quiz', true);
-		//create quiz
-		List<Quiz__c> quiz = TestLearningData.createTestQuiz(quizLearnings);
-		//create question line
-		List<Question_Line__c> qline = TestLearningData.createTestQuestionLine(quiz, 1);
+
+		//Assign corresponding perm sets
+		TestUtilClass.addPermissionSet(adminUsers,'LMS_Admin');
 
 		System.runAs(adminUsers.get(0)){
-			//Assign corresponding perm sets
-			TestUtilClass.addPermissionSet(adminUsers,'LMS_Admin');
+
+			//Create quiz learnings
+			List<Learning__c> quizLearnings = TestLearningData.createTestLearning(1, 'Quiz', true);
+			//create quiz
+			List<Quiz__c> quiz = TestLearningData.createTestQuiz(quizLearnings);
+			//create question line
+			List<Question_Line__c> qline = TestLearningData.createTestQuestionLine(quiz, 1);
 
 			//go to QuestionNew page
 			PageReference pageRef = Page.QuestionNew;
@@ -355,16 +369,18 @@ public class TestQuestionNewController {
 	static testmethod void testCreateSelectMultipleQuestionAndEdit(){
 		//Create admin users
 		List<User> adminUsers = TestUtilClass.createUsers(2,'System Administrator');
-		//Create quiz learnings
-		List<Learning__c> quizLearnings = TestLearningData.createTestLearning(1, 'Quiz', true);
-		//create quiz
-		List<Quiz__c> quiz = TestLearningData.createTestQuiz(quizLearnings);
-		//create question line
-		List<Question_Line__c> qline = TestLearningData.createTestQuestionLine(quiz, 1);
+
+		//Assign corresponding perm sets
+		TestUtilClass.addPermissionSet(adminUsers,'LMS_Admin');
 
 		System.runAs(adminUsers.get(0)){
-			//Assign corresponding perm sets
-			TestUtilClass.addPermissionSet(adminUsers,'LMS_Admin');
+
+			//Create quiz learnings
+			List<Learning__c> quizLearnings = TestLearningData.createTestLearning(1, 'Quiz', true);
+			//create quiz
+			List<Quiz__c> quiz = TestLearningData.createTestQuiz(quizLearnings);
+			//create question line
+			List<Question_Line__c> qline = TestLearningData.createTestQuestionLine(quiz, 1);
 
 			//go to QuestionNew page
 			PageReference pageRef = Page.QuestionNew;

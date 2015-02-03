@@ -10,6 +10,14 @@
         .almond .navbar-inverse .navbar-link {
             color: {!JSENCODE(textColor)};
         }
+
+        .almond .navbar-inverse .navbar-nav > li > a:focus,
+        .almond .navbar-inverse .navbar-nav > li > a:hover,
+        .almond .navbar-inverse .navbar-link:focus,
+        .almond .navbar-inverse .navbar-link:hover{
+            color: {!JSENCODE(textHoverColor)} !important;
+        }
+
     </style>
 
     <header id="lms-nav-header" class="navbar navbar-inverse bs-docs-nav lms-nav" role="banner">
@@ -43,8 +51,7 @@
                     </li>
                     <apex:outputPanel layout="none" rendered="{!!hideSFLink}">
                         <li>
-                            <apex:image value="{!URLFOR($Resource.almond_uilib, '/img/white_cloud_embossed.png')}" styleClass="sfdc-logo" />
-                            <a data-toggle="almond-tooltip" data-placement="bottom" title="{!$Label.ALMS_Back_SF}" href="{!backToSFURL}">&nbsp;</a>
+                            <a id="almond-header-logo" data-toggle="almond-tooltip" data-placement="bottom" title="{!$Label.ALMS_Back_SF}" href="{!backToSFURL}"><span class="glyphicon glyphicon-cloud"></span></a>
                         </li>
                     </apex:outputPanel>
                 </ul>

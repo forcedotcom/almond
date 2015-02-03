@@ -34,6 +34,7 @@ public with sharing class LMSHeaderController {
     public transient String customLogo {get; private set;}
     public transient String backgroundColor {get; private set;}
     public transient String textColor {get; private set;}
+    public transient String textHoverColor {get; private set;}
     public transient String backToSFURL {get; private set;}
 
     public LMSHeaderController(){
@@ -60,6 +61,7 @@ public with sharing class LMSHeaderController {
         customLogo = LMSSettings.getCustomLogo();
         backgroundColor = LMSSettings.getHeaderBackgroundColor();
         textColor = LMSSettings.getHeaderTextColor();
+        textHoverColor = LMSSettings.getHeaderTextHoverColor();
         backToSFURL = LMSSettings.getBacktoSFUrl();
 
     }

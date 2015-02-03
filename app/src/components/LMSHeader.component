@@ -12,7 +12,9 @@
         }
 
         .almond .navbar-inverse .navbar-nav > li > a:focus,
-        .almond .navbar-inverse .navbar-nav > li > a:hover {
+        .almond .navbar-inverse .navbar-nav > li > a:hover,
+        .almond .navbar-inverse .navbar-link:focus,
+        .almond .navbar-inverse .navbar-link:hover{
             color: {!JSENCODE(textHoverColor)} !important;
         }
 

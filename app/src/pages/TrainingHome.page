@@ -37,7 +37,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 
             <div class="trainingplan-container row">
                 <div class="col-xs-12 col-sm-6 col-md-4 launch-wrapper" item-url="{!$Page.MyTraining}">
-                    <div class="tplan_box">
+                    <div class="tplan_box tplan_box_home">
                         <div class="tplan_img">
                             <apex:image value="{!URLFOR($Resource.almond_uilib, '/img/mytraining.png')}"/>
                         </div>
@@ -47,7 +47,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-4 launch-wrapper" item-url="{!$Page.MyProfile}">
-                    <div class="tplan_box">
+                    <div class="tplan_box tplan_box_home">
                         <div class="tplan_img">
                             <apex:image value="{!URLFOR($Resource.almond_uilib, '/img/achievements.png')}"/>
                         </div>
@@ -57,7 +57,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-4 launch-wrapper" item-url="{!$Page.TrainingCatalogHome}">
-                    <div class="tplan_box">
+                    <div class="tplan_box tplan_box_home">
                         <div class="tplan_img">
                             <apex:image value="{!URLFOR($Resource.almond_uilib, '/img/catalogs.png')}"/>
                         </div>
@@ -67,7 +67,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-4 launch-wrapper" item-url="{!$Page.TrainingTracks}">
-                    <div class="tplan_box">
+                    <div class="tplan_box tplan_box_home">
                         <div class="tplan_img">
                             <apex:image value="{!URLFOR($Resource.almond_uilib, '/img/tracks.png')}"/>
                         </div>

@@ -40,6 +40,10 @@ public with sharing class LMSSettings {
         return (String)getValue('Header_Text_Color__c','#DBE5F2');
     }
 
+    public static String getHeaderTextHoverColor(){
+        return (String)getValue('Header_Text_Hover_Color__c','#FFFFFF');
+    }
+
     public static Boolean getDisableTrackAchievements(){
         return (Boolean)getValue('Disable_Track_Achievements__c',false);
     }

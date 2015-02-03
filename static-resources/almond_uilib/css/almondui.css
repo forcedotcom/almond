@@ -189,11 +189,6 @@ td.noSidebarCell{
     white-space: nowrap;
 }
 
-.almond .navbar-inverse .navbar-nav > li > a:focus,
-.almond .navbar-inverse .navbar-nav > li > a:hover {
-    color: #FFFFFF !important;
-}
-
 .almond .navbar-inverse .navbar-text {
     color: #7A4E00;
 }
@@ -231,6 +226,15 @@ td.noSidebarCell{
     background: none repeat scroll 0 0 rgba(0, 0, 0, 0.12);
     color: #FFFFFF;
     text-shadow: none;
+}
+
+.almond #almond-header-logo{
+    padding-top: 10px;
+    padding-bottom: 0;
+}
+
+.almond #almond-header-logo span{
+    font-size:30px;
 }
 
 .almond .profilePic-header{
@@ -931,6 +935,10 @@ td.noSidebarCell{
     color:#333;
 }
 
+.almond .tplan_box_home:hover{
+    background-color:#fff;
+}
+
 .almond .tplan_img{
     display: inline-block;
     float: left;
@@ -950,6 +958,15 @@ td.noSidebarCell{
     float: center;
     height: 95px;
     width: 70%;
+}
+
+.almond .tplan_details_home{
+    padding:30px 0 0 0;
+    height: 90px;
+}
+
+.almond .tplan_details_home a:hover{
+  background-color:#fff;
 }
 
 .almond .tplan_details_no_image{

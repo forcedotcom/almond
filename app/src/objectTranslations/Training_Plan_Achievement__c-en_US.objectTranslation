@@ -19,6 +19,9 @@
     </fields>
     <fields>
         <label><!-- Training Plan Section --></label>
+        <lookupFilter>
+            <errorMessage><!-- Only sections from the parent training plan can be selected --></errorMessage>
+        </lookupFilter>
         <name>Training_Plan_Section__c</name>
         <relationshipLabel><!-- Training Plan Achievements --></relationshipLabel>
     </fields>

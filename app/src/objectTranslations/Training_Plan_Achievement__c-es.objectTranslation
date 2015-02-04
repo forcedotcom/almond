@@ -19,6 +19,9 @@
     </fields>
     <fields>
         <label>Sección de Curso</label>
+        <lookupFilter>
+            <errorMessage>Sólo es posible asociar secciones del Curso padre</errorMessage>
+        </lookupFilter>
         <name>Training_Plan_Section__c</name>
         <relationshipLabel>Logros de Curso</relationshipLabel>
     </fields>

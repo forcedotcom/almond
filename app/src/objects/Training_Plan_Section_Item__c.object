@@ -80,6 +80,17 @@
         <deleteConstraint>SetNull</deleteConstraint>
         <externalId>false</externalId>
         <label>Learning</label>
+        <lookupFilter>
+            <active>true</active>
+            <errorMessage>Only published learnings can be added to a training plan</errorMessage>
+            <filterItems>
+                <field>Learning__c.Is_Published_Formula__c</field>
+                <operation>equals</operation>
+                <value>True</value>
+            </filterItems>
+            <infoMessage>NOTE: Only published learnings can be associated to a training plan</infoMessage>
+            <isOptional>false</isOptional>
+        </lookupFilter>
         <referenceTo>Learning__c</referenceTo>
         <relationshipLabel>Training Plan Section Items</relationshipLabel>
         <relationshipName>Training_Plan_Section_Items</relationshipName>

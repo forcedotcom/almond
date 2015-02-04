@@ -77,6 +77,16 @@
         <deleteConstraint>SetNull</deleteConstraint>
         <externalId>false</externalId>
         <label>Training Plan Section</label>
+        <lookupFilter>
+            <active>true</active>
+            <errorMessage>Only sections from the parent training plan can be selected</errorMessage>
+            <filterItems>
+                <field>Training_Plan_Section__c.Training_Plan__c</field>
+                <operation>equals</operation>
+                <valueField>$Source.Training_Plan__c</valueField>
+            </filterItems>
+            <isOptional>false</isOptional>
+        </lookupFilter>
         <referenceTo>Training_Plan_Section__c</referenceTo>
         <relationshipLabel>Training Plan Achievements</relationshipLabel>
         <relationshipName>Training_Plan_Achievements</relationshipName>

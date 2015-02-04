@@ -18,6 +18,10 @@
     </fields>
     <fields>
         <label><!-- Learning --></label>
+        <lookupFilter>
+            <informationalMessage><!-- NOTE: Only published learnings can be associated to a training plan --></informationalMessage>
+            <errorMessage><!-- Only published learnings can be added to a training plan --></errorMessage>
+        </lookupFilter>
         <name>Learning__c</name>
         <relationshipLabel><!-- Training Plan Section Items --></relationshipLabel>
     </fields>

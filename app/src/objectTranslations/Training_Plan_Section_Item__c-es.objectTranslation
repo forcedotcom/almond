@@ -18,6 +18,10 @@
     </fields>
     <fields>
         <label>Aprendizaje</label>
+        <lookupFilter>
+            <informationalMessage>NOTA: Solo aprendizajes publicados pueden ser añadidos al Curso</informationalMessage>
+            <errorMessage>Solo aprendizajes publicados pueden ser añadidos al Curso</errorMessage>
+        </lookupFilter>
         <name>Learning__c</name>
         <relationshipLabel>Aprendizajes de Curso</relationshipLabel>
     </fields>

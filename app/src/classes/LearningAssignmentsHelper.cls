@@ -79,7 +79,7 @@ public with sharing class LearningAssignmentsHelper{
         //We'll query for shared learning assignments records related to the shared learnings.
         learningsSharedAssignments = wosHelper.getSharedAssignmentsForLearningsWOS(sharedLearnings.keySet(),referencedUsers);
 
-        //Create shared assignments for first time assigments
+        //Create shared assignments for first time assignments
         List<Shared_Learning_Assignment__c> newSharedAssignments = new List<Shared_Learning_Assignment__c>();
         for(Id learningId : sharedLearnings.keySet()){
             if(!learningsSharedAssignments.containsKey(learningId)){

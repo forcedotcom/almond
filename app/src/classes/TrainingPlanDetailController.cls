@@ -133,28 +133,29 @@ public with sharing class TrainingPlanDetailController extends LMSBaseController
                 }
 
                 if(currentItem != null){
+
                     selectedItem = currentItem;
 
                     //Validate sequence if applicable
                     if(tPlan.trainingPlan.Enforce_Sequence__c){
 
+                        LMSService.WithoutSharingOps wsops = new LMSService.WithoutSharingOps();
+
                         hasPreRequisite = false;
 
                         //Validate previous section item, if applicable
                         if(selectedItem.previousSectionItemId != null){
-                            if(hasIncompleteLearningAssignment(selectedItem.previousSectionItemId)){
+                            if(wsops.hasIncompleteLearningAssignment(selectedItem.previousSectionItemId, UserInfo.getUserId())){
                                 hasPreRequisite = true;
                             }
                         }
 
                         //Always validate that the previous sections have been completed, if applicable
                         if(!hasPreRequisite && previousSectionIds.size()>0){
-
                             //Verify status of the assignment for the previous sections
-                            if(hasIncompleteTPlanSectionAssignments(previousSectionIds)){
+                            if(wsops.hasIncompleteTPlanSectionAssignments(previousSectionIds, UserInfo.getUserId())){
                                 hasPreRequisite = true;
                             }
-
                         }
 
                     }
@@ -243,36 +244,6 @@ public with sharing class TrainingPlanDetailController extends LMSBaseController
         selectedItem.keepOldVersion();
         byPassLaunchModal = true;
         return launchLearning();
-    }
-
-    private Boolean hasIncompleteTPlanSectionAssignments(Set<Id> tPlanSectionIds){
-        List<Training_Plan_Section_Assignment__c> tpsas = [select Status__c
-                                                                from Training_Plan_Section_Assignment__c
-                                                                where Training_Plan_Section__c in :tPlanSectionIds
-                                                                and User__c = :UserInfo.getUserId()
-                                                                and Status__c != 'Completed'
-                                                                order by CreatedDate desc
-                                                                limit 1];
-        if(tpsas.size()>0){
-            return true;
-        }else{
-            return false;
-        }
-    }
-
-    private Boolean hasIncompleteLearningAssignment(Id tPlanSectionItemId){
-        List<Learning_Assignment__c> lass = [select Progress__c
-                                                    from Learning_Assignment__c
-                                                    where Training_Plan_Section_Item__c = :tPlanSectionItemId
-                                                    and User__c = :UserInfo.getUserId()
-                                                    order by CreatedDate desc
-                                                    limit 1];
-
-        if(lass.size() > 0 && lass.get(0).Progress__c != LMSConstants.TPLAN_STATUS_COMPLETED){
-            return true;
-        }else{
-            return false;
-        }
     }
 
 }

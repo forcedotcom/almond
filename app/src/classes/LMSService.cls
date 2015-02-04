@@ -2455,6 +2455,38 @@ public with sharing class LMSService{
             insert tplanRequests;
         }
 
+        //Check if the current user has previous incomplete sections
+        public Boolean hasIncompleteTPlanSectionAssignments(Set<Id> tPlanSectionIds, Id userId){
+            List<Training_Plan_Section_Assignment__c> tpsas = [select Status__c
+                                                                    from Training_Plan_Section_Assignment__c
+                                                                    where Training_Plan_Section__c in :tPlanSectionIds
+                                                                    and User__c = :userId
+                                                                    and Status__c != :LMSConstants.TPLAN_STATUS_COMPLETED
+                                                                    order by CreatedDate desc
+                                                                    limit 1];
+            if(tpsas.size()>0){
+                return true;
+            }else{
+                return false;
+            }
+        }
+
+        //Check if the specified user has previous incomplete learning assignments
+        public Boolean hasIncompleteLearningAssignment(Id tPlanSectionItemId, Id userId){
+            List<Learning_Assignment__c> lass = [select Progress__c
+                                                        from Learning_Assignment__c
+                                                        where Training_Plan_Section_Item__c = :tPlanSectionItemId
+                                                        and User__c = :userId
+                                                        order by CreatedDate desc
+                                                        limit 1];
+
+            if(lass.size() > 0 && lass.get(0).Progress__c != LMSConstants.TPLAN_STATUS_COMPLETED){
+                return true;
+            }else{
+                return false;
+            }
+        }
+
     }
 
 }

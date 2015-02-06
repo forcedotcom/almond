@@ -1280,7 +1280,7 @@ public with sharing class LMSService{
 
         if(isPortalUser){
             LMSService.WithoutSharingOps wsops = new LMSService.WithoutSharingOps();
-            results = wsops.queryTrainingPlanAccessRequests(soqlQuery,uId,tplanId);
+            results = wsops.queryTrainingPlanAccessRequests(soqlQuery,uId,tplanId, statuses);
         }else{
             results = (List<Training_Plan_Access_Request__c>)Database.query(soqlQuery);
         }
@@ -2304,7 +2304,7 @@ public with sharing class LMSService{
             return [select id,Enable_Self_Registration__c,Self_Registration_Access__c from Training_Plan__c where id = :tplanId];
         }
 
-        public List<Training_Plan_Access_Request__c> queryTrainingPlanAccessRequests(String soqlQuery,Id uId,Id tplanId){
+        public List<Training_Plan_Access_Request__c> queryTrainingPlanAccessRequests(String soqlQuery,Id uId,Id tplanId,Set<String> statuses){
             return (List<Training_Plan_Access_Request__c>)Database.query(soqlQuery);
         }
 

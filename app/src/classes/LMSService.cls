@@ -1527,7 +1527,7 @@ public with sharing class LMSService{
             if(isPortalUser){
                 LMSCommunitiesService.WithoutSharingOps commwsops = new LMSCommunitiesService.WithoutSharingOps();
                 trIds = commwsops.getAccountTrainingTracks(LMSUtils.getUserAccountId());
-                soqlQuery +=' and id in :trIds';
+                soqlQuery +=' and (Enable_all_external_accounts__c = true or Id in :trIds)';
             }
         }
 

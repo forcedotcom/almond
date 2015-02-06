@@ -321,6 +321,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Achievement__c.Is_Internal__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Answer_Sequence_Item__c.Answer_Text__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1110,7 +1115,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Training_Plan_Batch_Operation__c.Additional_Information__c</field>
         <readable>true</readable>
     </fieldPermissions>

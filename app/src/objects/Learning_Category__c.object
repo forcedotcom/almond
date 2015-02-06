@@ -101,7 +101,7 @@
     </fields>
     <fields>
         <fullName>Is_Internal__c</fullName>
-        <inlineHelpText>Enable this option if you do not want to display this category for external users</inlineHelpText>
+        <inlineHelpText>Enable this option if you do not want to display this category to external users</inlineHelpText>
         <defaultValue>false</defaultValue>
         <externalId>false</externalId>
         <label>Is Internal</label>

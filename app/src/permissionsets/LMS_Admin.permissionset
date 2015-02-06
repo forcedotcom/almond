@@ -325,6 +325,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Achievement__c.Is_Internal__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Answer_Sequence_Item__c.Answer_Text__c</field>
         <readable>true</readable>
     </fieldPermissions>

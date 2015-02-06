@@ -122,27 +122,35 @@ public with sharing class MyProfileController extends LMSBaseController{
 
         String achievementCategory = '';
 
+        List<String> listSOQLFields = new List<String>{
+            'Id'
+            ,'Name'
+            ,'Status__c'
+            ,'Achievement__c'
+            ,'Achievement__r.Name'
+            ,'Achievement__r.Acquired_Image__c'
+            ,'Achievement__r.Eligible_Image__c'
+            ,'Achievement__r.Work_Badge_Id__c'
+            ,'Achievement__r.Work_Badge_Image_URL__c'
+            ,'Achievement__r.Override_URL__c'
+            ,'Achievement__r.Override_Completed_Status__c'
+            ,'Achievement__r.Expiration_Date__c'
+            ,'Achievement__r.Achievement_Category__r.Name'
+            ,'Achievement__r.Type__c'
+            ,'User__c'
+        };
+
+        String soqlQuery = 'select '+String.join(listSOQLFields,',')+' from Achievement_Assignment__c';
+        soqlQuery += ' where User__c = :profileUserId and Achievement__r.Type__c = :achievementType and Achievement__r.Hidden__c = false';
+
+        if(LMSUtils.isPortalUser()){
+            soqlQuery += ' and Achievement__r.Is_Internal__c = false';
+        }
+
+        soqlQuery += ' order by Achievement__r.Achievement_Category__r.Name desc, Status__c desc';
+
         List<AchievementAssignmentWrapper> achievementRecs = new List<AchievementAssignmentWrapper>();
-        for (Achievement_Assignment__c a : [select Id
-                                                    ,Name
-                                                    ,Status__c
-                                                    ,Achievement__c
-                                                    ,Achievement__r.Name
-                                                    ,Achievement__r.Acquired_Image__c
-                                                    ,Achievement__r.Eligible_Image__c
-                                                    ,Achievement__r.Work_Badge_Id__c
-                                                    ,Achievement__r.Work_Badge_Image_URL__c
-                                                    ,Achievement__r.Override_URL__c
-                                                    ,Achievement__r.Override_Completed_Status__c
-                                                    ,Achievement__r.Expiration_Date__c
-                                                    ,Achievement__r.Achievement_Category__r.Name
-                                                    ,Achievement__r.Type__c
-                                                    ,User__c
-                                                    from Achievement_Assignment__c
-                                                    where User__c = :profileUserId
-                                                    and Achievement__r.Type__c = :achievementType
-                                                    and Achievement__r.Hidden__c = false
-                                                    order by Achievement__r.Achievement_Category__r.Name desc, Status__c desc]){
+        for (Achievement_Assignment__c a : (List<Achievement_Assignment__c>)Database.query(soqlQuery)){
 
 
             String currentCategoryName = a.Achievement__r.Achievement_Category__r.Name;

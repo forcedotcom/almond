@@ -31,6 +31,11 @@
         <name>Hidden__c</name>
     </fields>
     <fields>
+        <help>Habilitar esta opción para esconder este Logro de los usuarios externos</help>
+        <label>Logro Interno</label>
+        <name>Is_Internal__c</name>
+    </fields>
+    <fields>
         <help>Sobrescribir el estado Adquirido, mostrará el estado seleccionado aquí en lugar del estado Adquirido. Es su responsabilidad crear un proceso que mueva la asignación del Logro al estado Adquirido.</help>
         <label>Sobre escritura de Estado Adquirido</label>
         <name>Override_Completed_Status__c</name>

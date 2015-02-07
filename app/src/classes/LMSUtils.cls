@@ -138,7 +138,7 @@ public with sharing class LMSUtils{
     }
 
     public static User getUserDetails(){
-        if(userDetails == null){
+        if(userDetails == null || Test.isRunningTest() ){
             userDetails = [select Id
                                 ,ContactId
                                 ,AccountId

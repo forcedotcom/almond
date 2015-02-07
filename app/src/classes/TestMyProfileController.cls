@@ -31,39 +31,39 @@ private class TestMyProfileController {
 
     static testMethod void testWithNoAchievements(){
 
-		//Create admin users
-		List<User> adminUsers = TestUtilClass.createUsers(2,'System Administrator');
-		List<User> lmsUsers = TestUtilClass.createUsers(2,'Standard User');
+        //Create admin users
+        List<User> adminUsers = TestUtilClass.createUsers(2,'System Administrator');
+        List<User> lmsUsers = TestUtilClass.createUsers(2,'Standard User');
 
-		System.runAs(adminUsers.get(0)){
-			//Assign corresponding perm sets
-			TestUtilClass.addPermissionSet(adminUsers,'LMS_Admin');
-			TestUtilClass.addPermissionSet(lmsUsers,'LMS_User');
-		}
+        System.runAs(adminUsers.get(0)){
+            //Assign corresponding perm sets
+            TestUtilClass.addPermissionSet(adminUsers,'LMS_Admin');
+            TestUtilClass.addPermissionSet(lmsUsers,'LMS_User');
+        }
 
         //Update manager for user 1
         User u1 = [select id,managerId from User where id = :lmsUsers.get(0).id];
         u1.managerId = lmsUsers.get(1).Id;
         update u1;
 
-		TestTrainingPlanData.createSampleData();
-		List<Training_Plan__c> tplan = [select id from Training_Plan__c];
-		System.assertEquals(1,tplan.size());
-		Id tplanId = tplan.get(0).Id;
-		Set<Id> selectedUserIds = new Set<Id>();
+        TestTrainingPlanData.createSampleData();
+        List<Training_Plan__c> tplan = [select id from Training_Plan__c];
+        System.assertEquals(1,tplan.size());
+        Id tplanId = tplan.get(0).Id;
+        Set<Id> selectedUserIds = new Set<Id>();
 
-		for(User u : lmsUsers){
-			selectedUserIds.add(u.Id);
-		}
+        for(User u : lmsUsers){
+            selectedUserIds.add(u.Id);
+        }
 
-		System.runAs(adminUsers.get(0)){
-			LMSService.upsertAssignments(selectedUserIds,tplanId,null);
-		}
+        System.runAs(adminUsers.get(0)){
+            LMSService.upsertAssignments(selectedUserIds,tplanId,null);
+        }
 
         PageReference ref = Page.MyProfile;
         Test.setCurrentPageReference(ref);
 
-		Test.startTest();
+        Test.startTest();
 
             System.runAs(lmsUsers.get(0)){
 
@@ -91,44 +91,44 @@ private class TestMyProfileController {
 
     static testMethod void testWithAchievements(){
 
-		//Create admin users
-		List<User> adminUsers = TestUtilClass.createUsers(2,'System Administrator');
-		List<User> lmsUsers = TestUtilClass.createUsers(2,'Standard User');
+        //Create admin users
+        List<User> adminUsers = TestUtilClass.createUsers(2,'System Administrator');
+        List<User> lmsUsers = TestUtilClass.createUsers(2,'Standard User');
 
-		System.runAs(adminUsers.get(0)){
-			//Assign corresponding perm sets
-			TestUtilClass.addPermissionSet(adminUsers,'LMS_Admin');
-			TestUtilClass.addPermissionSet(lmsUsers,'LMS_User');
-		}
+        System.runAs(adminUsers.get(0)){
+            //Assign corresponding perm sets
+            TestUtilClass.addPermissionSet(adminUsers,'LMS_Admin');
+            TestUtilClass.addPermissionSet(lmsUsers,'LMS_User');
+        }
 
         //Update manager for user 1
         User u1 = [select id,managerId from User where id = :lmsUsers.get(0).id];
         u1.managerId = lmsUsers.get(1).Id;
         update u1;
 
-		TestTrainingPlanData.createSampleData();
-		List<Training_Plan__c> tplan = [select id from Training_Plan__c];
-		System.assertEquals(1,tplan.size());
+        TestTrainingPlanData.createSampleData();
+        List<Training_Plan__c> tplan = [select id from Training_Plan__c];
+        System.assertEquals(1,tplan.size());
 
-		List<Achievement_Category__c> lAchieveCat = TestAchievementData.createAchievementCategories(1);
-		List<Achievement__c> lAchievement = TestAchievementData.createAchievements(1, lAchieveCat.get(0).Id, 'Achievements');
-		List<Training_Plan_Achievement__c> lTPlanAchievement = TestTrainingPlanData.createTrainingPlanAchievements(tplan, lAchievement);
+        List<Achievement_Category__c> lAchieveCat = TestAchievementData.createAchievementCategories(1);
+        List<Achievement__c> lAchievement = TestAchievementData.createAchievements(1, lAchieveCat.get(0).Id, 'Achievements');
+        List<Training_Plan_Achievement__c> lTPlanAchievement = TestTrainingPlanData.createTrainingPlanAchievements(tplan, lAchievement);
 
-		Id tplanId = tplan.get(0).Id;
-		Set<Id> selectedUserIds = new Set<Id>();
+        Id tplanId = tplan.get(0).Id;
+        Set<Id> selectedUserIds = new Set<Id>();
 
-		for(User u : lmsUsers){
-			selectedUserIds.add(u.Id);
-		}
+        for(User u : lmsUsers){
+            selectedUserIds.add(u.Id);
+        }
 
-		System.runAs(adminUsers.get(0)){
-			LMSService.upsertAssignments(selectedUserIds,tplanId,null);
-		}
+        System.runAs(adminUsers.get(0)){
+            LMSService.upsertAssignments(selectedUserIds,tplanId,null);
+        }
 
         PageReference ref = Page.MyProfile;
         Test.setCurrentPageReference(ref);
 
-		Test.startTest();
+        Test.startTest();
 
             System.runAs(lmsUsers.get(0)){
 
@@ -151,49 +151,49 @@ private class TestMyProfileController {
 
     static testMethod void testWithAchievementsAndOverrideURL(){
 
-		//Create admin users
-		List<User> adminUsers = TestUtilClass.createUsers(2,'System Administrator');
-		List<User> lmsUsers = TestUtilClass.createUsers(2,'Standard User');
+        //Create admin users
+        List<User> adminUsers = TestUtilClass.createUsers(2,'System Administrator');
+        List<User> lmsUsers = TestUtilClass.createUsers(2,'Standard User');
 
-		System.runAs(adminUsers.get(0)){
-			//Assign corresponding perm sets
-			TestUtilClass.addPermissionSet(adminUsers,'LMS_Admin');
-			TestUtilClass.addPermissionSet(lmsUsers,'LMS_User');
-		}
+        System.runAs(adminUsers.get(0)){
+            //Assign corresponding perm sets
+            TestUtilClass.addPermissionSet(adminUsers,'LMS_Admin');
+            TestUtilClass.addPermissionSet(lmsUsers,'LMS_User');
+        }
 
         //Update manager for user 1
         User u1 = [select id,managerId from User where id = :lmsUsers.get(0).id];
         u1.managerId = lmsUsers.get(1).Id;
         update u1;
 
-		TestTrainingPlanData.createSampleData();
-		List<Training_Plan__c> tplan = [select id from Training_Plan__c];
-		System.assertEquals(1,tplan.size());
+        TestTrainingPlanData.createSampleData();
+        List<Training_Plan__c> tplan = [select id from Training_Plan__c];
+        System.assertEquals(1,tplan.size());
 
         //Override achievement url
-		List<Achievement_Category__c> lAchieveCat = TestAchievementData.createAchievementCategories(1);
-		List<Achievement__c> lAchievement = TestAchievementData.createAchievements(1, lAchieveCat.get(0).Id, 'Achievements');
+        List<Achievement_Category__c> lAchieveCat = TestAchievementData.createAchievementCategories(1);
+        List<Achievement__c> lAchievement = TestAchievementData.createAchievements(1, lAchieveCat.get(0).Id, 'Achievements');
         Achievement__c ach = [select id,Override_URL__c from Achievement__c where Id = :lAchievement.get(0).Id];
         ach.Override_URL__c = 'https://www.salesforce.com';
         update ach;
 
 
-		List<Training_Plan_Achievement__c> lTPlanAchievement = TestTrainingPlanData.createTrainingPlanAchievements(tplan, lAchievement);
+        List<Training_Plan_Achievement__c> lTPlanAchievement = TestTrainingPlanData.createTrainingPlanAchievements(tplan, lAchievement);
 
-		Id tplanId = tplan.get(0).Id;
-		Set<Id> selectedUserIds = new Set<Id>();
+        Id tplanId = tplan.get(0).Id;
+        Set<Id> selectedUserIds = new Set<Id>();
 
-		for(User u : lmsUsers){
-			selectedUserIds.add(u.Id);
-		}
+        for(User u : lmsUsers){
+            selectedUserIds.add(u.Id);
+        }
 
-		System.runAs(adminUsers.get(0)){
-			LMSService.upsertAssignments(selectedUserIds,tplanId,null);
-		}
+        System.runAs(adminUsers.get(0)){
+            LMSService.upsertAssignments(selectedUserIds,tplanId,null);
+        }
 
 
         //Change achievement status
-		List<Achievement_Assignment__c> achievementAssignments = [select Id,Status__c from Achievement_Assignment__c where Training_Plan_Achievement__r.Training_Plan__c = :tplanId];
+        List<Achievement_Assignment__c> achievementAssignments = [select Id,Status__c from Achievement_Assignment__c where Training_Plan_Achievement__r.Training_Plan__c = :tplanId];
         for(Achievement_Assignment__c aa : achievementAssignments){
             aa.Status__c = LMSConstants.AA_ACQUIRED_STATUS;
         }
@@ -202,7 +202,7 @@ private class TestMyProfileController {
         PageReference ref = Page.MyProfile;
         Test.setCurrentPageReference(ref);
 
-		Test.startTest();
+        Test.startTest();
 
             System.runAs(lmsUsers.get(0)){
 
@@ -216,6 +216,82 @@ private class TestMyProfileController {
 
                 PageReference ctypeRef = cont.changeAchievementType();
                 System.assert(ctypeRef != null);
+
+            }
+
+        Test.stopTest();
+
+    }
+
+    static testMethod void testExternalUserWithAchievements(){
+
+        //Create admin users
+        List<User> adminUsers = TestUtilClass.createUsers(2,'System Administrator');
+        User portalUser =  TestUtilClass.createPortallUser();
+        List<User> lmsUsers = new List<User>{portalUser};
+
+        System.runAs(adminUsers.get(0)){
+            //Assign corresponding perm sets
+            TestUtilClass.addPermissionSet(adminUsers,'LMS_Admin');
+            TestUtilClass.addPermissionSet(lmsUsers,'LMS_External_User');
+        }
+
+        TestTrainingPlanData.createSampleData();
+        List<Training_Plan__c> tplan = [select id from Training_Plan__c];
+        System.assertEquals(1,tplan.size());
+
+        List<Achievement_Category__c> lAchieveCat = TestAchievementData.createAchievementCategories(1);
+        List<Achievement__c> lAchievement = TestAchievementData.createAchievements(1, lAchieveCat.get(0).Id, 'Achievements');
+        List<Achievement__c> lInternalAchievement = TestAchievementData.createInternalAchievements(1, lAchieveCat.get(0).Id, 'Achievements');
+
+        List<Training_Plan_Achievement__c> lTPlanAchievement = TestTrainingPlanData.createTrainingPlanAchievements(tplan, lAchievement);
+        List<Training_Plan_Achievement__c> lTPlanInternalAchievement = TestTrainingPlanData.createTrainingPlanAchievements(tplan, lInternalAchievement);
+
+
+        Id tplanId = tplan.get(0).Id;
+        Set<Id> selectedUserIds = new Set<Id>();
+
+        for(User u : lmsUsers){
+            selectedUserIds.add(u.Id);
+        }
+
+        // Add one of the admins to the assignment upser
+        selectedUserIds.add(adminUsers.get(0).Id);
+
+        System.runAs(adminUsers.get(0)){
+            LMSService.upsertAssignments(selectedUserIds,tplanId,null);
+        }
+
+        PageReference ref = Page.MyProfile;
+        Test.setCurrentPageReference(ref);
+        MyProfileController cont;
+
+        Test.startTest();
+
+            System.runAs(adminUsers.get(0)){
+                cont = new MyProfileController();
+                System.assertEquals(1,cont.lcategories.size());
+                System.assertEquals(2,cont.lcategories.get(0).achievements.size());
+            }
+
+            System.runAs(lmsUsers.get(0)){
+                cont = new MyProfileController();
+                System.assertEquals(1,cont.lcategories.size());
+                System.assertEquals(1,cont.lcategories.get(0).achievements.size());
+                List<MyProfileController.AchievementTypeWrapper> atypes = cont.getAchievementTypes();
+                System.assert(atypes.size()>0);
+                ref.getParameters().put('aType','Certifications');
+                Test.setCurrentPageReference(ref);
+
+                PageReference ctypeRef = cont.changeAchievementType();
+                System.assert(ctypeRef != null);
+
+                //Switch to an internal user profile page
+                ApexPages.currentPage().getParameters().put('id',adminUsers.get(0).id);
+                ApexPages.currentPage().getParameters().put('aType','Achievements');
+                cont = new MyProfileController();
+                System.assertEquals(1,cont.lcategories.size());
+                System.assertEquals(1,cont.lcategories.get(0).achievements.size());
 
             }
 

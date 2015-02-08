@@ -96,6 +96,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 
                             <apex:outputPanel layout="block" rendered="{!users.size == 0}">
                                 <apex:pageMessage summary="{!$Label.ALMS_Assignments_No_Results_Message}" severity="info" strength="2" />
+                                <apex:pageMessage summary="{!$Label.ALMS_Assignments_No_External_Results_Message}" severity="info" strength="2" />
                             </apex:outputPanel>
 
                             <apex:outputPanel rendered="{!users.size > 0}">

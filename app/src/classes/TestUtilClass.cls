@@ -146,7 +146,7 @@ public class TestUtilClass {
         Set<String> portalUserTypes = new Set<String>{'CSPLiteUser', 'PowerPartner', 'PowerCustomerSuccess', 'CustomerSuccess'};
 
         User userWithRole;
-        
+
         if(UserInfo.getUserRoleId() == null) {
 
             UserRole r = new UserRole(name = 'TEST ROLE');

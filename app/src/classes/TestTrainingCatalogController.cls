@@ -58,14 +58,11 @@ private class TestTrainingCatalogController {
         //Create admin users
         List<User> adminUsers = TestUtilClass.createUsers(2,'System Administrator');
         List<User> lmsUsers = TestUtilClass.createUsers(2,'Standard User');
-        User portalUser =  TestUtilClass.createPortallUser();
-        List<User> lmsExternalUsers = new List<User>{portalUser};
 
         System.runAs(adminUsers.get(0)){
             //Assign corresponding perm sets
             TestUtilClass.addPermissionSet(adminUsers,'LMS_Admin');
             TestUtilClass.addPermissionSet(lmsUsers,'LMS_User');
-            TestUtilClass.addPermissionSet(lmsExternalUsers,'LMS_External_User');
         }
 
         TestTrainingPlanData.createSampleData();
@@ -96,63 +93,6 @@ private class TestTrainingCatalogController {
                 TrainingCatalogDetailController cont = new TrainingCatalogDetailController();
                 System.assert(cont.tPlans.size()>0);
             }
-
-            //External users shouldn't be able to see any of the public training plans
-            System.runAs(lmsExternalUsers.get(0)){
-                TrainingCatalogDetailController contExt = new TrainingCatalogDetailController();
-                System.assert(contExt.tPlans.size() == 0);
-            }
-
-        Test.stopTest();
-
-    }
-
-    static testMethod void testWithValidCategoryIdWithExternalData(){
-
-        //Create admin users
-        List<User> adminUsers = TestUtilClass.createUsers(2,'System Administrator');
-        List<User> lmsUsers = TestUtilClass.createUsers(2,'Standard User');
-        User portalUser =  TestUtilClass.createPortallUser();
-        List<User> lmsExternalUsers = new List<User>{portalUser};
-
-        System.runAs(adminUsers.get(0)){
-            //Assign corresponding perm sets
-            TestUtilClass.addPermissionSet(adminUsers,'LMS_Admin');
-            TestUtilClass.addPermissionSet(lmsUsers,'LMS_User');
-            TestUtilClass.addPermissionSet(lmsExternalUsers,'LMS_External_User');
-        }
-
-        TestTrainingPlanData.createExternalSampleData();
-
-        List<Training_Plan__c> tplans = [select id
-                                            ,Enable_Self_Registration__c
-                                            ,Self_Registration_Access__c
-                                            from Training_Plan__c];
-
-        System.assertEquals(1,tplans.size());
-        Training_Plan__c tplan = tplans.get(0);
-
-        System.assertEquals(0,getTrainingPlanAssignmentsCount(tplan.Id));
-
-        List<Training_Plan_Category__c> tplanCategories = [select id
-                                                                ,Learning_Category__c
-                                                                from Training_Plan_Category__c
-                                                                where Training_Plan__c = :tplan.Id];
-        PageReference ref = Page.TrainingCatalogDetail;
-        ref.getParameters().put('id',tplanCategories.get(0).Learning_Category__c);
-
-        Test.setCurrentPageReference(ref);
-        Test.startTest();
-            System.runAs(lmsUsers.get(0)){
-                TrainingCatalogDetailController cont = new TrainingCatalogDetailController();
-                System.assert(cont.tPlans.size()>0);
-            }
-
-            System.runAs(lmsExternalUsers.get(0)){
-                TrainingCatalogDetailController contExt = new TrainingCatalogDetailController();
-                System.assert(contExt.tPlans.size()>0);
-            }
-
         Test.stopTest();
 
     }

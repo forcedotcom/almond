@@ -48,7 +48,6 @@ private class TestTrainingCatalogHomeCtrl {
                 TrainingCatalogHomeController cont = new TrainingCatalogHomeController();
                 System.assertEquals(0,cont.lcategories.size());
             }
-
         Test.stopTest();
 
     }
@@ -58,14 +57,11 @@ private class TestTrainingCatalogHomeCtrl {
         //Create admin users
         List<User> adminUsers = TestUtilClass.createUsers(2,'System Administrator');
         List<User> lmsUsers = TestUtilClass.createUsers(2,'Standard User');
-        User portalUser =  TestUtilClass.createPortallUser();
-        List<User> lmsExternalUsers = new List<User>{portalUser};
 
         System.runAs(adminUsers.get(0)){
             //Assign corresponding perm sets
             TestUtilClass.addPermissionSet(adminUsers,'LMS_Admin');
             TestUtilClass.addPermissionSet(lmsUsers,'LMS_User');
-            TestUtilClass.addPermissionSet(lmsExternalUsers,'LMS_External_User');
         }
 
         TestTrainingPlanData.createSampleData();
@@ -92,13 +88,6 @@ private class TestTrainingCatalogHomeCtrl {
                 TrainingCatalogHomeController cont = new TrainingCatalogHomeController();
                 System.assert(cont.lcategories.size()>0);
             }
-
-            //External users should be able to see categories not marked as internal
-            System.runAs(lmsExternalUsers.get(0)){
-                TrainingCatalogHomeController contExt = new TrainingCatalogHomeController();
-                System.assert(contExt.lcategories.size() > 0);
-            }
-
         Test.stopTest();
 
     }

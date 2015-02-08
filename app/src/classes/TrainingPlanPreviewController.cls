@@ -130,7 +130,7 @@ public with sharing class TrainingPlanPreviewController extends LMSBaseControlle
     private PageReference redirectToPlanDetailPage(){
         String namespace = '';
         if(LMSUtils.getPackageNamespace() != null){
-            namespace = LMSUtils.getPackageNamespace()+'__';
+            namespace = LMSUtils.getPackageNamespace();
         }
         PageReference ref = new PageReference(LMSUtils.updateURLCommunityPath('/apex/'+namespace+'TrainingPlanDetail'));
         ref.getParameters().put('id',trainingPlanId);

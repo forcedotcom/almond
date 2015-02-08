@@ -31,41 +31,41 @@ public class TestTrainingTracks {
 
     static testMethod void testTrackAchievements(){
 
-		//Create admin users
-		List<User> adminUsers = TestUtilClass.createUsers(2,'System Administrator');
-		List<User> lmsUsers = TestUtilClass.createUsers(5,'Standard User');
+        //Create admin users
+        List<User> adminUsers = TestUtilClass.createUsers(2,'System Administrator');
+        List<User> lmsUsers = TestUtilClass.createUsers(5,'Standard User');
 
-		System.runAs(adminUsers.get(0)){
-			//Assign corresponding perm sets
-			TestUtilClass.addPermissionSet(adminUsers,'LMS_Admin');
-			TestUtilClass.addPermissionSet(lmsUsers,'LMS_User');
-		}
+        System.runAs(adminUsers.get(0)){
+            //Assign corresponding perm sets
+            TestUtilClass.addPermissionSet(adminUsers,'LMS_Admin');
+            TestUtilClass.addPermissionSet(lmsUsers,'LMS_User');
+        }
 
         TestTrainingTrackData.createSampleData();
 
-		List<Training_Plan__c> tplan = [select id from Training_Plan__c];
-		System.assertEquals(3,tplan.size());
+        List<Training_Plan__c> tplan = [select id from Training_Plan__c];
+        System.assertEquals(3,tplan.size());
 
-		Id tplanId1 = tplan.get(0).Id;
-		Id tplanId2 = tplan.get(1).Id;
-		Id tplanId3 = tplan.get(2).Id;
+        Id tplanId1 = tplan.get(0).Id;
+        Id tplanId2 = tplan.get(1).Id;
+        Id tplanId3 = tplan.get(2).Id;
 
-		Set<Id> selectedUserIds = new Set<Id>{lmsUsers.get(0).Id};
+        Set<Id> selectedUserIds = new Set<Id>{lmsUsers.get(0).Id};
 
-		System.runAs(adminUsers.get(0)){
-			//Upsert assignemtns for tplan 1
-			LMSService.upsertAssignments(selectedUserIds,tplanId1,null);
-			LMSService.upsertAssignments(selectedUserIds,tplanId2,null);
-			LMSService.upsertAssignments(selectedUserIds,tplanId3,null);
-		}
+        System.runAs(adminUsers.get(0)){
+            //Upsert assignemtns for tplan 1
+            LMSService.upsertAssignments(selectedUserIds,tplanId1,null);
+            LMSService.upsertAssignments(selectedUserIds,tplanId2,null);
+            LMSService.upsertAssignments(selectedUserIds,tplanId3,null);
+        }
 
-		//Add achievement to the training track
+        //Add achievement to the training track
 
-		List<Achievement_Category__c> lAchieveCat = TestAchievementData.createAchievementCategories(1);
-		List<Achievement__c> lAchievement = TestAchievementData.createAchievements(1, lAchieveCat.get(0).Id, 'Achievements');
+        List<Achievement_Category__c> lAchieveCat = TestAchievementData.createAchievementCategories(1);
+        List<Achievement__c> lAchievement = TestAchievementData.createAchievements(1, lAchieveCat.get(0).Id, 'Achievements');
         List<Training_Track__c> tracks = [select id,Achievement__c,name from Training_Track__c];
-		tracks.get(0).Achievement__c = lAchievement.get(0).id;
-		update tracks.get(0);
+        tracks.get(0).Achievement__c = lAchievement.get(0).id;
+        update tracks.get(0);
 
         List<Training_Track_Level_Item__c> trackItems = [select id,name from Training_Track_Level_Item__c];
 
@@ -85,34 +85,34 @@ public class TestTrainingTracks {
         insert shares;
 
 
-		Integer aaCount = getTrackAchievements();
-		System.assertEquals(0,aaCount);
+        Integer aaCount = getTrackAchievements();
+        System.assertEquals(0,aaCount);
 
-		List<Learning_Assignment__c> lasgmts = [select id
-												,Progress__c
-												,Progress_Percentage__c
-												from Learning_Assignment__c
-												where User__c = :lmsUsers.get(0).Id];
+        List<Learning_Assignment__c> lasgmts = [select id
+                                                ,Progress__c
+                                                ,Progress_Percentage__c
+                                                from Learning_Assignment__c
+                                                where User__c = :lmsUsers.get(0).Id];
 
         Test.startTest();
 
-			for(Learning_Assignment__c la : lasgmts){
-				la.Progress__c = 'Completed';
-				la.Progress_Percentage__c = 100.0;
-			}
+            for(Learning_Assignment__c la : lasgmts){
+                la.Progress__c = 'Completed';
+                la.Progress_Percentage__c = 100.0;
+            }
 
-			update lasgmts;
+            update lasgmts;
 
 
         Test.stopTest();
 
-		aaCount = getTrackAchievements();
-		System.assertEquals(1,aaCount);
+        aaCount = getTrackAchievements();
+        System.assertEquals(1,aaCount);
 
     }
 
-	private static Integer getTrackAchievements(){
-		return [select count() from Achievement_Assignment__c where Training_Track__c != null];
-	}
+    private static Integer getTrackAchievements(){
+        return [select count() from Achievement_Assignment__c where Training_Track__c != null];
+    }
 
 }

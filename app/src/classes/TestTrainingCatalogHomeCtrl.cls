@@ -32,14 +32,14 @@ private class TestTrainingCatalogHomeCtrl {
     static testMethod void testCatalogPageWithoutEntries(){
 
         //Create admin users
-		List<User> adminUsers = TestUtilClass.createUsers(2,'System Administrator');
-		List<User> lmsUsers = TestUtilClass.createUsers(2,'Standard User');
+        List<User> adminUsers = TestUtilClass.createUsers(2,'System Administrator');
+        List<User> lmsUsers = TestUtilClass.createUsers(2,'Standard User');
 
-		System.runAs(adminUsers.get(0)){
-			//Assign corresponding perm sets
-			TestUtilClass.addPermissionSet(adminUsers,'LMS_Admin');
-			TestUtilClass.addPermissionSet(lmsUsers,'LMS_User');
-		}
+        System.runAs(adminUsers.get(0)){
+            //Assign corresponding perm sets
+            TestUtilClass.addPermissionSet(adminUsers,'LMS_Admin');
+            TestUtilClass.addPermissionSet(lmsUsers,'LMS_User');
+        }
 
         PageReference ref = Page.TrainingCatalogHome;
         Test.setCurrentPageReference(ref);
@@ -56,18 +56,21 @@ private class TestTrainingCatalogHomeCtrl {
     static testMethod void testCatalogPageWithEntries(){
 
         //Create admin users
-		List<User> adminUsers = TestUtilClass.createUsers(2,'System Administrator');
-		List<User> lmsUsers = TestUtilClass.createUsers(2,'Standard User');
+        List<User> adminUsers = TestUtilClass.createUsers(2,'System Administrator');
+        List<User> lmsUsers = TestUtilClass.createUsers(2,'Standard User');
+        User portalUser =  TestUtilClass.createPortallUser();
+        List<User> lmsExternalUsers = new List<User>{portalUser};
 
-		System.runAs(adminUsers.get(0)){
-			//Assign corresponding perm sets
-			TestUtilClass.addPermissionSet(adminUsers,'LMS_Admin');
-			TestUtilClass.addPermissionSet(lmsUsers,'LMS_User');
-		}
+        System.runAs(adminUsers.get(0)){
+            //Assign corresponding perm sets
+            TestUtilClass.addPermissionSet(adminUsers,'LMS_Admin');
+            TestUtilClass.addPermissionSet(lmsUsers,'LMS_User');
+            TestUtilClass.addPermissionSet(lmsExternalUsers,'LMS_External_User');
+        }
 
-		TestTrainingPlanData.createSampleData();
+        TestTrainingPlanData.createSampleData();
 
-		List<Training_Plan__c> tplans = [select id
+        List<Training_Plan__c> tplans = [select id
                                             ,Enable_Self_Registration__c
                                             ,Self_Registration_Access__c
                                             from Training_Plan__c];
@@ -88,6 +91,12 @@ private class TestTrainingCatalogHomeCtrl {
             System.runAs(lmsUsers.get(0)){
                 TrainingCatalogHomeController cont = new TrainingCatalogHomeController();
                 System.assert(cont.lcategories.size()>0);
+            }
+
+            //External users should be able to see categories not marked as internal
+            System.runAs(lmsExternalUsers.get(0)){
+                TrainingCatalogHomeController contExt = new TrainingCatalogHomeController();
+                System.assert(contExt.lcategories.size() > 0);
             }
 
         Test.stopTest();

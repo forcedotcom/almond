@@ -34,11 +34,14 @@ public class TestMyTraining {
         //Create admin users
         List<User> adminUsers = TestUtilClass.createUsers(2,'System Administrator');
         List<User> lmsUsers = TestUtilClass.createUsers(5,'Standard User');
+        User portalUser =  TestUtilClass.createPortallUser();
+        List<User> lmsExternalUsers = new List<User>{portalUser};
 
         System.runAs(adminUsers.get(0)){
             //Assign corresponding perm sets
             TestUtilClass.addPermissionSet(adminUsers,'LMS_Admin');
             TestUtilClass.addPermissionSet(lmsUsers,'LMS_User');
+            TestUtilClass.addPermissionSet(lmsExternalUsers,'LMS_External_User');
         }
 
         TestTrainingPlanData.createSampleData();
@@ -53,6 +56,10 @@ public class TestMyTraining {
         Set<Id> selectedUserIds = new Set<Id>();
 
         for(User u : lmsUsers){
+            selectedUserIds.add(u.Id);
+        }
+
+        for(User u : lmsExternalUsers){
             selectedUserIds.add(u.Id);
         }
 
@@ -79,6 +86,75 @@ public class TestMyTraining {
             controller.selectedType = LMSConstants.TPLAN_STATUS_COMPLETED;
             controller.loadTrainingPlans();
             System.assert(controller.tPlans.size() == 0);
+
+        }
+
+        //External user shouldn't see any record because the trainign plan is not exposed externally
+        System.runAs(lmsExternalUsers.get(0)){
+            MyTrainingController controllerExt = new MyTrainingController();
+
+            System.assert(controllerExt.selectedType == LMSConstants.TPLAN_STATUS_NOT_STARTED);
+            System.assert(controllerExt.tPlans.size() == 0);
+
+            controllerExt.selectedType = LMSConstants.TPLAN_STATUS_IN_PROGRESS;
+            controllerExt.loadTrainingPlans();
+            System.assert(controllerExt.tPlans.size() == 0);
+
+            controllerExt.selectedType = LMSConstants.TPLAN_STATUS_COMPLETED;
+            controllerExt.loadTrainingPlans();
+            System.assert(controllerExt.tPlans.size() == 0);
+
+        }
+    }
+
+    static testmethod void testMyTrainingNotStartedExternalUsers(){
+
+        //Create admin users
+        List<User> adminUsers = TestUtilClass.createUsers(2,'System Administrator');
+        User portalUser =  TestUtilClass.createPortallUser();
+        List<User> lmsExternalUsers = new List<User>{portalUser};
+
+        System.runAs(adminUsers.get(0)){
+            //Assign corresponding perm sets
+            TestUtilClass.addPermissionSet(adminUsers,'LMS_Admin');
+            TestUtilClass.addPermissionSet(lmsExternalUsers,'LMS_External_User');
+        }
+
+        TestTrainingPlanData.createExternalSampleData();
+        List<Training_Plan__c> tplan = [select id from Training_Plan__c];
+        System.assertEquals(1,tplan.size());
+
+        List<Achievement_Category__c> lAchieveCat = TestAchievementData.createAchievementCategories(1);
+        List<Achievement__c> lAchievement = TestAchievementData.createAchievements(1, lAchieveCat.get(0).Id, 'Achievements');
+        List<Training_Plan_Achievement__c> lTPlanAchievement = TestTrainingPlanData.createTrainingPlanAchievements(tplan, lAchievement);
+
+        Id tplanId = tplan.get(0).Id;
+        Set<Id> selectedUserIds = new Set<Id>();
+
+        for(User u : lmsExternalUsers){
+            selectedUserIds.add(u.Id);
+        }
+
+        //Test Insert
+        Test.startTest();
+            System.runAs(adminUsers.get(0)){
+                LMSService.upsertAssignments(selectedUserIds,tplanId,null);
+            }
+        Test.stopTest();
+
+        System.runAs(lmsExternalUsers.get(0)){
+            MyTrainingController controllerExt = new MyTrainingController();
+
+            System.assert(controllerExt.selectedType == LMSConstants.TPLAN_STATUS_NOT_STARTED);
+            System.assert(controllerExt.tPlans.size() == 1);
+
+            controllerExt.selectedType = LMSConstants.TPLAN_STATUS_IN_PROGRESS;
+            controllerExt.loadTrainingPlans();
+            System.assert(controllerExt.tPlans.size() == 0);
+
+            controllerExt.selectedType = LMSConstants.TPLAN_STATUS_COMPLETED;
+            controllerExt.loadTrainingPlans();
+            System.assert(controllerExt.tPlans.size() == 0);
 
         }
     }

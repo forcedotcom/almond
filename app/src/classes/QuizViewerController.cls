@@ -295,7 +295,7 @@ public with sharing class QuizViewerController extends LMSBaseController{
         String networkName = LMSUtils.getCurrentNetworkURLPath();
         String namespace = '';
         if(LMSUtils.getPackageNamespace() != null){
-            namespace = LMSUtils.getPackageNamespace()+'__';
+            namespace = LMSUtils.getPackageNamespace();
         }
         if(networkName != null){
             ret = new PageReference('/'+networkName+'/apex/'+namespace+'QuizResults');

@@ -589,6 +589,7 @@ td.noSidebarCell{
     margin: 6% auto 0 !important;
     height: 170px !important;
     width: auto !important;
+    max-width: 200px !important;
 }
 
 .almond #hb-right.col-xs-12 img {
@@ -623,10 +624,11 @@ td.noSidebarCell{
 }
 
 .almond .badge-container img{
-    width:auto;
-    height:150px;
+    width:auto !important;
+    height:150px !important;
     display: block;
     margin: auto;
+    max-width: 170px;
 }
 
 .almond .profile-data ul{
@@ -731,6 +733,7 @@ td.noSidebarCell{
 .almond .activity-section-head .learn-icon img{
     height: 30px !important;
     width: auto !important;
+    max-width:30px;
 }
 
 .almond .activity-section-head .learn-icon-offset{
@@ -945,6 +948,7 @@ td.noSidebarCell{
     vertical-align: middle;
     width: auto !important;
     margin: 0 auto;
+    max-width: 90px !important;
 }
 
 .almond .tplan_details {
@@ -1263,7 +1267,8 @@ td.noSidebarCell{
     }
 
     .almond .badge-container img{
-        height:75px;
+        height:75px !important;
+        max-width:95px;
     }
 
     /* Plan detail style overrides */

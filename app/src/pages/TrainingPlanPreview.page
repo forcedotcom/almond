@@ -163,10 +163,10 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 
                                 <div class="mobile-learning-wrapper launch-learning-btn" lms-data-sectionId="{!o.trainingPlanSection.Id}" lms-data-itemId="{!i.trainingPlanSectionItem.Id}">
                                     <div class="col-xs-10 col-sm-4 col-md-4 title">
-                                        <apex:outputField value="{!i.learning.Name}"  />
                                         <apex:outputPanel layout="none" rendered="{!!i.trainingPlanSectionItem.Optional__c}">
-                                            <span class="required_asterisk">*</span>
+                                            <span class="requiredItem">*</span>
                                         </apex:outputPanel>
+                                        <apex:outputField value="{!i.learning.Name}"  />
                                     </div>
                                 </div>
 

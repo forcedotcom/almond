@@ -97,6 +97,7 @@ public with sharing class LMSCommunitiesService{
 
         public Set<Id> getTrainingPlanIdsForAccount(Id accountId){
             Set<Id> validAccountTrainingPlanIds = new Set<Id>();
+            Id currentUserId = UserInfo.getUserId();
             if(accountId != null){
                 for(Training_Plan_Account__c tpa : [select Id,
                                                             Training_Plan__c
@@ -104,13 +105,22 @@ public with sharing class LMSCommunitiesService{
                                                             where Account__c = :accountId]){
                     validAccountTrainingPlanIds.add(tpa.Training_Plan__c);
                 }
+
+                for(Training_Plan_Assignment__c tpas : [select Id,
+                                                            Training_Plan__c
+                                                            from Training_Plan_Assignment__c
+                                                            where Training_Plan__r.Self_Registration_Access__c != 'External'
+                                                            and User__c = :currentUserId]){
+                    validAccountTrainingPlanIds.add(tpas.Training_Plan__c);
+                }
             }
             return validAccountTrainingPlanIds;
         }
 
         public Set<Id> filterTrainingPlansForAccount(Set<Id> tplanIds, Id accountId){
             Set<Id> validAccountTrainingPlanIds = new Set<Id>();
-            if(tplanIds != null && tplanIds.size()>0){
+            Id currentUserId = UserInfo.getUserId();
+            if(accountId != null && tplanIds != null && tplanIds.size()>0){
 
                 for(Training_Plan_Account__c tpa : [select Id,
                                                             Training_Plan__c
@@ -128,6 +138,17 @@ public with sharing class LMSCommunitiesService{
                                                     and Enable_Self_Registration__c = true
                                                     and Self_Registration_Access__c = :LMSConstants.TPLAN_PUBLIC_EXTERNAL]){
                         validAccountTrainingPlanIds.add(tp.Id);
+                    }
+
+
+                    if(validAccountTrainingPlanIds.size() != tplanIds.size()){
+                        for(Training_Plan_Assignment__c tpas : [select Id,
+                                                                    Training_Plan__c
+                                                                    from Training_Plan_Assignment__c
+                                                                    where Training_Plan__r.Self_Registration_Access__c != 'External'
+                                                                    and User__c = :currentUserId]){
+                            validAccountTrainingPlanIds.add(tpas.Training_Plan__c);
+                        }
                     }
                 }
             }

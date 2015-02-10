@@ -176,7 +176,10 @@ public with sharing class LMSUtils{
 
     public static String updateURLCommunityPath(String urlPath){
         if(getCurrentNetworkId() != null){
-            urlPath = '/'+getCurrentNetworkURLPath()+urlPath;
+            String networkURLPath = getCurrentNetworkURLPath();
+            if(networkURLPath != null){
+                urlPath = '/'+getCurrentNetworkURLPath()+urlPath;
+            }
         }
         return urlPath;
     }

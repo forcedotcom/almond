@@ -1662,7 +1662,7 @@ public with sharing class LMSService{
           return assignment;
     }
 
-    //Without sharing operations, see justifications below
+    //Without sharing operations
     public without sharing class WithoutSharingOps{
 
         //Needs to run without sharing otherwise we get field not writable exceptions

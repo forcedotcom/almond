@@ -57,7 +57,7 @@ public with sharing class LMSCommunitiesService{
     }
 
 
-    //Without sharing operations, see justifications below
+    //Without sharing operations
     public without sharing class WithoutSharingOps{
 
         //Get a list of training plan ids grouped by learning category Id

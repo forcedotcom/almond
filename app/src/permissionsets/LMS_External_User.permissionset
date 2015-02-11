@@ -1091,6 +1091,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Training_Plan__c.New_Until__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Training_Resource__c.Add_training_parameters_to_URL__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1262,6 +1267,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Training_Track__c.Enable_all_external_accounts__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Training_Track__c.New_Until__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

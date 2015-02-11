@@ -63,5 +63,20 @@
         <label>Deshabilitar campos de auditoria en Chatter</label>
         <name>Disable_Feed_Item_Audit_Fields__c</name>
     </fields>
+    <fields>
+        <help>Nombre de sección que sera desplegado en el encabezado</help>
+        <label>Nombre de Sección Personalizada</label>
+        <name>Custom_Section_Name__c</name>
+    </fields>
+    <fields>
+        <help>URL para su pagina personalizada (e.j. https://instance.salesforce.com/apex/myhomepage)</help>
+        <label>URL de Sección Personalizada</label>
+        <name>Custom_Section_URL__c</name>
+    </fields>
+    <fields>
+        <help>Habilitar esta opción para esconder el botón de regreso a SF del encabezado</help>
+        <label>Esconder el botón para regresar a Salesforce</label>
+        <name>Hide_Back_to_SF_Button__c</name>
+    </fields>
     <gender>Feminine</gender>
 </CustomObjectTranslation>

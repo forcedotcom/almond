@@ -45,6 +45,11 @@
         <label><!-- Text Color --></label>
         <name>Text_Color__c</name>
     </fields>
+    <fields>
+        <help><!-- Display a New ribbon in the training track until the specified date --></help>
+        <label><!-- New Until --></label>
+        <name>New_Until__c</name>
+    </fields>
     <layouts>
         <layout>Training Track Layout</layout>
         <sections>

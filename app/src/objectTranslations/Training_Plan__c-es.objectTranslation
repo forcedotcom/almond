@@ -107,6 +107,11 @@
         <label>Comentatrios de Calificación Opcionales</label>
         <name>Optional_Feedback_Comments__c</name>
     </fields>
+    <fields>
+        <help>Desplegar una etiqueta que indique que el curso es Nuevo hasta la fecha definida</help>
+        <label>Nuevo hasta</label>
+        <name>New_Until__c</name>
+    </fields>
     <layouts>
         <layout>Training Plan Layout</layout>
         <sections>

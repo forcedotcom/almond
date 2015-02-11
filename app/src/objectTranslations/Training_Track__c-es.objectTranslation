@@ -45,6 +45,11 @@
         <label>Color de Texto</label>
         <name>Text_Color__c</name>
     </fields>
+    <fields>
+        <help>Desplegar una etiqueta que indique que la trayectoria es Nueva hasta la fecha definida</help>
+        <label>Nuevo hasta</label>
+        <name>New_Until__c</name>
+    </fields>
     <layouts>
         <layout>Training Track Layout</layout>
         <sections>

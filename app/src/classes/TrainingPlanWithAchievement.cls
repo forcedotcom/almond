@@ -27,21 +27,23 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 
 */
 public with sharing class TrainingPlanWithAchievement {
-    public String planName {get;private set;}
-    public String planDescription {get; private set;}
-    public String planDetailURL {get; private set;}
-    public String planAccess{get;private set;}
     public Id planId {get;private set;}
-    public Achievement__c mainAchievement {get; private set;}
-    public Boolean hasAssignment{get;set;}
-    public String assignmentStatus{get;set;}
-    public Boolean selfRegistrationEnabled{get;set;}
+    public transient String planName {get;private set;}
+    public transient String planDescription {get; private set;}
+    public transient String planDetailURL {get; private set;}
+    public transient String planAccess{get;private set;}
+    public transient Achievement__c mainAchievement {get; private set;}
+    public transient Boolean hasAssignment{get;set;}
+    public transient String assignmentStatus{get;set;}
+    public transient Boolean selfRegistrationEnabled{get;set;}
+    public transient Date newUntil{get;set;}
 
     public TrainingPlanWithAchievement(Training_Plan__c tplan, Achievement__c tachievement,String detailURL, Boolean hasAssignment){
         planName = tplan.Name;
         planId = tplan.Id;
         planAccess = tplan.Self_Registration_Access__c;
         planDescription = tplan.Description__c;
+        newUntil = tplan.New_Until__c;
         selfRegistrationEnabled = tplan.Enable_Self_Registration__c;
         if(detailURL != null){
             planDetailURL = detailURL+'?id='+tplan.Id;

@@ -112,5 +112,37 @@
         <type>Text</type>
         <unique>false</unique>
     </fields>
+    <fields>
+        <fullName>Custom_Section_Name__c</fullName>
+        <description>Name of a custom section displayed in the header</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Name of a custom section displayed in the header</inlineHelpText>
+        <label>Custom Section Name</label>
+        <length>100</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Custom_Section_URL__c</fullName>
+        <description>URL path for your custom page</description>
+        <externalId>false</externalId>
+        <inlineHelpText>URL for your custom page (e.g. https://instance.salesforce.com/apex/myhomepage)</inlineHelpText>
+        <label>Custom Section URL</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Hide_Back_to_SF_Button__c</fullName>
+        <inlineHelpText>Enable this option if you'd like to hide back to SF button when the SF header is disabled</inlineHelpText>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Hide Back to SF Button</label>
+        <type>Checkbox</type>
+    </fields>
     <label>Almond Settings</label>
 </CustomObject>

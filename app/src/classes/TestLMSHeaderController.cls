@@ -29,64 +29,64 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 @isTest
 public class TestLMSHeaderController {
 
-	static testmethod void testHeaderAsAdmin(){
+    static testmethod void testHeaderAsAdmin(){
 
-		//Create admin users
-		List<User> adminUsers = TestUtilClass.createUsers(1,'System Administrator');
+      //Create admin users
+      List<User> adminUsers = TestUtilClass.createUsers(1,'System Administrator');
 
-		System.runAs(adminUsers.get(0)){
-			//Assign corresponding perm sets
-			TestUtilClass.addPermissionSet(adminUsers,'LMS_Admin');
-		}
+      System.runAs(adminUsers.get(0)){
+          //Assign corresponding perm sets
+          TestUtilClass.addPermissionSet(adminUsers,'LMS_Admin');
+      }
 
-		Test.startTest();
+      Test.startTest();
 
-			System.runAs(adminUsers.get(0)){
-				LMSHeaderController cont;
-        		Test.setCurrentPageReference(Page.MyTraining);
-				cont = new LMSHeaderController();
-				System.assertEquals('mytraining',cont.section);
-        		Test.setCurrentPageReference(Page.MyProfile);
-				cont = new LMSHeaderController();
-				System.assertEquals('myprofile',cont.section);
-        		Test.setCurrentPageReference(Page.TrainingCatalogHome);
-				cont = new LMSHeaderController();
-				System.assertEquals('catalog',cont.section);
-			}
+        System.runAs(adminUsers.get(0)){
+            LMSHeaderController cont;
+            Test.setCurrentPageReference(Page.MyTraining);
+            cont = new LMSHeaderController();
+            System.assertEquals('mytraining',cont.section);
+            Test.setCurrentPageReference(Page.MyProfile);
+            cont = new LMSHeaderController();
+            System.assertEquals('myprofile',cont.section);
+            Test.setCurrentPageReference(Page.TrainingCatalogHome);
+            cont = new LMSHeaderController();
+            System.assertEquals('catalog',cont.section);
+        }
 
-		Test.stopTest();
+      Test.stopTest();
 
-	}
+    }
 
-	static testmethod void testHeaderAsUser(){
+    static testmethod void testHeaderAsUser(){
 
-		//Create regular user users
-		List<User> adminUsers = TestUtilClass.createUsers(1,'System Administrator');
-		List<User> lmsUsers = TestUtilClass.createUsers(1,'Standard User');
+      //Create regular user users
+      List<User> adminUsers = TestUtilClass.createUsers(1,'System Administrator');
+      List<User> lmsUsers = TestUtilClass.createUsers(1,'Standard User');
 
-		System.runAs(adminUsers.get(0)){
-			//Assign corresponding perm sets
-			TestUtilClass.addPermissionSet(adminUsers,'LMS_Admin');
-			TestUtilClass.addPermissionSet(lmsUsers,'LMS_User');
-		}
+      System.runAs(adminUsers.get(0)){
+          //Assign corresponding perm sets
+          TestUtilClass.addPermissionSet(adminUsers,'LMS_Admin');
+          TestUtilClass.addPermissionSet(lmsUsers,'LMS_User');
+      }
 
-		Test.startTest();
+      Test.startTest();
 
-			System.runAs(lmsUsers.get(0)){
-				LMSHeaderController cont;
-        		Test.setCurrentPageReference(Page.MyTraining);
-				cont = new LMSHeaderController();
-				System.assertEquals('mytraining',cont.section);
-        		Test.setCurrentPageReference(Page.MyProfile);
-				cont = new LMSHeaderController();
-				System.assertEquals('myprofile',cont.section);
-        		Test.setCurrentPageReference(Page.TrainingCatalogHome);
-				cont = new LMSHeaderController();
-				System.assertEquals('catalog',cont.section);
-			}
+          System.runAs(lmsUsers.get(0)){
+              LMSHeaderController cont;
+              Test.setCurrentPageReference(Page.MyTraining);
+              cont = new LMSHeaderController();
+              System.assertEquals('mytraining',cont.section);
+              Test.setCurrentPageReference(Page.MyProfile);
+              cont = new LMSHeaderController();
+              System.assertEquals('myprofile',cont.section);
+              Test.setCurrentPageReference(Page.TrainingCatalogHome);
+              cont = new LMSHeaderController();
+              System.assertEquals('catalog',cont.section);
+          }
 
-		Test.stopTest();
+      Test.stopTest();
 
-	}
+    }
 
 }

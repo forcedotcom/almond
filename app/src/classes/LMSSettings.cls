@@ -76,6 +76,18 @@ public with sharing class LMSSettings {
         return (Boolean)getValue('Disable_Feed_Item_Audit_Fields__c',false);
     }
 
+    public static String getCustomHeaderName(){
+        return (String)getValue('Custom_Section_Name__c',null);
+    }
+
+    public static String getCustomHeaderURL(){
+        return (String)getValue('Custom_Section_URL__c',null);
+    }
+
+    public static Boolean getHideBackToSFButton(){
+        return (Boolean)getValue('Hide_Back_to_SF_Button__c',false);
+    }
+
     private static Object getValue(String key, Object defaultValue){
         Almond_Settings__c cs = Almond_Settings__c.getInstance();
         if(cs != null && cs.get(key) != null){

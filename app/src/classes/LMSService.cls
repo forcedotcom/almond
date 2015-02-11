@@ -122,6 +122,7 @@ public with sharing class LMSService{
             ,'Training_Plan_Rating__c'
             ,'Hide_Chatter_Photos__c'
             ,'Optional_Feedback_Comments__c'
+            ,'New_Until__c'
         });
         LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
         //END Access Check
@@ -148,6 +149,7 @@ public with sharing class LMSService{
             ,'Training_Plan_Rating__c'
             ,'Hide_Chatter_Photos__c'
             ,'Optional_Feedback_Comments__c'
+            ,'New_Until__c'
         };
 
         if(isPortalUser){
@@ -1485,6 +1487,7 @@ public with sharing class LMSService{
             ,'Description__c'
             ,'Text_Color__c'
             ,'Status__c'
+            ,'New_Until__c'
         });
         relatedFieldsObjects.put(Achievement__c.sObjectType,new List<String>{
             'Acquired_Image__c'
@@ -1503,6 +1506,7 @@ public with sharing class LMSService{
             ,'Description__c'
             ,'Text_Color__c'
             ,'Status__c'
+            ,'New_Until__c'
             ,'Achievement__c'
             ,'Achievement__r.Acquired_Image__c'
             ,'Achievement__r.Eligible_Image__c'
@@ -1574,6 +1578,7 @@ public with sharing class LMSService{
             ,'Intro_Video_URL__c'
             ,'Background_Color__c'
             ,'Text_Color__c'
+            ,'New_Until__c'
         });
         LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
         //END Access Check
@@ -1602,6 +1607,7 @@ public with sharing class LMSService{
             ,'Training_Plan__r.Text_Color__c'
             ,'Training_Plan__r.Enable_Self_Registration__c'
             ,'Training_Plan__r.Self_Registration_Access__c'
+            ,'Training_Plan__r.New_Until__c'
         };
 
         Id trId = trackId;

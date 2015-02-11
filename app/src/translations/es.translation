@@ -940,6 +940,10 @@
         <label>Regresar a página anterior</label>
         <name>ALMS_Back_To_Previous_Page</name>
     </customLabels>
+    <customLabels>
+        <label>Nuevo</label>
+        <name>ALMS_New_Training_Plan</name>
+    </customLabels>
     <customTabs>
         <label>Aprendizaje</label>
         <name>Learning</name>

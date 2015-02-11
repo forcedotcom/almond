@@ -50,6 +50,10 @@
                 <behavior>Edit</behavior>
                 <field>Background_Image_URL__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>New_Until__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

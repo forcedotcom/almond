@@ -53,6 +53,9 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                                     <h4>{!o.name}</h4>
                                     <span>{!o.Description__c}</span>
                                 </div>
+                                <apex:outputPanel rendered="{!o.New_Until__c != null && TODAY() <= o.New_Until__c}">
+                                    <div class="ribbon-wrapper-green"><div class="ribbon-green">{!$Label.ALMS_New_Training_Plan}</div></div>
+                                </apex:outputPanel>
                             </div>
                         </div>
 

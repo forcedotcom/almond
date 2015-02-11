@@ -933,8 +933,12 @@
         <name>ALMS_Back_SF</name>
     </customLabels>
     <customLabels>
-        <label><!-- Back to previous page--></label>
+        <label><!-- Back to previous page --></label>
         <name>ALMS_Back_To_Previous_Page</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- New --></label>
+        <name>ALMS_New_Training_Plan</name>
     </customLabels>
     <customTabs>
         <label><!-- Learning --></label>

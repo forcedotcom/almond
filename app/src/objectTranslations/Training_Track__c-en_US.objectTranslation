@@ -14,10 +14,12 @@
         <relationshipLabel><!-- Training Track --></relationshipLabel>
     </fields>
     <fields>
+        <help><!-- HEX Color code for the header background color (e.g. #dcdcdc, more examples in : http://www.color-hex.com/) --></help>
         <label><!-- Background Color --></label>
         <name>Background_Color__c</name>
     </fields>
     <fields>
+        <help><!-- URL for the image displayed in the training track detail header --></help>
         <label><!-- Background Image URL --></label>
         <name>Background_Image_URL__c</name>
     </fields>
@@ -26,11 +28,13 @@
         <name>Description__c</name>
     </fields>
     <fields>
+        <help><!-- Number that defines the position in which this track will appear in the tracks page --></help>
         <label><!-- Order --></label>
         <name>Order__c</name>
     </fields>
     <fields>
         <label><!-- Status --></label>
+        <help><!-- Training tracks are not available to end users until they are &quot;Active&quot; --></help>
         <name>Status__c</name>
         <picklistValues>
             <masterLabel>Active</masterLabel>
@@ -42,6 +46,7 @@
         </picklistValues>
     </fields>
     <fields>
+        <help><!-- HEX Color code for the header text color (e.g. #333333, more examples in : http://www.color-hex.com/) --></help>
         <label><!-- Text Color --></label>
         <name>Text_Color__c</name>
     </fields>
@@ -49,6 +54,11 @@
         <help><!-- Display a New ribbon in the training track until the specified date --></help>
         <label><!-- New Until --></label>
         <name>New_Until__c</name>
+    </fields>
+    <fields>
+        <help><!-- Enabling this checkbox will expose this training track to all external (Community/Portal) users --></help>
+        <label><!-- Enable for all external accounts --></label>
+        <name>Enable_all_external_accounts__c</name>
     </fields>
     <layouts>
         <layout>Training Track Layout</layout>

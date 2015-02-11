@@ -9,6 +9,7 @@
         <value>Cursos</value>
     </caseValues>
     <fields>
+        <help>Código de color Hex para el fondo del encabezado (ej. #dcdcdc, más ejemplos en : http://www.color-hex.com/)</help>
         <label>Color de Fondo</label>
         <name>Background_Color__c</name>
     </fields>
@@ -36,6 +37,7 @@
         <name>End_Date__c</name>
     </fields>
     <fields>
+        <help>Habilitar esta opción para asegurarse que los usuarios tomen los aprendizajes del curso en el orden especificado</help>
         <label>Respetar Secuencia</label>
         <name>Enforce_Sequence__c</name>
     </fields>
@@ -45,7 +47,7 @@
         <name>Intro_Video_URL__c</name>
     </fields>
     <fields>
-        <help>Acceso Publico o sin valor permite que los usuarios se auto-registren al curso. Requiere Aprobación guarda un registro de Aprobación que debe ser procesado por el propietario del curso.</help>
+        <help>Acceso Publico o sin valor permite que los usuarios se auto-registren al curso. Requiere Aprobación guarda un registro de Aprobación que debe ser procesado por el propietario del curso.Externo expone el curso a todos los usuarios externos</help>
         <label>Acceso para Auto-Registro</label>
         <name>Self_Registration_Access__c</name>
         <picklistValues>
@@ -67,6 +69,7 @@
     </fields>
     <fields>
         <label>Estado</label>
+        <help>Solo los cursos Activos serán visibles para los usuarios finales. Cursos en estado Borrador serán visibles para Administradores</help>
         <name>Status__c</name>
         <picklistValues>
             <masterLabel>Active</masterLabel>
@@ -78,6 +81,7 @@
         </picklistValues>
     </fields>
     <fields>
+        <help>Código de color Hex para el texto del encabezado (ej. #333333, más ejemplos en : http://www.color-hex.com/)</help>
         <label>Color de Texto</label>
         <name>Text_Color__c</name>
     </fields>

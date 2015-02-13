@@ -9,26 +9,32 @@
         <value>Task</value>
     </caseValues>
     <fields>
+        <help><!-- Enabling this option will pass context parameters to the External Resource URL. (e.g. https://someurl.com/?aid=ASSIGNMENT_ID&amp;tid=TPLAN_ID) --></help>
         <label><!-- Add training parameters to URL --></label>
         <name>Add_training_parameters_to_URL__c</name>
     </fields>
     <fields>
+        <help><!-- Description for this task --></help>
         <label><!-- Description --></label>
         <name>Description__c</name>
     </fields>
     <fields>
+        <help><!-- Use this field to provide an additional description for the task --></help>
         <label><!-- Additional Description --></label>
         <name>Description_RTA__c</name>
     </fields>
     <fields>
+        <help><!-- Enabling this option will require users to upload an image in order to complete the task --></help>
         <label><!-- Enable Image Upload --></label>
         <name>Enable_Image_Upload__c</name>
     </fields>
     <fields>
+        <help><!-- &quot;Friendly&quot; name for the External Resource URL. If blank, the External Resource URL will be displayed --></help>
         <label><!-- External Resource Name --></label>
         <name>External_Resource_Name__c</name>
     </fields>
     <fields>
+        <help><!-- Target window for displaying the External Resource URL. &quot;blank&quot; will open a new tab/window and &quot;self&quot; will use the current tab/window --></help>
         <label><!-- External Resource Target --></label>
         <name>External_Resource_Target__c</name>
         <picklistValues>
@@ -41,6 +47,7 @@
         </picklistValues>
     </fields>
     <fields>
+        <help><!-- URL to an external resource that will guide users on how to complete the task --></help>
         <label><!-- External Resource URL --></label>
         <name>External_Resource_URL__c</name>
     </fields>
@@ -50,10 +57,12 @@
         <relationshipLabel><!-- Task --></relationshipLabel>
     </fields>
     <fields>
+        <help><!-- Enable this option if you want to require Manager&apos;s approval for completing the task. This option will use the standard Manager field in the User object --></help>
         <label><!-- Requires Manager Approval to Complete --></label>
         <name>Requires_Manager_Approval__c</name>
     </fields>
     <fields>
+        <help><!-- Enable this option if you do not want users to re-open a task marked as completed --></help>
         <label><!-- Disable undo --></label>
         <name>Disable_Undo__c</name>
     </fields>

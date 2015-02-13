@@ -9,6 +9,7 @@
         <value>Trayectorias</value>
     </caseValues>
     <fields>
+        <help>El logro determinará la imagen mostrada en las cajas y encabezado de las trayectorias</help>
         <label>Logro</label>
         <name>Achievement__c</name>
         <relationshipLabel>Trayectorias</relationshipLabel>
@@ -28,7 +29,7 @@
         <name>Description__c</name>
     </fields>
     <fields>
-        <help>Número que define la posición en la que será desplagada la trayectoria</help>
+        <help>Número que define la posición en la que será mostrada la trayectoria</help>
         <label>Orden</label>
         <name>Order__c</name>
     </fields>

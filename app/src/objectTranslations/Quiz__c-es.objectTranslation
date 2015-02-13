@@ -18,10 +18,12 @@
         <relationshipLabel>Evaluaciones</relationshipLabel>
     </fields>
     <fields>
+        <help>Máximo número de intentos para llegar a la calificación de pase</help>
         <label>Máximo Número de Intentos</label>
         <name>Max_Attempts__c</name>
     </fields>
     <fields>
+        <help>Número entre 0 y 100 que determinará el porcentaje mínimo de respuestas correctas para obtener una calificación de pase</help>
         <label>Calificación de Pase</label>
         <name>Passing_Score__c</name>
     </fields>

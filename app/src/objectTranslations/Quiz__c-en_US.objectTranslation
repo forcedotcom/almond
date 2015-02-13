@@ -18,10 +18,12 @@
         <relationshipLabel><!-- Quizzes --></relationshipLabel>
     </fields>
     <fields>
+        <help><!-- Maximum number of attempts to reach the passing score --></help>
         <label><!-- Max Attempts --></label>
         <name>Max_Attempts__c</name>
     </fields>
     <fields>
+        <help><!-- Number between 0 and 100 that will determine the minimum percentage of correct answers to get a passing score --></help>
         <label><!-- Passing Score --></label>
         <name>Passing_Score__c</name>
     </fields>

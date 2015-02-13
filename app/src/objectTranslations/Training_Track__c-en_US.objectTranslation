@@ -9,6 +9,7 @@
         <value>Training Tracks</value>
     </caseValues>
     <fields>
+        <help><!-- The Achievement will determine the badge displayed in the training track box and header --></help>
         <label><!-- Achievement --></label>
         <name>Achievement__c</name>
         <relationshipLabel><!-- Training Track --></relationshipLabel>

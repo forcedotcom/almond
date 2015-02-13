@@ -76,6 +76,7 @@
     </fields>
     <fields>
         <fullName>Max_Attempts__c</fullName>
+        <inlineHelpText>Maximum number of attempts to reach the passing score</inlineHelpText>
         <externalId>false</externalId>
         <label>Max Attempts</label>
         <precision>4</precision>
@@ -88,6 +89,7 @@
     </fields>
     <fields>
         <fullName>Passing_Score__c</fullName>
+        <inlineHelpText>Number between 0 and 100 that will determine the minimum percentage of correct answers to get a passing score</inlineHelpText>
         <externalId>false</externalId>
         <label>Passing Score</label>
         <precision>3</precision>

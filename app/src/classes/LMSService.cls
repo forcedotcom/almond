@@ -1668,6 +1668,24 @@ public with sharing class LMSService{
           return assignment;
     }
 
+    public static void deleteResponsesForAssignment(Id assignmentId, Id sharedAssignmentId){
+        if(assignmentId == null){
+            return;
+        }
+        
+        String soqlQuery = 'select id from Response__C where Learning_Assignment__c = :assignmentId';
+        if(sharedAssignmentId != null){
+            soqlQuery += ' OR Shared_Learning_Assignment__c = :sharedAssignmentId';
+        }
+
+        List<Response__c> responses = (List<Response__c>)Database.query(soqlQuery);
+        if(responses.size()>0){
+            //NOTE : CRUD is by-passed here are running users don't have access to delete records for the response object
+            //Allow partial success on the response deletion
+            Database.delete(responses,false);
+        }
+    }
+
     //Without sharing operations
     public without sharing class WithoutSharingOps{
 
@@ -2397,6 +2415,7 @@ public with sharing class LMSService{
                                         ,Quiz__r.Passing_Score__c
                                         ,Quiz__r.Total_Questions__c
                                         ,Quiz__r.Max_Attempts__c
+                                        ,Quiz__r.Delete_Responses_On_Submission__c
                                         from Learning_Version__c
                                         where id = :learningVersionId
                                         limit 1];
@@ -2492,6 +2511,7 @@ public with sharing class LMSService{
                 return false;
             }
         }
+
 
     }
 

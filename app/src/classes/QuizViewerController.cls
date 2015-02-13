@@ -490,10 +490,14 @@ public with sharing class QuizViewerController extends LMSBaseController{
         //No CRUD/FLS enforced here as Users don't have access to update the learning assignment object
         update assignment;
 
-        //Update correct response flag at the response level
-        //No CRUD/FLS enforced here as Users don't have access to update the correct response flag object
-        if(!LMSSettings.getDisableCorrectResponseCheckbox() && responsesToUpdate.size()>0){
-            wsops.upsertResponses(responsesToUpdate);
+        if(quiz != null && quiz.Delete_Responses_On_Submission__c){
+            LMSService.deleteResponsesForAssignment(assignment.id, assignment.Shared_Learning_Assignment__c);
+        }else{
+          //Update correct response flag at the response level
+          //No CRUD/FLS enforced here as Users don't have access to update the correct response flag object
+          if(!LMSSettings.getDisableCorrectResponseCheckbox() && responsesToUpdate.size()>0){
+              wsops.upsertResponses(responsesToUpdate);
+          }
         }
 
     }

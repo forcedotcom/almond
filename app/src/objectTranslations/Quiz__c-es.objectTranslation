@@ -29,6 +29,11 @@
         <label>Total de Preguntas</label>
         <name>Total_Questions__c</name>
     </fields>
+    <fields>
+        <help>Eliminar los registros de respuestas una vez que los usuarios terminen su evaluación</help>
+        <label>Eliminar respuestas al terminar evaluación</label>
+        <name>Delete_Responses_On_Submission__c</name>
+    </fields>
     <layouts>
         <layout>Quiz Layout</layout>
         <sections>

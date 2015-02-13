@@ -109,6 +109,17 @@
         <trackTrending>false</trackTrending>
         <type>Summary</type>
     </fields>
+    <fields>
+        <fullName>Delete_Responses_On_Submission__c</fullName>
+        <inlineHelpText>Delete quiz response records after quiz submission</inlineHelpText>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Delete Respones on Submission</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
     <label>Quiz</label>
     <listViews>
         <fullName>All</fullName>

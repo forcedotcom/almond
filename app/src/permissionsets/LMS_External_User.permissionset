@@ -620,6 +620,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>Quiz__c.Delete_Responses_On_Submission__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Response__c.Boolean_Response__c</field>
         <readable>true</readable>

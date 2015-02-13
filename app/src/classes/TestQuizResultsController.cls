@@ -106,6 +106,7 @@ private class TestQuizResultsController{
             PageReference contRef = cont.quizContinue();
             PageReference dummyRef = new PageReference(cont.redirectURL);
             System.assert(dummyRef.getParameters().get('id') != null,'Result does not contain assignment id');
+            System.assert(countAssignmentResponses(learningAssignmentId) > 0, 'No responses were captured');
         }
 
     }
@@ -282,6 +283,93 @@ private class TestQuizResultsController{
         }
     }
 
+    static testMethod void testPassingResultsAndDeletingResponses(){
+
+        //Create admin users
+        List<User> adminUsers = TestUtilClass.createUsers(1,'System Administrator');
+        List<User> lmsUsers = TestUtilClass.createUsers(1,'Standard User');
+
+        System.runAs(adminUsers.get(0)){
+            //Assign corresponding perm sets
+            TestUtilClass.addPermissionSet(adminUsers,'LMS_Admin');
+            TestUtilClass.addPermissionSet(lmsUsers,'LMS_User');
+        }
+
+        Id learningAssignmentId = createSampleData(adminUsers,lmsUsers,createQuizLearnings());
+
+        List<Learning_Assignment__c> lassignment = [select Id,
+                                                            Learning__c, Learning_Version__r.Quiz__c from Learning_Assignment__c
+                                                            where Id = :learningAssignmentId];
+
+        System.assert(lassignment.size() == 1, 'Learning Assignment issues, size = ' + lassignment.size());
+        System.assert(lassignment.get(0).Learning_Version__r.Quiz__c != null, 'Learning Assignment is not for Quiz');
+
+        //Configure quiz to delete responses on submission
+        Quiz__c testQuiz = [select id,Delete_Responses_On_Submission__c from Quiz__c where Id = :lassignment.get(0).Learning_Version__r.Quiz__c limit 1];
+        testQuiz.Delete_Responses_On_Submission__c = true;
+        update testQuiz;
+
+        //Answer all the quiz questions
+        Set<Id> qlineIds = new Set<Id>();
+        for(Question_Line__c oql : [select Id from Question_Line__c where Quiz__c =: lassignment.get(0).Learning_Version__r.Quiz__c]){
+            qlineIds.add(oql.Id);
+        }
+
+        Map<String, Response__c> mResponses = TestLearningData.createTestQuestionResponses(qlineIds, lmsUsers.get(0).Id, lassignment.get(0).Id);
+
+        Test.startTest();
+            System.runAs(lmsUsers.get(0)){
+                PageReference pageRef = Page.QuizViewer;
+                Test.setCurrentPage(pageRef);
+                pageRef.getHeaders().put('User-Agent', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.6; rv:25.0) Gecko/20100101 Firefox/25.0');
+                pageRef.getParameters().put('aid', learningAssignmentId);
+                QuizViewerController controller = new QuizViewerController();
+                controller.initializeQuestions();
+
+                //first section
+                List<QuizItem> lqi = controller.quizItemList;
+
+                for(QuizItem qi : lqi){
+                	qi.response = mResponses.get(qi.question.Id);
+                }
+                controller.next();
+                controller.initializeQuestions();
+
+                //second section
+                List<QuizItem> lqi2 = controller.quizItemList;
+
+                for(QuizItem qi : lqi2){
+                	qi.response	 = mResponses.get(qi.question.Id);
+                }
+                controller.next();
+                controller.initializeQuestions();
+
+                //third & final section
+                List<QuizItem> lqi3 = controller.quizItemList;
+
+                for(QuizItem qi : lqi3){
+                    qi.response	 = mResponses.get(qi.question.Id);
+                }
+                controller.done();
+
+            }
+        Test.stopTest();
+
+        System.runAs(lmsUsers.get(0)){
+            //Switch to quiz results page
+            PageReference pageRef = Page.QuizResults;
+            pageRef.getParameters().put('aid',learningAssignmentId);
+            Test.setCurrentPage(pageRef);
+            QuizResultsController cont = new QuizResultsController();
+            System.assertEquals(LMSConstants.ASSIGNMENT_EVAL_PASSED,cont.evalResult);
+            PageReference contRef = cont.quizContinue();
+            PageReference dummyRef = new PageReference(cont.redirectURL);
+            System.assert(dummyRef.getParameters().get('id') != null,'Result does not contain assignment id');
+            System.assert(countAssignmentResponses(learningAssignmentId) == 0, 'Responses were not deleted after submission');
+        }
+
+    }
+
     private static List<Learning__c> createMultipleQuestionQuizLearnings(){
         //create quiz learnings
         List<Learning__c> quizLearnings = TestLearningData.createTestLearning(1, 'Quiz', false);
@@ -339,4 +427,7 @@ private class TestQuizResultsController{
         return assignments.get(0).Id;
     }
 
+    private static Integer countAssignmentResponses(Id assignmentId){
+        return [select count() from Response__c where Learning_Assignment__c = :assignmentId];
+    }
 }

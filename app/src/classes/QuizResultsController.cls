@@ -66,8 +66,12 @@ public with sharing class QuizResultsController extends LMSBaseController{
             if(!String.isBlank(aid)){
 
                 //Fetch assignment information
-
                 assignment = LMSService.getLearningAssignmentDetails(aid,UserInfo.getUserId());
+
+                if(assignment == null){
+                    throw new LMSException(System.Label.ALMS_Invalid_Assignment_Id);
+                }
+
                 LMSService.WithoutSharingOps wsops = new LMSService.WithoutSharingOps();
                 Learning_Version__c learningVersion = wsops.getLearningVersionDetails(assignment.Learning_Version__c,'Quiz');
 

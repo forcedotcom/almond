@@ -39,22 +39,22 @@
 private class TestStringUtils {
 
     static testMethod void testStringUtils1() {
-    	String a = 'abc';
-    	String b = ' ';
+        String a = 'abc';
+        String b = ' ';
 
-   		System.assert(SFDCStringUtils.isEmpty(a) == false, 'Should be true - SFDCStringUtils.isEmpty(a)');
-   		System.assert(SFDCStringUtils.notNullOrEmpty(a, false) == true, 'Should be true - SFDCStringUtils.notNullOrEmpty(a, false)');
-   		System.assert(SFDCStringUtils.notNullOrEmpty(b, true) == false, 'Should be false - SFDCStringUtils.notNullOrEmpty(b, true)');
+        System.assert(SFDCStringUtils.isEmpty(a) == false, 'Should be true - SFDCStringUtils.isEmpty(a)');
+        System.assert(SFDCStringUtils.notNullOrEmpty(a, false) == true, 'Should be true - SFDCStringUtils.notNullOrEmpty(a, false)');
+        System.assert(SFDCStringUtils.notNullOrEmpty(b, true) == false, 'Should be false - SFDCStringUtils.notNullOrEmpty(b, true)');
 
-   		String[] digit_arr = new String[]{ '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
-   		Set<Integer> digits = SFDCStringUtils.stringArrayToIntegerSet(digit_arr);
-   		System.assert(digits.size() == 10, 'Should be 10 - digits.size()');
-   		System.assert(digits.contains(48) == true, 'Should be true - digits.contains(48)');
+        String[] digit_arr = new String[]{ '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
+        Set<Integer> digits = SFDCStringUtils.stringArrayToIntegerSet(digit_arr);
+        System.assert(digits.size() == 10, 'Should be 10 - digits.size()');
+        System.assert(digits.contains(48) == true, 'Should be true - digits.contains(48)');
 
-   		String[] arr1 = new String[]{ '0', '1'};
-   		String[] arr2 = new String[]{ '2', '3'};
+        String[] arr1 = new String[]{ '0', '1'};
+        String[] arr2 = new String[]{ '2', '3'};
 
-   		String[] arr3 = SFDCStringUtils.unionStringArrays(arr1, arr2);
-   		System.assert(arr3.size() == 4, 'Should be 4 - arr3.size()');
+        String[] arr3 = SFDCStringUtils.unionStringArrays(arr1, arr2);
+        System.assert(arr3.size() == 4, 'Should be 4 - arr3.size()');
     }
 }

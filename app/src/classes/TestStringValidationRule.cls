@@ -39,95 +39,95 @@
 private class TestStringValidationRule {
 
     static testMethod void testStringValidationRule1() {
-    	SFDCStringValidationRule svr = new SFDCStringValidationRule('test', '^[\\d]*$');
+        SFDCStringValidationRule svr = new SFDCStringValidationRule('test', '^[\\d]*$');
 
-    	svr.addBlacklistPattern('((.)*)[0]((.)*)');
-    	svr.setMaximumLength(20);
-    	svr.setMinimumLength(2);
-    	svr.setAllowNull(false);
+        svr.addBlacklistPattern('((.)*)[0]((.)*)');
+        svr.setMaximumLength(20);
+        svr.setMinimumLength(2);
+        svr.setAllowNull(false);
 
-    	svr.assertValid('567');
+        svr.assertValid('567');
 
-    	svr = new SFDCStringValidationRule('test2');
+        svr = new SFDCStringValidationRule('test2');
 
-    	svr.addWhitelistPattern(pattern.compile('^[\\d]*$'));
-    	svr.addBlacklistPattern(pattern.compile('((.)*)[0]((.)*)'));
-    	svr.setMaximumLength(20);
-    	svr.setMinimumLength(2);
-    	svr.setAllowNull(true);
+        svr.addWhitelistPattern(pattern.compile('^[\\d]*$'));
+        svr.addBlacklistPattern(pattern.compile('((.)*)[0]((.)*)'));
+        svr.setMaximumLength(20);
+        svr.setMinimumLength(2);
+        svr.setAllowNull(true);
 
-    	svr.assertValid('567');
+        svr.assertValid('567');
 
-    	try {
-    		svr.assertValid('405'); // should fail because of the zero
-    		System.assert(false, 'Should never get here - 405');
-    	} catch (SFDCValidator.SFDCValidationException e) {
-    		// should fail - so all good
-    	}
+        try {
+            svr.assertValid('405'); // should fail because of the zero
+            System.assert(false, 'Should never get here - 405');
+        } catch (SFDCValidator.SFDCValidationException e) {
+            // should fail - so all good
+        }
 
-    	try {
-    		svr.assertValid('abc'); // should fail because not digits
-    		System.assert(false, 'Should never get here - abc');
-    	} catch (SFDCValidator.SFDCValidationException e) {
-    		// should fail - so all good
-    	}
+        try {
+            svr.assertValid('abc'); // should fail because not digits
+            System.assert(false, 'Should never get here - abc');
+        } catch (SFDCValidator.SFDCValidationException e) {
+            // should fail - so all good
+        }
 
-    	try {
-    		svr.assertValid('1'); // should fail because shorter than minimum
-    		System.assert(false, 'Should never get here - 1');
-    	} catch (SFDCValidator.SFDCValidationException e) {
-    		// should fail - so all good
-    	}
+        try {
+            svr.assertValid('1'); // should fail because shorter than minimum
+            System.assert(false, 'Should never get here - 1');
+        } catch (SFDCValidator.SFDCValidationException e) {
+            // should fail - so all good
+        }
 
-    	try {
-    		svr.assertValid('123456789123456789123456789'); // should fail because longer than maximum
-    		System.assert(false, 'Should never get here - 123456789123456789123456789');
-    	} catch (SFDCValidator.SFDCValidationException e) {
-    		// should fail - so all good
-    	}
+        try {
+            svr.assertValid('123456789123456789123456789'); // should fail because longer than maximum
+            System.assert(false, 'Should never get here - 123456789123456789123456789');
+        } catch (SFDCValidator.SFDCValidationException e) {
+            // should fail - so all good
+        }
 
-    	svr.assertValid(null);
-    	svr.assertValid('');
+        svr.assertValid(null);
+        svr.assertValid('');
 
-    	svr.setAllowNull(false);
+        svr.setAllowNull(false);
 
-    	try {
-    		svr.assertValid(null); // should fail because null
-    		System.assert(false, 'Should never get here - null');
-    	} catch (SFDCValidator.SFDCValidationException e) {
-    		// should fail - so all good
-    	}
+        try {
+            svr.assertValid(null); // should fail because null
+            System.assert(false, 'Should never get here - null');
+        } catch (SFDCValidator.SFDCValidationException e) {
+            // should fail - so all good
+        }
 
-    	try {
-    		String a = null;
-    		svr.addWhitelistPattern(a);
-    		System.assert(false, 'Should never get here');
-    	} catch (SFDCValidator.SFDCValidationException e) {
-    		// should fail - so all good
-    	}
+        try {
+            String a = null;
+            svr.addWhitelistPattern(a);
+            System.assert(false, 'Should never get here');
+        } catch (SFDCValidator.SFDCValidationException e) {
+            // should fail - so all good
+        }
 
-    	try {
-    		String a = null;
-    		svr.addBlacklistPattern(a);
-    		System.assert(false, 'Should never get here');
-    	} catch (SFDCValidator.SFDCValidationException e) {
-    		// should fail - so all good
-    	}
+        try {
+            String a = null;
+            svr.addBlacklistPattern(a);
+            System.assert(false, 'Should never get here');
+        } catch (SFDCValidator.SFDCValidationException e) {
+            // should fail - so all good
+        }
 
-    	try {
-    		Pattern a = null;
-    		svr.addWhitelistPattern(a);
-    		System.assert(false, 'Should never get here');
-    	} catch (SFDCValidator.SFDCValidationException e) {
-    		// should fail - so all good
-    	}
+        try {
+            Pattern a = null;
+            svr.addWhitelistPattern(a);
+            System.assert(false, 'Should never get here');
+        } catch (SFDCValidator.SFDCValidationException e) {
+            // should fail - so all good
+        }
 
-    	try {
-    		Pattern a = null;
-    		svr.addBlacklistPattern(a);
-    		System.assert(false, 'Should never get here');
-    	} catch (SFDCValidator.SFDCValidationException e) {
-    		// should fail - so all good
-    	}
+        try {
+            Pattern a = null;
+            svr.addBlacklistPattern(a);
+            System.assert(false, 'Should never get here');
+        } catch (SFDCValidator.SFDCValidationException e) {
+            // should fail - so all good
+        }
     }
 }

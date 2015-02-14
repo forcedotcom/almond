@@ -29,101 +29,101 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 @isTest
 public class TestTrainingPlanFeedback {
 
-	static testmethod void testTrainingPlanWithNonPreview(){
+    static testmethod void testTrainingPlanWithNonPreview(){
 
-		//Create admin users
-		List<User> adminUsers = TestUtilClass.createUsers(2,'System Administrator');
-		List<User> lmsUsers = TestUtilClass.createUsers(5,'Standard User');
+        //Create admin users
+        List<User> adminUsers = TestUtilClass.createUsers(2,'System Administrator');
+        List<User> lmsUsers = TestUtilClass.createUsers(5,'Standard User');
 
-		System.runAs(adminUsers.get(0)){
-			//Assign corresponding perm sets
-			TestUtilClass.addPermissionSet(adminUsers,'LMS_Admin');
-			TestUtilClass.addPermissionSet(lmsUsers,'LMS_User');
-		}
+        System.runAs(adminUsers.get(0)){
+            //Assign corresponding perm sets
+            TestUtilClass.addPermissionSet(adminUsers,'LMS_Admin');
+            TestUtilClass.addPermissionSet(lmsUsers,'LMS_User');
+        }
 
-		TestTrainingPlanData.createSampleData();
-		//Select the sample trainign plan
-		List<Training_Plan__c> tplan = [select id from Training_Plan__c];
-		System.assertEquals(1,tplan.size());
+        TestTrainingPlanData.createSampleData();
+        //Select the sample trainign plan
+        List<Training_Plan__c> tplan = [select id from Training_Plan__c];
+        System.assertEquals(1,tplan.size());
 
-		//Add an achievement to the trainign plan
-		List<Achievement_Category__c> lAchieveCat = TestAchievementData.createAchievementCategories(1);
-		List<Achievement__c> lAchievement = TestAchievementData.createAchievements(1, lAchieveCat.get(0).Id, 'Achievements');
-		List<Training_Plan_Achievement__c> lTPlanAchievement = TestTrainingPlanData.createTrainingPlanAchievements(tplan, lAchievement);
+        //Add an achievement to the trainign plan
+        List<Achievement_Category__c> lAchieveCat = TestAchievementData.createAchievementCategories(1);
+        List<Achievement__c> lAchievement = TestAchievementData.createAchievements(1, lAchieveCat.get(0).Id, 'Achievements');
+        List<Training_Plan_Achievement__c> lTPlanAchievement = TestTrainingPlanData.createTrainingPlanAchievements(tplan, lAchievement);
 
-		Id tplanId = tplan.get(0).Id;
-		Set<Id> selectedUserIds = new Set<Id>();
+        Id tplanId = tplan.get(0).Id;
+        Set<Id> selectedUserIds = new Set<Id>();
 
-		for(User u : lmsUsers){
-			selectedUserIds.add(u.Id);
-		}
+        for(User u : lmsUsers){
+            selectedUserIds.add(u.Id);
+        }
 
-		//Test Insert
-		Test.startTest();
-			System.runAs(adminUsers.get(0)){
-				LMSService.upsertAssignments(selectedUserIds,tplanId,null);
-			}
-		Test.stopTest();
+        //Test Insert
+        Test.startTest();
+            System.runAs(adminUsers.get(0)){
+                LMSService.upsertAssignments(selectedUserIds,tplanId,null);
+            }
+        Test.stopTest();
 
-		System.assertEquals(0,getFeedbackCount(tplanId));
+        System.assertEquals(0,getFeedbackCount(tplanId));
 
-		System.runAs(lmsUsers.get(0)){
+        System.runAs(lmsUsers.get(0)){
 
-			PageReference pageRef = Page.TrainingPlanFeedback;
-			pageRef.getParameters().put('id', tplanId);
-			Test.setCurrentPage(pageRef);
+            PageReference pageRef = Page.TrainingPlanFeedback;
+            pageRef.getParameters().put('id', tplanId);
+            Test.setCurrentPage(pageRef);
 
-			TrainingPlanFeedbackController cont = new TrainingPlanFeedbackController();
-			System.assert(cont.isAllowedToView == true);
-			System.assert(cont.tPlan != null);
-			System.assert(cont.setCon != null);
-			System.assert(cont.existingFeedback == null);
-			List<Training_Plan_Feedback__c> comments = cont.getComments();
-			System.assertEquals(0,comments.size());
-			System.assertEquals(0,cont.getTotalPages());
-			System.assertEquals(false,cont.getHasPrevious());
-			System.assertEquals(false,cont.getHasNext());
-			System.assertEquals(1,cont.getPageNumber());
+            TrainingPlanFeedbackController cont = new TrainingPlanFeedbackController();
+            System.assert(cont.isAllowedToView == true);
+            System.assert(cont.tPlan != null);
+            System.assert(cont.setCon != null);
+            System.assert(cont.existingFeedback == null);
+            List<Training_Plan_Feedback__c> comments = cont.getComments();
+            System.assertEquals(0,comments.size());
+            System.assertEquals(0,cont.getTotalPages());
+            System.assertEquals(false,cont.getHasPrevious());
+            System.assertEquals(false,cont.getHasNext());
+            System.assertEquals(1,cont.getPageNumber());
 
-			//These methods shouldn't make any changes to the current page
-			cont.doPrevious();
-			cont.doNext();
+            //These methods shouldn't make any changes to the current page
+            cont.doPrevious();
+            cont.doNext();
 
-			System.assertEquals(1,cont.getPageNumber());
+            System.assertEquals(1,cont.getPageNumber());
 
-			//Submit a new feedback entry
+            //Submit a new feedback entry
 
-			Training_Plan_Feedback__c feedback = cont.feedback;
-			feedback.Rating__c = 5;
+            Training_Plan_Feedback__c feedback = cont.feedback;
+            feedback.Rating__c = 5;
 
-			//Try submitting without comments
-			PageReference ref = cont.submitFeedback();
-			System.assert(cont.hasMessages == true);
+            //Try submitting without comments
+            PageReference ref = cont.submitFeedback();
+            System.assert(cont.hasMessages == true);
 
-			//Add comments and try again
-			feedback.Comments__c = 'testing';
-			ref = cont.submitFeedback();
+            //Add comments and try again
+            feedback.Comments__c = 'testing';
+            ref = cont.submitFeedback();
 
-		}
+        }
 
-		System.assertEquals(1,getFeedbackCount(tplanId));
-	}
+        System.assertEquals(1,getFeedbackCount(tplanId));
+    }
 
-	static testmethod void testTrainingPlanWithPreview(){
+    static testmethod void testTrainingPlanWithPreview(){
 
-		//Create admin users
-		List<User> adminUsers = TestUtilClass.createUsers(2,'System Administrator');
-		List<User> lmsUsers = TestUtilClass.createUsers(5,'Standard User');
+        //Create admin users
+        List<User> adminUsers = TestUtilClass.createUsers(2,'System Administrator');
+        List<User> lmsUsers = TestUtilClass.createUsers(5,'Standard User');
 
-		System.runAs(adminUsers.get(0)){
-			//Assign corresponding perm sets
-			TestUtilClass.addPermissionSet(adminUsers,'LMS_Admin');
-			TestUtilClass.addPermissionSet(lmsUsers,'LMS_User');
-		}
+        System.runAs(adminUsers.get(0)){
+            //Assign corresponding perm sets
+            TestUtilClass.addPermissionSet(adminUsers,'LMS_Admin');
+            TestUtilClass.addPermissionSet(lmsUsers,'LMS_User');
+        }
 
-		TestTrainingPlanData.createSampleData();
+        TestTrainingPlanData.createSampleData();
 
-		List<Training_Plan__c> tplans = [select id
+        List<Training_Plan__c> tplans = [select id
                                             ,Enable_Self_Registration__c
                                             ,Self_Registration_Access__c
                                             from Training_Plan__c];
@@ -135,52 +135,52 @@ public class TestTrainingPlanFeedback {
         update tplan;
 
 
-		//Select the sample training plan
-		System.assertEquals(1,tplans.size());
+        //Select the sample training plan
+        System.assertEquals(1,tplans.size());
 
-		//Add an achievement to the trainign plan
-		List<Achievement_Category__c> lAchieveCat = TestAchievementData.createAchievementCategories(1);
-		List<Achievement__c> lAchievement = TestAchievementData.createAchievements(1, lAchieveCat.get(0).Id, 'Achievements');
-		List<Training_Plan_Achievement__c> lTPlanAchievement = TestTrainingPlanData.createTrainingPlanAchievements(tplans, lAchievement);
+        //Add an achievement to the trainign plan
+        List<Achievement_Category__c> lAchieveCat = TestAchievementData.createAchievementCategories(1);
+        List<Achievement__c> lAchievement = TestAchievementData.createAchievements(1, lAchieveCat.get(0).Id, 'Achievements');
+        List<Training_Plan_Achievement__c> lTPlanAchievement = TestTrainingPlanData.createTrainingPlanAchievements(tplans, lAchievement);
 
-		Id tplanId = tplans.get(0).Id;
+        Id tplanId = tplans.get(0).Id;
 
-		System.assertEquals(0,getFeedbackCount(tplanId));
+        System.assertEquals(0,getFeedbackCount(tplanId));
 
-		System.runAs(lmsUsers.get(0)){
+        System.runAs(lmsUsers.get(0)){
 
-			PageReference pageRef = Page.TrainingPlanFeedback;
-			pageRef.getParameters().put('id', tplanId);
-			pageRef.getParameters().put('preview', '1');
-			Test.setCurrentPage(pageRef);
+            PageReference pageRef = Page.TrainingPlanFeedback;
+            pageRef.getParameters().put('id', tplanId);
+            pageRef.getParameters().put('preview', '1');
+            Test.setCurrentPage(pageRef);
 
-			TrainingPlanFeedbackController cont = new TrainingPlanFeedbackController();
-			System.assert(cont.isAllowedToView == true);
-			System.assert(cont.tPlan != null);
-			System.assert(cont.setCon != null);
-			System.assert(cont.existingFeedback == null);
-			List<Training_Plan_Feedback__c> comments = cont.getComments();
-			System.assertEquals(0,comments.size());
-			System.assertEquals(0,cont.getTotalPages());
-			System.assertEquals(false,cont.getHasPrevious());
-			System.assertEquals(false,cont.getHasNext());
-			System.assertEquals(1,cont.getPageNumber());
+            TrainingPlanFeedbackController cont = new TrainingPlanFeedbackController();
+            System.assert(cont.isAllowedToView == true);
+            System.assert(cont.tPlan != null);
+            System.assert(cont.setCon != null);
+            System.assert(cont.existingFeedback == null);
+            List<Training_Plan_Feedback__c> comments = cont.getComments();
+            System.assertEquals(0,comments.size());
+            System.assertEquals(0,cont.getTotalPages());
+            System.assertEquals(false,cont.getHasPrevious());
+            System.assertEquals(false,cont.getHasNext());
+            System.assertEquals(1,cont.getPageNumber());
 
-			//These methods shouldn't make any changes to the current page
-			cont.doPrevious();
-			cont.doNext();
+            //These methods shouldn't make any changes to the current page
+            cont.doPrevious();
+            cont.doNext();
 
-			System.assertEquals(1,cont.getPageNumber());
+            System.assertEquals(1,cont.getPageNumber());
 
-			Boolean isAllowedToSubmitFeedback = cont.getIsAssignedToTrainingPlan();
-			System.assertEquals(false,isAllowedToSubmitFeedback);
+            Boolean isAllowedToSubmitFeedback = cont.getIsAssignedToTrainingPlan();
+            System.assertEquals(false,isAllowedToSubmitFeedback);
 
-		}
+        }
 
-	}
+    }
 
-	static Integer getFeedbackCount(Id tplanId){
-		return [select count() from Training_Plan_Feedback__c where Training_Plan__c = :tplanId];
-	}
+    static Integer getFeedbackCount(Id tplanId){
+        return [select count() from Training_Plan_Feedback__c where Training_Plan__c = :tplanId];
+    }
 
 }

@@ -32,17 +32,17 @@ private class TestTrainingPlanPreviewCtrl extends LMSBaseController{
     static testMethod void testPreviewRedirection(){
 
         //Create admin users
-		List<User> adminUsers = TestUtilClass.createUsers(2,'System Administrator');
-		List<User> lmsUsers = TestUtilClass.createUsers(2,'Standard User');
+        List<User> adminUsers = TestUtilClass.createUsers(2,'System Administrator');
+        List<User> lmsUsers = TestUtilClass.createUsers(2,'Standard User');
 
-		System.runAs(adminUsers.get(0)){
-			//Assign corresponding perm sets
-			TestUtilClass.addPermissionSet(adminUsers,'LMS_Admin');
-			TestUtilClass.addPermissionSet(lmsUsers,'LMS_User');
-		}
+        System.runAs(adminUsers.get(0)){
+            //Assign corresponding perm sets
+            TestUtilClass.addPermissionSet(adminUsers,'LMS_Admin');
+            TestUtilClass.addPermissionSet(lmsUsers,'LMS_User');
+        }
 
-		TestTrainingPlanData.createSampleData();
-		List<Training_Plan__c> tplans = [select id
+        TestTrainingPlanData.createSampleData();
+        List<Training_Plan__c> tplans = [select id
                                             ,Enable_Self_Registration__c
                                             ,Self_Registration_Access__c
                                             from Training_Plan__c];
@@ -72,17 +72,17 @@ private class TestTrainingPlanPreviewCtrl extends LMSBaseController{
     static testMethod void testPreviewRegistration(){
 
         //Create admin users
-		List<User> adminUsers = TestUtilClass.createUsers(2,'System Administrator');
-		List<User> lmsUsers = TestUtilClass.createUsers(2,'Standard User');
+        List<User> adminUsers = TestUtilClass.createUsers(2,'System Administrator');
+        List<User> lmsUsers = TestUtilClass.createUsers(2,'Standard User');
 
-		System.runAs(adminUsers.get(0)){
-			//Assign corresponding perm sets
-			TestUtilClass.addPermissionSet(adminUsers,'LMS_Admin');
-			TestUtilClass.addPermissionSet(lmsUsers,'LMS_User');
-		}
+        System.runAs(adminUsers.get(0)){
+            //Assign corresponding perm sets
+            TestUtilClass.addPermissionSet(adminUsers,'LMS_Admin');
+            TestUtilClass.addPermissionSet(lmsUsers,'LMS_User');
+        }
 
-		TestTrainingPlanData.createSampleData();
-		List<Training_Plan__c> tplans = [select id
+        TestTrainingPlanData.createSampleData();
+        List<Training_Plan__c> tplans = [select id
                                             ,Enable_Self_Registration__c
                                             ,Self_Registration_Access__c
                                             from Training_Plan__c];
@@ -115,17 +115,17 @@ private class TestTrainingPlanPreviewCtrl extends LMSBaseController{
     static testMethod void testPreviewRegistrationWithApprovalEntries(){
 
         //Create admin users
-		List<User> adminUsers = TestUtilClass.createUsers(2,'System Administrator');
-		List<User> lmsUsers = TestUtilClass.createUsers(2,'Standard User');
+        List<User> adminUsers = TestUtilClass.createUsers(2,'System Administrator');
+        List<User> lmsUsers = TestUtilClass.createUsers(2,'Standard User');
 
-		System.runAs(adminUsers.get(0)){
-			//Assign corresponding perm sets
-			TestUtilClass.addPermissionSet(adminUsers,'LMS_Admin');
-			TestUtilClass.addPermissionSet(lmsUsers,'LMS_User');
-		}
+        System.runAs(adminUsers.get(0)){
+            //Assign corresponding perm sets
+            TestUtilClass.addPermissionSet(adminUsers,'LMS_Admin');
+            TestUtilClass.addPermissionSet(lmsUsers,'LMS_User');
+        }
 
-		TestTrainingPlanData.createSampleData();
-		List<Training_Plan__c> tplans = [select id
+        TestTrainingPlanData.createSampleData();
+        List<Training_Plan__c> tplans = [select id
                                             ,Enable_Self_Registration__c
                                             ,Self_Registration_Access__c
                                             from Training_Plan__c];

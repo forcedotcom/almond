@@ -71,7 +71,7 @@ private class TestQuizResultsController{
                 List<QuizItem> lqi = controller.quizItemList;
 
                 for(QuizItem qi : lqi){
-                	qi.response = mResponses.get(qi.question.Id);
+                    qi.response = mResponses.get(qi.question.Id);
                 }
                 controller.next();
                 controller.initializeQuestions();

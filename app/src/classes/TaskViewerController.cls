@@ -41,12 +41,12 @@ public with sharing class TaskViewerController extends LMSBaseController{
     public String cancelURL{get;set;}
 
     public Attachment attachment {
-      get {
+        get {
         if (attachment == null)
           attachment = new Attachment();
         return attachment;
-      }
-      set;
+        }
+        set;
     }
 
     public TaskViewerController(){

@@ -29,147 +29,147 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 @isTest
 private class TestTPlanImportAssignmentsExt{
 
-	@isTest(SeeAllData='true')
-	static void testImportWithoutCustomIndex(){
+    @isTest(SeeAllData='true')
+    static void testImportWithoutCustomIndex(){
 
-		//Create admin users
-		List<User> adminUsers = TestUtilClass.createUsers(2,'System Administrator');
-		List<User> lmsUsers = TestUtilClass.createUsers(10,'Standard User');
+        //Create admin users
+        List<User> adminUsers = TestUtilClass.createUsers(2,'System Administrator');
+        List<User> lmsUsers = TestUtilClass.createUsers(10,'Standard User');
 
-		System.runAs(adminUsers.get(0)){
-			//Assign corresponding perm sets
-			TestUtilClass.addPermissionSet(adminUsers,'LMS_Admin');
-			TestUtilClass.addPermissionSet(lmsUsers,'LMS_User');
-		}
+        System.runAs(adminUsers.get(0)){
+            //Assign corresponding perm sets
+            TestUtilClass.addPermissionSet(adminUsers,'LMS_Admin');
+            TestUtilClass.addPermissionSet(lmsUsers,'LMS_User');
+        }
 
-		TestTrainingPlanData.createSampleData();
+        TestTrainingPlanData.createSampleData();
 
-		List<Training_Plan__c> tplans = [select id from Training_Plan__c order by CreatedDate desc];
-		Training_Plan__c tplan  = tplans.get(0);
+        List<Training_Plan__c> tplans = [select id from Training_Plan__c order by CreatedDate desc];
+        Training_Plan__c tplan  = tplans.get(0);
 
-		//Test Insert
+        //Test Insert
         PageReference testPageRef = Page.TrainingPlanImportAssignments;
         Test.setCurrentPageReference(testPageRef);
-		Test.startTest();
+        Test.startTest();
 
-			System.runAs(adminUsers.get(0)){
+            System.runAs(adminUsers.get(0)){
 
                 TrainingPlanImportAssignmentsExt cont = new TrainingPlanImportAssignmentsExt(new ApexPages.StandardController(tplan));
                 List<SelectOption> folders = cont.getReportFolders();
-				System.assert(folders.size()>0);
-				String selectedFolderId = null;
-				String selectedReportId = null;
+                System.assert(folders.size()>0);
+                String selectedFolderId = null;
+                String selectedReportId = null;
 
-				//This should return at least 1 report folder
-				for(SelectOption opt : folders){
-					if(opt.getLabel() == 'LMS Templates'){
-						selectedFolderId = opt.getValue();
-						break;
-					}
-				}
-				System.assert(selectedFolderId != null);
-				cont.selectedFolderId = selectedFolderId;
-				PageReference ref;
-				ref = cont.loadReports();
-				List<SelectOption> importReports = cont.importReports;
-				System.assert(importReports.size()>0);
+                //This should return at least 1 report folder
+                for(SelectOption opt : folders){
+                    if(opt.getLabel() == 'LMS Templates'){
+                        selectedFolderId = opt.getValue();
+                        break;
+                    }
+                }
+                System.assert(selectedFolderId != null);
+                cont.selectedFolderId = selectedFolderId;
+                PageReference ref;
+                ref = cont.loadReports();
+                List<SelectOption> importReports = cont.importReports;
+                System.assert(importReports.size()>0);
                 List<Report> reports = [select id from Report where DeveloperName = 'LMS_User_Import_Template'];
                 System.assert(reports.size()>0);
-				for(SelectOption opt : importReports){
-					if(opt.getLabel() == 'LMS User Import Template'){
-						selectedReportId = opt.getValue();
-					}
-				}
-				cont.selectedReportId = selectedReportId;
+                for(SelectOption opt : importReports){
+                    if(opt.getLabel() == 'LMS User Import Template'){
+                        selectedReportId = opt.getValue();
+                    }
+                }
+                cont.selectedReportId = selectedReportId;
 
-				try{
-					ref = cont.importRecords();
-					List<Training_Plan_Batch_Operation__c> tpbops = [select id from Training_Plan_Batch_Operation__c  where Training_Plan__c = :tplan.Id];
-					System.assertEquals(1,tpbops.size());
-					Training_Plan_Batch_Operation__c tpbo = tpbops.get(0);
-					List<Batch_Operation_Record__c> bops = [select id from Batch_Operation_Record__c where Training_Plan_Batch_Operation__c = :tpbo.Id];
-					System.assert(bops.size()>0);
-				}catch(Exception e){
-					//Eat the exception if this test fails, this could be to high data volumnes or incorrect data
-				}
+                try{
+                    ref = cont.importRecords();
+                    List<Training_Plan_Batch_Operation__c> tpbops = [select id from Training_Plan_Batch_Operation__c  where Training_Plan__c = :tplan.Id];
+                    System.assertEquals(1,tpbops.size());
+                    Training_Plan_Batch_Operation__c tpbo = tpbops.get(0);
+                    List<Batch_Operation_Record__c> bops = [select id from Batch_Operation_Record__c where Training_Plan_Batch_Operation__c = :tpbo.Id];
+                    System.assert(bops.size()>0);
+                }catch(Exception e){
+                    //Eat the exception if this test fails, this could be to high data volumnes or incorrect data
+                }
 
-			}
+            }
 
 
-		Test.stopTest();
+        Test.stopTest();
 
-	}
+    }
 
-	@isTest(SeeAllData='true')
-	static void testImportWithCustomIndex(){
+    @isTest(SeeAllData='true')
+    static void testImportWithCustomIndex(){
 
-		//Create admin users
-		List<User> adminUsers = TestUtilClass.createUsers(2,'System Administrator');
-		List<User> lmsUsers = TestUtilClass.createUsers(10,'Standard User');
+        //Create admin users
+        List<User> adminUsers = TestUtilClass.createUsers(2,'System Administrator');
+        List<User> lmsUsers = TestUtilClass.createUsers(10,'Standard User');
 
-		System.runAs(adminUsers.get(0)){
-			//Assign corresponding perm sets
-			TestUtilClass.addPermissionSet(adminUsers,'LMS_Admin');
-			TestUtilClass.addPermissionSet(lmsUsers,'LMS_User');
-		}
+        System.runAs(adminUsers.get(0)){
+            //Assign corresponding perm sets
+            TestUtilClass.addPermissionSet(adminUsers,'LMS_Admin');
+            TestUtilClass.addPermissionSet(lmsUsers,'LMS_User');
+        }
 
-		TestTrainingPlanData.createSampleData();
+        TestTrainingPlanData.createSampleData();
 
-		List<Training_Plan__c> tplans = [select id from Training_Plan__c order by CreatedDate desc];
-		Training_Plan__c tplan  = tplans.get(0);
+        List<Training_Plan__c> tplans = [select id from Training_Plan__c order by CreatedDate desc];
+        Training_Plan__c tplan  = tplans.get(0);
 
-		//Test Insert
+        //Test Insert
         PageReference testPageRef = Page.TrainingPlanImportAssignments;
         Test.setCurrentPageReference(testPageRef);
-		Test.startTest();
+        Test.startTest();
 
-			System.runAs(adminUsers.get(0)){
+            System.runAs(adminUsers.get(0)){
 
                 TrainingPlanImportAssignmentsExt cont = new TrainingPlanImportAssignmentsExt(new ApexPages.StandardController(tplan));
                 List<SelectOption> folders = cont.getReportFolders();
-				System.assert(folders.size()>0);
-				String selectedFolderId = null;
-				String selectedReportId = null;
+                System.assert(folders.size()>0);
+                String selectedFolderId = null;
+                String selectedReportId = null;
 
-				//This should return at least 1 report folder
-				for(SelectOption opt : folders){
-					if(opt.getLabel() == 'LMS Templates'){
-						selectedFolderId = opt.getValue();
-						break;
-					}
-				}
-				System.assert(selectedFolderId != null);
-				cont.selectedFolderId = selectedFolderId;
-				PageReference ref;
-				ref = cont.loadReports();
-				List<SelectOption> importReports = cont.importReports;
-				System.assert(importReports.size()>0);
+                //This should return at least 1 report folder
+                for(SelectOption opt : folders){
+                    if(opt.getLabel() == 'LMS Templates'){
+                        selectedFolderId = opt.getValue();
+                        break;
+                    }
+                }
+                System.assert(selectedFolderId != null);
+                cont.selectedFolderId = selectedFolderId;
+                PageReference ref;
+                ref = cont.loadReports();
+                List<SelectOption> importReports = cont.importReports;
+                System.assert(importReports.size()>0);
                 List<Report> reports = [select id from Report where DeveloperName = 'LMS_User_Import_Template'];
                 System.assert(reports.size()>0);
-				for(SelectOption opt : importReports){
-					if(opt.getLabel() == 'LMS User Import Template'){
-						selectedReportId = opt.getValue();
-					}
-				}
-				cont.selectedReportId = selectedReportId;
-				//Select a column index
-				cont.customColumnIndex = '0';
-				try{
-					ref = cont.importRecords();
-					List<Training_Plan_Batch_Operation__c> tpbops = [select id from Training_Plan_Batch_Operation__c  where Training_Plan__c = :tplan.Id];
-					System.assertEquals(1,tpbops.size());
-					Training_Plan_Batch_Operation__c tpbo = tpbops.get(0);
-					List<Batch_Operation_Record__c> bops = [select id from Batch_Operation_Record__c where Training_Plan_Batch_Operation__c = :tpbo.Id];
-					System.assert(bops.size()>0);
-				}catch(Exception e){
-					//Eat the exception if this test fails, this could be to high data volumnes or incorrect data
-				}
+                for(SelectOption opt : importReports){
+                    if(opt.getLabel() == 'LMS User Import Template'){
+                        selectedReportId = opt.getValue();
+                    }
+                }
+                cont.selectedReportId = selectedReportId;
+                //Select a column index
+                cont.customColumnIndex = '0';
+                try{
+                    ref = cont.importRecords();
+                    List<Training_Plan_Batch_Operation__c> tpbops = [select id from Training_Plan_Batch_Operation__c  where Training_Plan__c = :tplan.Id];
+                    System.assertEquals(1,tpbops.size());
+                    Training_Plan_Batch_Operation__c tpbo = tpbops.get(0);
+                    List<Batch_Operation_Record__c> bops = [select id from Batch_Operation_Record__c where Training_Plan_Batch_Operation__c = :tpbo.Id];
+                    System.assert(bops.size()>0);
+                }catch(Exception e){
+                    //Eat the exception if this test fails, this could be to high data volumnes or incorrect data
+                }
 
-			}
+            }
 
 
-		Test.stopTest();
+        Test.stopTest();
 
-	}
+    }
 
 }

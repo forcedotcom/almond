@@ -29,30 +29,30 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 @isTest
 private class TestTPlanSectionAssigmtsDelExtension{
 
-	static testmethod void testDeletingAssignments(){
+    static testmethod void testDeletingAssignments(){
 
-		//Create admin users
-		List<User> adminUsers = TestUtilClass.createUsers(2,'System Administrator');
-		List<User> lmsUsers = TestUtilClass.createUsers(10,'Standard User');
+        //Create admin users
+        List<User> adminUsers = TestUtilClass.createUsers(2,'System Administrator');
+        List<User> lmsUsers = TestUtilClass.createUsers(10,'Standard User');
 
-		System.runAs(adminUsers.get(0)){
-			//Assign corresponding perm sets
-			TestUtilClass.addPermissionSet(adminUsers,'LMS_Admin');
-			TestUtilClass.addPermissionSet(lmsUsers,'LMS_User');
-		}
+        System.runAs(adminUsers.get(0)){
+            //Assign corresponding perm sets
+            TestUtilClass.addPermissionSet(adminUsers,'LMS_Admin');
+            TestUtilClass.addPermissionSet(lmsUsers,'LMS_User');
+        }
 
-		TestTrainingPlanData.createSampleData();
+        TestTrainingPlanData.createSampleData();
 
-		List<Training_Plan__c> tplans = [select id from Training_Plan__c];
-		System.assertEquals(1,tplans.size());
-		Training_Plan__c tplan  = tplans.get(0);
-		Set<Id> selectedUserIds = new Set<Id>();
-		for(User u : lmsUsers){
-			selectedUserIds.add(u.Id);
-		}
+        List<Training_Plan__c> tplans = [select id from Training_Plan__c];
+        System.assertEquals(1,tplans.size());
+        Training_Plan__c tplan  = tplans.get(0);
+        Set<Id> selectedUserIds = new Set<Id>();
+        for(User u : lmsUsers){
+            selectedUserIds.add(u.Id);
+        }
 
-    	System.runAs(adminUsers.get(0)){
-    		LMSService.upsertAssignments(selectedUserIds,tplan.Id,null);
+        System.runAs(adminUsers.get(0)){
+            LMSService.upsertAssignments(selectedUserIds,tplan.Id,null);
         }
 
         //Select one of the training plan secion items
@@ -65,23 +65,23 @@ private class TestTPlanSectionAssigmtsDelExtension{
         Training_Plan_Section__c tplanSection = tplanSections.get(0);
         System.assert(getAssignmentsForSectionCount(tplanSection.Id) > 0);
 
-		//Test Insert
+        //Test Insert
         PageReference testPageRef = Page.TrainingPlanSectionAssignmentsDelete;
         Test.setCurrentPageReference(testPageRef);
-		Test.startTest();
+        Test.startTest();
 
 
             System.runAs(adminUsers.get(0)){
 
                 TrainingPlanSectionAssigmtsDelExtension cont = new TrainingPlanSectionAssigmtsDelExtension(new ApexPages.StandardController(tplanSection));
                 cont.deleteAllSectionAssignments();
-			}
+            }
 
 
-		Test.stopTest();
+        Test.stopTest();
         System.assert(getAssignmentsForSectionCount(tplanSection.Id) == 0);
 
-	}
+    }
 
     private static Integer getAssignmentsForSectionCount(String sectionId){
         return  [select count() from Training_Plan_Section_Assignment__c where Training_Plan_Section__c = :sectionId];

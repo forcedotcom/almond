@@ -85,6 +85,7 @@
     </fields>
     <fields>
         <fullName>Expiration_Date__c</fullName>
+        <inlineHelpText>Expired achievements will not be displayed in the users profile page</inlineHelpText>
         <externalId>false</externalId>
         <label>Expiration Date</label>
         <required>false</required>

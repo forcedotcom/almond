@@ -52,6 +52,7 @@
     <enableReports>true</enableReports>
     <fields>
         <fullName>Optional__c</fullName>
+        <inlineHelpText>Enable this option if you plan to make all the items under this section optional</inlineHelpText>
         <defaultValue>false</defaultValue>
         <externalId>false</externalId>
         <label>Optional</label>
@@ -61,6 +62,7 @@
     </fields>
     <fields>
         <fullName>Order__c</fullName>
+        <inlineHelpText>Number that defines the position in which this section will appear under the training plan</inlineHelpText>
         <externalId>false</externalId>
         <label>Order</label>
         <precision>3</precision>

@@ -22,6 +22,7 @@
         <name>Eligible_Image__c</name>
     </fields>
     <fields>
+        <help>Logros expirados no seran mostrados en el perfil de los usuarios</help>
         <label>Fecha de Expiración</label>
         <name>Expiration_Date__c</name>
     </fields>

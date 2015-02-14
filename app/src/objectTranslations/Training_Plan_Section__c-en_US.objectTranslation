@@ -9,10 +9,12 @@
         <value>Training Plan Sections</value>
     </caseValues>
     <fields>
+        <help><!-- Enable this option if you plan to make all the items under this section optional --></help>
         <label><!-- Optional --></label>
         <name>Optional__c</name>
     </fields>
     <fields>
+        <help><!-- Number that defines the position in which this section will appear under the training plan --></help>
         <label><!-- Order --></label>
         <name>Order__c</name>
     </fields>

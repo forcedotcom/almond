@@ -152,6 +152,10 @@ public with sharing class MyProfileController extends LMSBaseController{
         List<AchievementAssignmentWrapper> achievementRecs = new List<AchievementAssignmentWrapper>();
         for (Achievement_Assignment__c a : (List<Achievement_Assignment__c>)Database.query(soqlQuery)){
 
+            // Skip expired achievements
+            if(a.Achievement__r.Expiration_Date__c != null && a.Achievement__r.Expiration_Date__c <= Date.today()){
+                continue;
+            }
 
             String currentCategoryName = a.Achievement__r.Achievement_Category__r.Name;
             if(achievementCategory == ''){

@@ -192,6 +192,16 @@
         <trackTrending>false</trackTrending>
         <type>Checkbox</type>
     </fields>
+    <fields>
+        <fullName>Is_Internal__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>If checked, the achievement won&apos;t be displayed to external users</inlineHelpText>
+        <label>Is Internal</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
     <label>Achievement</label>
     <listViews>
         <fullName>All</fullName>

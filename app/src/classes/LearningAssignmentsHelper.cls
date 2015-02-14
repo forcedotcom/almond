@@ -79,7 +79,7 @@ public with sharing class LearningAssignmentsHelper{
         //We'll query for shared learning assignments records related to the shared learnings.
         learningsSharedAssignments = wosHelper.getSharedAssignmentsForLearningsWOS(sharedLearnings.keySet(),referencedUsers);
 
-        //Create shared assignments for first time assigments
+        //Create shared assignments for first time assignments
         List<Shared_Learning_Assignment__c> newSharedAssignments = new List<Shared_Learning_Assignment__c>();
         for(Id learningId : sharedLearnings.keySet()){
             if(!learningsSharedAssignments.containsKey(learningId)){
@@ -334,7 +334,7 @@ public with sharing class LearningAssignmentsHelper{
         wosHelper.updateTrainingPlanAssignmentsWOS(relatedTPlans,relatedUsers);
     }
 
-    public without sharing class WithoutSharingOps{
+    private without sharing class WithoutSharingOps{
 
         // We need to make sure progress recalculation has access to all assignment records even if some are not shared
         // with the running user
@@ -674,6 +674,7 @@ public with sharing class LearningAssignmentsHelper{
                     newTPA.User__c = la.User__c;
                     newTPA.OwnerId = la.User__c;
                     newTPA.Training_Plan__c = la.Training_Plan__c;
+                    newTPA.Community_Id__c = la.Community_Id__c;
                     newTPA.Status__c = LMSConstants.ASSIGNMENT_STATUS_NOT_STARTED;
                     insertTPAs.put(laKey,newTPA);
                 }
@@ -727,6 +728,7 @@ public with sharing class LearningAssignmentsHelper{
                     newTPSA.OwnerId = la.User__c;
                     newTPSA.Training_Plan_Section__c = la.Training_Plan_Section__c;
                     newTPSA.Status__c = LMSConstants.ASSIGNMENT_STATUS_NOT_STARTED;
+                    newTPSA.Community_Id__c = la.Community_Id__c;
                     newTPSA.Training_Plan_Assignment__c = planAssignments.get(la.User__c+'_'+la.Training_Plan__c);
                     insertTPSAs.put(laKey,newTPSA);
                 }

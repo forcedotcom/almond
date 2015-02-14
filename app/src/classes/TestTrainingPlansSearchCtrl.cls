@@ -32,18 +32,18 @@ public class TestTrainingPlansSearchCtrl {
     static testMethod void testSearchWithEntries(){
 
         //Create admin users
-		List<User> adminUsers = TestUtilClass.createUsers(2,'System Administrator');
-		List<User> lmsUsers = TestUtilClass.createUsers(2,'Standard User');
+        List<User> adminUsers = TestUtilClass.createUsers(2,'System Administrator');
+        List<User> lmsUsers = TestUtilClass.createUsers(2,'Standard User');
 
-		System.runAs(adminUsers.get(0)){
-			//Assign corresponding perm sets
-			TestUtilClass.addPermissionSet(adminUsers,'LMS_Admin');
-			TestUtilClass.addPermissionSet(lmsUsers,'LMS_User');
-		}
+        System.runAs(adminUsers.get(0)){
+            //Assign corresponding perm sets
+            TestUtilClass.addPermissionSet(adminUsers,'LMS_Admin');
+            TestUtilClass.addPermissionSet(lmsUsers,'LMS_User');
+        }
 
-		TestTrainingPlanData.createSampleData();
+        TestTrainingPlanData.createSampleData();
 
-		List<Training_Plan__c> tplans = [select id
+        List<Training_Plan__c> tplans = [select id
                                             ,Name
                                             ,Enable_Self_Registration__c
                                             ,Self_Registration_Access__c

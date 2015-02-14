@@ -9,15 +9,18 @@
         <value>Trayectorias</value>
     </caseValues>
     <fields>
+        <help>El logro determinará la imagen mostrada en las cajas y encabezado de las trayectorias</help>
         <label>Logro</label>
         <name>Achievement__c</name>
         <relationshipLabel>Trayectorias</relationshipLabel>
     </fields>
     <fields>
+        <help>Código de color Hex para el fondo del encabezado (ej. #dcdcdc, más ejemplos en : http://www.color-hex.com/)</help>
         <label>Color de Fondo</label>
         <name>Background_Color__c</name>
     </fields>
     <fields>
+        <help>Liga hacia la imagen que será desplegada en el encabezado de la trayectoria</help>
         <label>Liga de Imagen de Fondo</label>
         <name>Background_Image_URL__c</name>
     </fields>
@@ -26,11 +29,13 @@
         <name>Description__c</name>
     </fields>
     <fields>
+        <help>Número que define la posición en la que será mostrada la trayectoria</help>
         <label>Orden</label>
         <name>Order__c</name>
     </fields>
     <fields>
         <label>Estado</label>
+        <help>Trayectorias en estado Borrador no serán desplegadas a los usuarios finales</help>
         <name>Status__c</name>
         <picklistValues>
             <masterLabel>Active</masterLabel>
@@ -42,8 +47,14 @@
         </picklistValues>
     </fields>
     <fields>
+        <help>Código de color Hex para el texto del encabezado (ej. #333333, más ejemplos en : http://www.color-hex.com/)</help>
         <label>Color de Texto</label>
         <name>Text_Color__c</name>
+    </fields>
+    <fields>
+        <help>Desplegar una etiqueta que indique que la trayectoria es Nueva hasta la fecha definida</help>
+        <label>Nuevo hasta</label>
+        <name>New_Until__c</name>
     </fields>
     <layouts>
         <layout>Training Track Layout</layout>

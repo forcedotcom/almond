@@ -227,6 +227,7 @@ public with sharing class LMSInit{
                     qz.Max_Attempts__c = getIntegerValue(lContent.get('max-attempts'),null);
                     qz.Description__c = getStringValue(lContent.get('description'),null);
                     qz.Learning__c = learnings.get(headerName).Id;
+                    qz.Delete_Responses_On_Submission__c = getBooleanValue(lContent.get('delete-responses-on-submission'),false);
                     quizzes.put(qz.Learning__c,qz);
                 }
             }
@@ -368,6 +369,8 @@ public with sharing class LMSInit{
                 a.Type__c = (String)achievementHeader.get('type');
                 a.Eligible_Image__c = getStringValue(achievementHeader.get('eligible-image'),'');
                 a.Acquired_Image__c = getStringValue(achievementHeader.get('acquired-image'),'');
+                a.Hidden__c = getBooleanValue(achievementHeader.get('hidden'),false);
+                a.Is_Internal__c = getBooleanValue(achievementHeader.get('is-internal'),false);
                 if(LMSUtils.getPackageNamespace() != ''){
                     String uiLibNS = LMSUtils.getPackageNamespace()+'almond_uilib';
                     a.Eligible_Image__c = a.Eligible_Image__c.replace('almond_uilib',uiLibNS);
@@ -520,6 +523,7 @@ public with sharing class LMSInit{
                     tk.Background_Image_URL__c = getStringValue(pHeader.get('background-image-url'),null);
                     tk.Text_Color__c = getStringValue(pHeader.get('text-color-url'),null);
                     tk.Background_Color__c = getStringValue(pHeader.get('background-color'),null);
+                    tk.Enable_all_external_accounts__c = getBooleanValue(pHeader.get('enable-all-external-accounts'),false);
                     String achievementName = addTimeStamp?(String)pHeader.get('achievement')+ts:(String)pHeader.get('achievement');
 
                     if(achievements.get(achievementName) != null){

@@ -28,6 +28,9 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 public with sharing class LMSUtils{
 
+    private static User userDetails;
+    private static SObject networkDetails;
+
     public static void addSuccessMessage(String message){
         ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.CONFIRM,message));
     }
@@ -124,4 +127,67 @@ public with sharing class LMSUtils{
         return SObjectType.Learning__c.Name.substringBefore('Learning__c');
     }
 
+    public static Id getUserAccountId(){
+        User u = getUserDetails();
+        return u.AccountId;
+    }
+
+    public static Boolean isPortalUser(){
+        User u = getUserDetails();
+        return u.AccountId != null;
+    }
+
+    public static User getUserDetails(){
+        if(userDetails == null || Test.isRunningTest() ){
+            userDetails = [select Id
+                                ,ContactId
+                                ,AccountId
+                                from User
+                                where id = :UserInfo.getUserId()];
+        }
+        return userDetails;
+    }
+
+    public static SObject getNetworkDetails(){
+        Id networkId = getCurrentNetworkId();
+        if(networkId == null){
+            return null;
+        }else{
+            if(networkDetails == null){
+                String soqlQuery = 'select Id,UrlPathPrefix from Network where Id = :networkId';
+                List<SObject> results = Database.query(soqlQuery);
+                networkDetails = results.get(0);
+            }
+        }
+        return networkDetails;
+    }
+
+    public static Id getCurrentNetworkId(){
+        return Network.getNetworkId();
+    }
+
+    public static String getCurrentNetworkURLPath(){
+        if(getCurrentNetworkId() == null){
+            return null;
+        }
+        SObject n = getNetworkDetails();
+        return ((String)n.get('UrlPathPrefix'));
+    }
+
+    public static String updateURLCommunityPath(String urlPath){
+        if(getCurrentNetworkId() != null){
+            String networkURLPath = getCurrentNetworkURLPath();
+            if(networkURLPath != null){
+                urlPath = '/'+getCurrentNetworkURLPath()+urlPath;
+            }
+        }
+        return urlPath;
+    }
+
+    public static String updateURLCommunityPath(String urlPath, String communityName){
+        if(communityName != null){
+            urlPath = '/'+communityName.toLowerCase()+urlPath;
+        }
+        return urlPath;
+    }
 }

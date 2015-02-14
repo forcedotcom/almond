@@ -42,6 +42,7 @@
         <name>Published__c</name>
     </fields>
     <fields>
+        <help><!-- Enable this checkbox if you plan to add this learning to multiple training plans and you would like to keep progress in sync between plans --></help>
         <label><!-- Sync progress across assignments --></label>
         <name>Sync_progress__c</name>
     </fields>

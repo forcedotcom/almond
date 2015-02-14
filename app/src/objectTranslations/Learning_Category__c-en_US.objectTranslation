@@ -33,6 +33,11 @@
         <label><!-- Order --></label>
         <name>Order__c</name>
     </fields>
+    <fields>
+        <help><!-- Help text --></help>
+        <label><!-- Is Internal --></label>
+        <name>Is_Internal__c</name>
+    </fields>
     <layouts>
         <layout>Learning Category Layout</layout>
         <sections>

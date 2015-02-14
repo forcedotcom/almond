@@ -61,7 +61,11 @@ public with sharing class LMSSettings {
     }
 
     public static String getBacktoSFUrl(){
-        return (String)getValue('Back_to_SF_URL__c','/home/home.jsp');
+        String defaultURL = '/home/home.jsp';
+        if(LMSUtils.getCurrentNetworkId() != null){
+            defaultURL = '/'+LMSUtils.getCurrentNetworkURLPath()+defaultURL;
+        }
+        return (String)getValue('Back_to_SF_URL__c',defaultURL);
     }
 
     public static Boolean getDisableCorrectResponseCheckbox(){
@@ -70,6 +74,18 @@ public with sharing class LMSSettings {
 
     public static Boolean getDisableFeedItemAuditFields(){
         return (Boolean)getValue('Disable_Feed_Item_Audit_Fields__c',false);
+    }
+
+    public static String getCustomHeaderName(){
+        return (String)getValue('Custom_Section_Name__c',null);
+    }
+
+    public static String getCustomHeaderURL(){
+        return (String)getValue('Custom_Section_URL__c',null);
+    }
+
+    public static Boolean getHideBackToSFButton(){
+        return (Boolean)getValue('Hide_Back_to_SF_Button__c',false);
     }
 
     private static Object getValue(String key, Object defaultValue){

@@ -26,7 +26,7 @@ OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISE
 OF THE POSSIBILITY OF SUCH DAMAGE.
 
 */
-public with sharing class TrainingPlanPreviewController{
+public with sharing class TrainingPlanPreviewController extends LMSBaseController{
 
     public TrainingPlan tPlan{get;private set;}
     public List<User> lUsersWithAchievement {get;private set;}
@@ -84,11 +84,11 @@ public with sharing class TrainingPlanPreviewController{
         redirectURL = null;
         try{
 
-            List<Training_Plan__c> selectedTPlans = LMSService.getTrainingPlans(new Set<Id>{trainingPlanId});
+            List<Training_Plan__c> selectedTPlans = LMSService.getTrainingPlans(new Set<Id>{trainingPlanId}, LMSUtils.isPortalUser());
 
             Training_Plan__c selectedPlan = selectedTPlans.get(0);
-            if(selectedPlan.Self_Registration_Access__c != 'Requires Approval' && LMSService.isPublicTrainingPlanAvailable(trainingPlanId,UserInfo.getUserId())){
-                LMSService.upsertAssignments(new Set<Id>{UserInfo.getUserId()}, trainingPlanId);
+            if(selectedPlan.Self_Registration_Access__c != 'Requires Approval' && LMSService.isPublicTrainingPlanAvailable(trainingPlanId,UserInfo.getUserId(), LMSUtils.isPortalUser())){
+                LMSService.upsertAssignments(new Set<Id>{UserInfo.getUserId()}, trainingPlanId, LMSUtils.getCurrentNetworkId());
             }else{
                 LMSUtils.addErrorMessage(System.Label.ALMS_Public_Plan_Assignment_Error);
                 return null;
@@ -106,8 +106,8 @@ public with sharing class TrainingPlanPreviewController{
 
     public PageReference fetchTrainingPlanInfo(){
         existingRequest = null;
-        List<Training_Plan__c> selectedTPlans= LMSService.getTrainingPlans(new Set<Id>{trainingPlanId});
-        List<Training_Plan_Access_Request__c> existingReqs = LMSService.fetchTrainingPlanAccessRequest(UserInfo.getUserId(),trainingPlanId,null);
+        List<Training_Plan__c> selectedTPlans= LMSService.getTrainingPlans(new Set<Id>{trainingPlanId}, LMSUtils.isPortalUser());
+        List<Training_Plan_Access_Request__c> existingReqs = LMSService.fetchTrainingPlanAccessRequest(UserInfo.getUserId(),trainingPlanId,null,LMSUtils.isPortalUser());
         if(existingReqs.size()>0){
             existingRequest = existingReqs.get(0);
         }
@@ -117,7 +117,7 @@ public with sharing class TrainingPlanPreviewController{
     public PageReference requestAccessForTrainingPlan(){
 
         try{
-            Training_Plan_Access_Request__c tpar = LMSService.createTrainingPlanAccessRequest(UserInfo.getUserId(),trainingPlanId,dummyRequest.Comments__c);
+            Training_Plan_Access_Request__c tpar = LMSService.createTrainingPlanAccessRequest(UserInfo.getUserId(),trainingPlanId,dummyRequest.Comments__c, LMSUtils.isPortalUser());
             dummyRequest = new Training_Plan_Access_Request__c();
             LMSUtils.addSuccessMessage(System.Label.ALMS_Public_Plan_Request_Submitted);
             return null;
@@ -128,7 +128,11 @@ public with sharing class TrainingPlanPreviewController{
     }
 
     private PageReference redirectToPlanDetailPage(){
-        PageReference ref = Page.TrainingPlanDetail;
+        String namespace = '';
+        if(LMSUtils.getPackageNamespace() != null){
+            namespace = LMSUtils.getPackageNamespace();
+        }
+        PageReference ref = new PageReference(LMSUtils.updateURLCommunityPath('/apex/'+namespace+'TrainingPlanDetail'));
         ref.getParameters().put('id',trainingPlanId);
         ref.setRedirect(true);
         return ref;

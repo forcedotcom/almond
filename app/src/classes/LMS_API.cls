@@ -30,6 +30,25 @@ global with sharing class LMS_API {
 
     global static void upsertAssignments(Set<Id> selectedUserIds, Id trainingPlanId){
 
+        checkAssignmentsPermissions();
+
+        if(trainingPlanId != null && selectedUserIds.size() >0){
+            LMSService.upsertAssignments(selectedUserIds,trainingPlanId,null);
+        }
+
+    }
+
+    global static void upsertAssignmentsForCommunity(Set<Id> selectedUserIds, Id trainingPlanId, Id communityId){
+
+        checkAssignmentsPermissions();
+
+        if(trainingPlanId != null && selectedUserIds.size() >0){
+            LMSService.upsertAssignments(selectedUserIds,trainingPlanId,communityId);
+        }
+
+    }
+
+    private static void checkAssignmentsPermissions(){
         //BEGIN Access Check
         Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
         relatedFieldsObjects.put(Learning_Assignment__c.sObjectType,new List<String>{
@@ -43,11 +62,6 @@ global with sharing class LMS_API {
         LMS_ESAPI.isAuthorizedToCreate(relatedFieldsObjects);
         LMS_ESAPI.isAuthorizedToUpdate(relatedFieldsObjects);
         //END Access Check
-
-        if(trainingPlanId != null && selectedUserIds.size() >0){
-            LMSService.upsertAssignments(selectedUserIds,trainingPlanId);
-        }
-
     }
 
     global static void importJSON(String jsonData, Boolean addTimeStamps){

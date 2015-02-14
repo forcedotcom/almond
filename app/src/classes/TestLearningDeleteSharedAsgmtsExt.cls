@@ -32,17 +32,17 @@ public class TestLearningDeleteSharedAsgmtsExt {
     static testMethod void testSharedAssignmentsCleanup(){
 
         //create learning
-		//Create admin users
-		List<User> adminUsers = TestUtilClass.createUsers(1,'System Administrator');
-		List<User> lmsUsers = TestUtilClass.createUsers(5,'Standard User');
+        //Create admin users
+        List<User> adminUsers = TestUtilClass.createUsers(1,'System Administrator');
+        List<User> lmsUsers = TestUtilClass.createUsers(5,'Standard User');
 
-		System.runAs(adminUsers.get(0)){
-			//Assign corresponding perm sets
-			TestUtilClass.addPermissionSet(adminUsers,'LMS_Admin');
-			TestUtilClass.addPermissionSet(lmsUsers,'LMS_User');
-		}
+        System.runAs(adminUsers.get(0)){
+            //Assign corresponding perm sets
+            TestUtilClass.addPermissionSet(adminUsers,'LMS_Admin');
+            TestUtilClass.addPermissionSet(lmsUsers,'LMS_User');
+        }
 
-		TestTrainingPlanData.createSampleData();
+        TestTrainingPlanData.createSampleData();
 
         List<Learning__c> taskLearnings = [select id,Sync_progress__c from Learning__c where RecordType.DeveloperName = 'Task'];
         System.assert(taskLearnings.size()>0);
@@ -51,18 +51,18 @@ public class TestLearningDeleteSharedAsgmtsExt {
         update sampleSharedTask;
 
 
-		List<Training_Plan__c> tplan = [select id from Training_Plan__c];
-		System.assertEquals(1,tplan.size());
-		Id tplanId = tplan.get(0).Id;
-		Set<Id> selectedUserIds = new Set<Id>();
+        List<Training_Plan__c> tplan = [select id from Training_Plan__c];
+        System.assertEquals(1,tplan.size());
+        Id tplanId = tplan.get(0).Id;
+        Set<Id> selectedUserIds = new Set<Id>();
 
-		for(User u : lmsUsers){
-			selectedUserIds.add(u.Id);
-		}
+        for(User u : lmsUsers){
+            selectedUserIds.add(u.Id);
+        }
 
-		System.runAs(adminUsers.get(0)){
-			LMSService.upsertAssignments(selectedUserIds,tplanId);
-		}
+        System.runAs(adminUsers.get(0)){
+            LMSService.upsertAssignments(selectedUserIds,tplanId,null);
+        }
 
         List<Learning_Assignment__c> las = [select id,Shared_Learning_Assignment__c,User__c from Learning_Assignment__c];
 
@@ -79,15 +79,15 @@ public class TestLearningDeleteSharedAsgmtsExt {
 
         System.assertEquals(5,getSharedAssignmentsCount(sampleSharedTask.Id));
 
-		Test.startTest();
+        Test.startTest();
 
-			System.runAs(adminUsers.get(0)){
+            System.runAs(adminUsers.get(0)){
 
                 LearningDeleteSharedAssignmentsExt cont = new LearningDeleteSharedAssignmentsExt(new ApexPages.StandardController(sampleSharedTask));
                 cont.deleteUnusuedSharedAssignments();
-			}
+            }
 
-		Test.stopTest();
+        Test.stopTest();
 
         System.assertEquals(4,getSharedAssignmentsCount(sampleSharedTask.Id));
 

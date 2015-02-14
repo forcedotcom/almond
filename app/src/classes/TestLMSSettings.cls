@@ -47,6 +47,10 @@ private class TestLMSSettings {
             System.assert(disableFutureProgressCalcs == false);
             String backToSFURL = LMSSettings.getBacktoSFUrl();
             System.assert(backToSFURL != null);
+            String customHeaderName = LMSSettings.getCustomHeaderName();
+            System.assert(customHeaderName == null);
+            String customHeaderURL = LMSSettings.getCustomHeaderURL();
+            System.assert(customHeaderURL == null);
         Test.stopTest();
     }
 
@@ -70,6 +74,10 @@ private class TestLMSSettings {
           System.assert(disableFutureProgressCalcs == true);
           String backToSFURL = LMSSettings.getBacktoSFUrl();
           System.assert(backToSFURL != null);
+          String customHeaderName = LMSSettings.getCustomHeaderName();
+          System.assert(customHeaderName != null);
+          String customHeaderURL = LMSSettings.getCustomHeaderURL();
+          System.assert(customHeaderURL != null);
         Test.stopTest();
     }
 
@@ -83,6 +91,8 @@ private class TestLMSSettings {
         cs.Disable_Track_Achievements__c = true;
         cs.Disable_Future_Progress_Calculation__c = true;
         cs.Back_to_SF_URL__c = '/apex/somepage';
+        cs.Custom_Section_Name__c = 'Home';
+        cs.Custom_Section_URL__c = 'https://instance.salesforce.com/apex/home';
         insert cs;
     }
 

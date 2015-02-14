@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Training Plan Account</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Training Plan Accounts</value>
+    </caseValues>
+    <fields>
+        <label><!-- Account --></label>
+        <name>Account__c</name>
+        <relationshipLabel><!-- Training Plan Accounts --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- Training Plan --></label>
+        <name>Training_Plan__c</name>
+        <relationshipLabel><!-- Training Plan Accounts --></relationshipLabel>
+    </fields>
+    <layouts>
+        <layout>Training Plan Account Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <startsWith>Consonant</startsWith>
+</CustomObjectTranslation>

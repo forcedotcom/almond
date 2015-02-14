@@ -87,6 +87,7 @@ public with sharing class TrainingPlansHelper {
 
                 //Delete existing shares for deletions
                 if(publicSharingDeletions.size()>0){
+                    //No need to query without sharing here as it's only executed by admins
                     List<Training_Plan__Share> existingShares = [SELECT Id
                                                                         FROM Training_Plan__Share
                                                                         WHERE ParentId in :publicSharingDeletions
@@ -103,7 +104,7 @@ public with sharing class TrainingPlansHelper {
 
     }
 
-    public without sharing class WithoutSharingOps{
+    private without sharing class WithoutSharingOps{
         //We need to insert custom apex shares in the without sharing context to avoid granting MAD permissions for LMS Admins
         public void insertTPlanSharesWOS(List<Training_Plan__Share> newShares){
             insert newShares;

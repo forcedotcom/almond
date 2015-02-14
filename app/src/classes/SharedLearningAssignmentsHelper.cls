@@ -80,7 +80,7 @@ public with sharing class SharedLearningAssignmentsHelper{
         wosHelper.doRelatedAssigmentsUpdateWOS(sharedAssignmentIds);
     }
 
-    public without sharing class WithoutSharingOps{
+    private without sharing class WithoutSharingOps{
 
         // We need to execute this without sharing as the running user may not have access to other learning assignments
         // For example, an approver is updating a learning assignment and this causes a progress recalculation

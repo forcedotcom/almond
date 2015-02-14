@@ -33,6 +33,11 @@
         <label>Orden</label>
         <name>Order__c</name>
     </fields>
+    <fields>
+        <help>Habilitar esta opción para esconder esta Categoría de los usuarios externos</help>
+        <label>Categoría Interna</label>
+        <name>Is_Internal__c</name>
+    </fields>
     <layouts>
         <layout>Learning Category Layout</layout>
         <sections>

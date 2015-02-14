@@ -29,36 +29,36 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 @isTest
 private class TestTPlanAssignmentExtensionExisting{
 
-	static testmethod void testUpdate(){
+    static testmethod void testUpdate(){
 
-		//Create admin users
-		List<User> adminUsers = TestUtilClass.createUsers(2,'System Administrator');
-		List<User> lmsUsers = TestUtilClass.createUsers(5,'Standard User');
+        //Create admin users
+        List<User> adminUsers = TestUtilClass.createUsers(2,'System Administrator');
+        List<User> lmsUsers = TestUtilClass.createUsers(5,'Standard User');
 
-		System.runAs(adminUsers.get(0)){
-			//Assign corresponding perm sets
-			TestUtilClass.addPermissionSet(adminUsers,'LMS_Admin');
-			TestUtilClass.addPermissionSet(lmsUsers,'LMS_User');
-		}
+        System.runAs(adminUsers.get(0)){
+            //Assign corresponding perm sets
+            TestUtilClass.addPermissionSet(adminUsers,'LMS_Admin');
+            TestUtilClass.addPermissionSet(lmsUsers,'LMS_User');
+        }
 
-		TestTrainingPlanData.createSampleData();
+        TestTrainingPlanData.createSampleData();
 
-		List<Training_Plan__c> tplans = [select id from Training_Plan__c];
-		System.assertEquals(1,tplans.size());
-		Training_Plan__c tplan  = tplans.get(0);
-		Set<Id> selectedUserIds = new Set<Id>();
-		for(User u : lmsUsers){
-			selectedUserIds.add(u.Id);
-		}
+        List<Training_Plan__c> tplans = [select id from Training_Plan__c];
+        System.assertEquals(1,tplans.size());
+        Training_Plan__c tplan  = tplans.get(0);
+        Set<Id> selectedUserIds = new Set<Id>();
+        for(User u : lmsUsers){
+            selectedUserIds.add(u.Id);
+        }
 
-		//Test Insert
+        //Test Insert
         PageReference testPageRef = Page.TrainingPlanAssignmentExisting;
         Test.setCurrentPageReference(testPageRef);
-		Test.startTest();
+        Test.startTest();
 
-			System.runAs(adminUsers.get(0)){
+            System.runAs(adminUsers.get(0)){
 
-				LMSService.upsertAssignments(selectedUserIds,tplan.Id);
+                LMSService.upsertAssignments(selectedUserIds,tplan.Id,null);
 
                 TrainingPlanAssignmentExtensionExisting cont = new TrainingPlanAssignmentExtensionExisting(new ApexPages.StandardController(tplan));
 
@@ -76,43 +76,43 @@ private class TestTPlanAssignmentExtensionExisting{
                 PageReference ref = cont.updateAssignments();
 
                 System.assertEquals(5,currentRows.size());
-			}
+            }
 
 
-		Test.stopTest();
+        Test.stopTest();
 
-	}
+    }
 
-	static testmethod void testDelete(){
+    static testmethod void testDelete(){
 
-		//Create admin users
-		List<User> adminUsers = TestUtilClass.createUsers(2,'System Administrator');
-		List<User> lmsUsers = TestUtilClass.createUsers(5,'Standard User');
+        //Create admin users
+        List<User> adminUsers = TestUtilClass.createUsers(2,'System Administrator');
+        List<User> lmsUsers = TestUtilClass.createUsers(5,'Standard User');
 
-		System.runAs(adminUsers.get(0)){
-			//Assign corresponding perm sets
-			TestUtilClass.addPermissionSet(adminUsers,'LMS_Admin');
-			TestUtilClass.addPermissionSet(lmsUsers,'LMS_User');
-		}
+        System.runAs(adminUsers.get(0)){
+            //Assign corresponding perm sets
+            TestUtilClass.addPermissionSet(adminUsers,'LMS_Admin');
+            TestUtilClass.addPermissionSet(lmsUsers,'LMS_User');
+        }
 
-		TestTrainingPlanData.createSampleData();
+        TestTrainingPlanData.createSampleData();
 
-		List<Training_Plan__c> tplans = [select id from Training_Plan__c];
-		System.assertEquals(1,tplans.size());
-		Training_Plan__c tplan  = tplans.get(0);
-		Set<Id> selectedUserIds = new Set<Id>();
-		for(User u : lmsUsers){
-			selectedUserIds.add(u.Id);
-		}
+        List<Training_Plan__c> tplans = [select id from Training_Plan__c];
+        System.assertEquals(1,tplans.size());
+        Training_Plan__c tplan  = tplans.get(0);
+        Set<Id> selectedUserIds = new Set<Id>();
+        for(User u : lmsUsers){
+            selectedUserIds.add(u.Id);
+        }
 
-		//Test Insert
+        //Test Insert
         PageReference testPageRef = Page.TrainingPlanAssignmentExisting;
         Test.setCurrentPageReference(testPageRef);
-		Test.startTest();
+        Test.startTest();
 
-			System.runAs(adminUsers.get(0)){
+            System.runAs(adminUsers.get(0)){
 
-				LMSService.upsertAssignments(selectedUserIds,tplan.Id);
+                LMSService.upsertAssignments(selectedUserIds,tplan.Id,null);
 
                 TrainingPlanAssignmentExtensionExisting cont = new TrainingPlanAssignmentExtensionExisting(new ApexPages.StandardController(tplan));
                 List<TrainingPlanAssignmentExtensionExisting.TPlanAssignmentWrapper> currentRows = cont.rows;
@@ -123,43 +123,43 @@ private class TestTPlanAssignmentExtensionExisting{
                 PageReference ref = cont.deleteAssignments();
                 currentRows = cont.rows;
                 System.assertEquals(0,currentRows.size());
-			}
+            }
 
 
-		Test.stopTest();
+        Test.stopTest();
 
-	}
+    }
 
-	static testmethod void testPagination(){
+    static testmethod void testPagination(){
 
-		//Create admin users
-		List<User> adminUsers = TestUtilClass.createUsers(2,'System Administrator');
-		List<User> lmsUsers = TestUtilClass.createUsers(10,'Standard User');
+        //Create admin users
+        List<User> adminUsers = TestUtilClass.createUsers(2,'System Administrator');
+        List<User> lmsUsers = TestUtilClass.createUsers(10,'Standard User');
 
-		System.runAs(adminUsers.get(0)){
-			//Assign corresponding perm sets
-			TestUtilClass.addPermissionSet(adminUsers,'LMS_Admin');
-			TestUtilClass.addPermissionSet(lmsUsers,'LMS_User');
-		}
+        System.runAs(adminUsers.get(0)){
+            //Assign corresponding perm sets
+            TestUtilClass.addPermissionSet(adminUsers,'LMS_Admin');
+            TestUtilClass.addPermissionSet(lmsUsers,'LMS_User');
+        }
 
-		TestTrainingPlanData.createSampleData();
+        TestTrainingPlanData.createSampleData();
 
-		List<Training_Plan__c> tplans = [select id from Training_Plan__c];
-		System.assertEquals(1,tplans.size());
-		Training_Plan__c tplan  = tplans.get(0);
-		Set<Id> selectedUserIds = new Set<Id>();
-		for(User u : lmsUsers){
-			selectedUserIds.add(u.Id);
-		}
+        List<Training_Plan__c> tplans = [select id from Training_Plan__c];
+        System.assertEquals(1,tplans.size());
+        Training_Plan__c tplan  = tplans.get(0);
+        Set<Id> selectedUserIds = new Set<Id>();
+        for(User u : lmsUsers){
+            selectedUserIds.add(u.Id);
+        }
 
-		//Test Insert
+        //Test Insert
         PageReference testPageRef = Page.TrainingPlanAssignmentExisting;
         Test.setCurrentPageReference(testPageRef);
-		Test.startTest();
+        Test.startTest();
 
-			System.runAs(adminUsers.get(0)){
+            System.runAs(adminUsers.get(0)){
 
-				LMSService.upsertAssignments(selectedUserIds,tplan.Id);
+                LMSService.upsertAssignments(selectedUserIds,tplan.Id,null);
 
                 TrainingPlanAssignmentExtensionExisting cont = new TrainingPlanAssignmentExtensionExisting(new ApexPages.StandardController(tplan));
                 cont.setCon.setPageSize(5);
@@ -179,10 +179,10 @@ private class TestTPlanAssignmentExtensionExisting{
                 System.assertEquals(1,cont.getPageNumber());
                 System.assertEquals(2,cont.getTotalPages());
 
-			}
+            }
 
 
-		Test.stopTest();
+        Test.stopTest();
 
-	}
+    }
 }

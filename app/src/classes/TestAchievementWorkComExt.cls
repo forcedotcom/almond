@@ -31,12 +31,12 @@ private class TestAchievementWorkComExt{
 
     static testMethod void testAddingNewBadge(){
 
-		List<Achievement_Category__c> lAchieveCat = TestAchievementData.createAchievementCategories(1);
-		List<Achievement__c> lAchievement = TestAchievementData.createAchievements(1, lAchieveCat.get(0).Id, 'Achievements');
+        List<Achievement_Category__c> lAchieveCat = TestAchievementData.createAchievementCategories(1);
+        List<Achievement__c> lAchievement = TestAchievementData.createAchievements(1, lAchieveCat.get(0).Id, 'Achievements');
         List<WorkBadgeDefinition> lWorkBadges = TestAchievementData.createWorkBadges(10);
 
-		PageReference pageRef = Page.AchievementWorkCom;
-		Test.setCurrentPage(pageRef);
+        PageReference pageRef = Page.AchievementWorkCom;
+        Test.setCurrentPage(pageRef);
         Test.startTest();
 
             //Grab the first achievement

@@ -52,6 +52,7 @@
     <enableReports>true</enableReports>
     <fields>
         <fullName>Add_training_parameters_to_URL__c</fullName>
+        <inlineHelpText>Enabling this option will pass context parameters to the Resource URL. (e.g. https://someurl.com/?aid=ASSIGNMENT_ID&amp;tid=TPLAN_ID)</inlineHelpText>
         <defaultValue>false</defaultValue>
         <externalId>false</externalId>
         <label>Add training parameters to URL</label>
@@ -70,6 +71,7 @@
     </fields>
     <fields>
         <fullName>Display_in_Iframe__c</fullName>
+        <inlineHelpText>Enabling this option will load the Resource URL within an iframe instead of a new window</inlineHelpText>
         <defaultValue>false</defaultValue>
         <externalId>false</externalId>
         <label>Display in Iframe</label>
@@ -93,6 +95,7 @@
     </fields>
     <fields>
         <fullName>Prevent_completion_on_launch__c</fullName>
+        <inlineHelpText>Learnings of type &quot;Resource&quot; are marked as completed on launch by default, enable this option if you want to delegate the completion to the Resource URL</inlineHelpText>
         <defaultValue>false</defaultValue>
         <externalId>false</externalId>
         <label>Delegate assignment completion</label>
@@ -102,6 +105,7 @@
     </fields>
     <fields>
         <fullName>Resource_URL__c</fullName>
+        <inlineHelpText>URL of the learning resource you would like to use for this learning (e.g. https://someurl.com)</inlineHelpText>
         <externalId>false</externalId>
         <label>Resource URL</label>
         <required>false</required>

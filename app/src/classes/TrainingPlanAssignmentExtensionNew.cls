@@ -95,7 +95,9 @@ public with sharing class TrainingPlanAssignmentExtensionNew{
             for(Training_Plan_Assignment__c tpa : [select id
                                                         ,User__c
                                                         from Training_Plan_Assignment__c
-                                                        where Training_Plan__c = :trainingPlanId]){
+                                                        where Training_Plan__c = :trainingPlanId
+                                                        and User__r.UserType IN ('Standard','CsnOnly')
+                                                        LIMIT 10000]){
                 existingUserIds.add(tpa.User__c);
             }
         }
@@ -193,7 +195,7 @@ public with sharing class TrainingPlanAssignmentExtensionNew{
             }
 
             if(trainingPlanId != null && selectedUserIds.size() >0){
-                LMSService.upsertAssignments(selectedUserIds,trainingPlanId);
+                LMSService.upsertAssignments(selectedUserIds,trainingPlanId,null);
             }
         }catch(Exception e){
             LMSUtils.logException(e,'TrainingPlanAssignmentExtensionNew');

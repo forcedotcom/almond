@@ -31,15 +31,15 @@ private class TestTrainingTrackDetailCtrl{
 
     static testMethod void testSharedTrackDetail(){
 
-		//Create admin users
-		List<User> adminUsers = TestUtilClass.createUsers(2,'System Administrator');
-		List<User> lmsUsers = TestUtilClass.createUsers(5,'Standard User');
+        //Create admin users
+        List<User> adminUsers = TestUtilClass.createUsers(2,'System Administrator');
+        List<User> lmsUsers = TestUtilClass.createUsers(5,'Standard User');
 
-		System.runAs(adminUsers.get(0)){
-			//Assign corresponding perm sets
-			TestUtilClass.addPermissionSet(adminUsers,'LMS_Admin');
-			TestUtilClass.addPermissionSet(lmsUsers,'LMS_User');
-		}
+        System.runAs(adminUsers.get(0)){
+            //Assign corresponding perm sets
+            TestUtilClass.addPermissionSet(adminUsers,'LMS_Admin');
+            TestUtilClass.addPermissionSet(lmsUsers,'LMS_User');
+        }
 
         TestTrainingTrackData.createSampleData();
 
@@ -63,9 +63,9 @@ private class TestTrainingTrackDetailCtrl{
 
         Test.startTest();
 
-			PageReference pageRef = Page.TrainingTrackDetail;
-			Test.setCurrentPage(pageRef);
-			pageRef.getParameters().put('id', tracks.get(0).Id);
+            PageReference pageRef = Page.TrainingTrackDetail;
+            Test.setCurrentPage(pageRef);
+            pageRef.getParameters().put('id', tracks.get(0).Id);
 
             System.runAs(lmsUsers.get(0)){
                 TrainingTrackDetailCtrl cont = new TrainingTrackDetailCtrl();

@@ -26,7 +26,7 @@ OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISE
 OF THE POSSIBILITY OF SUCH DAMAGE.
 
 */
-public with sharing class TrainingPlansSearchController {
+public with sharing class TrainingPlansSearchController extends LMSBaseController{
 
     @TestVisible
     private ApexPages.StandardSetController setCon;
@@ -57,17 +57,24 @@ public with sharing class TrainingPlansSearchController {
             if(searchTerm != null && !String.isBlank(searchTerm) && searchTerm.trim().length() > 2){
                 System.debug('serchTerm ' +searchTerm);
                 searchTerm = '%'+searchTerm+'%';
-                this.setCon= new ApexPages.StandardSetController(Database.getQueryLocator(
-                    [SELECT Id
-                            ,Name
-                            ,Description__c
-                            ,Enable_Self_Registration__c
-                            ,Self_Registration_Access__c
-                            FROM Training_Plan__c
-                            WHERE Name LIKE :searchTerm
-                            ORDER BY CreatedDate desc
-                            LIMIT 200]
-                ));
+
+                if(LMSUtils.isPortalUser()){
+                    TrainingPlansSearchController.WithoutSharingOps wsops = new TrainingPlansSearchController.WithoutSharingOps();
+                    this.setCon = wsops.getSetCon(searchTerm);
+                }else{
+                    this.setCon= new ApexPages.StandardSetController(Database.getQueryLocator(
+                        [SELECT Id
+                                ,Name
+                                ,Description__c
+                                ,Enable_Self_Registration__c
+                                ,Self_Registration_Access__c
+                                ,New_Until__c
+                                FROM Training_Plan__c
+                                WHERE Name LIKE :searchTerm
+                                ORDER BY CreatedDate desc
+                                LIMIT 200]
+                    ));
+                }
                 this.setCon.setpageNumber(1);
                 this.setCon.setPageSize(10);
             }else{
@@ -158,6 +165,28 @@ public with sharing class TrainingPlansSearchController {
 
         return tPlans;
 
+    }
+
+    private without sharing class WithoutSharingOps{
+        public ApexPages.StandardSetController getSetCon(String searchTerm){
+            LMSCommunitiesService.WithoutSharingOps wsops = new LMSCommunitiesService.WithoutSharingOps();
+            Set<Id> accountTPlanIds = wsops.getTrainingPlanIdsForAccount(LMSUtils.getUserAccountId());
+            ApexPages.StandardSetController setCon = new ApexPages.StandardSetController(Database.getQueryLocator([SELECT Id
+                            ,Name
+                            ,Description__c
+                            ,Enable_Self_Registration__c
+                            ,Self_Registration_Access__c
+                            ,New_Until__c
+                            FROM Training_Plan__c
+                            WHERE Name LIKE :searchTerm
+                            AND (Self_Registration_Access__c = :LMSConstants.TPLAN_PUBLIC_EXTERNAL
+                              OR id in :accountTPlanIds
+                            )
+                            ORDER BY CreatedDate desc
+                            LIMIT 200]
+            ));
+            return setCon;
+        }
     }
 
 }

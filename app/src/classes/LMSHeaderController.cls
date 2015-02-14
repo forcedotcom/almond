@@ -36,6 +36,9 @@ public with sharing class LMSHeaderController {
     public transient String textColor {get; private set;}
     public transient String textHoverColor {get; private set;}
     public transient String backToSFURL {get; private set;}
+    public transient String customSectionName {get; private set;}
+    public transient String customSectionURL {get; private set;}
+    public transient Boolean hideBackToSFButton {get;private set;}
 
     public LMSHeaderController(){
         loggedUsername = UserInfo.getName();
@@ -48,6 +51,9 @@ public with sharing class LMSHeaderController {
 
         String pageURL = ApexPages.currentPage().getUrl().toLowerCase();
 
+        customSectionName = LMSSettings.getCustomHeaderName();
+        customSectionURL = LMSSettings.getCustomHeaderURL();
+
         if(pageURL.contains('mytraining') || pageURL.contains('trainingplandetail')){
             section = 'mytraining';
         }else if(pageURL.contains('myprofile') || (pageURL.contains('achievementsusersearch'))){
@@ -56,6 +62,8 @@ public with sharing class LMSHeaderController {
             section = 'catalog';
         }else if(pageURL.contains('trainingtracks') || pageURL.contains('trainingtrackdetail')){
             section = 'tracks';
+        }else if(customSectionName != null && pageURL.contains(customSectionName)){
+            section = 'custom';
         }
 
         customLogo = LMSSettings.getCustomLogo();
@@ -63,6 +71,7 @@ public with sharing class LMSHeaderController {
         textColor = LMSSettings.getHeaderTextColor();
         textHoverColor = LMSSettings.getHeaderTextHoverColor();
         backToSFURL = LMSSettings.getBacktoSFUrl();
+        hideBackToSFButton = LMSSettings.getHideBackToSFButton();
 
     }
 

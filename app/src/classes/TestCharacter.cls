@@ -38,14 +38,14 @@
 @isTest
 private class TestCharacter {
     static testMethod void testCharacter1() {
-    	SFDCCharacter ch = new SFDCCharacter('a');
-    	String errStr;
-    	try {
-    		ch.updateVal('©');
-    		System.assert(false, 'Should never get here');
-    	} catch (SFDCCharacter.SFDCInvalidCharacterException e) {
-    		// should fail - so all good
-    		errStr = e.getMessage();
-    	}
+        SFDCCharacter ch = new SFDCCharacter('a');
+        String errStr;
+        try {
+            ch.updateVal('©');
+            System.assert(false, 'Should never get here');
+        } catch (SFDCCharacter.SFDCInvalidCharacterException e) {
+            // should fail - so all good
+            errStr = e.getMessage();
+        }
     }
 }

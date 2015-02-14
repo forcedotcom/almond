@@ -26,7 +26,7 @@ OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISE
 OF THE POSSIBILITY OF SUCH DAMAGE.
 
 */
-public with sharing class QuizViewerController{
+public with sharing class QuizViewerController extends LMSBaseController{
 
     public Quiz__c quiz{get;set;}
     public Question_Line__c questionLine{get; private set;}
@@ -36,6 +36,7 @@ public with sharing class QuizViewerController{
     public Integer totalPages{get; private set;}
     public Integer progress{get; private set;}
     public Learning_Assignment__c assignment {get;private set;}
+    private Learning_Version__c learningVersion;
 
     private List<Id> qlNavigation = new List<Id>();
     private Map<Id,Response__c> responseMap = new Map<Id, Response__c>();
@@ -79,71 +80,25 @@ public with sharing class QuizViewerController{
 
         try{
 
-            //BEGIN Access Check
-            // Note: we're excluding the following fields from the FLS check since some installations may want to remove view permissions
-            // Learning Assignment : 'Evaluation_Score__c','Evaluation_Result__c','Evaluation_Times_Taken__c'
-            // Quiz : 'Passing_Score__c','Total_Questions__c','Max_Attempts__c'
-            Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
-            relatedFieldsObjects.put(Learning_Assignment__c.sObjectType,new List<String>{
-                'Id'
-                ,'User__c'
-                ,'Learning__c'
-                ,'Learning_Version__c'
-                ,'Progress__c'
-                ,'Progress_Percentage__c'
-                ,'Training_Plan__c'
-                ,'Shared_Learning_Assignment__c'
-            });
-            relatedFieldsObjects.put(Learning__c.sObjectType,new List<String>{
-                'Description__c'
-            });
-            relatedFieldsObjects.put(Quiz__c.sObjectType,new List<String>{
-                'Id'
-                ,'Name'
-                ,'Description__c'
-                ,'Total_Questions__c'
-            });
-            LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
-            //END Access Check
-
             if(String.isNotBlank(aid)){
 
-                assignment = [select id
-                                    ,User__c
-                                    ,Contact__c
-                                    ,Name
-                                    ,Learning__c
-                                    ,Learning__r.Description__c
-                                    ,Learning_Version__c
-                                    ,Learning_Version__r.Quiz__c
-                                    ,Learning_Version__r.Quiz__r.Id
-                                    ,Learning_Version__r.Quiz__r.Name
-                                    ,Learning_Version__r.Quiz__r.Description__c
-                                    ,Learning_Version__r.Quiz__r.Passing_Score__c
-                                    ,Learning_Version__r.Quiz__r.Total_Questions__c
-                                    ,Learning_Version__r.Quiz__r.Max_Attempts__c
-                                    ,Progress__c
-                                    ,Progress_Percentage__c
-                                    ,Evaluation_Result__c
-                                    ,Evaluation_Score__c
-                                    ,Evaluation_Times_Taken__c
-                                    ,Training_Plan__c
-                                    ,Shared_Learning_Assignment__c
-                                    from Learning_Assignment__c
-                                    where id = :aid];
+                assignment = LMSService.getLearningAssignmentDetails(aid,UserInfo.getUserId());
+                LMSService.WithoutSharingOps wsops = new LMSService.WithoutSharingOps();
+                learningVersion = wsops.getLearningVersionDetails(assignment.Learning_Version__c,'Quiz');
+                Learning__c assignmentLearning = wsops.getLearningDetails(assignment.Learning__c);
 
-                if(assignment.Learning_Version__r.Quiz__c == null){
+                if(learningVersion.Quiz__c == null){
                     LMSUtils.addErrorMessage(System.Label.ALMS_Invalid_Assignment_Id);
                     return;
                 }else{
-                    quiz = assignment.Learning_Version__r.Quiz__r;
+                    quiz = learningVersion.Quiz__r;
                     if(quiz.Description__c == null){
-                        quiz.Description__c = assignment.Learning__r.Description__c;
+                        quiz.Description__c = assignmentLearning.Description__c;
                     }
                 }
 
                 //Fetch quiz question lines
-                List<Question_Line__c> questionLines = fetchQuizQuestionLines(quiz.Id);
+                List<Question_Line__c> questionLines = wsops.getQuizQuestionLines(quiz.Id);
 
                 //Set default start question if no question line parameter is present
                 String ql = Apexpages.currentPage().getParameters().get('ql') ;
@@ -180,30 +135,13 @@ public with sharing class QuizViewerController{
         showBackNoSaveMessage = false;
         try{
 
-            //BEGIN Access Check
-            Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
-            relatedFieldsObjects.put(Question_Line__c.sObjectType,new List<String>{
-                'Id'
-                ,'Name'
-                ,'Order__c'
-                ,'Description__c'
-            });
-            LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
-            //END Access Check
+            LMSService.WithoutSharingOps wsops = new LMSService.WithoutSharingOps();
 
             //Retrieve question line information
-            questionLine = [select Id
-                                ,Name
-                                ,Quiz__c
-                                ,Quiz__r.Name
-                                ,Order__c
-                                ,Description__c
-                                from Question_Line__c
-                                where id =:questionLine.Id
-                                and Quiz__c = :quiz.Id limit 1];
+            questionLine = wsops.getQuestionLineDetails(quiz.Id,questionLine.Id);
 
             //Retrieve questions for the current question line
-            List<Question__c> questions = fetchQuestionsForQuestionLine(questionLine.Id);
+            List<Question__c> questions = wsops.getQuestionsForQuestionLine(questionLine.Id);
 
             //Collect Answer Sequence Ids for the current questions
             Set<Id> answerSequenceIDs = new Set<Id>();
@@ -214,16 +152,13 @@ public with sharing class QuizViewerController{
             }
 
             //Retrieve info for related answer sequences
-            LMSService.WithoutSharingOps wsops = new LMSService.WithoutSharingOps();
             Map<Id,Answer_Sequence__c> answerSequencesMap = wsops.fetchAnswerSequences(answerSequenceIDs);
 
             // prepare the final list that will drive the page
             quizItemList.clear();
 
-
             //Fetch existing responses
             responseMap = fetchExistingResponses(assignment.Id,assignment.Shared_Learning_Assignment__c,questionLine.Id,null);
-
 
             //Initialize wrapper list and set values for new responses
             for (Question__c q : questions) {
@@ -302,39 +237,23 @@ public with sharing class QuizViewerController{
 
         try {
 
-            //BEGIN Access Check
-            Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
-            relatedFieldsObjects.put(Question_Line__c.sObjectType,new List<String>{
-                'Id'
-                ,'Name'
-                ,'Order__c'
-                ,'Quiz__c'
-            });
-            LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
-            //END Access Check
+            LMSService.WithoutSharingOps wsops = new LMSService.WithoutSharingOps();
 
             saveResponses(true);
 
+            List<Question_Line__c> orderedQuestionLines = wsops.getQuizOrderedQuestionLines(quiz.Id,questionLine.Id,questionLine.Order__c);
+
             //Fetch next question lines and define the next page
-            for (Question_Line__c ql : [select id
-                                            ,Name
-                                            ,Order__c
-                                            ,Quiz__c
-                                            from Question_Line__c
-                                            where Order__c >= :questionLine.Order__c
-                                            and Quiz__c = :quiz.Id
-                                            and id != :questionLine.Id
-                                            order by Order__c asc,CreatedDate asc]) {
+            for (Question_Line__c ql : orderedQuestionLines) {
 
+                //Store the question we came from in navigation list
+                if ( questionLine != null ) {
+                    qlNavigation.add(questionLine.Id);
+                }
 
-                    //Store the question we came from in navigation list
-                    if ( questionLine != null ) {
-                        qlNavigation.add(questionLine.Id);
-                    }
-
-                    questionLine = ql;
-                    PageReference ref = Page.QuizViewer;
-                    return ref;
+                questionLine = ql;
+                PageReference ref = Page.QuizViewer;
+                return ref;
 
             }
 
@@ -373,6 +292,14 @@ public with sharing class QuizViewerController{
     //Redirect to results page
     public PageReference redirectToResultsPage() {
         PageReference ret = Page.QuizResults;
+        String networkName = LMSUtils.getCurrentNetworkURLPath();
+        String namespace = '';
+        if(LMSUtils.getPackageNamespace() != null){
+            namespace = LMSUtils.getPackageNamespace();
+        }
+        if(networkName != null){
+            ret = new PageReference('/'+networkName+'/apex/'+namespace+'QuizResults');
+        }
         ret.setRedirect( true );
         ret.getParameters().put('aid',Apexpages.currentPage().getParameters().get('aid') );
 
@@ -384,18 +311,6 @@ public with sharing class QuizViewerController{
 
     //Save the responses captured in the current questionline
     public PageReference saveResponses(Boolean updateProgress) {
-
-        //BEGIN Access Check
-        Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
-        relatedFieldsObjects.put(Response__c.sObjectType,new List<String>{
-            'Response_Answer_Sequence_Long__c'
-            ,'Response_Answer_Sequence_Label__c'
-            ,'Number_Response__c'
-            ,'Response_Text_Long__c'
-            ,'Boolean_Response__c'
-        });
-        LMS_ESAPI.isAuthorizedToUpdate(relatedFieldsObjects);
-        //END Access Check
 
         List<Response__c> tosave = new List<Response__c>();
 
@@ -418,8 +333,9 @@ public with sharing class QuizViewerController{
             }
         }
 
-        //No CRUD/FLS enforced here as plan to remove update access to responses from the User's perm set
-        upsert tosave;
+        //Update responses
+        LMSService.WithoutSharingOps wsops = new LMSService.WithoutSharingOps();
+        wsops.upsertResponses(tosave);
 
         if(updateProgress){
             updateAssignmentProgress();
@@ -435,14 +351,13 @@ public with sharing class QuizViewerController{
             LearningAssignmentsHelper.previewMode = true;
         }
 
-        if(assignment.Learning_Version__r.Quiz__r.Total_Questions__c != null){
+        if(learningVersion.Quiz__r.Total_Questions__c != null){
 
-            Integer respCount = [select count()
-                                    from Response__c
-                                    where Learning_Assignment__c = :assignment.Id
-                                    and Question__r.Question_Line__r.Quiz__c = :assignment.Learning_Version__r.Quiz__c];
+            LMSService.WithoutSharingOps wsops = new LMSService.WithoutSharingOps();
 
-            Double newProgress = respCount/assignment.Learning_Version__r.Quiz__r.Total_Questions__c;
+            Integer respCount = wsops.getAssignmentResponseCount(assignment.Id, learningVersion.Quiz__c);
+
+            Double newProgress = respCount/learningVersion.Quiz__r.Total_Questions__c;
             assignment.Progress_Percentage__c = newProgress*100;
             assignment.Progress__c = LMSConstants.ASSIGNMENT_STATUS_IN_PROGRESS;
 
@@ -455,6 +370,7 @@ public with sharing class QuizViewerController{
 
     private void updateAssignmentFinalScore(){
 
+        LMSService.WithoutSharingOps wsops = new LMSService.WithoutSharingOps();
 
         if(assignment.Evaluation_Times_Taken__c == null){
             assignment.Evaluation_Times_Taken__c = 0;
@@ -471,7 +387,7 @@ public with sharing class QuizViewerController{
         //Calculate Score
 
         //Fetch all quiz questions
-        Map<Id,Question__c> quizQuestions = fetchQuestionsForQuiz(quiz.Id);
+        Map<Id,Question__c> quizQuestions = wsops.getQuestionsForQuiz(quiz.Id);
 
         Set<Id> answerQuestionIds = new Set<Id>();
         for(Question__c q : quizQuestions.values()){
@@ -481,7 +397,6 @@ public with sharing class QuizViewerController{
         }
 
         //Fetch all question answer sequences
-        LMSService.WithoutSharingOps wsops = new LMSService.WithoutSharingOps();
         Map<Id,Answer_Sequence__c> mapQuizAnswerSequences = wsops.fetchAnswerSequences(answerQuestionIds);
 
         //Evaluate responses
@@ -575,161 +490,31 @@ public with sharing class QuizViewerController{
         //No CRUD/FLS enforced here as Users don't have access to update the learning assignment object
         update assignment;
 
-        //Update correct response flag at the response level
-        //No CRUD/FLS enforced here as Users don't have access to update the correct response flag object
-        if(!LMSSettings.getDisableCorrectResponseCheckbox() && responsesToUpdate.size()>0){
-            update responsesToUpdate;
+        if(quiz != null && quiz.Delete_Responses_On_Submission__c){
+            LMSService.deleteResponsesForAssignment(assignment.id, assignment.Shared_Learning_Assignment__c);
+        }else{
+          //Update correct response flag at the response level
+          //No CRUD/FLS enforced here as Users don't have access to update the correct response flag object
+          if(!LMSSettings.getDisableCorrectResponseCheckbox() && responsesToUpdate.size()>0){
+              wsops.upsertResponses(responsesToUpdate);
+          }
         }
 
     }
 
-    private Map<Id,Response__c> fetchExistingResponses(Id assignmentId, Id sharedAssignmentId,Id questionLineId,Id quizId){
+    private Map<Id,Response__c> fetchExistingResponses(Id assignmentId, Id sharedAssignmentId, Id questionLineId, Id quizId){
 
-        //BEGIN Access Check
-        Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
-        relatedFieldsObjects.put(Response__c.sObjectType,new List<String>{
-            'Id'
-            ,'Name'
-            ,'Question__c'
-            ,'Question_Type__c'
-            ,'User__c'
-            ,'Number_Response__c'
-            ,'Boolean_Response__c'
-            ,'Response_Answer_Sequence_Long__c'
-            ,'Response_Answer_Sequence_Label__c'
-            ,'Response_Text_Long__c'
-        });
-        LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
-        //END Access Check
+        LMSService.WithoutSharingOps wsops = new LMSService.WithoutSharingOps();
+
+        List<Response__c> responses = wsops.getQuizResponses(quizId, questionLineId, assignmentId, sharedAssignmentId);
 
         Map<Id,Response__c> responseMap = new Map<Id, Response__c>();
-
-        //Local vars for dynamic binding
-        Id aid = assignmentId;
-        Id qlid = questionLineId;
-        Id qid = quizId;
-        Id said = sharedAssignmentId;
-
-        List<String> listSOQLFields = new List<String>{
-                'Id'
-                ,'Name'
-                ,'Number_Response__c'
-                ,'Boolean_Response__c'
-                ,'Question__c'
-                ,'Question_Type__c'
-                ,'Question__r.Question_Line__c'
-                ,'Response_Answer_Sequence_Long__c'
-                ,'Response_Answer_Sequence_Label__c'
-                ,'Response_Text_Long__c'
-                ,'User__c'
-                ,'Contact__c'
-                ,'Correct_Response__c'
-        };
-
-        String soqlQuery = 'select '+String.join(listSOQLFields,',')+' from Response__c where';
-
-        if(said != null){
-            soqlQuery+= ' Shared_Learning_Assignment__c = :said';
-        }else{
-            soqlQuery+= ' Learning_Assignment__c = :aid';
-        }
-
-        if(qid != null){
-            soqlQuery += ' and Question__r.Question_Line__r.Quiz__c = :qid';
-        }else{
-            soqlQuery += ' and Question__r.Question_Line__c = :qlid';
-        }
-
-        List<Response__c> responses = (List<Response__c>)Database.query(soqlQuery);
 
         for (Response__c r: responses) {
             responseMap.put(r.Question__c,r);
         }
 
         return responseMap;
-    }
-
-    private List<Question_Line__c> fetchQuizQuestionLines(Id quizId){
-
-        //BEGIN Access Check
-        Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
-        relatedFieldsObjects.put(Question_Line__c.sObjectType,new List<String>{
-            'Id'
-            ,'Name'
-            ,'Order__c'
-            ,'Description__c'
-        });
-        LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
-        //END Access Check
-
-        List<Question_Line__c> results = new List<Question_Line__c>();
-
-        results = [select id
-                        ,Name
-                        ,Order__c
-                        ,Description__c
-                        from Question_Line__c
-                        where Quiz__c = :quizId
-                        order by Order__c asc,CreatedDate asc];
-
-        return results;
-
-    }
-
-    private List<Question__c> fetchQuestionsForQuestionLine(Id questionLineId){
-
-        //BEGIN Access Check
-            Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
-            relatedFieldsObjects.put(Question__c.sObjectType,new List<String>{
-                'Id'
-                ,'Name'
-                ,'Description_RTA__c'
-                ,'Description__c'
-                ,'Type__c'
-            });
-            LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
-        //END Access Check
-
-        List<Question__c> results = new List<Question__c>();
-
-        results = [select id
-                        ,Name
-                        ,Answer_Sequence__c
-                        ,Description__c
-                        ,Description_RTA__c
-                        ,Type__c
-                        from Question__c
-                        where Question_Line__c = :questionLineId
-                        order by Order__c asc,CreatedDate asc];
-
-        return results;
-    }
-
-    //Fetch all questions for the specified quiz
-    public Map<Id,Question__c> fetchQuestionsForQuiz(Id quizId){
-
-        //BEGIN Access Check
-        Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
-        relatedFieldsObjects.put(Question__c.sObjectType,new List<String>{
-            'Id'
-            ,'Name'
-            ,'Type__c'
-        });
-        LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
-        //END Access Check
-
-        Map<Id,Question__c> results = new Map<Id,Question__c>();
-        for(Question__c q : [select id
-                                    ,Answer_Sequence__c
-                                    ,Correct_Boolean__c
-                                    ,Correct_Number__c
-                                    ,Type__c
-                                    from Question__c
-                                    where Question_Line__r.Quiz__c = :quizId]){
-            results.put(q.Id,q);
-        }
-
-        return results;
     }
 
     private Boolean isAllowedToTakeQuiz(){
@@ -739,8 +524,8 @@ public with sharing class QuizViewerController{
                 return false;
             }
 
-            if(assignment.Learning_Version__r.Quiz__r.Max_Attempts__c != null && assignment.Evaluation_Result__c != LMSConstants.ASSIGNMENT_EVAL_PASSED){
-                if(assignment.Evaluation_Times_Taken__c == assignment.Learning_Version__r.Quiz__r.Max_Attempts__c){
+            if(learningVersion.Quiz__r.Max_Attempts__c != null && assignment.Evaluation_Result__c != LMSConstants.ASSIGNMENT_EVAL_PASSED){
+                if(assignment.Evaluation_Times_Taken__c == learningVersion.Quiz__r.Max_Attempts__c){
                     return false;
                 }
             }

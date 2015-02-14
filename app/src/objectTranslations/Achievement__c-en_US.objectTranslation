@@ -31,6 +31,11 @@
         <name>Hidden__c</name>
     </fields>
     <fields>
+        <help><!-- If checked, the achievement won&apos;t be displayed to external users --></help>
+        <label><!-- Is Internal --></label>
+        <name>Is_Internal__c</name>
+    </fields>
+    <fields>
         <help><!-- Overriding the completed status will make the Achievement Assignments go to the defined &quot;override status&quot; instead of &quot;Acquired&quot;. It&apos;s up to you move to the &quot;Acquired&quot;  status once this feature is used. --></help>
         <label><!-- Override Completed Status --></label>
         <name>Override_Completed_Status__c</name>

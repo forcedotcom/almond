@@ -29,30 +29,30 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 @isTest
 private class TestTPlanAssignmentExtensionNew{
 
-	static testmethod void testSearchWithoutFilters(){
+    static testmethod void testSearchWithoutFilters(){
 
-		//Create admin users
-		List<User> adminUsers = TestUtilClass.createUsers(2,'System Administrator');
-		List<User> lmsUsers = TestUtilClass.createUsers(10,'Standard User');
+        //Create admin users
+        List<User> adminUsers = TestUtilClass.createUsers(2,'System Administrator');
+        List<User> lmsUsers = TestUtilClass.createUsers(10,'Standard User');
 
-		System.runAs(adminUsers.get(0)){
-			//Assign corresponding perm sets
-			TestUtilClass.addPermissionSet(adminUsers,'LMS_Admin');
-			TestUtilClass.addPermissionSet(lmsUsers,'LMS_User');
-		}
+        System.runAs(adminUsers.get(0)){
+            //Assign corresponding perm sets
+            TestUtilClass.addPermissionSet(adminUsers,'LMS_Admin');
+            TestUtilClass.addPermissionSet(lmsUsers,'LMS_User');
+        }
 
-		TestTrainingPlanData.createSampleData();
+        TestTrainingPlanData.createSampleData();
 
-		List<Training_Plan__c> tplans = [select id from Training_Plan__c];
-		System.assertEquals(1,tplans.size());
-		Training_Plan__c tplan  = tplans.get(0);
+        List<Training_Plan__c> tplans = [select id from Training_Plan__c];
+        System.assertEquals(1,tplans.size());
+        Training_Plan__c tplan  = tplans.get(0);
 
-		//Test Insert
+        //Test Insert
         PageReference testPageRef = Page.TrainingPlanAssignmentNew;
         Test.setCurrentPageReference(testPageRef);
-		Test.startTest();
+        Test.startTest();
 
-			System.runAs(adminUsers.get(0)){
+            System.runAs(adminUsers.get(0)){
 
                 TrainingPlanAssignmentExtensionNew cont = new TrainingPlanAssignmentExtensionNew(new ApexPages.StandardController(tplan));
                 List<SelectOption> profileList = cont.getProfiles();
@@ -71,39 +71,39 @@ private class TestTPlanAssignmentExtensionNew{
                 PageReference importPage = cont.goToImportAssignments();
                 System.assert(importPage != null);
 
-			}
+            }
 
 
-		Test.stopTest();
+        Test.stopTest();
 
-	}
+    }
 
-	static testmethod void testSearchWithFiltersAndAssignments(){
+    static testmethod void testSearchWithFiltersAndAssignments(){
 
-		//Create admin users
-		List<User> adminUsers = TestUtilClass.createUsers(2,'System Administrator');
-		List<User> lmsUsers = TestUtilClass.createUsers(5,'Standard User');
+        //Create admin users
+        List<User> adminUsers = TestUtilClass.createUsers(2,'System Administrator');
+        List<User> lmsUsers = TestUtilClass.createUsers(5,'Standard User');
 
-		System.runAs(adminUsers.get(0)){
-			//Assign corresponding perm sets
-			TestUtilClass.addPermissionSet(adminUsers,'LMS_Admin');
-			TestUtilClass.addPermissionSet(lmsUsers,'LMS_User');
-		}
+        System.runAs(adminUsers.get(0)){
+            //Assign corresponding perm sets
+            TestUtilClass.addPermissionSet(adminUsers,'LMS_Admin');
+            TestUtilClass.addPermissionSet(lmsUsers,'LMS_User');
+        }
 
         User sampleUser = [select id,firstName,lastName,email,profileId,userroleId from User where id in :lmsUsers limit 1];
 
-		TestTrainingPlanData.createSampleData();
+        TestTrainingPlanData.createSampleData();
 
-		List<Training_Plan__c> tplans = [select id from Training_Plan__c];
-		System.assertEquals(1,tplans.size());
-		Training_Plan__c tplan  = tplans.get(0);
+        List<Training_Plan__c> tplans = [select id from Training_Plan__c];
+        System.assertEquals(1,tplans.size());
+        Training_Plan__c tplan  = tplans.get(0);
 
-		//Test Insert
+        //Test Insert
         PageReference testPageRef = Page.TrainingPlanAssignmentNew;
         Test.setCurrentPageReference(testPageRef);
-		Test.startTest();
+        Test.startTest();
 
-			System.runAs(adminUsers.get(0)){
+            System.runAs(adminUsers.get(0)){
 
                 TrainingPlanAssignmentExtensionNew cont = new TrainingPlanAssignmentExtensionNew(new ApexPages.StandardController(tplan));
                 cont.firstName = sampleUser.firstName;
@@ -128,11 +128,11 @@ private class TestTPlanAssignmentExtensionNew{
                     System.assert(false,'Assignment failed');
                 }
 
-			}
+            }
 
 
-		Test.stopTest();
+        Test.stopTest();
 
-	}
+    }
 
 }

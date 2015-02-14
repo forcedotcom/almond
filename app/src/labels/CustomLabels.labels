@@ -1137,6 +1137,14 @@
         <value>No results. Please make sure the users you&apos;re looking for have the LMS Admin or LMS User permission set.</value>
     </labels>
     <labels>
+        <fullName>ALMS_Assignments_No_External_Results_Message</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Assignment No External Results Message</shortDescription>
+        <value>To assign Community/Portal users you must enable Self-Registration in the Training Plan and set the Access Level to "External" or add the corresponding Accounts to the "Training Plan Accounts" related list.</value>
+    </labels>
+    <labels>
         <fullName>ALMS_Required</fullName>
         <categories>ALMOND General, ALMOND UI</categories>
         <language>en_US</language>
@@ -1871,5 +1879,13 @@
         <protected>false</protected>
         <shortDescription>Back to previous page</shortDescription>
         <value>Back to previous page</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_New_Training_Plan</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>New training plan ribbon</shortDescription>
+        <value>New</value>
     </labels>
 </CustomLabels>

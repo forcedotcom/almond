@@ -17,6 +17,10 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>LMSCommunitiesService</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>LMSUtils</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -256,6 +260,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Achievement_Assignment__c.Community_Id__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Achievement__c.Achievement_Category__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -312,6 +321,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Achievement__c.Hidden__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Achievement__c.Is_Internal__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -447,6 +461,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Learning_Assignment__c.Optional__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Learning_Assignment__c.Community_Id__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -602,6 +621,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Quiz__c.Total_Questions__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Quiz__c.Delete_Responses_On_Submission__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -921,6 +945,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Training_Plan_Assignment__c.Community_Id__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Training_Plan_Section_Assignment__c.Status__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -932,6 +961,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Training_Plan_Section_Assignment__c.User__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Training_Plan_Section_Assignment__c.Community_Id__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -1066,6 +1100,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Training_Plan__c.New_Until__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Training_Resource__c.Add_training_parameters_to_URL__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1176,6 +1215,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Learning_Category__c.Is_Internal__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Training_Track_Level__c.Order__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1229,7 +1273,38 @@
         <field>Training_Track__c.Order__c</field>
         <readable>true</readable>
     </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Training_Track__c.Enable_all_external_accounts__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Training_Track__c.New_Until__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Training_Plan_Account__c.Account__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Training_Plan_Account__c.Training_Plan__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Training_Track_Account__c.Account__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Training_Track_Account__c.Training_Track__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <label>LMS Admin</label>
+    <description>Almond - Permission Set used for internal admin users</description>
     <objectPermissions>
         <allowCreate>true</allowCreate>
         <allowDelete>true</allowDelete>
@@ -1534,6 +1609,24 @@
         <allowRead>true</allowRead>
         <modifyAllRecords>true</modifyAllRecords>
         <object>Training_Track__c</object>
+        <viewAllRecords>true</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>true</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>true</modifyAllRecords>
+        <object>Training_Track_Account__c</object>
+        <viewAllRecords>true</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>true</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>true</modifyAllRecords>
+        <object>Training_Plan_Account__c</object>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
     <pageAccesses>

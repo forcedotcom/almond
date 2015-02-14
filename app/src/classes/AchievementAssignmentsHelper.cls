@@ -61,7 +61,7 @@ public with sharing class AchievementAssignmentsHelper{
 
     }
 
-	public without sharing class WithoutSharingOps{
+	private without sharing class WithoutSharingOps{
 
         // Work.com objects are not managed by our package
         // We want to create records for these objects in a without sharing context to bypass any sharing restrictions
@@ -87,12 +87,16 @@ public with sharing class AchievementAssignmentsHelper{
                         workBadge.put('sourceid',null);
                         workBadge.put('definitionid',ac.Work_Badge_Id__c);
                         workBadge.put('feedtype','RypplePost');
+                        workBadge.put('communityid',aa.Community_Id__c);
                         workBadges.add(workBadge);
 
                         //Create work thanks records
                         WorkThanks wt = new WorkThanks();
                         wt.GiverId = workBadge.get('giverid');
                         wt.Message = workBadge.get('message');
+                        if(aa.Community_Id__c != null){
+                            wt.put('NetworkId',aa.Community_Id__c);
+                        }
                         workThanksInsert.add(wt);
                     }
 
@@ -105,17 +109,21 @@ public with sharing class AchievementAssignmentsHelper{
                 Database.SaveResult[] wThanksResults = Database.insert(workThanksInsert,false);
 
                 Boolean setAuditFields = !LMSSettings.getDisableFeedItemAuditFields();
+
                 for(Integer i = 0; i < wThanksResults.size(); i++) {
                     Database.SaveResult sr = wThanksResults[i];
 
                     if(sr.isSuccess()){
                         workBadges[i].put('sourceid',sr.getId());
-
+                        Id networkId = workBadges[i].get('communityid');
                         //Create work badge records
                         WorkBadge wb = new WorkBadge();
                         wb.RecipientId = workBadges[i].get('recipientid');
                         wb.SourceId = workBadges[i].get('sourceid');
                         wb.DefinitionId = workBadges[i].get('definitionid');
+                        if(networkId != null){
+                            wb.put('NetworkId',networkId);
+                        }
                         workBadgeInsert.add(wb);
 
                         //Create feed item records
@@ -126,6 +134,10 @@ public with sharing class AchievementAssignmentsHelper{
                         fi.Type = 'RypplePost';
                         if(setAuditFields && workBadges[i].get('giverid') != null){
                             fi.CreatedById = workBadges[i].get('giverid');
+                        }
+
+                        if(networkId != null){
+                            fi.put('NetworkScope',networkId);
                         }
                         feedItemInsert.add(fi);
 

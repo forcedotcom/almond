@@ -98,7 +98,7 @@ private class TestResourceViewerController{
         }
 
         System.runAs(adminUsers.get(0)){
-            LMSService.upsertAssignments(selectedUserIds,tplanId);
+            LMSService.upsertAssignments(selectedUserIds,tplanId,null);
         }
 
         List<Learning_Assignment__c> assignments = [select id from Learning_Assignment__c where Training_Plan__c = :tplanId];

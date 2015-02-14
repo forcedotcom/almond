@@ -1008,11 +1008,45 @@ td.noSidebarCell{
     max-width: 90px !important;
 }
 
+.almond .ttrack_img{
+    display: inline-block;
+    text-align:center;
+    width: 100%;
+    padding:10px 0 0 0;
+    min-height:100px;
+    border-radius:10px;
+}
+
+.almond .ttrack_img table{
+    text-align:center;
+    width: 100%;
+}
+
+.almond .ttrack_img img{
+    height: 70px !important;
+    vertical-align: middle;
+    width: auto !important;
+    margin: 0 auto;
+    max-width: 90px !important;
+}
+
 .almond .tplan_details {
     display: inline-block;
     float: center;
     height: 95px;
     width: 70%;
+}
+
+.almond .ttrack_details{
+    display: block;
+    text-align: center;
+    min-height: 150px;
+    width: 100%;
+    overflow:hidden;
+}
+
+.almond .ttrack_details h4{
+    font-weight:400;
 }
 
 .almond .tplan_details_home{

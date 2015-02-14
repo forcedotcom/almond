@@ -43,13 +43,11 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 
                         <div class="col-xs-12 col-sm-6 col-md-4 tplan_box_register" lms-data-trackId="{!JSENCODE(o.id)}">
                             <div class="tplan_box">
-                                <apex:outputPanel layout="none" rendered="{!hasBadge}">
-                                    <div class="tplan_img">
-                                        <apex:outputField value="{!o.Achievement__r.Acquired_Image__c}"  rendered="{!o.Achievement__r.Work_Badge_Image_URL__c == null}"/>
-                                        <apex:image url="{!o.Achievement__r.Work_Badge_Image_URL__c}" rendered="{!o.Achievement__r.Work_Badge_Image_URL__c != null}"/>
-                                    </div>
-                                </apex:outputPanel>
-                                <div class="{!IF(hasBadge,'tplan_details','tplan_details_no_image')}" >
+                                <div class="ttrack_img" style="background-color:{!IF(o.Background_Color__c != null, JSENCODE(o.Background_Color__c), 'none')}">
+                                    <apex:outputField value="{!o.Achievement__r.Acquired_Image__c}"  rendered="{!o.Achievement__r.Work_Badge_Image_URL__c == null}"/>
+                                    <apex:image url="{!o.Achievement__r.Work_Badge_Image_URL__c}" rendered="{!o.Achievement__r.Work_Badge_Image_URL__c != null}"/>
+                                </div>
+                                <div class="ttrack_details">
                                     <h4>{!o.name}</h4>
                                     <span>{!o.Description__c}</span>
                                 </div>

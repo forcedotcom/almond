@@ -76,7 +76,7 @@ public class TestUtilClass {
     }
 
     public static Date getRandomFutureDate(){
-        DateTime dt = System.now().addDays(getRandomInteger(0, 3));
+        DateTime dt = System.now().addDays(getRandomInteger(1, 4));
         return Date.newinstance(dt.year(), dt.month(), dt.day());
     }
 

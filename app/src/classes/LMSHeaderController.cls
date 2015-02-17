@@ -62,7 +62,7 @@ public with sharing class LMSHeaderController {
             section = 'catalog';
         }else if(pageURL.contains('trainingtracks') || pageURL.contains('trainingtrackdetail')){
             section = 'tracks';
-        }else if(customSectionName != null && pageURL.contains(customSectionName)){
+        }else if(customSectionURL != null && customSectionURL.toLowerCase().contains(pageURL)){
             section = 'custom';
         }
 

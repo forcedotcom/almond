@@ -204,7 +204,7 @@ public with sharing class TrainingPlanDetailController extends LMSBaseController
             }else{
                 learningTarget = '_blank';
                 String resourceURL = l.Current_Published_Version__r.Training_Resource__r.Resource_URL__c;
-                if(resourceURL != null && resourceURL.contains('.visual.force.com/apex/')){
+                if(resourceURL != null && (resourceURL.contains('.visual.force.com/apex/') || resourceURL.contains('.lightning.force.com/'))){
                     learningTarget = '_internal';
                 }
             }

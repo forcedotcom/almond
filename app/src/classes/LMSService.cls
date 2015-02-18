@@ -1672,7 +1672,7 @@ public with sharing class LMSService{
         if(assignmentId == null){
             return;
         }
-        
+
         String soqlQuery = 'select id from Response__C where Learning_Assignment__c = :assignmentId';
         if(sharedAssignmentId != null){
             soqlQuery += ' OR Shared_Learning_Assignment__c = :sharedAssignmentId';
@@ -1685,6 +1685,27 @@ public with sharing class LMSService{
             Database.delete(responses,false);
         }
     }
+
+    // TODO : Use this function to hide expired training plans
+    // Still analyzing how this will affect progress calculation
+    /*
+    public static Boolean isActiveTrainingPlan(Training_Plan__c tp){
+        if(tp != null){
+            // Always make training plans active for admins
+            if(LMSUtils.isAdminUser()){
+                return true;
+            }
+            Boolean isActive = tp.Status__c == LMSConstants.TPLAN_STATUS_ACTIVE;
+            Boolean isWithinDateRange = true;
+            if(tp.Start_Date__c != null && tp.End_Date__c != null && !(Date.today() >= tp.Start_Date__c && Date.today() <= tp.End_Date__c)){
+                isWithinDateRange = false;
+            }
+            return isActive && isWithinDateRange;
+        }else{
+            return false;
+        }
+    }
+    */
 
     //Without sharing operations
     public without sharing class WithoutSharingOps{

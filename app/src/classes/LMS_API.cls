@@ -48,6 +48,10 @@ global with sharing class LMS_API {
 
     }
 
+    global static void importJSON(String jsonData, Boolean addTimeStamps){
+        LMSInit.initData(jsonData,addTimeStamps);
+    }
+
     private static void checkAssignmentsPermissions(){
         //BEGIN Access Check
         Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
@@ -62,10 +66,6 @@ global with sharing class LMS_API {
         LMS_ESAPI.isAuthorizedToCreate(relatedFieldsObjects);
         LMS_ESAPI.isAuthorizedToUpdate(relatedFieldsObjects);
         //END Access Check
-    }
-
-    global static void importJSON(String jsonData, Boolean addTimeStamps){
-        LMSInit.initData(jsonData,addTimeStamps);
     }
 
 }

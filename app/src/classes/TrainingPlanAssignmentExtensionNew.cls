@@ -55,7 +55,7 @@ public with sharing class TrainingPlanAssignmentExtensionNew{
     }
 
     private void init(){
-    	dummyAssignment = new Training_Plan_Assignment__c();
+        dummyAssignment = new Training_Plan_Assignment__c();
         firstName = null;
         lastName = null;
         email = null;

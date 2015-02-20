@@ -59,4 +59,7 @@ public with sharing class LMSConstants {
 
     public static final String TPLAN_PUBLIC_EXTERNAL = 'External';
 
+    public static final String ASSIGNMENT_NEW_VERSION_TAKEN = 'New version taken';
+    public static final String ASSIGNMENT_USE_OLD_VERSION = 'Keep using old version';
+
 }

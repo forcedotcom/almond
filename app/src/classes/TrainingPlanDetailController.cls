@@ -29,7 +29,6 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 public with sharing class TrainingPlanDetailController extends LMSBaseController{
 
     public TrainingPlan tPlan{get;set;}
-    public transient List<User> lUsersWithAchievement {get;set;}
     public String learningLaunchURL{get;set;}
     public String learningTarget{get;set;}
 
@@ -40,6 +39,8 @@ public with sharing class TrainingPlanDetailController extends LMSBaseController
     public String selectedItemId{get;set;}
     public TrainingPlanSectionItem selectedItem{get;set;}
 
+    public transient List<User> lUsersWithAchievement{get;set;}
+    
     public String selectedItemStatusLabel{get{
         if(selectedItem != null && selectedItem.latestAssignment != null && selectedItem.latestAssignment.Progress__c != null){
             if(selectedItem.latestAssignment.Progress__c == LMSConstants.ASSIGNMENT_STATUS_COMPLETED){

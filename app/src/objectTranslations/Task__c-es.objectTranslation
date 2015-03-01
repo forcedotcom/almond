@@ -9,26 +9,32 @@
         <value>Tareas</value>
     </caseValues>
     <fields>
+        <help>Habilitar esta opción para añadir parametros de contexto a la liga de Recurso Externo (ej. https://algunaliga.com/?aid=ASSIGNMENT_ID&amp;tid=TPLAN_ID)</help>
         <label>Añadir parámetros de aprendizaje a la liga</label>
         <name>Add_training_parameters_to_URL__c</name>
     </fields>
     <fields>
+        <help>Descripción de la tarea a completar</help>
         <label>Descripción</label>
         <name>Description__c</name>
     </fields>
     <fields>
+        <help>Descripción Adicional sobre la tarea a completar</help>
         <label>Descripción (Adicional)</label>
         <name>Description_RTA__c</name>
     </fields>
     <fields>
+        <help>Habilitar esta opción para requerir una imagen para poder completar la tarea</help>
         <label>Habilitar Carga de Imagen</label>
         <name>Enable_Image_Upload__c</name>
     </fields>
     <fields>
+        <help>Nombre &quot;amigable&quot; para la liga de Recurso Externo. Si está vacio, se mostrará la liga en lugar de este texto</help>
         <label>Nombre de Recurso Externo</label>
         <name>External_Resource_Name__c</name>
     </fields>
     <fields>
+        <help>Definir comportamiento para abrir el Recurso Externo en el navegador</help>
         <label>Comportamiento de Recurso Externo</label>
         <name>External_Resource_Target__c</name>
         <picklistValues>
@@ -41,6 +47,7 @@
         </picklistValues>
     </fields>
     <fields>
+        <help>Liga con información adicional para ayudar al usuario a completar esta tarea</help>
         <label>Liga de Recurso Externo</label>
         <name>External_Resource_URL__c</name>
     </fields>
@@ -50,10 +57,12 @@
         <relationshipLabel>Tareas</relationshipLabel>
     </fields>
     <fields>
+        <help>Habilitar esta opción para requerir aprobación del Gestor del usuario para completar esta tarea. Esta campo usa el campo &quot;Gestor&quot; del objeto Usuario.</help>
         <label>Requiere aprobación del Gestor para completar</label>
         <name>Requires_Manager_Approval__c</name>
     </fields>
     <fields>
+        <help>Habilitar esta opción para prevenir que usuarios vuelvan a abrir tareas que ya han sido completadas</help>
         <label>Deshabilitar deshacer cambios a tareas completas</label>
         <name>Disable_Undo__c</name>
     </fields>

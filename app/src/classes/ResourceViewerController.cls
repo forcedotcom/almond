@@ -59,7 +59,10 @@ global with sharing class ResourceViewerController{
 
                 Learning_Assignment__c assignment = getAssignment(aid);
 
-                if(assignment.Learning_Version__r.Training_Resource__c == null){
+                LMSService.WithoutSharingOps wsops = new LMSService.WithoutSharingOps();
+                Learning_Version__c learningVersion = wsops.getLearningVersionDetails(assignment.Learning_Version__c,'Resource');
+
+                if(learningVersion.Training_Resource__c == null){
                     LMSUtils.addErrorMessage(System.Label.ALMS_Invalid_Assignment_Id);
                 }else{
                     continueRedirection = true;
@@ -80,11 +83,14 @@ global with sharing class ResourceViewerController{
     global static String redirectToResource(String aid){
 
         Learning_Assignment__c assignment = getAssignment(aid);
-        Training_Resource__c resource = assignment.Learning_Version__r.Training_Resource__r;
+        LMSService.WithoutSharingOps wsops = new LMSService.WithoutSharingOps();
+        Learning_Version__c learningVersion = wsops.getLearningVersionDetails(assignment.Learning_Version__c,'Resource');
+
+        Training_Resource__c resource = learningVersion.Training_Resource__r;
 
         //CRUD/FLS not enforced here as we don't want to give update create or edit access to the learning assignment object to LMS Users
         //Update assignment status
-        if(!assignment.Learning_Version__r.Training_Resource__r.Prevent_completion_on_launch__c){
+        if(!learningVersion.Training_Resource__r.Prevent_completion_on_launch__c){
             assignment.Progress__c = LMSConstants.ASSIGNMENT_STATUS_COMPLETED;
             assignment.Progress_Percentage__c = 100;
             assignment.Evaluation_Result__c = 'N/A';
@@ -120,50 +126,7 @@ global with sharing class ResourceViewerController{
     }
 
     private static Learning_Assignment__c getAssignment(String aid){
-
-        //BEGIN Access Check
-        Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
-        relatedFieldsObjects.put(Learning_Assignment__c.sObjectType,new List<String>{
-            'Id'
-            ,'Name'
-            ,'User__c'
-            ,'Learning__c'
-            ,'Progress__c'
-            ,'Training_Plan__c'
-            ,'Shared_Learning_Assignment__c'
-        });
-        relatedFieldsObjects.put(Training_Resource__c.sObjectType,new List<String>{
-            'Id'
-            ,'Name'
-            ,'Resource_URL__c'
-            ,'Add_training_parameters_to_URL__c'
-        });
-        LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
-        //END Access Check
-
-        Learning_Assignment__c assignment = [select id
-                                                    ,User__c
-                                                    ,Contact__c
-                                                    ,Name
-                                                    ,Learning__c
-                                                    ,Learning_Version__c
-                                                    ,Learning_Version__r.Training_Resource__c
-                                                    ,Learning_Version__r.Training_Resource__r.Id
-                                                    ,Learning_Version__r.Training_Resource__r.Name
-                                                    ,Learning_Version__r.Training_Resource__r.Resource_URL__c
-                                                    ,Learning_Version__r.Training_Resource__r.Add_training_parameters_to_URL__c
-                                                    ,Learning_Version__r.Training_Resource__r.Prevent_completion_on_launch__c
-                                                    ,Progress__c
-                                                    ,Progress_Percentage__c
-                                                    ,Evaluation_Result__c
-                                                    ,Evaluation_Score__c
-                                                    ,Training_Plan__c
-                                                    ,Shared_Learning_Assignment__c
-                                                    from Learning_Assignment__c
-                                                    where id = :aid
-                                                    and User__c = :UserInfo.getUserId()];
-
-        return assignment;
+        return LMSService.getLearningAssignmentDetails(aid,UserInfo.getUserId());
     }
 
 }

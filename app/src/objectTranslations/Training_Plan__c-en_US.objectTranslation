@@ -9,6 +9,7 @@
         <value>Training Plans</value>
     </caseValues>
     <fields>
+        <help><!-- HEX Color code for the header background color (e.g. #dcdcdc, more examples in : http://www.color-hex.com/) --></help>
         <label><!-- Background Color --></label>
         <name>Background_Color__c</name>
     </fields>
@@ -36,6 +37,7 @@
         <name>End_Date__c</name>
     </fields>
     <fields>
+        <help><!-- Enable this option to require users to complete the learning activities in the specified order --></help>
         <label><!-- Enforce Sequence --></label>
         <name>Enforce_Sequence__c</name>
     </fields>
@@ -45,16 +47,20 @@
         <name>Intro_Video_URL__c</name>
     </fields>
     <fields>
-        <help><!-- &quot;Open&quot; or empty access allows any users to create assignments &quot;on the fly&quot; for this training plan. &quot;Requires Approval&quot; logs an approval request that is later handled by the Training Plan owner. --></help>
+        <help><!-- &quot;Public&quot; or blank allows users to create assignments &quot;on the fly&quot;. &quot;Requires Approval&quot; logs an approval request that is later handled by the Training Plan owner.&quot;External&quot; exposes this training plan to all users. --></help>
         <label><!-- Self-Registration Access --></label>
         <name>Self_Registration_Access__c</name>
         <picklistValues>
             <masterLabel>Public</masterLabel>
-            <translation><!-- Public --></translation>
+            <translation>Public (All Internal Users + Training Plan Accounts)</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>External</masterLabel>
+            <translation>External (All External + Internal Users)</translation>
         </picklistValues>
         <picklistValues>
             <masterLabel>Requires Approval</masterLabel>
-            <translation><!-- Requires Approval --></translation>
+            <translation>Requires Approval (Internal + Training Plan Accounts)</translation>
         </picklistValues>
     </fields>
     <fields>
@@ -63,6 +69,7 @@
     </fields>
     <fields>
         <label><!-- Status --></label>
+        <help><!-- Only Active training plans will be visible to learners, Draft plans will be visible for Learning Admins --></help>
         <name>Status__c</name>
         <picklistValues>
             <masterLabel>Active</masterLabel>
@@ -74,6 +81,7 @@
         </picklistValues>
     </fields>
     <fields>
+        <help><!-- HEX Color code for the header text color (e.g. #333333, more examples in : http://www.color-hex.com/) --></help>
         <label><!-- Text Color --></label>
         <name>Text_Color__c</name>
     </fields>
@@ -102,6 +110,11 @@
         <help><!-- Enable this option to make feedback comments not required --></help>
         <label><!-- Optional Feedback Comments --></label>
         <name>Optional_Feedback_Comments__c</name>
+    </fields>
+    <fields>
+        <help><!-- Display a New ribbon in the training plan until the specified date --></help>
+        <label><!-- New Until --></label>
+        <name>New_Until__c</name>
     </fields>
     <layouts>
         <layout>Training Plan Layout</layout>

@@ -26,7 +26,7 @@ OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISE
 OF THE POSSIBILITY OF SUCH DAMAGE.
 
 */
-public with sharing class QuizResultsController{
+public with sharing class QuizResultsController extends LMSBaseController{
 
     public String evalResult{get;private set;}
     public String evalResultLabel{get;private set;}
@@ -48,20 +48,6 @@ public with sharing class QuizResultsController{
 
         try{
 
-            //BEGIN Access Check
-            //Note: we're excluding the following fields from the FLS check since some installations may want to remove view permissions
-            //'Evaluation_Score__c','Evaluation_Result__c','Evaluation_Times_Taken__c'
-            Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
-            relatedFieldsObjects.put(Learning_Assignment__c.sObjectType,new List<String>{
-                'Id'
-                ,'Learning__c'
-                ,'Training_Plan__c'
-                ,'Learning__c'
-                ,'Training_Plan_Section__c'
-            });
-            LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
-            //END Access Check
-
             maxAttemptsReached = false;
             isPreview = false;
             showErrorButtons = false;
@@ -80,16 +66,14 @@ public with sharing class QuizResultsController{
             if(!String.isBlank(aid)){
 
                 //Fetch assignment information
-                assignment = [select id
-                                    ,Evaluation_Score__c
-                                    ,Evaluation_Result__c
-                                    ,Learning__c
-                                    ,Training_Plan__c
-                                    ,Training_Plan_Section__c
-                                    ,Learning_Version__r.Quiz__r.Max_Attempts__c
-                                    ,Evaluation_Times_Taken__c
-                                    from Learning_Assignment__c
-                                    where id = :aid limit 1];
+                assignment = LMSService.getLearningAssignmentDetails(aid,UserInfo.getUserId());
+
+                if(assignment == null){
+                    throw new LMSException(System.Label.ALMS_Invalid_Assignment_Id);
+                }
+
+                LMSService.WithoutSharingOps wsops = new LMSService.WithoutSharingOps();
+                Learning_Version__c learningVersion = wsops.getLearningVersionDetails(assignment.Learning_Version__c,'Quiz');
 
                 evalResult = assignment.Evaluation_Result__c;
                 Decimal score = assignment.Evaluation_Score__c;
@@ -103,8 +87,8 @@ public with sharing class QuizResultsController{
                     evalResultLabel = System.Label.ALMS_Quiz_Failed;
                 }
 
-                if(!isPreview && assignment.Learning_Version__r.Quiz__r.Max_Attempts__c != null && evalResult != LMSConstants.ASSIGNMENT_EVAL_PASSED){
-                    if(assignment.Evaluation_Times_Taken__c == assignment.Learning_Version__r.Quiz__r.Max_Attempts__c){
+                if(!isPreview && learningVersion.Quiz__r.Max_Attempts__c != null && evalResult != LMSConstants.ASSIGNMENT_EVAL_PASSED){
+                    if(assignment.Evaluation_Times_Taken__c == learningVersion.Quiz__r.Max_Attempts__c){
                         maxAttemptsReached = true;
                     }
                 }
@@ -137,7 +121,7 @@ public with sharing class QuizResultsController{
 
         ref.getParameters().put('aid',assignment.id);
         ref.setRedirect(true);
-        redirectURL = ref.getUrl();
+        redirectURL = LMSUtils.updateURLCommunityPath(ref.getUrl());
         return null;
 
     }

@@ -29,49 +29,49 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 @isTest
 public class TestParams {
 
-	public class TrainingPlanParam{
-		public Date startDate;
-		public Date endDate;
-		public String status;
-		public String selfRegistrationAccess;
-		public Boolean enableSelfRegistration;
-		public Boolean chatterNotificationsEnabled;
-		public Boolean enforceSequence;
-		public String description;
-		public String name;
+    public class TrainingPlanParam{
+        public Date startDate;
+        public Date endDate;
+        public String status;
+        public String selfRegistrationAccess;
+        public Boolean enableSelfRegistration;
+        public Boolean chatterNotificationsEnabled;
+        public Boolean enforceSequence;
+        public String description;
+        public String name;
 
-		public TrainingPlanParam(){
-			this.name = 'Test TPlan '+TestUtilClass.getTimeStamp();
-			this.startDate = Date.today().addDays(-1);
-			this.endDate = Date.today().addDays(10);
-			this.status = 'Active';
+        public TrainingPlanParam(){
+            this.name = 'Test TPlan '+TestUtilClass.getTimeStamp();
+            this.startDate = Date.today().addDays(-1);
+            this.endDate = Date.today().addDays(10);
+            this.status = 'Active';
 
-			this.enableSelfRegistration = false;
-			this.selfRegistrationAccess = null;
-			this.chatterNotificationsEnabled = false;
-			this.enforceSequence = true;
-			this.description = 'Sample description';
-		}
-	}
+            this.enableSelfRegistration = false;
+            this.selfRegistrationAccess = null;
+            this.chatterNotificationsEnabled = false;
+            this.enforceSequence = true;
+            this.description = 'Sample description';
+        }
+    }
 
-	public class TrainingTrackParam{
-		public String status;
-		public String textColor;
-		public String backgroundColor;
-		public String backgroundImageURL;
-		public String description;
-		public String name;
-		public String achievementId;
+    public class TrainingTrackParam{
+        public String status;
+        public String textColor;
+        public String backgroundColor;
+        public String backgroundImageURL;
+        public String description;
+        public String name;
+        public String achievementId;
 
-		public TrainingTrackParam(){
-			this.name = 'Test TTrack '+TestUtilClass.getTimeStamp();
-			this.status = 'Active';
-			this.textColor = '#000000';
-			this.backgroundColor = '#EEEEEE';
-			this.backgroundImageURL = 'https://www.salesforce.com/bg.png';
-			this.description = 'Sample description';
-			this.achievementId = null;
-		}
-	}
+        public TrainingTrackParam(){
+            this.name = 'Test TTrack '+TestUtilClass.getTimeStamp();
+            this.status = 'Active';
+            this.textColor = '#000000';
+            this.backgroundColor = '#EEEEEE';
+            this.backgroundImageURL = 'https://www.salesforce.com/bg.png';
+            this.description = 'Sample description';
+            this.achievementId = null;
+        }
+    }
 
 }

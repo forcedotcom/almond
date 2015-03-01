@@ -64,11 +64,13 @@ public with sharing class TrainingPlanSectionItem{
     public void updateToLatestVersion(){
         if(this.latestAssignment != null && this.learning.Current_Published_Version__c != null){
             this.latestAssignment.Last_Published_Learning_Version__c = this.learning.Current_Published_Version__c;
-            this.latestAssignment.Last_Published_Learning_Version_Decision__c = 'New version taken';
+            this.latestAssignment.Last_Published_Learning_Version_Decision__c = LMSConstants.ASSIGNMENT_NEW_VERSION_TAKEN;
             this.latestAssignment.Learning_Version__c = this.learning.Current_Published_Version__c;
 
-            //By-passing CRUD/FLS here as users don't have update permissions for learning assignments
-            update this.latestAssignment;
+            //By-passing CRUD/FLS and Sharing here as users don't have update permissions for learning assignments
+            //Or access to the related learning version records
+            TrainingPlanSectionItem.WithoutSharingOps wos = new TrainingPlanSectionItem.WithoutSharingOps();
+            wos.updateAssignment(this.latestAssignment);
         }
 
     }
@@ -76,11 +78,21 @@ public with sharing class TrainingPlanSectionItem{
     public void keepOldVersion(){
         if(this.latestAssignment != null && this.learning.Current_Published_Version__c != null){
             this.latestAssignment.Last_Published_Learning_Version__c = this.learning.Current_Published_Version__c;
-            this.latestAssignment.Last_Published_Learning_Version_Decision__c = 'Keep using old version';
+            this.latestAssignment.Last_Published_Learning_Version_Decision__c = LMSConstants.ASSIGNMENT_USE_OLD_VERSION;
 
-            //By-passing CRUD/FLS here as users don't have update permissions for learning assignments
-            update this.latestAssignment;
+            //By-passing CRUD/FLS and Sharing here as users don't have update permissions for learning assignments
+            //Or access to the related learning version records
+            TrainingPlanSectionItem.WithoutSharingOps wos = new TrainingPlanSectionItem.WithoutSharingOps();
+            wos.updateAssignment(this.latestAssignment);
         }
     }
+
+    private without sharing class WithoutSharingOps{
+        public void updateAssignment(Learning_Assignment__c la){
+            update la;
+        }
+    }
+
+
 
 }

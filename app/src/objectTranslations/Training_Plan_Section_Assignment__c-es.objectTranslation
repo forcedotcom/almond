@@ -39,6 +39,10 @@
         <name>User__c</name>
         <relationshipLabel>Asignaciones de Sección de Curso</relationshipLabel>
     </fields>
+    <fields>
+        <label>Id de Comunidad</label>
+        <name>Community_Id__c</name>
+    </fields>
     <layouts>
         <layout>Training Plan Section Assignment Layout</layout>
         <sections>

@@ -66,6 +66,7 @@ public with sharing class TrainingPlanSectionsHelper {
             Set<Id> sectionsWithRequiredItems = new Set<Id>();
             String ns = LMSUtils.getPackageNamespace();
             //Get all required items in the referenced sections
+            //No need to run this without sharing since it's executed by admin users
             AggregateResult[] groupedResults = [select Training_Plan_Section__c
                                                         ,count(Id) cnt
                                                         from Training_Plan_Section_Item__c

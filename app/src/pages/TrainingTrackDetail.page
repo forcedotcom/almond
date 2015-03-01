@@ -25,7 +25,7 @@ LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
 OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
 OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
-<apex:page controller="TrainingTrackDetailCtrl" docType="html-5.0" sidebar="false" showHeader="false" standardStylesheets="false" cache="false">
+<apex:page controller="TrainingTrackDetailCtrl" readOnly="true" docType="html-5.0" sidebar="false" showHeader="{!showSFHeader}" standardStylesheets="false" cache="false">
 
     <apex:composition template="LMS_HeroTemplate">
 
@@ -100,6 +100,9 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                                         <label class="label label-default">{!$Label.ALMS_TPlan_Requires_Assignment}</label>
                                     </apex:outputPanel>
                                 </div>
+                                <apex:outputPanel rendered="{!ti.trackItem.Training_Plan__r.New_Until__c != null && TODAY() <= ti.trackItem.Training_Plan__r.New_Until__c}">
+                                    <div class="ribbon-wrapper-green"><div class="ribbon-green">{!$Label.ALMS_New_Training_Plan}</div></div>
+                                </apex:outputPanel>
                             </div>
                         </div>
 

@@ -26,7 +26,7 @@ OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISE
 OF THE POSSIBILITY OF SUCH DAMAGE.
 
 */
-public with sharing class TrainingPlanFeedbackController{
+public with sharing class TrainingPlanFeedbackController extends LMSBaseController{
 
     public ApexPages.StandardSetController setCon;
     public Training_Plan_Feedback__c feedback{get;set;}
@@ -49,7 +49,7 @@ public with sharing class TrainingPlanFeedbackController{
             isPreview = true;
         }
 
-        isAllowedToView = LMSService.isAllowedToViewTrainingPlan(tplanId,UserInfo.getUserId());
+        isAllowedToView = LMSService.isAllowedToViewTrainingPlan(tplanId,UserInfo.getUserId(),LMSUtils.isPortalUser());
 
         if(isAllowedToView){
             init();
@@ -64,9 +64,12 @@ public with sharing class TrainingPlanFeedbackController{
         existingFeedback = getExistingRating();
         feedback.Training_Plan__c = tplanId;
         feedback.User__c = UserInfo.getUserId();
-        currentUser = [select id,Name,SmallPhotoUrl from User where id = :UserInfo.getUserId()];
-        setCon = getSetCon(tplanId);
+
         if(tPlan != null){
+            currentUser = [select id,Name,SmallPhotoUrl from User where id = :UserInfo.getUserId()];
+            TrainingPlanFeedbackController.WithoutSharingOps wsops = new TrainingPlanFeedbackController.WithoutSharingOps();
+            setCon = wsops.getSetCon(tplanId);
+
             if(tPlan.mainAchievement != null){
                 lUsersWithAchievement = LMSService.getUsersForAchievement(tPlan.mainAchievement.Id, LMSConstants.AA_ACQUIRED_STATUS, 12);
             }
@@ -90,7 +93,7 @@ public with sharing class TrainingPlanFeedbackController{
           LMSUtils.addErrorMessage(System.Label.ALMS_Feedback_No_Data);
         }else{
             try{
-                LMSService.insertTrainingPlanFeedback(feedback);
+                LMSService.insertTrainingPlanFeedback(new List<Training_Plan_Feedback__c>{feedback});
                 init();
                 feedbackSuccess = true;
                 LMSUtils.addSuccessMessage(System.Label.ALMS_Feedback_Submitted);
@@ -156,20 +159,21 @@ public with sharing class TrainingPlanFeedbackController{
        return tplanAssignments.size()>0;
     }
 
-    private ApexPages.StandardSetController getSetCon(Id tplanId){
-        ApexPages.StandardSetController setCon = new ApexPages.StandardSetController(Database.getQueryLocator(
+    private without sharing class WithoutSharingOps{
+        public ApexPages.StandardSetController getSetCon(Id tplanId){
+            ApexPages.StandardSetController setCon = new ApexPages.StandardSetController(Database.getQueryLocator(
                 [select Id
-                        ,Name
-                        ,Rating__c
-                        ,Comments__c
-                        ,User__c
-                        ,User__r.Name
-                        ,User__r.SmallPhotoUrl
-                        from Training_Plan_Feedback__c
-                        where Training_Plan__c = :tplanId
-                        order by CreatedDate desc]));
-        setCon.setPageSize(5);
-        return setCon;
+                ,Name
+                ,Rating__c
+                ,Comments__c
+                ,User__c
+                ,User__r.Name
+                ,User__r.SmallPhotoUrl
+                from Training_Plan_Feedback__c
+                where Training_Plan__c = :tplanId
+                order by CreatedDate desc]));
+                setCon.setPageSize(5);
+            return setCon;
+        }
     }
-
 }

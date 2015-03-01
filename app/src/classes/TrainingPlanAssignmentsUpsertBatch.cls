@@ -102,7 +102,7 @@ global with sharing class TrainingPlanAssignmentsUpsertBatch implements Database
             Boolean success = true;
             String errorMessage = null;
             try{
-                LMSService.upsertAssignments(selectedUserIds,trainingPlanId);
+                LMSService.upsertAssignments(selectedUserIds,trainingPlanId,null);
             }catch(Exception e){
                 success = false;
                 errorMessage = e.getMessage();

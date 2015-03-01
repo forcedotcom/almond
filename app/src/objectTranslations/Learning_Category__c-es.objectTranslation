@@ -9,14 +9,17 @@
         <value>Categorías de Aprendizaje</value>
     </caseValues>
     <fields>
+        <help>Liga hacia la imagen que será desplegada en el encabezado de la categoría</help>
         <label>Liga para imagen de fondo</label>
         <name>Background_Image_URL__c</name>
     </fields>
     <fields>
+        <help>Liga hacia la imagen que será desplegada en la página de Catálogo</help>
         <label>Logo</label>
         <name>Logo__c</name>
     </fields>
     <fields>
+        <help>Código de color Hex para el texto del encabezado (ej. #333333, más ejemplos en : http://www.color-hex.com/)</help>
         <label>Color de Texto</label>
         <name>Text_Color__c</name>
     </fields>
@@ -30,8 +33,14 @@
         <name>Hide_From_Catalog_Home__c</name>
     </fields>
     <fields>
+        <help>Número que define la posición en la que será mostrada la categoria en la página de Catálogo</help>
         <label>Orden</label>
         <name>Order__c</name>
+    </fields>
+    <fields>
+        <help>Habilitar esta opción para esconder esta Categoría de los usuarios externos</help>
+        <label>Categoría Interna</label>
+        <name>Is_Internal__c</name>
     </fields>
     <layouts>
         <layout>Learning Category Layout</layout>

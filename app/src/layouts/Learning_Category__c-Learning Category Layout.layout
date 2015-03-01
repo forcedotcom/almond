@@ -57,6 +57,10 @@
                 <behavior>Edit</behavior>
                 <field>Hide_From_Catalog_Home__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Is_Internal__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

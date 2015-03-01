@@ -32,14 +32,14 @@ private class TestTrainingCatalogHomeCtrl {
     static testMethod void testCatalogPageWithoutEntries(){
 
         //Create admin users
-		List<User> adminUsers = TestUtilClass.createUsers(2,'System Administrator');
-		List<User> lmsUsers = TestUtilClass.createUsers(2,'Standard User');
+        List<User> adminUsers = TestUtilClass.createUsers(2,'System Administrator');
+        List<User> lmsUsers = TestUtilClass.createUsers(2,'Standard User');
 
-		System.runAs(adminUsers.get(0)){
-			//Assign corresponding perm sets
-			TestUtilClass.addPermissionSet(adminUsers,'LMS_Admin');
-			TestUtilClass.addPermissionSet(lmsUsers,'LMS_User');
-		}
+        System.runAs(adminUsers.get(0)){
+            //Assign corresponding perm sets
+            TestUtilClass.addPermissionSet(adminUsers,'LMS_Admin');
+            TestUtilClass.addPermissionSet(lmsUsers,'LMS_User');
+        }
 
         PageReference ref = Page.TrainingCatalogHome;
         Test.setCurrentPageReference(ref);
@@ -48,7 +48,6 @@ private class TestTrainingCatalogHomeCtrl {
                 TrainingCatalogHomeController cont = new TrainingCatalogHomeController();
                 System.assertEquals(0,cont.lcategories.size());
             }
-
         Test.stopTest();
 
     }
@@ -56,18 +55,18 @@ private class TestTrainingCatalogHomeCtrl {
     static testMethod void testCatalogPageWithEntries(){
 
         //Create admin users
-		List<User> adminUsers = TestUtilClass.createUsers(2,'System Administrator');
-		List<User> lmsUsers = TestUtilClass.createUsers(2,'Standard User');
+        List<User> adminUsers = TestUtilClass.createUsers(2,'System Administrator');
+        List<User> lmsUsers = TestUtilClass.createUsers(2,'Standard User');
 
-		System.runAs(adminUsers.get(0)){
-			//Assign corresponding perm sets
-			TestUtilClass.addPermissionSet(adminUsers,'LMS_Admin');
-			TestUtilClass.addPermissionSet(lmsUsers,'LMS_User');
-		}
+        System.runAs(adminUsers.get(0)){
+            //Assign corresponding perm sets
+            TestUtilClass.addPermissionSet(adminUsers,'LMS_Admin');
+            TestUtilClass.addPermissionSet(lmsUsers,'LMS_User');
+        }
 
-		TestTrainingPlanData.createSampleData();
+        TestTrainingPlanData.createSampleData();
 
-		List<Training_Plan__c> tplans = [select id
+        List<Training_Plan__c> tplans = [select id
                                             ,Enable_Self_Registration__c
                                             ,Self_Registration_Access__c
                                             from Training_Plan__c];
@@ -89,7 +88,6 @@ private class TestTrainingCatalogHomeCtrl {
                 TrainingCatalogHomeController cont = new TrainingCatalogHomeController();
                 System.assert(cont.lcategories.size()>0);
             }
-
         Test.stopTest();
 
     }

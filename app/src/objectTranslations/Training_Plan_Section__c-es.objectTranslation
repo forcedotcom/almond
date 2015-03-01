@@ -9,10 +9,12 @@
         <value>Secciones de Curso</value>
     </caseValues>
     <fields>
+        <help>Habilitar esta opción si solo planea agregar aprendizajes de curso opcionales bajo esta sección</help>
         <label>Opcional</label>
         <name>Optional__c</name>
     </fields>
     <fields>
+        <help>Número que define la posición en la que será mostrada esta sección dentro del Curso</help>
         <label>Orden</label>
         <name>Order__c</name>
     </fields>

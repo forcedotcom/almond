@@ -49,6 +49,10 @@
         <name>User__c</name>
         <relationshipLabel><!-- Achievement Assignments --></relationshipLabel>
     </fields>
+    <fields>
+        <label><!-- Community Id --></label>
+        <name>Community_Id__c</name>
+    </fields>
     <layouts>
         <layout>Achievement Assignment Layout</layout>
         <sections>

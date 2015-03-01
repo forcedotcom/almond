@@ -55,6 +55,11 @@ public with sharing class LMSConstants {
     public static final String LV_DECISION_PENDING = 'Pending';
 
     public static final String TTRACK_ACTIVE_STATUS = 'Active';
-    public static final string TTRACK_DRAFT_STATUS = 'Draft';
+    public static final String TTRACK_DRAFT_STATUS = 'Draft';
+
+    public static final String TPLAN_PUBLIC_EXTERNAL = 'External';
+
+    public static final String ASSIGNMENT_NEW_VERSION_TAKEN = 'New version taken';
+    public static final String ASSIGNMENT_USE_OLD_VERSION = 'Keep using old version';
 
 }

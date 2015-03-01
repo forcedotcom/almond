@@ -9,6 +9,7 @@
         <value>Recursos de Aprendizaje</value>
     </caseValues>
     <fields>
+        <help>Habilitar esta opción para añadir parametros de contexto a la liga del Recurso (ej. https://algunaliga.com/?aid=ASSIGNMENT_ID&amp;tid=TPLAN_ID)</help>
         <label>Añadir parámetros de Aprendizaje a la liga</label>
         <name>Add_training_parameters_to_URL__c</name>
     </fields>
@@ -17,6 +18,7 @@
         <name>Description__c</name>
     </fields>
     <fields>
+        <help>Habilitar esta opción para desplegar la liga del Recurso en un iFrame en lugar de una nueva ventana</help>
         <label>Mostrar en Iframe</label>
         <name>Display_in_Iframe__c</name>
     </fields>
@@ -26,10 +28,12 @@
         <relationshipLabel>Recursos de Aprendizaje</relationshipLabel>
     </fields>
     <fields>
+        <help>Aprendizajes de tipo &quot;Recurso&quot; son marcados como completos al lanzarlos, habilite esta opción para prevenir este comportamiento</help>
         <label>Delegar la terminación de Asignación</label>
         <name>Prevent_completion_on_launch__c</name>
     </fields>
     <fields>
+        <help>Liga para el recurso que desea asociar a este aprendizaje (ej. https://algunaliga.com)</help>
         <label>Liga de Recurso</label>
         <name>Resource_URL__c</name>
     </fields>

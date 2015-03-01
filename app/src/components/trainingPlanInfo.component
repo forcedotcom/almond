@@ -19,8 +19,12 @@
                         <div class="{!IF(hasBadge,'tplan_details','tplan_details_no_image')}" >
                             <h4>{!o.planName}</h4>
                         </div>
+                        <apex:outputPanel rendered="{!o.newUntil != null && TODAY() <= o.newUntil}">
+                            <div class="ribbon-wrapper-green"><div class="ribbon-green">{!$Label.ALMS_New_Training_Plan}</div></div>
+                        </apex:outputPanel>
                     </div>
                 </div>
+
 
             </apex:repeat>
         </div>

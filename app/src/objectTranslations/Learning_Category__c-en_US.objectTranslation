@@ -9,14 +9,17 @@
         <value>Learning Categories</value>
     </caseValues>
     <fields>
+        <help><!-- URL for the image displayed in the catalog detail header --></help>
         <label><!-- Background Image URL --></label>
         <name>Background_Image_URL__c</name>
     </fields>
     <fields>
+        <help><!-- URL for the image displayed for this category in the catalog page --></help>
         <label><!-- Logo --></label>
         <name>Logo__c</name>
     </fields>
     <fields>
+        <help><!-- HEX Color code for the header text color (e.g. #333333, more examples in : http://www.color-hex.com/) --></help>
         <label><!-- Text Color --></label>
         <name>Text_Color__c</name>
     </fields>
@@ -25,13 +28,19 @@
         <name>Total_Training_Plans__c</name>
     </fields>
     <fields>
-        <help><!-- Help text --></help>
+        <help><!-- Enable this option if you do not want to display this category in the catalog home page --></help>
         <label><!-- Hide from Catalog Home --></label>
         <name>Hide_From_Catalog_Home__c</name>
     </fields>
     <fields>
+        <help><!-- Number that defines the position in which this category will appear in the catalog page --></help>
         <label><!-- Order --></label>
         <name>Order__c</name>
+    </fields>
+    <fields>
+        <help><!-- Enable this option if you do not want to display this category to external users --></help>
+        <label><!-- Is Internal --></label>
+        <name>Is_Internal__c</name>
     </fields>
     <layouts>
         <layout>Learning Category Layout</layout>

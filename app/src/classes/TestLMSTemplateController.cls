@@ -34,7 +34,6 @@ private class TestLMSTemplateController {
         LMSTemplateController cont = new LMSTemplateController();
         // Default value should be false
         System.assert(cont.customJSEnabled == false);
-        System.assert(cont.showSFHeader == false);
     }
 
     static testMethod void testInitWithSFHeader(){
@@ -42,7 +41,6 @@ private class TestLMSTemplateController {
         LMSTemplateController cont = new LMSTemplateController();
         // Default value should be false
         System.assert(cont.customJSEnabled == false);
-        System.assert(cont.showSFHeader == true);
     }
 
     static void createTestCustomSetting(Boolean showSFHeader){

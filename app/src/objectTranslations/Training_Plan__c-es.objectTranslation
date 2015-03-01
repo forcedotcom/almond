@@ -9,6 +9,7 @@
         <value>Cursos</value>
     </caseValues>
     <fields>
+        <help>Código de color Hex para el fondo del encabezado (ej. #dcdcdc, más ejemplos en : http://www.color-hex.com/)</help>
         <label>Color de Fondo</label>
         <name>Background_Color__c</name>
     </fields>
@@ -36,6 +37,7 @@
         <name>End_Date__c</name>
     </fields>
     <fields>
+        <help>Habilitar esta opción para asegurarse que los usuarios tomen los aprendizajes del curso en el orden especificado</help>
         <label>Respetar Secuencia</label>
         <name>Enforce_Sequence__c</name>
     </fields>
@@ -45,16 +47,20 @@
         <name>Intro_Video_URL__c</name>
     </fields>
     <fields>
-        <help>Acceso Publico o sin valor permite que los usuarios se auto-registren al curso. Requiere Aprobación guarda un registro de Aprobación que debe ser procesado por el propietario del curso.</help>
+        <help> &quot;Público&quot; o sin valor permite que usuarios se auto-registren al curso. &quot;Requiere Aprobación&quot; guarda un registro de Aprobación que debe ser procesado por el propietario del curso. &quot;Externo&quot; expone el curso a todos los usuarios</help>
         <label>Acceso para Auto-Registro</label>
         <name>Self_Registration_Access__c</name>
         <picklistValues>
             <masterLabel>Public</masterLabel>
-            <translation>Publico</translation>
+            <translation>Público (Todos los Usuarios Internos + Cuentas de Curso)</translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>External</masterLabel>
+            <translation>Externo (Todos los Usuarios Externos + Internos)</translation>
         </picklistValues>
         <picklistValues>
             <masterLabel>Requires Approval</masterLabel>
-            <translation>Requiere Aprobación</translation>
+            <translation>Requiere Aprobación (Usuarios Internos + Cuentas de Curso)</translation>
         </picklistValues>
     </fields>
     <fields>
@@ -63,6 +69,7 @@
     </fields>
     <fields>
         <label>Estado</label>
+        <help>Solo los cursos Activos serán visibles para los usuarios finales. Cursos en estado Borrador serán visibles para Administradores</help>
         <name>Status__c</name>
         <picklistValues>
             <masterLabel>Active</masterLabel>
@@ -74,6 +81,7 @@
         </picklistValues>
     </fields>
     <fields>
+        <help>Código de color Hex para el texto del encabezado (ej. #333333, más ejemplos en : http://www.color-hex.com/)</help>
         <label>Color de Texto</label>
         <name>Text_Color__c</name>
     </fields>
@@ -102,6 +110,11 @@
         <help>Habilitar esta opción para evitar que los comentarios sean requeridos al proveer una calificación</help>
         <label>Comentatrios de Calificación Opcionales</label>
         <name>Optional_Feedback_Comments__c</name>
+    </fields>
+    <fields>
+        <help>Desplegar una etiqueta que indique que el curso es Nuevo hasta la fecha definida</help>
+        <label>Nuevo hasta</label>
+        <name>New_Until__c</name>
     </fields>
     <layouts>
         <layout>Training Plan Layout</layout>

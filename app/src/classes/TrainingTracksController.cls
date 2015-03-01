@@ -26,7 +26,7 @@ OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISE
 OF THE POSSIBILITY OF SUCH DAMAGE.
 
 */
-public with sharing class TrainingTracksController{
+public with sharing class TrainingTracksController extends LMSBaseController{
 
     public List<Training_Track__c> tTracks{get;private set;}
 
@@ -35,7 +35,7 @@ public with sharing class TrainingTracksController{
     }
 
     private void init(){
-        this.tTracks = LMSService.getTrainingTracks('Active','All');
+        this.tTracks = LMSService.getTrainingTracks('Active','All', LMSUtils.isPortalUser());
     }
 
 }

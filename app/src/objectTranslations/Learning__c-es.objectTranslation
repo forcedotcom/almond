@@ -42,6 +42,7 @@
         <name>Published__c</name>
     </fields>
     <fields>
+        <help>Habilitar esta opción si planea agregar este aprendizaje en múltiples cursos y desea sincronizar el progreso a través de los cursos</help>
         <label>Sincronizar progreso entre asignaciones</label>
         <name>Sync_progress__c</name>
     </fields>

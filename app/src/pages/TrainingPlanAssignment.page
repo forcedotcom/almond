@@ -57,6 +57,9 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
         <apex:tab label="{!$Label.ALMS_Create_Assignments}" name="upsertTab" id="tabOne">
             <apex:include pageName="TrainingPlanAssignmentNew"/>
         </apex:tab>
+        <apex:tab label="{!$Label.ALMS_Single_Assignments}" name="singleUpsertTab" id="tabFour">
+            <apex:include pageName="TrainingPlanAssignmentNewSingle"/>
+        </apex:tab>
         <apex:tab label="{!$Label.ALMS_Update_Delete_Assignments}" name="updatedeleteTab" id="tabTwo">
             <apex:include pageName="TrainingPlanAssignmentExisting"/>
         </apex:tab>

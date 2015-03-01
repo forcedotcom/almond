@@ -76,6 +76,7 @@
     </fields>
     <fields>
         <fullName>Max_Attempts__c</fullName>
+        <inlineHelpText>Maximum number of attempts to reach the passing score</inlineHelpText>
         <externalId>false</externalId>
         <label>Max Attempts</label>
         <precision>4</precision>
@@ -88,6 +89,7 @@
     </fields>
     <fields>
         <fullName>Passing_Score__c</fullName>
+        <inlineHelpText>Number between 0 and 100 that will determine the minimum percentage of correct answers to get a passing score</inlineHelpText>
         <externalId>false</externalId>
         <label>Passing Score</label>
         <precision>3</precision>
@@ -108,6 +110,17 @@
         <trackHistory>false</trackHistory>
         <trackTrending>false</trackTrending>
         <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Delete_Responses_On_Submission__c</fullName>
+        <inlineHelpText>Delete quiz response records after quiz submission</inlineHelpText>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Delete Respones on Submission</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
     </fields>
     <label>Quiz</label>
     <listViews>

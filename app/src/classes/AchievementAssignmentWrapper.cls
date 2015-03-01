@@ -44,6 +44,7 @@ public with sharing class AchievementAssignmentWrapper{
                 if(UserInfo.getUserId() == a.User__c){
                     this.status = LMSConstants.AA_OVERRIDE_STATUS;
                 }else{
+                    // Do not show the overwritten status to other users
                     this.status = LMSConstants.AA_ELIGIBLE_STATUS;
                 }
             }

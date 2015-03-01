@@ -133,9 +133,8 @@ td.noSidebarCell{
     padding: 10px 20px;
 }
 
-.almond..almond-template .tmpl-body-container{
-    margin-top: 20px;
-    min-height: 300px;
+.almond.almond-template .tmpl-body-container{
+    min-height: 400px;
 }
 
 .almond .tplan-form,
@@ -161,6 +160,13 @@ td.noSidebarCell{
     /* This background value is overwritten by LMS Settings */
     background: #2A94D6;
     box-shadow: 0 2px 2px rgba(0, 0, 0, 0.35);
+}
+
+.almond .lms-nav nav{
+    /* Reset the nav position, sometimes communities css overrides this */
+    float: initial;
+    position: initial;
+    top: initial;
 }
 
 .almond .navbar-inverse .navbar-brand {
@@ -705,6 +711,57 @@ td.noSidebarCell{
     width:90%; /* prevent width overflow in task viewer */
 }
 
+.ribbon-wrapper-green {
+  width: 85px;
+  height: 88px;
+  overflow: hidden;
+  position: absolute;
+  top: -3px;
+  left: 11px;
+}
+
+.ribbon-green {
+  font: bold 10px Sans-Serif;
+  color: #333;
+  text-align: center;
+  text-shadow: rgba(255,255,255,0.5) 0px 1px 0px;
+  -webkit-transform: rotate(-35deg);
+  -moz-transform:    rotate(-35deg);
+  -ms-transform:     rotate(-35deg);
+  -o-transform:      rotate(-35deg);
+  position: relative;
+  padding: 3px 0;
+  left: -13px;
+  top: 10px;
+  width: 90px;
+  background-color: #BFDC7A;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#BFDC7A), to(#8EBF45));
+  background-image: -webkit-linear-gradient(top, #BFDC7A, #8EBF45);
+  background-image:    -moz-linear-gradient(top, #BFDC7A, #8EBF45);
+  background-image:     -ms-linear-gradient(top, #BFDC7A, #8EBF45);
+  background-image:      -o-linear-gradient(top, #BFDC7A, #8EBF45);
+  color: #6a6340;
+  -webkit-box-shadow: 0px 0px 3px rgba(0,0,0,0.3);
+  -moz-box-shadow:    0px 0px 3px rgba(0,0,0,0.3);
+  box-shadow:         0px 0px 3px rgba(0,0,0,0.3);
+}
+
+.ribbon-green:before, .ribbon-green:after {
+  content: "";
+  border-top:   3px solid #6e8900;
+  border-left:  3px solid transparent;
+  border-right: 3px solid transparent;
+  position:absolute;
+  bottom: -3px;
+}
+
+.ribbon-green:before {
+  left: 0;
+}
+.ribbon-green:after {
+  right: 0;
+}
+
 /*!
 * Hero Template Activities Section styles
 * ------------------------------------------------------
@@ -951,11 +1008,45 @@ td.noSidebarCell{
     max-width: 90px !important;
 }
 
+.almond .ttrack_img{
+    display: inline-block;
+    text-align:center;
+    width: 100%;
+    padding:10px 0 0 0;
+    min-height:100px;
+    border-radius:10px;
+}
+
+.almond .ttrack_img table{
+    text-align:center;
+    width: 100%;
+}
+
+.almond .ttrack_img img{
+    height: 70px !important;
+    vertical-align: middle;
+    width: auto !important;
+    margin: 0 auto;
+    max-width: 90px !important;
+}
+
 .almond .tplan_details {
     display: inline-block;
     float: center;
     height: 95px;
     width: 70%;
+}
+
+.almond .ttrack_details{
+    display: block;
+    text-align: center;
+    min-height: 150px;
+    width: 100%;
+    overflow:hidden;
+}
+
+.almond .ttrack_details h4{
+    font-weight:400;
 }
 
 .almond .tplan_details_home{
@@ -1137,9 +1228,9 @@ td.noSidebarCell{
     }
 
     .almond .categoryImage img {
-        height: 8vw;
-        margin-left: -4vw;
-        margin-top: -6vw;
+        height: 5vw;
+        margin-left: -2.5vw;
+        margin-top: -4vw;
     }
 
     .almond .achievements-avatar{

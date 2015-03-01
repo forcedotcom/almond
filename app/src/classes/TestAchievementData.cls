@@ -29,50 +29,69 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 @isTest
 public class TestAchievementData {
 
-	public static List<Achievement_Category__c> createAchievementCategories(Integer iNum){
-		List<Achievement_Category__c> lResults = new List<Achievement_Category__c>();
+    public static List<Achievement_Category__c> createAchievementCategories(Integer iNum){
+        List<Achievement_Category__c> lResults = new List<Achievement_Category__c>();
 
-		for(Integer i = 0; i < iNum; i++){
-			Achievement_Category__c oACat = new Achievement_Category__c();
-			oACat.Name = TestUtilClass.getRandomUniqueString(20);
-			lResults.add(oACat);
-		}
+        for(Integer i = 0; i < iNum; i++){
+            Achievement_Category__c oACat = new Achievement_Category__c();
+            oACat.Name = TestUtilClass.getRandomUniqueString(20);
+            lResults.add(oACat);
+        }
 
-		insert lResults;
-		return lResults;
-	}
+        insert lResults;
+        return lResults;
+    }
 
-	public static List<Achievement__c> createAchievements(Integer iNum, Id aCategoryID, String sType){
-		List<Achievement__c> lResults = new List<Achievement__c>();
+    public static List<Achievement__c> createAchievements(Integer iNum, Id aCategoryID, String sType){
+        List<Achievement__c> lResults = new List<Achievement__c>();
 
-		for(Integer i = 0; i < iNum; i++){
-			Achievement__c oachievement = new Achievement__c();
-			oachievement.Achievement_Category__c = aCategoryID;
-			oachievement.Acquired_Image__c = '<div>Random Rich Text Content:Acquired Image</div>';
-			oachievement.Eligible_Image__c = '<div>Random Rich Text Content:Eligible Image</div>';
-			oachievement.Expiration_Date__c = TestUtilClass.getRandomFutureDate();
-			oachievement.Type__c = sType;
+        for(Integer i = 0; i < iNum; i++){
+            Achievement__c oachievement = new Achievement__c();
+            oachievement.Achievement_Category__c = aCategoryID;
+            oachievement.Acquired_Image__c = '<div>Random Rich Text Content:Acquired Image</div>';
+            oachievement.Eligible_Image__c = '<div>Random Rich Text Content:Eligible Image</div>';
+            oachievement.Expiration_Date__c = TestUtilClass.getRandomFutureDate();
+            oachievement.Type__c = sType;
 
-			lResults.add(oachievement);
-		}
+            lResults.add(oachievement);
+        }
 
-		insert lResults;
-		return lResults;
-	}
+        insert lResults;
+        return lResults;
+    }
+
+    public static List<Achievement__c> createInternalAchievements(Integer iNum, Id aCategoryID, String sType){
+        List<Achievement__c> lResults = new List<Achievement__c>();
+
+        for(Integer i = 0; i < iNum; i++){
+            Achievement__c oachievement = new Achievement__c();
+            oachievement.Achievement_Category__c = aCategoryID;
+            oachievement.Acquired_Image__c = '<div>Random Rich Text Content:Acquired Image</div>';
+            oachievement.Eligible_Image__c = '<div>Random Rich Text Content:Eligible Image</div>';
+            oachievement.Expiration_Date__c = TestUtilClass.getRandomFutureDate();
+            oachievement.Is_Internal__c = true;
+            oachievement.Type__c = sType;
+
+            lResults.add(oachievement);
+        }
+
+        insert lResults;
+        return lResults;
+    }
 
     public static List<WorkBadgeDefinition> createWorkBadges(Integer iNum){
 
-		Document document = new Document();
-		document.AuthorId = UserInfo.getUserId();
-		document.FolderId = UserInfo.getUserId();
-		String docName = 'Doc'+TestUtilClass.getTimeStamp();
-		document.Name = docName;
-		document.DeveloperName = docName;
-		document.Body = Blob.valueOf('Test Document Body');
-		document.ContentType = 'image/png';
-		document.IsPublic = true;
-		document.Type = 'png';
-		insert document;
+        Document document = new Document();
+        document.AuthorId = UserInfo.getUserId();
+        document.FolderId = UserInfo.getUserId();
+        String docName = 'Doc'+TestUtilClass.getTimeStamp();
+        document.Name = docName;
+        document.DeveloperName = docName;
+        document.Body = Blob.valueOf('Test Document Body');
+        document.ContentType = 'image/png';
+        document.IsPublic = true;
+        document.Type = 'png';
+        insert document;
 
         List<WorkBadgeDefinition> results = new List<WorkBadgeDefinition>();
         for(Integer i =0;i < iNum;i++){

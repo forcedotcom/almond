@@ -52,6 +52,7 @@
     <enableReports>true</enableReports>
     <fields>
         <fullName>Background_Color__c</fullName>
+        <inlineHelpText>HEX Color code for the header background color (e.g. #dcdcdc, more examples in : http://www.color-hex.com/)</inlineHelpText>
         <externalId>false</externalId>
         <label>Background Color</label>
         <length>7</length>
@@ -120,6 +121,7 @@
     </fields>
     <fields>
         <fullName>Enforce_Sequence__c</fullName>
+        <inlineHelpText>Enable this option to require users to complete the learning activities in the specified order</inlineHelpText>
         <defaultValue>true</defaultValue>
         <externalId>false</externalId>
         <label>Enforce Sequence</label>
@@ -144,7 +146,7 @@
     <fields>
         <fullName>Self_Registration_Access__c</fullName>
         <externalId>false</externalId>
-        <inlineHelpText>&quot;Public&quot; or empty access allows any users to create assignments &quot;on the fly&quot; for this training plan. &quot;Requires Approval&quot; logs an approval request that is later handled by the Training Plan owner.</inlineHelpText>
+        <inlineHelpText>&quot;Public&quot; or blank allows users to create assignments &quot;on the fly&quot;. &quot;Requires Approval&quot; logs an approval request that is later handled by the Training Plan owner.&quot;External&quot; exposes this training plan to all users.</inlineHelpText>
         <label>Self-Registration Access</label>
         <picklist>
             <controllingField>Enable_Self_Registration__c</controllingField>
@@ -152,6 +154,11 @@
                 <fullName>Public</fullName>
                 <controllingFieldValues>checked</controllingFieldValues>
                 <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>External</fullName>
+                <controllingFieldValues>checked</controllingFieldValues>
+                <default>false</default>
             </picklistValues>
             <picklistValues>
                 <fullName>Requires Approval</fullName>
@@ -177,6 +184,7 @@
     </fields>
     <fields>
         <fullName>Status__c</fullName>
+        <inlineHelpText>Only Active training plans will be visible to learners, Draft plans will be visible for Learning Admins</inlineHelpText>
         <externalId>false</externalId>
         <label>Status</label>
         <picklist>
@@ -197,6 +205,7 @@
     </fields>
     <fields>
         <fullName>Text_Color__c</fullName>
+        <inlineHelpText>HEX Color code for the header text color (e.g. #333333, more examples in : http://www.color-hex.com/)</inlineHelpText>
         <externalId>false</externalId>
         <label>Text Color</label>
         <length>7</length>
@@ -284,6 +293,17 @@
         <trackHistory>false</trackHistory>
         <trackTrending>false</trackTrending>
         <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>New_Until__c</fullName>
+        <inlineHelpText>Display a New ribbon in the training plan until the specified date</inlineHelpText>
+        <externalId>false</externalId>
+        <label>New Until</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
     </fields>
     <label>Training Plan</label>
     <listViews>

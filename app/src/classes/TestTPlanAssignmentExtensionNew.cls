@@ -29,30 +29,30 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 @isTest
 private class TestTPlanAssignmentExtensionNew{
 
-	static testmethod void testSearchWithoutFilters(){
+    static testmethod void testSearchWithoutFilters(){
 
-		//Create admin users
-		List<User> adminUsers = TestUtilClass.createUsers(2,'System Administrator');
-		List<User> lmsUsers = TestUtilClass.createUsers(10,'Standard User');
+        //Create admin users
+        List<User> adminUsers = TestUtilClass.createUsers(2,'System Administrator');
+        List<User> lmsUsers = TestUtilClass.createUsers(10,'Standard User');
 
-		System.runAs(adminUsers.get(0)){
-			//Assign corresponding perm sets
-			TestUtilClass.addPermissionSet(adminUsers,'LMS_Admin');
-			TestUtilClass.addPermissionSet(lmsUsers,'LMS_User');
-		}
+        System.runAs(adminUsers.get(0)){
+            //Assign corresponding perm sets
+            TestUtilClass.addPermissionSet(adminUsers,'LMS_Admin');
+            TestUtilClass.addPermissionSet(lmsUsers,'LMS_User');
+        }
 
-		TestTrainingPlanData.createSampleData();
+        TestTrainingPlanData.createSampleData();
 
-		List<Training_Plan__c> tplans = [select id from Training_Plan__c];
-		System.assertEquals(1,tplans.size());
-		Training_Plan__c tplan  = tplans.get(0);
+        List<Training_Plan__c> tplans = [select id from Training_Plan__c];
+        System.assertEquals(1,tplans.size());
+        Training_Plan__c tplan  = tplans.get(0);
 
-		//Test Insert
+        //Test Insert
         PageReference testPageRef = Page.TrainingPlanAssignmentNew;
         Test.setCurrentPageReference(testPageRef);
-		Test.startTest();
+        Test.startTest();
 
-			System.runAs(adminUsers.get(0)){
+            System.runAs(adminUsers.get(0)){
 
                 TrainingPlanAssignmentExtensionNew cont = new TrainingPlanAssignmentExtensionNew(new ApexPages.StandardController(tplan));
                 List<SelectOption> profileList = cont.getProfiles();
@@ -71,39 +71,36 @@ private class TestTPlanAssignmentExtensionNew{
                 PageReference importPage = cont.goToImportAssignments();
                 System.assert(importPage != null);
 
-			}
+            }
+        Test.stopTest();
+    }
 
+    static testmethod void testSearchWithFiltersAndAssignments(){
 
-		Test.stopTest();
+        //Create admin users
+        List<User> adminUsers = TestUtilClass.createUsers(2,'System Administrator');
+        List<User> lmsUsers = TestUtilClass.createUsers(5,'Standard User');
 
-	}
-
-	static testmethod void testSearchWithFiltersAndAssignments(){
-
-		//Create admin users
-		List<User> adminUsers = TestUtilClass.createUsers(2,'System Administrator');
-		List<User> lmsUsers = TestUtilClass.createUsers(5,'Standard User');
-
-		System.runAs(adminUsers.get(0)){
-			//Assign corresponding perm sets
-			TestUtilClass.addPermissionSet(adminUsers,'LMS_Admin');
-			TestUtilClass.addPermissionSet(lmsUsers,'LMS_User');
-		}
+        System.runAs(adminUsers.get(0)){
+            //Assign corresponding perm sets
+            TestUtilClass.addPermissionSet(adminUsers,'LMS_Admin');
+            TestUtilClass.addPermissionSet(lmsUsers,'LMS_User');
+        }
 
         User sampleUser = [select id,firstName,lastName,email,profileId,userroleId from User where id in :lmsUsers limit 1];
 
-		TestTrainingPlanData.createSampleData();
+        TestTrainingPlanData.createSampleData();
 
-		List<Training_Plan__c> tplans = [select id from Training_Plan__c];
-		System.assertEquals(1,tplans.size());
-		Training_Plan__c tplan  = tplans.get(0);
+        List<Training_Plan__c> tplans = [select id from Training_Plan__c];
+        System.assertEquals(1,tplans.size());
+        Training_Plan__c tplan  = tplans.get(0);
 
-		//Test Insert
+        //Test Insert
         PageReference testPageRef = Page.TrainingPlanAssignmentNew;
         Test.setCurrentPageReference(testPageRef);
-		Test.startTest();
+        Test.startTest();
 
-			System.runAs(adminUsers.get(0)){
+            System.runAs(adminUsers.get(0)){
 
                 TrainingPlanAssignmentExtensionNew cont = new TrainingPlanAssignmentExtensionNew(new ApexPages.StandardController(tplan));
                 cont.firstName = sampleUser.firstName;
@@ -128,11 +125,96 @@ private class TestTPlanAssignmentExtensionNew{
                     System.assert(false,'Assignment failed');
                 }
 
-			}
+            }
 
 
-		Test.stopTest();
+        Test.stopTest();
 
-	}
+    }
+
+    static testmethod void testSingleUserAssignment(){
+
+        //Create admin users
+        List<User> adminUsers = TestUtilClass.createUsers(1,'System Administrator');
+        List<User> lmsUsers = TestUtilClass.createUsers(1,'Standard User');
+
+        System.runAs(adminUsers.get(0)){
+            //Assign corresponding perm sets
+            TestUtilClass.addPermissionSet(adminUsers,'LMS_Admin');
+            TestUtilClass.addPermissionSet(lmsUsers,'LMS_User');
+        }
+
+        User sampleUser = [select id,firstName,lastName,email,profileId,userroleId from User where id in :lmsUsers limit 1];
+
+        TestTrainingPlanData.createSampleData();
+
+        List<Training_Plan__c> tplans = [select id from Training_Plan__c];
+        System.assertEquals(1,tplans.size());
+        Training_Plan__c tplan  = tplans.get(0);
+
+        PageReference testPageRef = Page.TrainingPlanAssignmentNewSingle;
+        Test.setCurrentPageReference(testPageRef);
+        Test.startTest();
+
+            System.runAs(adminUsers.get(0)){
+
+                TrainingPlanAssignmentExtensionNew cont = new TrainingPlanAssignmentExtensionNew(new ApexPages.StandardController(tplan));
+
+                PageReference ref;
+                List<SelectOption> communitiesOptions = cont.getCommunities();
+                System.assert(communitiesOptions.size()>0); //There should at least be an empty option for communities
+                cont.dummySingleAssignment.User__c = lmsUsers.get(0).Id;
+                try{
+                    ref = cont.assignSingleUser();
+                    List<Training_Plan_Assignment__c> userTPlanAssignment = [select id from Training_Plan_Assignment__c where User__c = :lmsUsers.get(0).Id];
+                    System.assert(userTPlanAssignment.size()>0, 'Assignment was not created');
+                }catch(Exception e){
+                    System.assert(false,'Assignment failed');
+                }
+
+            }
+        Test.stopTest();
+    }
+
+    static testmethod void testSingleUserAssignmentFailure(){
+
+        //Create admin users
+        List<User> adminUsers = TestUtilClass.createUsers(1,'System Administrator');
+        List<User> lmsUsers = TestUtilClass.createUsers(1,'Standard User');
+
+        System.runAs(adminUsers.get(0)){
+            //Assign corresponding perm sets
+            TestUtilClass.addPermissionSet(adminUsers,'LMS_Admin');
+        }
+
+        User sampleUser = [select id,firstName,lastName,email,profileId,userroleId from User where id in :lmsUsers limit 1];
+
+        TestTrainingPlanData.createSampleData();
+
+        List<Training_Plan__c> tplans = [select id from Training_Plan__c];
+        System.assertEquals(1,tplans.size());
+        Training_Plan__c tplan  = tplans.get(0);
+
+        PageReference testPageRef = Page.TrainingPlanAssignmentNewSingle;
+        Test.setCurrentPageReference(testPageRef);
+        Test.startTest();
+
+            System.runAs(adminUsers.get(0)){
+
+                TrainingPlanAssignmentExtensionNew cont = new TrainingPlanAssignmentExtensionNew(new ApexPages.StandardController(tplan));
+
+                PageReference ref;
+                cont.dummySingleAssignment.User__c = lmsUsers.get(0).Id;
+                try{
+                    ref = cont.assignSingleUser();
+                    List<Training_Plan_Assignment__c> userTPlanAssignment = [select id from Training_Plan_Assignment__c where User__c = :lmsUsers.get(0).Id];
+                    System.assert(userTPlanAssignment.size() == 0, 'Assignment was created for invalid user');
+                }catch(Exception e){
+                    System.assert(false,'Assignment failed');
+                }
+
+            }
+        Test.stopTest();
+    }
 
 }

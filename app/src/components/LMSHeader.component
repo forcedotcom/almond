@@ -36,7 +36,13 @@
 
             <nav class="navbar-collapse bs-navbar-collapse collapse" role="navigation" >
                 <ul class="nav navbar-nav">
-                    <!-- li class="active" -->
+
+                    <apex:outputPanel layout="none" rendered="{!customSectionURL != null && customSectionName != null}">
+                      <li class="{!IF(section == 'custom','active','')}">
+                          <a href="{!JSENCODE(customSectionURL)}">{!customSectionName}</a>
+                      </li>
+                    </apex:outputPanel>
+
                     <li class="{!IF(section == 'tracks','active','')}">
                         <a href="{!$Page.TrainingTracks}">{!$Label.ALMS_TrainingTracks}</a>
                     </li>
@@ -49,7 +55,7 @@
                     <li class="{!IF(section == 'myprofile','active','')}">
                         <a href="{!$Page.MyProfile}">{!$Label.ALMS_MyProfile}</a>
                     </li>
-                    <apex:outputPanel layout="none" rendered="{!!hideSFLink}">
+                    <apex:outputPanel layout="none" rendered="{!!hideSFLink && !hideBackToSFButton}">
                         <li>
                             <a id="almond-header-logo" data-toggle="almond-tooltip" data-placement="bottom" title="{!$Label.ALMS_Back_SF}" href="{!backToSFURL}"><span class="glyphicon glyphicon-cloud"></span></a>
                         </li>

@@ -52,16 +52,19 @@
     <enableReports>true</enableReports>
     <fields>
         <fullName>Background_Image_URL__c</fullName>
+        <inlineHelpText>URL for the image displayed in the catalog detail header</inlineHelpText>
         <label>Background Image URL</label>
         <type>Url</type>
     </fields>
     <fields>
         <fullName>Logo__c</fullName>
+        <inlineHelpText>URL for the image displayed for this category in the catalog page</inlineHelpText>
         <label>Logo</label>
         <type>Url</type>
     </fields>
     <fields>
         <fullName>Text_Color__c</fullName>
+        <inlineHelpText>HEX Color code for the header text color (e.g. #333333, more examples in : http://www.color-hex.com/)</inlineHelpText>
         <label>Text Color</label>
         <length>7</length>
         <type>Text</type>
@@ -89,6 +92,7 @@
     </fields>
     <fields>
         <fullName>Order__c</fullName>
+        <inlineHelpText>Number that defines the position in which this category will appear in the catalog page</inlineHelpText>
         <externalId>false</externalId>
         <label>Order</label>
         <precision>6</precision>
@@ -98,6 +102,17 @@
         <trackTrending>false</trackTrending>
         <type>Number</type>
         <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Is_Internal__c</fullName>
+        <inlineHelpText>Enable this option if you do not want to display this category to external users</inlineHelpText>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Is Internal</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
     </fields>
     <label>Learning Category</label>
     <listViews>

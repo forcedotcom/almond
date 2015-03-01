@@ -52,6 +52,7 @@
     <enableReports>true</enableReports>
     <fields>
         <fullName>Add_training_parameters_to_URL__c</fullName>
+        <inlineHelpText>Enabling this option will pass context parameters to the External Resource URL. (e.g. https://someurl.com/?aid=ASSIGNMENT_ID&amp;tid=TPLAN_ID)</inlineHelpText>
         <defaultValue>false</defaultValue>
         <externalId>false</externalId>
         <label>Add training parameters to URL</label>
@@ -61,6 +62,7 @@
     </fields>
     <fields>
         <fullName>Description__c</fullName>
+        <inlineHelpText>Description for this task</inlineHelpText>
         <externalId>false</externalId>
         <label>Description</label>
         <required>false</required>
@@ -70,6 +72,7 @@
     </fields>
     <fields>
         <fullName>Enable_Image_Upload__c</fullName>
+        <inlineHelpText>Enabling this option will require users to upload an image in order to complete the task</inlineHelpText>
         <defaultValue>false</defaultValue>
         <externalId>false</externalId>
         <label>Enable Image Upload</label>
@@ -79,6 +82,7 @@
     </fields>
     <fields>
         <fullName>External_Resource_Name__c</fullName>
+        <inlineHelpText>&quot;Friendly&quot; name for the External Resource URL. If blank, the External Resource URL will be displayed</inlineHelpText>
         <externalId>false</externalId>
         <label>External Resource Name</label>
         <length>255</length>
@@ -90,6 +94,7 @@
     </fields>
     <fields>
         <fullName>External_Resource_Target__c</fullName>
+        <inlineHelpText>Target window for displaying the External Resource URL. &quot;blank&quot; will open a new tab/window and &quot;self&quot; will use the current tab/window</inlineHelpText>
         <externalId>false</externalId>
         <label>External Resource Target</label>
         <picklist>
@@ -109,6 +114,7 @@
     </fields>
     <fields>
         <fullName>External_Resource_URL__c</fullName>
+        <inlineHelpText>URL to an external resource that will guide users on how to complete the task</inlineHelpText>
         <externalId>false</externalId>
         <label>External Resource URL</label>
         <required>false</required>
@@ -132,6 +138,7 @@
     </fields>
     <fields>
         <fullName>Requires_Manager_Approval__c</fullName>
+        <inlineHelpText>Enable this option if you want to require Manager&apos;s approval for completing the task. This option will use the standard Manager field in the User object</inlineHelpText>
         <defaultValue>false</defaultValue>
         <externalId>false</externalId>
         <label>Requires Manager Approval to Complete</label>
@@ -141,6 +148,7 @@
     </fields>
     <fields>
         <fullName>Disable_Undo__c</fullName>
+        <inlineHelpText>Enable this option if you do not want users to re-open a task marked as completed</inlineHelpText>
         <defaultValue>false</defaultValue>
         <externalId>false</externalId>
         <label>Disable Undo for Completed Tasks</label>
@@ -150,6 +158,7 @@
     </fields>
     <fields>
         <fullName>Description_RTA__c</fullName>
+        <inlineHelpText>Use this field to provide an additional description for the task</inlineHelpText>
         <externalId>false</externalId>
         <label>Additional Description</label>
         <length>32768</length>

@@ -163,7 +163,7 @@ public with sharing class TrainingPlanAssignmentExtensionExisting{
             }
 
             if(trainingPlanId != null && selectedUserIds.size()>0){
-                LMSService.upsertAssignments(selectedUserIds,trainingPlanId);
+                LMSService.upsertAssignments(selectedUserIds,trainingPlanId,null);
                 init();
                 LMSUtils.addSuccessMessage(System.Label.ALMS_Assignments_Updated_Success);
             }

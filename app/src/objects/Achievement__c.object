@@ -85,6 +85,7 @@
     </fields>
     <fields>
         <fullName>Expiration_Date__c</fullName>
+        <inlineHelpText>Expired achievements will not be displayed in the users profile page</inlineHelpText>
         <externalId>false</externalId>
         <label>Expiration Date</label>
         <required>false</required>
@@ -189,6 +190,16 @@
         <inlineHelpText>If checked, the achievement won&apos;t be displayed in the user&apos;s profile page</inlineHelpText>
         <label>Hidden</label>
         <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Is_Internal__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>If checked, the achievement won&apos;t be displayed to external users</inlineHelpText>
+        <label>Is Internal</label>
+        <trackHistory>false</trackHistory>
         <trackTrending>false</trackTrending>
         <type>Checkbox</type>
     </fields>

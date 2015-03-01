@@ -63,5 +63,20 @@
         <label><!-- Disable Audit Fields for Feed Items --></label>
         <name>Disable_Feed_Item_Audit_Fields__c</name>
     </fields>
+    <fields>
+        <help><!-- Name of a custom section displayed in the header --></help>
+        <label><!-- Custom Section Name --></label>
+        <name>Custom_Section_Name__c</name>
+    </fields>
+    <fields>
+        <help><!-- URL for your custom page (e.g. https://instance.salesforce.com/apex/myhomepage) --></help>
+        <label><!-- Custom Section URL --></label>
+        <name>Custom_Section_URL__c</name>
+    </fields>
+    <fields>
+        <help><!-- Enable this option if you'd like to hide back to SF button when the SF header is disabled --></help>
+        <label><!-- Hide Back to SF Button --></label>
+        <name>Hide_Back_to_SF_Button__c</name>
+    </fields>
     <startsWith>Consonant</startsWith>
 </CustomObjectTranslation>

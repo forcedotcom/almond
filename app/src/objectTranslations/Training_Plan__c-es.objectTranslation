@@ -47,16 +47,16 @@
         <name>Intro_Video_URL__c</name>
     </fields>
     <fields>
-        <help> &quot;Interno + Cuentas&quot; o sin valor permite que usuarios se auto-registren al curso. &quot;Requiere Aprobación&quot; guarda un registro de Aprobación que debe ser procesado por el propietario del curso. &quot;Externo + Interno&quot; expone el curso a todos los usuarios</help>
+        <help> &quot;Público&quot; o sin valor permite que usuarios se auto-registren al curso. &quot;Requiere Aprobación&quot; guarda un registro de Aprobación que debe ser procesado por el propietario del curso. &quot;Externo&quot; expone el curso a todos los usuarios</help>
         <label>Acceso para Auto-Registro</label>
         <name>Self_Registration_Access__c</name>
         <picklistValues>
             <masterLabel>Public</masterLabel>
-            <translation>Todos los Usuarios Internos + Cuentas de Curso</translation>
+            <translation>Público (Todos los Usuarios Internos + Cuentas de Curso)</translation>
         </picklistValues>
         <picklistValues>
             <masterLabel>External</masterLabel>
-            <translation>Todos los Usuarios Externos + Internos</translation>
+            <translation>Externo (Todos los Usuarios Externos + Internos)</translation>
         </picklistValues>
         <picklistValues>
             <masterLabel>Requires Approval</masterLabel>

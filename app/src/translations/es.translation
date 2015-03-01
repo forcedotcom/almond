@@ -73,7 +73,7 @@
         <name>ALMS_Assignments_No_Results_Message</name>
     </customLabels>
     <customLabels>
-        <label>Para asignar usuarios externos (Comunidad/Portal) habilitar Auto-Registro en el Curso y definir el nivel de acceso a &quot;Externos + Internos&quot;, agregar cuentas a la lista relacionada &quot;Cuentas de Curso&quot; o crear asignaciones individuales en la siguiente pestaña</label>
+        <label>Para asignar usuarios externos (Comunidad/Portal) habilitar Auto-Registro en el Curso y definir el nivel de acceso a &quot;Externo&quot;, agregar cuentas a la lista relacionada &quot;Cuentas de Curso&quot; o crear asignaciones individuales en la siguiente pestaña</label>
         <name>ALMS_Assignments_No_External_Results_Message</name>
     </customLabels>
     <customLabels>

@@ -1150,7 +1150,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Assignment No External Results Message</shortDescription>
-        <value>To assign Community/Portal users you must enable Self-Registration in the Training Plan and set the Access Level to "Public (External)", add the corresponding Accounts to the "Training Plan Accounts" related list or create single assignments for external users in the next tab.</value>
+        <value>To assign Community/Portal users you must enable Self-Registration in the Training Plan and set the Access Level to &quot;External + Internal&quot;, add the corresponding Accounts to the &quot;Training Plan Accounts&quot; related list or create single assignments for external users in the next tab.</value>
     </labels>
     <labels>
         <fullName>ALMS_Required</fullName>

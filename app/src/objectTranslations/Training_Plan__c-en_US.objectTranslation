@@ -47,20 +47,20 @@
         <name>Intro_Video_URL__c</name>
     </fields>
     <fields>
-        <help><!-- &quot;Public (Internal + Accounts)&quot; or blank allows users to create assignments &quot;on the fly&quot;. &quot;Requires Approval&quot; logs an approval request that is later handled by the Training Plan owner.&quot;Public (External)&quot; exposes this training plan to all external users. --></help>
+        <help><!-- &quot;(Internal + Accounts); or blank allows users to create assignments &quot;on the fly&quot;. &quot;Requires Approval&quot; logs an approval request that is later handled by the Training Plan owner.&quot;External + Internal&quot; exposes this training plan to all users. --></help>
         <label><!-- Self-Registration Access --></label>
         <name>Self_Registration_Access__c</name>
         <picklistValues>
             <masterLabel>Public</masterLabel>
-            <translation>Public (Internal + Accounts)</translation>
+            <translation>All Internal Users + Training Plan Accounts</translation>
         </picklistValues>
         <picklistValues>
             <masterLabel>External</masterLabel>
-            <translation>Public (External)</translation>
+            <translation>All External + Internal Users</translation>
         </picklistValues>
         <picklistValues>
             <masterLabel>Requires Approval</masterLabel>
-            <translation><!-- Requires Approval --></translation>
+            <translation>Requires Approval (Internal + Training Plan Accounts)</translation>
         </picklistValues>
     </fields>
     <fields>

@@ -98,7 +98,7 @@ global with sharing class TPlanAchievementAssignmentsUpdateBatch implements Data
             Boolean success = true;
             String errorMessage = null;
             try{
-                LMSService.upsertAchievementAssignments(userIdsInScope,trainingplanId);
+                LMSService.upsertAchievementAssignments(userIdsInScope,trainingplanId,null);
             }catch(Exception e){
                 success = false;
                 errorMessage = e.getMessage();

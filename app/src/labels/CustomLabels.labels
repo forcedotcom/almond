@@ -1006,7 +1006,15 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Create Assignments</shortDescription>
-        <value>Create Assignments</value>
+        <value>Create Multiple Assignments</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Single_Assignments</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Create Single Assignments</shortDescription>
+        <value>Create Single Assignments</value>
     </labels>
     <labels>
         <fullName>ALMS_Update_Delete_Assignments</fullName>
@@ -1014,7 +1022,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Update/Delete Assignments</shortDescription>
-        <value>Update/Delete assignments</value>
+        <value>Update/Delete Assignments</value>
     </labels>
     <labels>
         <fullName>ALMS_Assignments_Batch_Operations</fullName>
@@ -1022,7 +1030,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Assignments Batch Operations</shortDescription>
-        <value>Batch operations</value>
+        <value>Batch Operations</value>
     </labels>
     <labels>
         <fullName>ALMS_Recalculate_All_Assignments</fullName>
@@ -1142,7 +1150,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Assignment No External Results Message</shortDescription>
-        <value>To assign Community/Portal users you must enable Self-Registration in the Training Plan and set the Access Level to "External" or add the corresponding Accounts to the "Training Plan Accounts" related list.</value>
+        <value>To assign Community/Portal users you must enable Self-Registration in the Training Plan and set the Access Level to "Public (External)", add the corresponding Accounts to the "Training Plan Accounts" related list or create single assignments for external users in the next tab.</value>
     </labels>
     <labels>
         <fullName>ALMS_Required</fullName>
@@ -1887,5 +1895,45 @@
         <protected>false</protected>
         <shortDescription>New training plan ribbon</shortDescription>
         <value>New</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Single_User_Assignment_Success</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>User has been successfully assigned to the training plan</shortDescription>
+        <value>User has been successfully assigned to the training plan</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_User_Missing_Perms</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Missing LMS Perm set error</shortDescription>
+        <value>The selected user needs to be active and assigned to one of the LMS Permission sets (LMS_Admin, LMS User or LMS External User)</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Invalid_Single_User</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Invalid user for single assignment</shortDescription>
+        <value>Please select a valid user</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Community_Id</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Community Id</shortDescription>
+        <value>Community Id</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Single_Assignments_Info_Message</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Single Assignments Info Message</shortDescription>
+        <value>Specify the community for which this user will launch the training plan from, for non-community users you can leave this blank.</value>
     </labels>
 </CustomLabels>

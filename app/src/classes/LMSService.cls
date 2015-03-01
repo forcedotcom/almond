@@ -1077,13 +1077,13 @@ public with sharing class LMSService{
         }
 
         // Create Badge Assignments
-        upsertAchievementAssignments(activeUserIds,trainingPlanId);
+        upsertAchievementAssignments(activeUserIds,trainingPlanId, communityId);
 
         return results;
     }
 
     //Upsert badge assignments for the specified users under the specified training plan Id
-    public static Map<Id,List<Achievement_Assignment__c>> upsertAchievementAssignments(Set<Id> userIds, Id trainingPlanId){
+    public static Map<Id,List<Achievement_Assignment__c>> upsertAchievementAssignments(Set<Id> userIds, Id trainingPlanId, Id communityId){
 
         //Ignore inactive users
         Set<Id> activeUserIds = new Set<Id>();
@@ -1120,7 +1120,10 @@ public with sharing class LMSService{
             }
 
             //Create new AA records
-            Id currentNetworkId = LMSUtils.getCurrentNetworkId();
+            Id currentNetworkId = communityId;
+            if(currentNetworkId == null){
+                currentNetworkId = LMSUtils.getCurrentNetworkId();
+            }
 
             for(Training_Plan_Achievement__c tpa : tpasMap.values()){
 

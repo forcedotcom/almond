@@ -61,7 +61,7 @@
         <name>ALMS_Assignment_Approve_Message</name>
     </customLabels>
     <customLabels>
-        <label><!-- Assignments Batch Operations --></label>
+        <label><!-- Batch Operations --></label>
         <name>ALMS_Assignments_Batch_Operations</name>
     </customLabels>
     <customLabels>
@@ -71,6 +71,10 @@
     <customLabels>
         <label><!-- Assignment No Results Message --></label>
         <name>ALMS_Assignments_No_Results_Message</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- To assign Community/Portal users you must enable Self-Registration in the Training Plan and set the Access Level to "Public (External)", add the corresponding Accounts to the "Training Plan Accounts" related list or create single assignments for external users in the next tab. --></label>
+        <name>ALMS_Assignments_No_External_Results_Message</name>
     </customLabels>
     <customLabels>
         <label><!-- Assignment Results --></label>
@@ -185,8 +189,12 @@
         <name>ALMS_Continue_Old_Version</name>
     </customLabels>
     <customLabels>
-        <label><!-- Create Assignments --></label>
+        <label><!-- Create Multiple Assignments --></label>
         <name>ALMS_Create_Assignments</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Create Single Assignments --></label>
+        <name>ALMS_Single_Assignments</name>
     </customLabels>
     <customLabels>
         <label><!-- Default chatter message for acquired achievements --></label>
@@ -939,6 +947,26 @@
     <customLabels>
         <label><!-- New --></label>
         <name>ALMS_New_Training_Plan</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- User has been successfully assigned to the training plan --></label>
+        <name>ALMS_Single_User_Assignment_Success</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- The selected user needs to be active and assigned to one of the LMS Permission sets (LMS_Admin, LMS User or LMS External User) --></label>
+        <name>ALMS_User_Missing_Perms</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Please select a valid user --></label>
+        <name>ALMS_Invalid_Single_User</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Community Id --></label>
+        <name>ALMS_Community_Id</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Specify the community for which this user will launch the training plan from, for non-community users you can leave this blank. --></label>
+        <name>ALMS_Single_Assignments_Info_Message</name>
     </customLabels>
     <customTabs>
         <label><!-- Learning --></label>

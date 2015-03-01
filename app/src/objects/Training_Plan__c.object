@@ -146,7 +146,7 @@
     <fields>
         <fullName>Self_Registration_Access__c</fullName>
         <externalId>false</externalId>
-        <inlineHelpText>&quot;Public&quot; or blank access allows users to create assignments &quot;on the fly&quot;. &quot;Requires Approval&quot; logs an approval request that is later handled by the Training Plan owner.&quot;External&quot; exposes this training plan to all external users.</inlineHelpText>
+        <inlineHelpText>&quot;Public (Internal)&quot; or blank access allows users to create assignments &quot;on the fly&quot;. &quot;Requires Approval&quot; logs an approval request that is later handled by the Training Plan owner.&quot;Public (External)&quot; exposes this training plan to all external users.</inlineHelpText>
         <label>Self-Registration Access</label>
         <picklist>
             <controllingField>Enable_Self_Registration__c</controllingField>

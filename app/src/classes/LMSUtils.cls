@@ -101,6 +101,26 @@ public with sharing class LMSUtils{
 
     }
 
+    public static Boolean isValidLMSUser(Id userId){
+        //No need to enforce CRUD/FLS here as this is a utility method that just returns true if the user has the admin perm set
+
+        List<User> activeUsers = [select Id from User where IsActive = true and Id = :userId];
+
+        if(activeUsers.size() == 0){
+          return false;
+        }
+
+        List<PermissionSetAssignment> userPerms = [select Id
+                                                        from PermissionSetAssignment
+                                                        where PermissionSet.Name IN ('LMS_Admin','LMS_User','LMS_External_User')
+                                                        and AssigneeId = :userId];
+        if(userPerms.size()>0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
     public static Boolean isMobileDevice(){
         if(ApexPages.currentPage() != null && ApexPages.currentPage().getHeaders() != null){
             Map<String, String> headers = ApexPages.currentPage().getHeaders();
@@ -154,12 +174,21 @@ public with sharing class LMSUtils{
             return null;
         }else{
             if(networkDetails == null){
-                String soqlQuery = 'select Id,UrlPathPrefix from Network where Id = :networkId';
-                List<SObject> results = Database.query(soqlQuery);
+                List<SObject> results = Database.query('select Id,UrlPathPrefix from Network where Id = :networkId');
                 networkDetails = results.get(0);
             }
         }
         return networkDetails;
+    }
+
+    public static Boolean hasCommunities(){
+        try{
+            Integer networkCount = Database.countQuery('select count() from Network');
+            if(networkCount > 0){
+                return true;
+            }
+        }catch(Exception e){}
+        return false;
     }
 
     public static Id getCurrentNetworkId(){

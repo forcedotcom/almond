@@ -1679,6 +1679,10 @@
         <enabled>false</enabled>
     </pageAccesses>
     <pageAccesses>
+        <apexPage>TrainingPlanAssignmentNewSingle</apexPage>
+        <enabled>false</enabled>
+    </pageAccesses>
+    <pageAccesses>
         <apexPage>TrainingPlanDetail</apexPage>
         <enabled>true</enabled>
     </pageAccesses>

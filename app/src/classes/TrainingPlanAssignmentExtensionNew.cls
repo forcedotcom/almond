@@ -36,8 +36,11 @@ public with sharing class TrainingPlanAssignmentExtensionNew{
     public String profileName{get;set;}
     public String roleName{get;set;}
     public Training_Plan_Assignment__c dummyAssignment{get;set;}
+    public Training_Plan_Assignment__c dummySingleAssignment{get;set;}
     private String trainingPlanId;
     public Boolean filterExistingUsers{get;set;}
+    public Boolean hasCommunities{get;set;}
+    public String communityId{get;set;}
 
     public List<UserWrapper> users{get;set;}
 
@@ -56,14 +59,17 @@ public with sharing class TrainingPlanAssignmentExtensionNew{
 
     private void init(){
         dummyAssignment = new Training_Plan_Assignment__c();
+        dummySingleAssignment = new Training_Plan_Assignment__c();
         firstName = null;
         lastName = null;
         email = null;
         profileName = null;
         roleName = null;
+        communityId = null;
         profileId = '';
         roleId = '';
         users = new List<UserWrapper>();
+        hasCommunities = LMSUtils.hasCommunities();
     }
 
     public List<SelectOption> getProfiles() {
@@ -171,20 +177,8 @@ public with sharing class TrainingPlanAssignmentExtensionNew{
     public PageReference assignUsers(){
         try{
 
-            //BEGIN Access Check
-            Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
-            relatedFieldsObjects.put(Learning_Assignment__c.sObjectType,new List<String>{
-                'User__c'
-                ,'Contact__c'
-                ,'Learning__c'
-                ,'Learning_Version__c'
-                ,'Training_Plan__c'
-                ,'Training_Plan_Section__c'
-                ,'Training_Plan_Section_Item__c'
-            });
-            LMS_ESAPI.isAuthorizedToCreate(relatedFieldsObjects);
-            LMS_ESAPI.isAuthorizedToUpdate(relatedFieldsObjects);
-            //END Access Check
+
+            assignmentAccessCheck();
 
             Set<Id> selectedUserIds = new Set<Id>();
 
@@ -197,6 +191,7 @@ public with sharing class TrainingPlanAssignmentExtensionNew{
             if(trainingPlanId != null && selectedUserIds.size() >0){
                 LMSService.upsertAssignments(selectedUserIds,trainingPlanId,null);
             }
+
         }catch(Exception e){
             LMSUtils.logException(e,'TrainingPlanAssignmentExtensionNew');
             LMSUtils.addGenericUnknownErrorMessage('TrainingPlanAssignmentExtensionNew - assignUsers (1)');
@@ -207,6 +202,34 @@ public with sharing class TrainingPlanAssignmentExtensionNew{
         return refController.view();
     }
 
+    public PageReference assignSingleUser(){
+        try{
+
+            assignmentAccessCheck();
+
+            if(dummySingleAssignment != null && dummySingleAssignment.User__c != null){
+                if(LMSUtils.isValidLMSUser(dummySingleAssignment.User__c)){
+
+                    communityId = String.isBlank(communityId)?null:communityId;
+
+                    LMSService.upsertAssignments(new Set<Id>{dummySingleAssignment.User__c},trainingPlanId,communityId);
+                    LMSUtils.addSuccessMessage(System.Label.ALMS_Single_User_Assignment_Success);
+                }else{
+                    LMSUtils.addErrorMessage(System.Label.ALMS_User_Missing_Perms);
+                }
+            }else{
+                LMSUtils.addErrorMessage(System.Label.ALMS_Invalid_Single_User);
+            }
+
+            return null;
+
+        }catch(Exception e){
+            LMSUtils.logException(e,'TrainingPlanAssignmentExtensionNew');
+            LMSUtils.addGenericUnknownErrorMessage('TrainingPlanAssignmentExtensionNew - assignUsers (1)');
+            return null;
+        }
+    }
+
     public PageReference goToImportAssignments(){
         PageReference ref = Page.TrainingPlanImportAssignments;
         ref.getParameters().put('id',trainingPlanId);
@@ -214,4 +237,32 @@ public with sharing class TrainingPlanAssignmentExtensionNew{
         return ref;
     }
 
+    public List<SelectOption> getCommunities() {
+        List<SelectOption> options = new List<SelectOption>();
+        options.add(new SelectOption('','--None--'));
+
+        if(hasCommunities){
+            for(SObject so : (List<SObject>)Database.query('select id,Name from Network limit 100')){
+                options.add(new SelectOption(so.Id,(String)so.get('Name')));
+            }
+        }
+        return options;
+    }
+
+    private void assignmentAccessCheck(){
+        //BEGIN Access Check
+        Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
+        relatedFieldsObjects.put(Learning_Assignment__c.sObjectType,new List<String>{
+            'User__c'
+            ,'Contact__c'
+            ,'Learning__c'
+            ,'Learning_Version__c'
+            ,'Training_Plan__c'
+            ,'Training_Plan_Section__c'
+            ,'Training_Plan_Section_Item__c'
+        });
+        LMS_ESAPI.isAuthorizedToCreate(relatedFieldsObjects);
+        LMS_ESAPI.isAuthorizedToUpdate(relatedFieldsObjects);
+        //END Access Check
+    }
 }

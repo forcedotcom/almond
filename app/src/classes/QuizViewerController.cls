@@ -41,7 +41,6 @@ public with sharing class QuizViewerController extends LMSBaseController{
     private List<Id> qlNavigation = new List<Id>();
     private Map<Id,Response__c> responseMap = new Map<Id, Response__c>();
 
-
     private Boolean isPreviewMode{get;set;}
 
     //Navigation logic

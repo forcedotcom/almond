@@ -145,7 +145,8 @@ public with sharing class LMSCommunitiesService{
                         for(Training_Plan_Assignment__c tpas : [select Id,
                                                                     Training_Plan__c
                                                                     from Training_Plan_Assignment__c
-                                                                    where Training_Plan__r.Self_Registration_Access__c != 'External'
+                                                                    where Training_Plan__c in :tplanIds
+                                                                    and Training_Plan__r.Self_Registration_Access__c != 'External'
                                                                     and User__c = :currentUserId]){
                             validAccountTrainingPlanIds.add(tpas.Training_Plan__c);
                         }

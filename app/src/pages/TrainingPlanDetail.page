@@ -61,7 +61,10 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 
         <apex:define name="hero-banner-footer">
           <apex:outputPanel layout="none" rendered="{!tPlan.totalMins != null && tPlan.totalMins > 0}">
-            <span>{!$Label.ALMS_Duration} : {!tPlan.TotalDuration}</span>
+            <apex:outputPanel layout="none" rendered="{!tPlan.trainingPlan != null && tplan.trainingPlan.End_Date__c != null}">
+              <span><b>{!$Label.ALMS_Training_Plan_Due}</b> :&nbsp;<apex:outputField value="{!tPlan.trainingPlan.End_Date__c}" /> /</span>
+            </apex:outputPanel>
+            <span><b>{!$Label.ALMS_Duration}</b> : {!tPlan.TotalDuration}</span>
           </apex:outputPanel>
         </apex:define>
 

@@ -116,6 +116,11 @@
         <label>Nuevo hasta</label>
         <name>New_Until__c</name>
     </fields>
+    <fields>
+        <help>Mensaje personalizado usado en las notificaciones de Chatter</help>
+        <label>Mensaje de Notificación Personalizado</label>
+        <name>Custom_Notification_Message__c</name>
+    </fields>
     <layouts>
         <layout>Training Plan Layout</layout>
         <sections>

@@ -968,6 +968,14 @@
         <label><!-- Specify the community for which this user will launch the training plan from, for non-community users you can leave this blank. --></label>
         <name>ALMS_Single_Assignments_Info_Message</name>
     </customLabels>
+    <customLabels>
+        <label><!-- Due --></label>
+        <name>ALMS_Training_Plan_Due</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Completed Date --></label>
+        <name>ALMS_Training_Plan_Completed_Date</name>
+    </customLabels>
     <customTabs>
         <label><!-- Learning --></label>
         <name>Learning</name>

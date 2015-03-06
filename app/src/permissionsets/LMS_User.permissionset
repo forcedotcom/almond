@@ -470,6 +470,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Learning_Assignment__c.Completed_On__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Learning_Version__c.Learning_Content_ID__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -950,6 +955,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Training_Plan_Assignment__c.Completed_On__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Training_Plan_Section_Assignment__c.Status__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -966,6 +976,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Training_Plan_Section_Assignment__c.Community_Id__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Training_Plan_Section_Assignment__c.Completed_On__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -1101,6 +1116,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Training_Plan__c.New_Until__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Training_Plan__c.Custom_Notification_Message__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

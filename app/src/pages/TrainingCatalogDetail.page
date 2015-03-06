@@ -88,6 +88,9 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                                     <apex:outputPanel layout="block" rendered="{!!validAssignment}">
                                         <label class="label label-default">{!$Label.ALMS_TPlan_Requires_Assignment}</label>
                                     </apex:outputPanel>
+                                    <apex:outputPanel layout="none" rendered="{!o.planEndDate != null}">
+                                        <span class="plan-due-date">{!$Label.ALMS_Training_Plan_Due} : {!o.planEndDate}</span>
+                                    </apex:outputPanel>
                                 </div>
                                 <apex:outputPanel rendered="{!o.newUntil != null && TODAY() <= o.newUntil}">
                                     <div class="ribbon-wrapper-green"><div class="ribbon-green">{!$Label.ALMS_New_Training_Plan}</div></div>

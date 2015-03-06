@@ -116,6 +116,11 @@
         <label><!-- New Until --></label>
         <name>New_Until__c</name>
     </fields>
+    <fields>
+        <help><!-- Custom message used for chatter notifications --></help>
+        <label><!-- Custom Notification Message --></label>
+        <name>Custom_Notification_Message__c</name>
+    </fields>
     <layouts>
         <layout>Training Plan Layout</layout>
         <sections>

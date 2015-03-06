@@ -153,8 +153,13 @@
         <relationshipLabel>Asignaciones de Aprendizaje (Usuario)</relationshipLabel>
     </fields>
     <fields>
-        <label><!-- Id de Comunidad --></label>
+        <label>Id de Comunidad</label>
         <name>Community_Id__c</name>
+    </fields>
+    <fields>
+        <help>Fecha en la que se completó esta asignación</help>
+        <label>Completado En</label>
+        <name>Completed_On__c</name>
     </fields>
     <layouts>
         <layout>Learning Assignment Layout</layout>

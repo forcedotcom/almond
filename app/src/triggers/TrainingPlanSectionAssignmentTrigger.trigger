@@ -26,10 +26,12 @@ OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISE
 OF THE POSSIBILITY OF SUCH DAMAGE.
 
 */
-trigger TrainingPlanSectionAssignmentTrigger on Training_Plan_Section_Assignment__c (before delete,after delete,after update) {
+trigger TrainingPlanSectionAssignmentTrigger on Training_Plan_Section_Assignment__c (before update, before delete,after delete,after update) {
 
     if(Trigger.isBefore){
-        if(Trigger.isDelete){
+        if(Trigger.isUpdate){
+            TrainingPlanSectionAssignmentHelper.processBeforeUpdate(Trigger.oldMap,Trigger.newMap);
+        }else if(Trigger.isDelete){
             TrainingPlanSectionAssignmentHelper.processBeforeDelete(Trigger.old);
         }
     }else if(Trigger.isAfter){

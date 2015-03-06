@@ -304,6 +304,14 @@ td.noSidebarCell{
     padding: 10px 0;
 }
 
+.almond .plan-due-date{
+    padding:10px 0 0 0;
+}
+
+.almond .tplan_details .plan-due-date span{
+    display:inline; /* Fix for output field styles */
+}
+
 /*!
 * LMS Button styles
 * ------------------------------------------------------
@@ -579,10 +587,16 @@ td.noSidebarCell{
     width: 100%;
     padding: 5px 0;
     bottom: 0;
+    overflow: hidden;
 }
 
 .almond .hb-footer .container{
     color:#000;
+    font-size:13px;
+}
+
+.almond .hb-footer .container b{
+    font-weight:500;
 }
 
 .almond #hb-wrap h4{
@@ -619,7 +633,9 @@ td.noSidebarCell{
 }
 
 .almond .user-carousel-img img{
-    margin-right: -4px;
+    margin: 5px 5px 0;
+    border: 2px solid #FFF;
+    border-radius: 50%
 }
 
 .almond .badge-container{
@@ -965,7 +981,7 @@ td.noSidebarCell{
     cursor: pointer;
     display: inline-block;
     margin: 0 0 10px 0;
-    min-height: 110px;
+    min-height: 125px;
     padding: 7px;
     top: 0 !important;
     vertical-align: top;
@@ -997,7 +1013,7 @@ td.noSidebarCell{
     display: inline-block;
     float: left;
     width: 30%;
-    padding:10px 0 0 0;
+    padding:20px 0 0 0;
 }
 
 .almond .tplan_img img{

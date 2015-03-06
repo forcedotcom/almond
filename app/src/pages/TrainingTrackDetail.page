@@ -99,6 +99,9 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                                     <apex:outputPanel layout="block" rendered="{!itemURL == null}">
                                         <label class="label label-default">{!$Label.ALMS_TPlan_Requires_Assignment}</label>
                                     </apex:outputPanel>
+                                    <apex:outputPanel layout="none" rendered="{!ti.trackItem.Training_Plan__r.End_Date__c != null}">
+                                        <span class="plan-due-date">{!$Label.ALMS_Training_Plan_Due} :&nbsp;<apex:outputField value="{!ti.trackItem.Training_Plan__r.End_Date__c}" /></span>
+                                    </apex:outputPanel>
                                 </div>
                                 <apex:outputPanel rendered="{!ti.trackItem.Training_Plan__r.New_Until__c != null && TODAY() <= ti.trackItem.Training_Plan__r.New_Until__c}">
                                     <div class="ribbon-wrapper-green"><div class="ribbon-green">{!$Label.ALMS_New_Training_Plan}</div></div>

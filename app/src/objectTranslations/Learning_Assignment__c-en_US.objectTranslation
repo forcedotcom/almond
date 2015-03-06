@@ -156,6 +156,11 @@
         <label><!-- Community Id --></label>
         <name>Community_Id__c</name>
     </fields>
+    <fields>
+        <help><!-- Date this assignment was completed --></help>
+        <label><!-- Completed On --></label>
+        <name>Completed_On__c</name>
+    </fields>
     <layouts>
         <layout>Learning Assignment Layout</layout>
         <sections>

@@ -69,6 +69,7 @@ public with sharing class TrainingPlansSearchController extends LMSBaseControlle
                                 ,Enable_Self_Registration__c
                                 ,Self_Registration_Access__c
                                 ,New_Until__c
+                                ,End_Date__c
                                 FROM Training_Plan__c
                                 WHERE Name LIKE :searchTerm
                                 ORDER BY CreatedDate desc
@@ -177,6 +178,7 @@ public with sharing class TrainingPlansSearchController extends LMSBaseControlle
                             ,Enable_Self_Registration__c
                             ,Self_Registration_Access__c
                             ,New_Until__c
+                            ,End_Date__c
                             FROM Training_Plan__c
                             WHERE Name LIKE :searchTerm
                             AND (Self_Registration_Access__c = :LMSConstants.TPLAN_PUBLIC_EXTERNAL

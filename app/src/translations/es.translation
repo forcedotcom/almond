@@ -968,6 +968,14 @@
         <label>Especifique la comunidad desde la que los usuarios iniciarán el curso, para usuarios que no sean de una comunidad puede dejar este valor en blanco</label>
         <name>ALMS_Single_Assignments_Info_Message</name>
     </customLabels>
+    <customLabels>
+        <label>Termina</label>
+        <name>ALMS_Training_Plan_Due</name>
+    </customLabels>
+    <customLabels>
+        <label>Completado</label>
+        <name>ALMS_Training_Plan_Completed_Date</name>
+    </customLabels>
     <customTabs>
         <label>Aprendizaje</label>
         <name>Learning</name>

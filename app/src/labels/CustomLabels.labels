@@ -1936,4 +1936,20 @@
         <shortDescription>Single Assignments Info Message</shortDescription>
         <value>Specify the community for which this user will launch the training plan from, for non-community users you can leave this blank.</value>
     </labels>
+    <labels>
+        <fullName>ALMS_Training_Plan_Due</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Training Plan Due</shortDescription>
+        <value>Due</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Training_Plan_Completed_Date</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Training Plan Completed Date</shortDescription>
+        <value>Completed On</value>
+    </labels>
 </CustomLabels>

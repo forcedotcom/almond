@@ -158,7 +158,7 @@ public with sharing class LMSService{
         }
 
         String soqlQuery = 'select '+String.join(listSOQLFields,',')+' from Training_Plan__c where Id in :tpIds';
-        soqlQuery += ' order by SystemModStamp desc';
+        soqlQuery += ' order by End_Date__c asc, SystemModStamp desc';
 
         if(isPortalUser){
             LMSService.WithoutSharingOps wsops = new LMSService.WithoutSharingOps();

@@ -40,7 +40,7 @@ public with sharing class TrainingPlanDetailController extends LMSBaseController
     public TrainingPlanSectionItem selectedItem{get;set;}
 
     public transient List<User> lUsersWithAchievement{get;set;}
-    
+
     public String selectedItemStatusLabel{get{
         if(selectedItem != null && selectedItem.latestAssignment != null && selectedItem.latestAssignment.Progress__c != null){
             if(selectedItem.latestAssignment.Progress__c == LMSConstants.ASSIGNMENT_STATUS_COMPLETED){
@@ -81,7 +81,7 @@ public with sharing class TrainingPlanDetailController extends LMSBaseController
             loadTrainingPlanInfo();
             if(tPlan != null){
                 if(tPlan.mainAchievement != null){
-                    lUsersWithAchievement = LMSService.getUsersForAchievement(tPlan.mainAchievement.Id, LMSConstants.AA_ACQUIRED_STATUS, 12);
+                    lUsersWithAchievement = LMSService.getUsersForAchievement(tPlan.mainAchievement.Id, LMSConstants.AA_ACQUIRED_STATUS, 10);
                 }
             }
         }catch(Exception e){

@@ -30,6 +30,18 @@ public with sharing class TrainingPlanSectionAssignmentHelper{
 
     public static Set<Id> deletedTrainingPlanAssignments;
 
+    public static void processBeforeUpdate(Map<Id,Training_Plan_Section_Assignment__c> oldAssignmentsMap,Map<Id,Training_Plan_Section_Assignment__c> newAssignmentsMap){
+        //Only process assignments that have changed
+        for(Training_Plan_Section_Assignment__c sa : newAssignmentsMap.values()){
+
+            Training_Plan_Section_Assignment__c oldSA = oldAssignmentsMap.get(sa.Id);
+
+            if(oldSA.Status__c != LMSConstants.ASSIGNMENT_STATUS_COMPLETED && sa.Status__c == LMSConstants.ASSIGNMENT_STATUS_COMPLETED){
+                sa.Completed_On__c = Date.today();
+            }
+        }
+    }
+
     public static void processBeforeDelete(List<Training_Plan_Section_Assignment__c> assignments){
         deleteAssociatedLearningAssignments(assignments);
     }

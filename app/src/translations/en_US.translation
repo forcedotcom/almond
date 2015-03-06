@@ -761,6 +761,10 @@
         <name>ALMS_TPlan_Requires_Assignment</name>
     </customLabels>
     <customLabels>
+        <label><!-- Expired --></label>
+        <name>ALMS_TPlan_Expired</name>
+    </customLabels>
+    <customLabels>
         <label><!-- Take New Version --></label>
         <name>ALMS_Take_New_Version</name>
     </customLabels>
@@ -973,7 +977,7 @@
         <name>ALMS_Training_Plan_Due</name>
     </customLabels>
     <customLabels>
-        <label><!-- Completed Date --></label>
+        <label><!-- Completed --></label>
         <name>ALMS_Training_Plan_Completed_Date</name>
     </customLabels>
     <customTabs>

@@ -44,6 +44,10 @@ public with sharing class LMSWrappersService{
             result = new TrainingPlan();
             result.trainingPlan = tPlans.get(0);
 
+            if(!LMSService.isActiveTrainingPlan(result.trainingPlan)){
+                return null;
+            }
+
             if(includeSectionDetails){
                 result.sections = getTrainingPlanSectionsDetails(trainingPlanId,userId,isPreview);
 

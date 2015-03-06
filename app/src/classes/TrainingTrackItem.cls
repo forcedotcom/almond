@@ -31,11 +31,13 @@ public with sharing class TrainingTrackItem{
     public Training_Track_Level_Item__c trackItem{get;set;}
     public Achievement__c mainAchievement{get;set;}
     public Training_Plan_Assignment__c tplanAssignment{get;set;}
+    public Boolean isExpired{get;set;}
 
     public TrainingTrackItem(){
         trackItem = null;
         mainAchievement = null;
         tplanAssignment = null;
+        isExpired = false;
     }
 
     public String getItemURL(){

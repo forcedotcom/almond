@@ -66,7 +66,9 @@ public with sharing class TrainingCatalogDetailController extends LMSBaseControl
                     List<Training_Plan__c> unsortedTrainingPlans = LMSService.getTrainingPlansWithItems(UserInfo.getUserId(),new Set<Id>(sortedTPlanIds),false, LMSUtils.isPortalUser());
 
                     for(Training_Plan__c tplan : unsortedTrainingPlans){
-                        trainingPlansMap.put(tplan.Id,tplan);
+                        if(LMSService.isActiveTrainingPlan(tplan)){
+                            trainingPlansMap.put(tplan.Id,tplan);
+                        }
                     }
                     // Add training plans to list in sorted order
                     for(Id tplanId : sortedTPlanIds){

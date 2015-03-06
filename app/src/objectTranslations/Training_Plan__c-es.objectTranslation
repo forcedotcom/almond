@@ -121,6 +121,11 @@
         <label>Mensaje de Notificación Personalizado</label>
         <name>Custom_Notification_Message__c</name>
     </fields>
+    <fields>
+        <help>Habilitar esta opción para ocultar este curso pasando la Fecha de Termino</help>
+        <label>Ocultar después de Fecha de Termino</label>
+        <name>Hide_After_End_Date__c</name>
+    </fields>
     <layouts>
         <layout>Training Plan Layout</layout>
         <sections>

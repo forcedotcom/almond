@@ -66,6 +66,10 @@
                 <behavior>Edit</behavior>
                 <field>Hide_Chatter_Photos__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Hide_After_End_Date__c</field>
+            </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
     </layoutSections>

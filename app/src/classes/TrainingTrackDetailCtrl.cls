@@ -56,6 +56,10 @@ public with sharing class TrainingTrackDetailCtrl extends LMSBaseController{
                     if(ti.tplanAssignment != null & ti.tplanAssignment.Status__c == LMSConstants.TPLAN_STATUS_COMPLETED){
                         totalCompleted++;
                     }
+
+                    if(ti.trackItem.Training_Plan__r != null){
+                        ti.isExpired = !LMSService.isActiveTrainingPlan(ti.trackItem.Training_Plan__r);
+                    }
                 }
             }
 

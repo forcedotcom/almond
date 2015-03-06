@@ -49,6 +49,8 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 
                 <c:LMSHeader id="lms-header" hideSFLink="{!showSFHeader}" />
 
+                <apex:insert name="pre-body" />
+
                 <div class="lms-body-container container">
                     <div class="tmpl-body-container">
                         <div id="container-header">

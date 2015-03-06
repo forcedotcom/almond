@@ -121,6 +121,11 @@
         <label><!-- Custom Notification Message --></label>
         <name>Custom_Notification_Message__c</name>
     </fields>
+    <fields>
+        <help><!-- Enable this option to hide this training plan after the specified End Date --></help>
+        <label><!-- Hide After End Date --></label>
+        <name>Hide_After_End_Date__c</name>
+    </fields>
     <layouts>
         <layout>Training Plan Layout</layout>
         <sections>

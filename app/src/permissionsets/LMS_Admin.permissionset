@@ -1125,6 +1125,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Training_Plan__c.Hide_After_End_Date__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Training_Resource__c.Add_training_parameters_to_URL__c</field>
         <readable>true</readable>
     </fieldPermissions>

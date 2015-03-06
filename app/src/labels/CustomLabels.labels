@@ -945,6 +945,14 @@
         <value>Requires Assignment</value>
     </labels>
     <labels>
+        <fullName>ALMS_TPlan_Expired</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Expired Training Plan Label</shortDescription>
+        <value>Expired</value>
+    </labels>
+    <labels>
         <fullName>ALMS_Learning_Home</fullName>
         <categories>ALMOND General, ALMOND UI</categories>
         <language>en_US</language>
@@ -1950,6 +1958,6 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Training Plan Completed Date</shortDescription>
-        <value>Completed On</value>
+        <value>Completed</value>
     </labels>
 </CustomLabels>

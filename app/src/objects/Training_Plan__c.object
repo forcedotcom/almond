@@ -316,6 +316,17 @@
         <trackTrending>false</trackTrending>
         <type>TextArea</type>
     </fields>
+    <fields>
+        <fullName>Hide_After_End_Date__c</fullName>
+        <inlineHelpText>Enable this option to hide this training plan after the specified End Date</inlineHelpText>
+        <defaultValue>true</defaultValue>
+        <externalId>false</externalId>
+        <label>Hide After End Date</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
     <label>Training Plan</label>
     <listViews>
         <fullName>All</fullName>

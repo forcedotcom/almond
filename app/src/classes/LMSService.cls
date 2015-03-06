@@ -123,6 +123,7 @@ public with sharing class LMSService{
             ,'Hide_Chatter_Photos__c'
             ,'Optional_Feedback_Comments__c'
             ,'New_Until__c'
+            ,'Hide_After_End_Date__c'
         });
         LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
         //END Access Check
@@ -150,6 +151,7 @@ public with sharing class LMSService{
             ,'Hide_Chatter_Photos__c'
             ,'Optional_Feedback_Comments__c'
             ,'New_Until__c'
+            ,'Hide_After_End_Date__c'
         };
 
         if(isPortalUser){
@@ -193,6 +195,7 @@ public with sharing class LMSService{
             ,'Training_Plan_Rating__c'
             ,'Hide_Chatter_Photos__c'
             ,'Optional_Feedback_Comments__c'
+            ,'Hide_After_End_Date__c'
         });
         LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
         //END Access Check
@@ -219,6 +222,7 @@ public with sharing class LMSService{
             ,'Training_Plan_Rating__c'
             ,'Hide_Chatter_Photos__c'
             ,'Optional_Feedback_Comments__c'
+            ,'Hide_After_End_Date__c'
         };
 
         String registrationAccess = LMSConstants.TPLAN_PUBLIC_EXTERNAL;
@@ -1582,6 +1586,7 @@ public with sharing class LMSService{
             ,'Background_Color__c'
             ,'Text_Color__c'
             ,'New_Until__c'
+            ,'Hide_After_End_Date__c'
         });
         LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
         //END Access Check
@@ -1611,6 +1616,7 @@ public with sharing class LMSService{
             ,'Training_Plan__r.Enable_Self_Registration__c'
             ,'Training_Plan__r.Self_Registration_Access__c'
             ,'Training_Plan__r.New_Until__c'
+            ,'Training_Plan__r.Hide_After_End_Date__c'
         };
 
         Id trId = trackId;
@@ -1689,9 +1695,6 @@ public with sharing class LMSService{
         }
     }
 
-    // TODO : Use this function to hide expired training plans
-    // Still analyzing how this will affect progress calculation
-    /*
     public static Boolean isActiveTrainingPlan(Training_Plan__c tp){
         if(tp != null){
             // Always make training plans active for admins
@@ -1700,7 +1703,7 @@ public with sharing class LMSService{
             }
             Boolean isActive = tp.Status__c == LMSConstants.TPLAN_STATUS_ACTIVE;
             Boolean isWithinDateRange = true;
-            if(tp.Start_Date__c != null && tp.End_Date__c != null && !(Date.today() >= tp.Start_Date__c && Date.today() <= tp.End_Date__c)){
+            if(tp.Hide_After_End_Date__c && tp.Start_Date__c != null && tp.End_Date__c != null && !(Date.today() >= tp.Start_Date__c && Date.today() <= tp.End_Date__c)){
                 isWithinDateRange = false;
             }
             return isActive && isWithinDateRange;
@@ -1708,7 +1711,6 @@ public with sharing class LMSService{
             return false;
         }
     }
-    */
 
     //Without sharing operations
     public without sharing class WithoutSharingOps{

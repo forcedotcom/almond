@@ -39,6 +39,7 @@ public with sharing class TrainingPlanWithAchievement {
     public transient String assignmentStatus{get;set;}
     public transient Boolean selfRegistrationEnabled{get;set;}
     public transient Date newUntil{get;set;}
+    public transient Boolean isExpired{get;set;}
 
     public TrainingPlanWithAchievement(Training_Plan__c tplan, Achievement__c tachievement,String detailURL, Boolean hasAssignment){
         planName = tplan.Name;
@@ -57,5 +58,6 @@ public with sharing class TrainingPlanWithAchievement {
             planEndDate = (tplan.End_Date__c).format();
         }
         planCompletedDate = null;
+        isExpired = false;
     }
 }

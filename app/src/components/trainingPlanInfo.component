@@ -18,7 +18,7 @@
                         </apex:outputPanel>
                         <div class="{!IF(hasBadge,'tplan_details','tplan_details_no_image')}" >
                             <h4>{!o.planName}</h4>
-                            <apex:outputPanel layout="none" rendered="{!o.planEndDate != null && o.planCompletedDate == null}">
+                            <apex:outputPanel layout="none" rendered="{!o.planEndDate != null && o.planCompletedDate == null && o.assignmentStatus != 'Completed'}">
                                 <span class="plan-due-date">{!$Label.ALMS_Training_Plan_Due} : {!o.planEndDate}</span>
                             </apex:outputPanel>
                             <apex:outputPanel layout="none" rendered="{!o.planCompletedDate != null}">

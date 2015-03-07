@@ -103,8 +103,11 @@ public with sharing class MyTrainingController extends LMSBaseController{
                 if(LMSService.isActiveTrainingPlan(tp)){
 
                     TrainingPlanWithAchievement tplach = new TrainingPlanWithAchievement(tp, tmp.get(tp.Id),LMSUtils.updateURLCommunityPath(tempRef.getUrl()), true);
-                    if(tpAssignment != null && tpAssignment.Completed_On__c != null){
-                        tplach.planCompletedDate = (tpAssignment.Completed_On__c).format();
+                    if(tpAssignment != null){
+                        if(tpAssignment.Completed_On__c != null){
+                            tplach.planCompletedDate = (tpAssignment.Completed_On__c).format();
+                        }
+                        tplach.assignmentStatus = tpAssignment.Status__c;
                     }
 
                     tPlans.add(tplach);

@@ -64,7 +64,10 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                 <span><b>{!$Label.ALMS_Training_Plan_Due}</b> :&nbsp;<apex:outputField value="{!tPlan.trainingPlan.End_Date__c}" /> /</span>
             </apex:outputPanel>
             <apex:outputPanel layout="none" rendered="{!tPlan.totalMins != null && tPlan.totalMins > 0}">
-                <span><b>{!$Label.ALMS_Duration}</b> : {!tPlan.TotalDuration}</span>
+                <span><b>{!$Label.ALMS_Duration}</b> : {!tPlan.TotalDuration} /</span>
+            </apex:outputPanel>
+            <apex:outputPanel layout="none" rendered="{!tPlanAssignmentStatus != null}">
+                <span><b>{!$Label.ALMS_Training_Plan_Assignment_Status}</b> : {!IF(tPlanAssignmentStatus == 'Completed',$Label.ALMS_Training_Status_Completed, IF(tPlanAssignmentStatus == 'In Progress', $Label.ALMS_Training_Status_In_Progress, $Label.ALMS_Training_Status_Not_Started))}</span>
             </apex:outputPanel>
         </apex:define>
 

@@ -980,6 +980,10 @@
         <label>Completado</label>
         <name>ALMS_Training_Plan_Completed_Date</name>
     </customLabels>
+    <customLabels>
+        <label>Estado</label>
+        <name>ALMS_Training_Plan_Assignment_Status</name>
+    </customLabels>
     <customTabs>
         <label>Aprendizaje</label>
         <name>Learning</name>

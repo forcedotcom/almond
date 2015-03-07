@@ -1960,4 +1960,12 @@
         <shortDescription>Training Plan Completed Date</shortDescription>
         <value>Completed</value>
     </labels>
+    <labels>
+        <fullName>ALMS_Training_Plan_Assignment_Status</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Training Plan Assignment Status</shortDescription>
+        <value>Status</value>
+    </labels>
 </CustomLabels>

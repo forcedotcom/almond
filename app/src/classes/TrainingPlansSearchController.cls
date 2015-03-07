@@ -82,7 +82,7 @@ public with sharing class TrainingPlansSearchController extends LMSBaseControlle
                     ));
                 }
                 this.setCon.setpageNumber(1);
-                this.setCon.setPageSize(10);
+                this.setCon.setPageSize(12);
             }else{
                 LMSUtils.addErrorMessage(System.Label.ALMS_Search_Minimum_Characters);
             }

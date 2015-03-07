@@ -254,7 +254,7 @@ public with sharing class LearningAssignmentsHelper{
                 }
             }else{
                 //TODO: Analyze use cases and impact of not updating shared assignments in this scenario
-                //It's important to understand that enabling this could potentially introduce an update loop
+                //It's important to understand that enabling this could potentially introduce update loops
                 System.debug('*** Blocked updating shared assignment progress since we are already in future context');
             }
         }

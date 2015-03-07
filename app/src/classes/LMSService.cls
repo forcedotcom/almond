@@ -2042,7 +2042,7 @@ public with sharing class LMSService{
                 ,'Item_Id__c'
             });
             //NOTE: We know users don't have access to see the "Is Correct Answer" field so we're excluding it from the FLS check
-            //This field should only be used at the controller level to validate answer
+            //This field should only be used at the controller level to validate answers
             LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
             //END Access Check
 
@@ -2332,29 +2332,32 @@ public with sharing class LMSService{
             return results;
         }
 
-        //Query training Plans
+        //Query training plan data for users that don't have access to these records through sharing
         public List<Training_Plan__c> queryTrainingPlans(String soqlQuery,Set<Id> tpIds, String registrationAccess){
             return (List<Training_Plan__c>)Database.query(soqlQuery);
         }
 
-        //Query training plan achievements
+        //Query training plan achievements data for users that don't have access to these records through sharing
         public List<Training_Plan_Achievement__c> queryTrainingPlanAchievements(String soqlQuery, Set<Id> tplIds, String tpaType){
             return (List<Training_Plan_Achievement__c>)Database.query(soqlQuery);
         }
 
-        //Query training plan section achievements
+        //Query training plan section achievements data for users that don't have access to these records through sharing
         public List<Training_Plan_Achievement__c> queryTrainingPlanSectionAchievements(String soqlQuery, Set<Id> tpsIds, String tpaType){
             return (List<Training_Plan_Achievement__c>)Database.query(soqlQuery);
         }
 
+        //Query training plan section data for users that don't have access to these records through sharing
         public List<Training_Plan_Section__c> queryTrainingPlanSections(String soqlQuery,Set<Id> tpIds){
             return (List<Training_Plan_Section__c>)Database.query(soqlQuery);
         }
 
+        //Query training plan data for users that don't have access to these records through sharing
         public List<Training_Plan__c> queryTrainingPlanAccessLevel(Id tplanId){
             return [select id,Enable_Self_Registration__c,Self_Registration_Access__c from Training_Plan__c where id = :tplanId];
         }
 
+        //Query training plan access request data for users that don't have access to these records through sharing
         public List<Training_Plan_Access_Request__c> queryTrainingPlanAccessRequests(String soqlQuery,Id uId,Id tplanId,Set<String> statuses){
             return (List<Training_Plan_Access_Request__c>)Database.query(soqlQuery);
         }
@@ -2476,14 +2479,17 @@ public with sharing class LMSService{
             return learning;
         }
 
+        //Query training track data for users that don't have access to these records through sharing
         public List<Training_Track__c> queryTrainingTracks(String soqlQuery, String filterStatus, Set<Id> trIds){
             return (List<Training_Track__c>)Database.query(soqlQuery);
         }
 
+        //Query training track level data for users that don't have access to these records through sharing
         public List<Training_Track_Level__c> queryTrainingTrackLevels(String soqlQuery, Id trId){
             return (List<Training_Track_Level__c>)Database.query(soqlQuery);
         }
 
+        //Get a training plan achievement data, this is used to filter out achievement assignment data
         public Map<Id,Training_Plan_Achievement__c> getTrainingPlanAchievementDetails(Set<Id> tplanAchievementIds){
             Map<Id,Training_Plan_Achievement__c> results = new Map<Id,Training_Plan_Achievement__c>();
             for(Training_Plan_Achievement__c tpa : [select id

@@ -44,7 +44,7 @@ public with sharing class LMSInit{
 
     public static void initData(String jsonData, Boolean addTimeStamp){
 
-        if(jsonData == null){
+        if(String.isBlank(jsonData)){
             throw new LMSInitException(System.Label.ALMS_Invalid_Import_Data);
         }
 

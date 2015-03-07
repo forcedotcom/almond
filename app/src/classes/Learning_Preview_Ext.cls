@@ -76,7 +76,7 @@ public with sharing class Learning_Preview_Ext{
     private void init(){
 
         //Init auxiliary field/object maps
-        //JR : Add more options RTs here based, ideally this should come from custom settings
+        //TODO : Users should be able to add more RT options here, ideally this should come from custom settings
 
         rtObjectMapping = new Map<String,String>{
            'task'=>'Task__c'

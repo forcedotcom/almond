@@ -1949,8 +1949,8 @@
         <categories>ALMOND General, ALMOND UI</categories>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>Training Plan Due</shortDescription>
-        <value>Due</value>
+        <shortDescription>Training Plan Available Until</shortDescription>
+        <value>Available Until</value>
     </labels>
     <labels>
         <fullName>ALMS_Training_Plan_Completed_Date</fullName>

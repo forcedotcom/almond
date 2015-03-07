@@ -89,35 +89,34 @@ public with sharing class MyProfileController extends LMSBaseController{
                                 where Id = :oUser.ManagerId];
         }
 
-        List<AchievementAssignmentWrapper> lachievementassignment = new List<AchievementAssignmentWrapper>();
         lcategories = new List<AchievementCategoryWrapper>();
 
-            //BEGIN Access Check
-            Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
-            relatedFieldsObjects.put(Achievement_Assignment__c.sObjectType,new List<String>{
-                'Id'
-                ,'Name'
-                ,'Status__c'
-                ,'Achievement__c'
-                ,'Training_Plan_Achievement__c'
-                ,'User__c'
-            });
-            relatedFieldsObjects.put(Achievement__c.sObjectType,new List<String>{
-                'Id'
-                ,'Name'
-                ,'Acquired_Image__c'
-                ,'Eligible_Image__c'
-                ,'Work_Badge_Id__c'
-                ,'Work_Badge_Image_URL__c'
-                ,'Override_URL__c'
-                ,'Override_Completed_Status__c'
-            });
-            relatedFieldsObjects.put(Training_Plan_Achievement__c.sObjectType,new List<String>{
-                'Type__c'
-                ,'Training_Plan__c'
-                ,'Training_Plan_Section__c'
-            });
-            LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
+        //BEGIN Access Check
+        Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
+        relatedFieldsObjects.put(Achievement_Assignment__c.sObjectType,new List<String>{
+            'Id'
+            ,'Name'
+            ,'Status__c'
+            ,'Achievement__c'
+            ,'Training_Plan_Achievement__c'
+            ,'User__c'
+        });
+        relatedFieldsObjects.put(Achievement__c.sObjectType,new List<String>{
+            'Id'
+            ,'Name'
+            ,'Acquired_Image__c'
+            ,'Eligible_Image__c'
+            ,'Work_Badge_Id__c'
+            ,'Work_Badge_Image_URL__c'
+            ,'Override_URL__c'
+            ,'Override_Completed_Status__c'
+        });
+        relatedFieldsObjects.put(Training_Plan_Achievement__c.sObjectType,new List<String>{
+            'Type__c'
+            ,'Training_Plan__c'
+            ,'Training_Plan_Section__c'
+        });
+        LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
         //END Access Check
 
         String achievementCategory = '';

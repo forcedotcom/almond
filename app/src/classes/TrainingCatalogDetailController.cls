@@ -117,6 +117,7 @@ public with sharing class TrainingCatalogDetailController extends LMSBaseControl
                 if(tpAssignment != null){
                     tplach.assignmentStatus = tpAssignment.Status__c;
                 }
+                tplach.hideAfterEndDate = tp.Hide_After_End_Date__c;
                 tPlans.add(tplach);
             }
         }

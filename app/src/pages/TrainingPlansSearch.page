@@ -73,7 +73,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                                         <apex:outputPanel layout="block" rendered="{!o.isExpired}">
                                             <label class="label label-default">{!$Label.ALMS_TPlan_Expired}</label>
                                         </apex:outputPanel>
-                                        <apex:outputPanel layout="none" rendered="{!o.planEndDate != null}">
+                                        <apex:outputPanel layout="none" rendered="{!o.hideAfterEndDate && o.planEndDate != null}">
                                             <span class="plan-due-date">{!$Label.ALMS_Training_Plan_Due} : {!o.planEndDate}</span>
                                         </apex:outputPanel>
                                     </div>

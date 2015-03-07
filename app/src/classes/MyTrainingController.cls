@@ -110,6 +110,8 @@ public with sharing class MyTrainingController extends LMSBaseController{
                         tplach.assignmentStatus = tpAssignment.Status__c;
                     }
 
+                    tplach.hideAfterEndDate = tp.Hide_After_End_Date__c;
+
                     tPlans.add(tplach);
                 }
 

@@ -973,7 +973,7 @@
         <name>ALMS_Single_Assignments_Info_Message</name>
     </customLabels>
     <customLabels>
-        <label><!-- Due --></label>
+        <label><!-- Available Until --></label>
         <name>ALMS_Training_Plan_Due</name>
     </customLabels>
     <customLabels>

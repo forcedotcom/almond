@@ -165,6 +165,7 @@ public with sharing class TrainingPlansSearchController extends LMSBaseControlle
                 if(tpAssignment != null){
                     tplach.assignmentStatus = tpAssignment.Status__c;
                 }
+                tplach.hideAfterEndDate = tp.Hide_After_End_Date__c;
                 tplach.isExpired = !LMSService.isActiveTrainingPlan(tp);
 
                 tPlans.add(tplach);

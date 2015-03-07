@@ -129,9 +129,7 @@ public with sharing class AchievementsUserSearchController extends LMSBaseContro
     public Integer getTotalPages(){
         Decimal totalSize = this.setCon.getResultSize();
         Decimal pageSize = this.setCon.getPageSize();
-
         Decimal pages = totalSize/pageSize;
-
         return (Integer)pages.round(System.RoundingMode.CEILING);
     }
 

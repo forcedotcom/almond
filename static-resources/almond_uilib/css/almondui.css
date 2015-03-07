@@ -585,9 +585,9 @@ td.noSidebarCell{
     background: none repeat scroll 0 0 rgba(255, 255, 255, 0.8);
     height: 45px;
     width: 100%;
-    padding: 5px 0;
+    padding: 3px 0 0 0;
     bottom: 0;
-    overflow: hidden;
+    overflow: auto;
 }
 
 .almond .hb-footer .container{
@@ -633,7 +633,7 @@ td.noSidebarCell{
 }
 
 .almond .user-carousel-img img{
-    margin: 5px 5px 0;
+    margin: 5px 7px 0;
     border: 2px solid #FFF;
     border-radius: 50%
 }

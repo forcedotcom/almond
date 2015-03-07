@@ -1695,6 +1695,7 @@ public with sharing class LMSService{
         }
     }
 
+    //Determines if we should display a Training Plan based on it's status and date ranges
     public static Boolean isActiveTrainingPlan(Training_Plan__c tp){
         if(tp != null){
             // Always make training plans active for admins

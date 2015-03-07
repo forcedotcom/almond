@@ -117,6 +117,11 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>Completed_On__c</field>
+            <table>Learning_Assignment__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>Progress_Percentage__c</field>
             <table>Learning_Assignment__c</table>
         </columns>
@@ -259,6 +264,11 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>Training_Plan_Section_Assignment__c.Completed_On__c</field>
+            <table>Learning_Assignment__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>Training_Plan_Section_Assignment__c.Name</field>
             <table>Learning_Assignment__c</table>
         </columns>
@@ -321,6 +331,11 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>Training_Plan_Section_Assignment__c.Training_Plan_Assignment__c.Status__c</field>
+            <table>Learning_Assignment__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Training_Plan_Section_Assignment__c.Training_Plan_Assignment__c.Completed_On__c</field>
             <table>Learning_Assignment__c</table>
         </columns>
         <columns>

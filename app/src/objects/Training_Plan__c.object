@@ -318,8 +318,8 @@
     </fields>
     <fields>
         <fullName>Hide_After_End_Date__c</fullName>
-        <inlineHelpText>Enable this option to hide this training plan after the specified End Date</inlineHelpText>
-        <defaultValue>true</defaultValue>
+        <inlineHelpText>Hide this training plan for end-users if the current date is outside of the Start/End Date range</inlineHelpText>
+        <defaultValue>false</defaultValue>
         <externalId>false</externalId>
         <label>Hide After End Date</label>
         <trackFeedHistory>false</trackFeedHistory>
@@ -363,6 +363,12 @@
         <active>true</active>
         <errorConditionFormula>Start_Date__c &gt;  End_Date__c</errorConditionFormula>
         <errorMessage>Start Date cannot be greater than End Date</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Empty_Date_Validation</fullName>
+        <active>true</active>
+        <errorConditionFormula>(!ISBLANK(Start_Date__c) &amp;&amp; ISBLANK(End_Date__c)) || (ISBLANK(Start_Date__c) &amp;&amp; !ISBLANK(End_Date__c))</errorConditionFormula>
+        <errorMessage>You must set a value for Start and End date or leave both empty</errorMessage>
     </validationRules>
     <webLinks>
         <fullName>Manage_Achievements</fullName>

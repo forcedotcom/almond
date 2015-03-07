@@ -410,6 +410,8 @@ public with sharing class LMSInit{
                 tp.Self_Registration_Access__c = getStringValue(pHeader.get('self-registration-access'),null);
                 tp.Hide_Chatter_Photos__c = getBooleanValue(pHeader.get('hide-chatter-photos'),false);
                 tp.Optional_Feedback_Comments__c = getBooleanValue(pHeader.get('optional-feedback-comments'),false);
+                tp.Custom_Notification_Message__c = getStringValue(pHeader.get('custom-notification-message'),null);
+                tp.Hide_After_End_Date__c = getBooleanValue(pHeader.get('hide-after-end-date'),false);
                 plans.put(tp.Name,tp);
             }
 

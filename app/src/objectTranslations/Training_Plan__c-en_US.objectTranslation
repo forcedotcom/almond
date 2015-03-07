@@ -122,7 +122,7 @@
         <name>Custom_Notification_Message__c</name>
     </fields>
     <fields>
-        <help><!-- Enable this option to hide this training plan after the specified End Date --></help>
+        <help><!-- Hide this training plan for end-users if the current date is outside of the Start/End Date range --></help>
         <label><!-- Hide After End Date --></label>
         <name>Hide_After_End_Date__c</name>
     </fields>
@@ -181,6 +181,10 @@
     <validationRules>
         <errorMessage><!-- Start Date cannot be greater than End Date --></errorMessage>
         <name>Date_Validation</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- You must set a value for Start and End date or leave both empty --></errorMessage>
+        <name>Empty_Date_Validation</name>
     </validationRules>
     <webLinks>
         <label><!-- Manage_Achievements --></label>

@@ -153,5 +153,78 @@ public class TestMyTraining {
 
     }
 
+    static testmethod void testMyTrainingInProgressWithExpiredItems(){
+
+        //Create admin users
+        List<User> adminUsers = TestUtilClass.createUsers(2,'System Administrator');
+        List<User> lmsUsers = TestUtilClass.createUsers(5,'Standard User');
+
+        System.runAs(adminUsers.get(0)){
+            //Assign corresponding perm sets
+            TestUtilClass.addPermissionSet(adminUsers,'LMS_Admin');
+            TestUtilClass.addPermissionSet(lmsUsers,'LMS_User');
+        }
+
+        TestTrainingPlanData.createSampleData();
+        List<Training_Plan__c> tplan = [select id,Start_Date__c,End_Date__c,Hide_After_End_Date__c from Training_Plan__c];
+        System.assertEquals(1,tplan.size());
+
+        //Update date configuration
+        Training_Plan__c tp = tplan.get(0);
+        tp.Start_Date__c = Date.today().addDays(-10);
+        tp.End_Date__c = Date.today().addDays(-1);
+        tp.Hide_After_End_Date__c = true;
+        update tp;
+
+
+        List<Achievement_Category__c> lAchieveCat = TestAchievementData.createAchievementCategories(1);
+        List<Achievement__c> lAchievement = TestAchievementData.createAchievements(1, lAchieveCat.get(0).Id, 'Achievements');
+        List<Training_Plan_Achievement__c> lTPlanAchievement = TestTrainingPlanData.createTrainingPlanAchievements(tplan, lAchievement);
+
+        Id tplanId = tplan.get(0).Id;
+        Set<Id> selectedUserIds = new Set<Id>();
+
+        for(User u : lmsUsers){
+            selectedUserIds.add(u.Id);
+        }
+
+        //Test Insert
+        Test.startTest();
+            System.runAs(adminUsers.get(0)){
+                LMSService.upsertAssignments(selectedUserIds,tplanId,null);
+
+                List<Training_Plan_Assignment__c> ltpa = [select id,
+                                                                Status__c,
+                                                                Training_Plan__c,
+                                                                User__c from Training_Plan_Assignment__c
+                                                                where User__c =: lmsUsers.get(0).Id
+                                                                and Training_Plan__c =: tplan.get(0).Id];
+                System.assert(ltpa.size() == 1);
+                ltpa.get(0).Status__c = 'In Progress';
+                upsert ltpa;
+            }
+        Test.stopTest();
+
+        System.runAs(lmsUsers.get(0)){
+            PageReference pageRef = Page.MyTraining;
+            Test.setCurrentPage(pageRef);
+            pageRef.getHeaders().put('User-Agent', 'iPhone');
+            MyTrainingController controller = new MyTrainingController();
+
+            System.assert(controller.selectedType == LMSConstants.TPLAN_STATUS_NOT_STARTED);
+            System.assert(controller.tPlans.size() == 0);
+
+            controller.selectedType = LMSConstants.TPLAN_STATUS_IN_PROGRESS;
+            controller.loadTrainingPlans();
+            System.assert(controller.tPlans.size() == 0);
+
+            controller.selectedType = LMSConstants.TPLAN_STATUS_COMPLETED;
+            controller.loadTrainingPlans();
+            System.assert(controller.tPlans.size() == 0);
+
+        }
+
+    }
+
 
 }

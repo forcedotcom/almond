@@ -94,7 +94,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 
                     <apex:outputPanel layout="none" rendered="{!!task.Disable_Comments__c}">
                         <div class="panel panel-default">
-                            <div class="panel-heading"><b>{!$Label.ALMS_Task_Comments} :</b></div>
+                            <div class="panel-heading"><b>{!$Label.ALMS_Task_Comments}</b></div>
                             <div class="panel-body">
                               <div class="form-group">
                                   <apex:inputTextArea value="{!assignmentComments}" styleClass="form-control"/>

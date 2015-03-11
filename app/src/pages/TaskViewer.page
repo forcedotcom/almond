@@ -97,7 +97,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                             <div class="panel-heading"><b>{!$Label.ALMS_Task_Comments}</b></div>
                             <div class="panel-body">
                               <div class="form-group">
-                                  <apex:inputTextArea value="{!assignmentComments}" styleClass="form-control"/>
+                                  <apex:inputTextArea value="{!assignmentComments}" rows="6" styleClass="form-control" />
                               </div>
                             </div>
                         </div>

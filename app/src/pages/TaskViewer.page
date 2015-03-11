@@ -92,6 +92,17 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                         </div>
                     </apex:outputPanel>
 
+                    <apex:outputPanel layout="none" rendered="{!!task.Disable_Comments__c}">
+                        <div class="panel panel-default">
+                            <div class="panel-heading"><b>{!$Label.ALMS_Task_Comments} :</b></div>
+                            <div class="panel-body">
+                              <div class="form-group">
+                                  <apex:inputTextArea value="{!assignmentComments}" styleClass="form-control"/>
+                              </div>
+                            </div>
+                        </div>
+                    </apex:outputPanel>
+
                     <apex:outputPanel layout="none" rendered="{!task.Enable_Image_Upload__c}">
                       <apex:commandButton value="{!$Label.ALMS_Task_Done_Button}" action="{!markCompletedAndRedirect}" styleClass="almond-default-btn large-btn" onclick="forceShowStatus();"/>
                     </apex:outputPanel>
@@ -126,6 +137,15 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                                 </div>
                             </div>
                         </apex:outputPanel>
+                    </apex:outputPanel>
+
+                    <apex:outputPanel layout="block" rendered="{!assignment.User_Notes__c != null}">
+                        <div class="panel panel-default">
+                            <div class="panel-heading"><b>{!$Label.ALMS_Task_Comments}</b></div>
+                            <div class="panel-body" style="overflow-x: auto;">
+                                <apex:outputField value="{!assignment.User_Notes__c}"/>
+                            </div>
+                        </div>
                     </apex:outputPanel>
 
                     <apex:commandButton value="{!$Label.ALMS_Task_Undo_Button}" action="{!resetTask}" styleClass="almond-warning-btn large-btn" style="margin-bottom:15px;" onclick="if(!confirm('{!JSENCODE($Label.ALMS_Confirm_Alert)}')){return false}else{forceShowStatus()};" rerender="resultsPanel" oncomplete="doRedirection()" rendered="{!isTaskValidForReset}"/>

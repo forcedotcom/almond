@@ -66,6 +66,11 @@
         <label>Deshabilitar deshacer cambios a tareas completas</label>
         <name>Disable_Undo__c</name>
     </fields>
+    <fields>
+        <help>Habilitar esta opción para prevenir que usuarios ingresen comentarios para esta tarea</help>
+        <label>Deshabilitar Comentarios</label>
+        <name>Disable_Comments__c</name>
+    </fields>
     <layouts>
         <layout>Task Layout</layout>
         <sections>

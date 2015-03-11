@@ -161,6 +161,10 @@
         <label>Completado En</label>
         <name>Completed_On__c</name>
     </fields>
+    <fields>
+        <label>Notas de Usuario</label>
+        <name>User_Notes__c</name>
+    </fields>
     <layouts>
         <layout>Learning Assignment Layout</layout>
         <sections>

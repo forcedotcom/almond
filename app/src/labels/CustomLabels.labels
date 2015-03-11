@@ -1976,4 +1976,20 @@
         <shortDescription>Training Plan Assignment Status</shortDescription>
         <value>Status</value>
     </labels>
+    <labels>
+        <fullName>ALMS_Task_Comments</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Task Comments</shortDescription>
+        <value>Comments</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Task_Comments_Max_Length</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Task Comments Max Length Message</shortDescription>
+        <value>Comments cannot be longer than 32,000 characters</value>
+    </labels>
 </CustomLabels>

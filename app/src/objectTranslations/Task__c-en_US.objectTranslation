@@ -63,8 +63,13 @@
     </fields>
     <fields>
         <help><!-- Enable this option if you do not want users to re-open a task marked as completed --></help>
-        <label><!-- Disable undo --></label>
+        <label><!-- Disable Undo --></label>
         <name>Disable_Undo__c</name>
+    </fields>
+    <fields>
+        <help><!-- Enable this option if you do not want users to provide comments for this task --></help>
+        <label><!-- Disable Comments --></label>
+        <name>Disable_Comments__c</name>
     </fields>
     <layouts>
         <layout>Task Layout</layout>

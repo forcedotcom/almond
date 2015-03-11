@@ -219,6 +219,7 @@ public with sharing class LMSInit{
                     tk.Learning__c = learnings.get(headerName).Id;
                     tk.Enable_Image_Upload__c = getBooleanValue(lContent.get('enable-image-upload'),false);
                     tk.Disable_Undo__c = getBooleanValue(lContent.get('disable-undo'),false);
+                    tk.Disable_Comments__c = getBooleanValue(lContent.get('disable-comments'),false);
                     tasks.put(tk.Learning__c ,tk);
                 }else if((String)lHeader.get('record-type') == 'Quiz'){
                     Quiz__c qz = new Quiz__c();

@@ -1670,6 +1670,7 @@ public with sharing class LMSService{
                                                   ,Training_Plan_Section__c
                                                   ,Shared_Learning_Assignment__c
                                                   ,Approver_Notes__c
+                                                  ,User_Notes__c
                                                   from Learning_Assignment__c
                                                   where id = :assignmentId
                                                   and User__c = :userId
@@ -2433,6 +2434,7 @@ public with sharing class LMSService{
                                         ,Task__r.Requires_Manager_Approval__c
                                         ,Task__r.Enable_Image_Upload__c
                                         ,Task__r.Disable_Undo__c
+                                        ,Task__r.Disable_Comments__c
                                         from Learning_Version__c
                                         where id = :learningVersionId
                                         limit 1];

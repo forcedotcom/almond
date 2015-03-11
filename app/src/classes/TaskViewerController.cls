@@ -39,6 +39,7 @@ public with sharing class TaskViewerController extends LMSBaseController{
     public String latestImageAttachment{get;private set;}
     public String redirectURL{get;set;}
     public String cancelURL{get;set;}
+    public String assignmentComments{get;set;}
 
     public Attachment attachment {
         get {
@@ -61,6 +62,7 @@ public with sharing class TaskViewerController extends LMSBaseController{
         taskCompleted = false;
         taskInReview = false;
         latestImageAttachment = null;
+        assignmentComments = null;
 
         //Retrieve assignment id
         String aid = Apexpages.currentPage().getParameters().get('aid');
@@ -77,6 +79,9 @@ public with sharing class TaskViewerController extends LMSBaseController{
                 LMSService.WithoutSharingOps wsops = new LMSService.WithoutSharingOps();
                 learningVersion = wsops.getLearningVersionDetails(assignment.Learning_Version__c,'Task');
                 Learning__c assignmentLearning = wsops.getLearningDetails(assignment.Learning__c);
+
+                //Init assignment comments from user notes if there's already a value
+                assignmentComments = assignment.User_Notes__c;
 
                 List<Attachment> assignmentAtts = [select id
                                                     from Attachment
@@ -146,6 +151,12 @@ public with sharing class TaskViewerController extends LMSBaseController{
                 //Additionally, we bypass CRUD/FLS settings for updating learning assignments as LMS Users have read only access
             //END Access Check
 
+            //Check for assignment notes length
+            if(!String.isBlank(assignmentComments) && assignmentComments.length() > 32000){
+                LMSUtils.addErrorMessage(System.Label.ALMS_Task_Comments_Max_Length);
+                return null;
+            }
+
             //Update assignment status
             if(assignment.Progress__c != LMSConstants.ASSIGNMENT_STATUS_COMPLETED){
 
@@ -181,6 +192,7 @@ public with sharing class TaskViewerController extends LMSBaseController{
             }
 
             assignment.Evaluation_Result__c = 'N/A';
+            assignment.User_Notes__c = assignmentComments;
             update assignment;
 
             PageReference ref = finalRedirection();

@@ -988,6 +988,14 @@
         <label><!-- Status --></label>
         <name>ALMS_Training_Plan_Assignment_Status</name>
     </customLabels>
+    <customLabels>
+        <label><!-- Comments --></label>
+        <name>ALMS_Task_Comments</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Comments cannot be longer than 255 characters --></label>
+        <name>ALMS_Task_Comments_Max_Length</name>
+    </customLabels>
     <customTabs>
         <label><!-- Learning --></label>
         <name>Learning</name>

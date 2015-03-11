@@ -381,6 +381,16 @@
         <trackTrending>false</trackTrending>
         <type>Date</type>
     </fields>
+    <fields>
+        <fullName>User_Notes__c</fullName>
+        <externalId>false</externalId>
+        <label>User Notes</label>
+        <length>32000</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
     <label>Learning Assignment</label>
     <listViews>
         <fullName>All</fullName>

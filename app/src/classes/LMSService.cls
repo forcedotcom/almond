@@ -1699,7 +1699,7 @@ public with sharing class LMSService{
     public static Boolean isActiveTrainingPlan(Training_Plan__c tp){
         if(tp != null){
             // Always make training plans active for admins
-            if(LMSUtils.isAdminUser()){
+            if(LMSUtils.isAdminUser() && tp.Status__c != LMSConstants.TPLAN_STATUS_ARCHIVED){
                 return true;
             }
             Boolean isActive = tp.Status__c == LMSConstants.TPLAN_STATUS_ACTIVE;

@@ -100,7 +100,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                                         <label class="label label-default">{!$Label.ALMS_TPlan_Requires_Assignment}</label>
                                     </apex:outputPanel>
                                     <apex:outputPanel layout="block" rendered="{!ti.isExpired}">
-                                        <label class="label label-default">{!$Label.ALMS_TPlan_Expired}</label>
+                                        <label class="label label-default">{!IF(ti.trackItem.Training_Plan__r.Status__c == 'Archived',$Label.ALMS_TPlan_Archived, $Label.ALMS_TPlan_Expired)}</label>
                                     </apex:outputPanel>
                                     <apex:outputPanel layout="none" rendered="{!ti.trackItem.Training_Plan__r.Hide_After_End_Date__c && ti.trackItem.Training_Plan__r.End_Date__c != null}">
                                         <span class="plan-due-date">{!$Label.ALMS_Training_Plan_Due} :&nbsp;<apex:outputField value="{!ti.trackItem.Training_Plan__r.End_Date__c}" /></span>

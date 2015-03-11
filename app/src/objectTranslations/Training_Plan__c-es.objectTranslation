@@ -79,6 +79,10 @@
             <masterLabel>Draft</masterLabel>
             <translation>Borrador</translation>
         </picklistValues>
+        <picklistValues>
+            <masterLabel>Archived</masterLabel>
+            <translation>Archivado</translation>
+        </picklistValues>
     </fields>
     <fields>
         <help>Código de color Hex para el texto del encabezado (ej. #333333, más ejemplos en : http://www.color-hex.com/)</help>

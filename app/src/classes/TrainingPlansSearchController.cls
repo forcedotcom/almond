@@ -77,6 +77,7 @@ public with sharing class TrainingPlansSearchController extends LMSBaseControlle
                                 ,Status__c
                                 FROM Training_Plan__c
                                 WHERE Name LIKE :searchTerm
+                                AND Status__c = :LMSConstants.TPLAN_STATUS_ACTIVE
                                 ORDER BY CreatedDate desc
                                 LIMIT 200]
                     ));
@@ -192,6 +193,7 @@ public with sharing class TrainingPlansSearchController extends LMSBaseControlle
                             ,Status__c
                             FROM Training_Plan__c
                             WHERE Name LIKE :searchTerm
+                            AND Status__c = :LMSConstants.TPLAN_STATUS_ACTIVE
                             AND (Self_Registration_Access__c = :LMSConstants.TPLAN_PUBLIC_EXTERNAL
                               OR id in :accountTPlanIds
                             )

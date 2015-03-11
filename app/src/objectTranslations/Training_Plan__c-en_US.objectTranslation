@@ -79,6 +79,10 @@
             <masterLabel>Draft</masterLabel>
             <translation><!-- Draft --></translation>
         </picklistValues>
+        <picklistValues>
+            <masterLabel>Archived</masterLabel>
+            <translation><!-- Archived --></translation>
+        </picklistValues>
     </fields>
     <fields>
         <help><!-- HEX Color code for the header text color (e.g. #333333, more examples in : http://www.color-hex.com/) --></help>

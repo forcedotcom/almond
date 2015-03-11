@@ -37,6 +37,7 @@ public with sharing class LMSConstants {
     public static final String TPLAN_STATUS_COMPLETED = 'Completed';
     public static final String TPLAN_STATUS_VISIBILITY_CATALOG = 'Catalog';
     public static final String TPLAN_STATUS_ACTIVE = 'Active';
+    public static final String TPLAN_STATUS_ARCHIVED = 'Archived';
 
     public static final String ASSIGNMENT_STATUS_NOT_STARTED = 'Not Started';
     public static final String ASSIGNMENT_STATUS_IN_PROGRESS = 'In Progress';

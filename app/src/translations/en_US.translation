@@ -765,6 +765,10 @@
         <name>ALMS_TPlan_Expired</name>
     </customLabels>
     <customLabels>
+        <label><!-- Archived --></label>
+        <name>ALMS_TPlan_Archived</name>
+    </customLabels>
+    <customLabels>
         <label><!-- Take New Version --></label>
         <name>ALMS_Take_New_Version</name>
     </customLabels>

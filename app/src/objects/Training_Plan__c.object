@@ -193,6 +193,10 @@
                 <default>true</default>
             </picklistValues>
             <picklistValues>
+                <fullName>Archived</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
                 <fullName>Active</fullName>
                 <default>false</default>
             </picklistValues>

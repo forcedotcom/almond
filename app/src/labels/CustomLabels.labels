@@ -953,6 +953,14 @@
         <value>Expired</value>
     </labels>
     <labels>
+        <fullName>ALMS_TPlan_Archived</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Archived Training Plan Label</shortDescription>
+        <value>Archived</value>
+    </labels>
+    <labels>
         <fullName>ALMS_Learning_Home</fullName>
         <categories>ALMOND General, ALMOND UI</categories>
         <language>en_US</language>

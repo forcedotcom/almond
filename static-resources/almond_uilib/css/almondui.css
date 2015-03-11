@@ -137,8 +137,8 @@ td.noSidebarCell{
     min-height: 400px;
 }
 
-.almond .tplan-form,
-.almond .tplan-preview-form{
+.almond.almond-template .tmpl-body-container,
+.almond.almond-hero-template .herotmpl-body-container{
     padding:0 0 40px 0;
 }
 /*!

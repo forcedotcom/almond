@@ -40,7 +40,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 
     <body>
 
-        <div class="almond almond-hero-tempate almond-bs">
+        <div class="almond almond-hero-template almond-bs">
         <div id="lms-container" >
 
             <div id="header" class="noBounce"></div>

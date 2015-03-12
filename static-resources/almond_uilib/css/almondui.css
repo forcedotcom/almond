@@ -925,7 +925,8 @@ td.noSidebarCell{
     cursor: pointer;
 }
 
-@media (min-width : 768px) {
+/* Non-mobile styles */
+@media (min-width : 769px) {
     .almond .activity-section-wrap{
         border: none;
     }
@@ -1212,6 +1213,7 @@ td.noSidebarCell{
 }
 
 
+/* Logo size media queries for categories */
 @media (min-width: 767px) {
     .almond .categoryImage img {
         height: 10vw;
@@ -1287,7 +1289,6 @@ td.noSidebarCell{
 * Mobile specific styles
 * ------------------------------------------------------
 */
-
 
 /* Smartphones (portrait and landscape) ----------- */
 @media (max-width : 480px) {

@@ -344,7 +344,8 @@ private class TestAccessController {
            Now that we removed this limit, we should be able to call these functions until we hit the next type of
            limiter, this is likely to be DML operations which are capped at 100. This is why we are testing up to 100 */
 
-        Integer max = 100;
+        // JR : Changed limit to 20 to prevent hitting any soql limits with existing triggers
+        Integer max = 20;
 
         for (Integer i = 0; i < max; i++) {
             Contact c = new Contact();

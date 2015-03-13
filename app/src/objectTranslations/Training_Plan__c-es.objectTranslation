@@ -79,6 +79,10 @@
             <masterLabel>Draft</masterLabel>
             <translation>Borrador</translation>
         </picklistValues>
+        <picklistValues>
+            <masterLabel>Archived</masterLabel>
+            <translation>Archivado</translation>
+        </picklistValues>
     </fields>
     <fields>
         <help>Código de color Hex para el texto del encabezado (ej. #333333, más ejemplos en : http://www.color-hex.com/)</help>
@@ -115,6 +119,16 @@
         <help>Desplegar una etiqueta que indique que el curso es Nuevo hasta la fecha definida</help>
         <label>Nuevo hasta</label>
         <name>New_Until__c</name>
+    </fields>
+    <fields>
+        <help>Mensaje personalizado usado en las notificaciones de Chatter</help>
+        <label>Mensaje de Notificación Personalizado</label>
+        <name>Custom_Notification_Message__c</name>
+    </fields>
+    <fields>
+        <help>Ocultar este curso si la fecha actual está fuera del rango definido por las Fechas de Inicio/Termino</help>
+        <label>Ocultar después de Fecha de Termino</label>
+        <name>Hide_After_End_Date__c</name>
     </fields>
     <layouts>
         <layout>Training Plan Layout</layout>
@@ -172,6 +186,10 @@
     <validationRules>
         <errorMessage>Fecha de Inicio no puede ser mayor a Fecha de Termino</errorMessage>
         <name>Date_Validation</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage>Favor de especificar Fecha de Inicio y Termino o dejar ambos campos en blanco</errorMessage>
+        <name>Empty_Date_Validation</name>
     </validationRules>
     <webLinks>
         <label>Gestionar Logros</label>

@@ -33,6 +33,10 @@
                 <behavior>Required</behavior>
                 <field>Training_Plan_Section__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Completed_On__c</field>
+            </layoutItems>
         </layoutColumns>
         <style>TwoColumnsTopToBottom</style>
     </layoutSections>

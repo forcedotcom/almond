@@ -40,7 +40,8 @@ public with sharing class TrainingPlanDetailController extends LMSBaseController
     public TrainingPlanSectionItem selectedItem{get;set;}
 
     public transient List<User> lUsersWithAchievement{get;set;}
-    
+    public transient String tPlanAssignmentStatus{get;private set;}
+
     public String selectedItemStatusLabel{get{
         if(selectedItem != null && selectedItem.latestAssignment != null && selectedItem.latestAssignment.Progress__c != null){
             if(selectedItem.latestAssignment.Progress__c == LMSConstants.ASSIGNMENT_STATUS_COMPLETED){
@@ -73,6 +74,7 @@ public with sharing class TrainingPlanDetailController extends LMSBaseController
     @TestVisible
     private void init(){
         try{
+            tPlanAssignmentStatus = null;
             learningLaunchURL = null;
             learningTarget = '_self';
             selectedItem = null;
@@ -81,12 +83,24 @@ public with sharing class TrainingPlanDetailController extends LMSBaseController
             loadTrainingPlanInfo();
             if(tPlan != null){
                 if(tPlan.mainAchievement != null){
-                    lUsersWithAchievement = LMSService.getUsersForAchievement(tPlan.mainAchievement.Id, LMSConstants.AA_ACQUIRED_STATUS, 12);
+                    lUsersWithAchievement = LMSService.getUsersForAchievement(tPlan.mainAchievement.Id, LMSConstants.AA_ACQUIRED_STATUS, 10);
                 }
+                loadAssignmentStatus();
             }
         }catch(Exception e){
             LMSUtils.logException(e,'TrainingPlanDetailController');
             LMSUtils.addGenericUnknownErrorMessage('TrainingPlanDetailController - init (1)');
+        }
+    }
+
+    private void loadAssignmentStatus(){
+        Map<Id,Map<Id,Training_Plan_Assignment__c>> assignmentsMap = LMSService.getTrainingPlanAssignments(new Set<Id>{UserInfo.getUserId()}, new Set<Id>{trainingPlanId});
+        if(assignmentsMap.size()>0 && assignmentsMap.get(UserInfo.getUserId()) != null){
+            Map<Id,Training_Plan_Assignment__c> tplanAssignmentMap = assignmentsMap.get(UserInfo.getUserId());
+            Training_Plan_Assignment__c userTPlanAssignment = tplanAssignmentMap.get(trainingPlanId);
+            if(userTPlanAssignment != null){
+                tPlanAssignmentStatus = userTPlanAssignment.Status__c;
+            }
         }
     }
 

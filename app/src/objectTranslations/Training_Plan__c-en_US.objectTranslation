@@ -79,6 +79,10 @@
             <masterLabel>Draft</masterLabel>
             <translation><!-- Draft --></translation>
         </picklistValues>
+        <picklistValues>
+            <masterLabel>Archived</masterLabel>
+            <translation><!-- Archived --></translation>
+        </picklistValues>
     </fields>
     <fields>
         <help><!-- HEX Color code for the header text color (e.g. #333333, more examples in : http://www.color-hex.com/) --></help>
@@ -115,6 +119,16 @@
         <help><!-- Display a New ribbon in the training plan until the specified date --></help>
         <label><!-- New Until --></label>
         <name>New_Until__c</name>
+    </fields>
+    <fields>
+        <help><!-- Custom message used for chatter notifications --></help>
+        <label><!-- Custom Notification Message --></label>
+        <name>Custom_Notification_Message__c</name>
+    </fields>
+    <fields>
+        <help><!-- Hide this training plan for end-users if the current date is outside of the Start/End Date range --></help>
+        <label><!-- Hide After End Date --></label>
+        <name>Hide_After_End_Date__c</name>
     </fields>
     <layouts>
         <layout>Training Plan Layout</layout>
@@ -171,6 +185,10 @@
     <validationRules>
         <errorMessage><!-- Start Date cannot be greater than End Date --></errorMessage>
         <name>Date_Validation</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- You must set a value for Start and End date or leave both empty --></errorMessage>
+        <name>Empty_Date_Validation</name>
     </validationRules>
     <webLinks>
         <label><!-- Manage_Achievements --></label>

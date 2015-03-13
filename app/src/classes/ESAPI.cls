@@ -27,8 +27,7 @@ global with sharing class ESAPI {
     /**
     * prevent instantiation of this class
     */
-    private ESAPI() {
-    }
+    private ESAPI() {}
 
     /**
     * @return the current ESAPI SFDCValidator being used to validate data in this application.

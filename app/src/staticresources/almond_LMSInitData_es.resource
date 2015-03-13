@@ -250,7 +250,7 @@
             "name" : "Curso de muestra",
             "description" : "Descripción de curso de muestra",
             "status" : "Active",
-            "enforce-sequence" : true,
+            "enforce-sequence" : false,
             "enable-self-registration" : false,
             "self-registration-access" : null,
             "sections" : [

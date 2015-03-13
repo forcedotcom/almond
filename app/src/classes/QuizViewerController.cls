@@ -316,7 +316,6 @@ public with sharing class QuizViewerController extends LMSBaseController{
         for (QuizItem qi : quizItemList) {
             tosave.add(qi.response);
             Boolean missingAnswer = false;
-            // TODO : Add different error message based on question type
             if ((qi.question.Type__c == 'SelectOneQuestion' || qi.question.Type__c == 'SelectMultipleQuestion' ) && String.isBlank(qi.response.Response_Answer_Sequence_Long__c)) {
                 missingAnswer = true;
             }else if(qi.question.Type__c == 'Text' && String.isBlank(qi.response.Response_Text_Long__c)){

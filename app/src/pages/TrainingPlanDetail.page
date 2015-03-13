@@ -60,9 +60,15 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
         </apex:define>
 
         <apex:define name="hero-banner-footer">
-          <apex:outputPanel layout="none" rendered="{!tPlan.totalMins != null && tPlan.totalMins > 0}">
-            <span>{!$Label.ALMS_Duration} : {!tPlan.TotalDuration}</span>
-          </apex:outputPanel>
+            <apex:outputPanel layout="none" rendered="{!tPlan.trainingPlan != null && tplan.trainingPlan.Hide_After_End_Date__c && tplan.trainingPlan.End_Date__c != null}">
+                <span><b>{!$Label.ALMS_Training_Plan_Due}</b> :&nbsp;<apex:outputField value="{!tPlan.trainingPlan.End_Date__c}" /> /</span>
+            </apex:outputPanel>
+            <apex:outputPanel layout="none" rendered="{!tPlan.totalMins != null && tPlan.totalMins > 0}">
+                <span><b>{!$Label.ALMS_Duration}</b> : {!tPlan.TotalDuration} /</span>
+            </apex:outputPanel>
+            <apex:outputPanel layout="none" rendered="{!tPlanAssignmentStatus != null}">
+                <span><b>{!$Label.ALMS_Training_Plan_Assignment_Status}</b> : {!IF(tPlanAssignmentStatus == 'Completed',$Label.ALMS_Training_Status_Completed, IF(tPlanAssignmentStatus == 'In Progress', $Label.ALMS_Training_Status_In_Progress, $Label.ALMS_Training_Status_Not_Started))}</span>
+            </apex:outputPanel>
         </apex:define>
 
         <apex:define name="container-header">
@@ -156,7 +162,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 
                             <apex:outputPanel rendered="{!i.assignments != null}" layout="none">
                                 <a href="javascript:void(0)" class="mobile-learning-wrapper launch-learning-btn" lms-data-sectionId="{!o.trainingPlanSection.Id}" lms-data-itemId="{!i.trainingPlanSectionItem.Id}">
-                                    <div class="col-xs-10 col-sm-4 col-md-4 title">
+                                    <div class="col-xs-9 col-xs-offset-1 col-sm-9 col-md-9 title">
                                         <apex:outputPanel layout="none" rendered="{!!i.trainingPlanSectionItem.Optional__c}">
                                             <div class="requiredItem">*</div>
                                         </apex:outputPanel>
@@ -166,7 +172,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                             </apex:outputPanel>
 
                             <apex:outputPanel rendered="{!i.assignments == null}" layout="none">
-                                <div class="mobile-learning-wrapper col-xs-10 col-sm-4 col-md-4 title">
+                                <div class="mobile-learning-wrapper col-xs-9 col-xs-offset-1 col-sm-9 col-md-9 title">
                                     <apex:outputPanel layout="none" rendered="{!!i.trainingPlanSectionItem.Optional__c}">
                                         <div class="requiredItem">*</div>
                                     </apex:outputPanel>

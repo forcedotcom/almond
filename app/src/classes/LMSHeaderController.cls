@@ -41,7 +41,7 @@ public with sharing class LMSHeaderController {
     public transient Boolean hideBackToSFButton {get;private set;}
 
     public LMSHeaderController(){
-        loggedUsername = UserInfo.getName();
+        loggedUsername = UserInfo.getFirstName();
 
         Id uId = UserInfo.getUserId();
 

@@ -32,11 +32,15 @@ public with sharing class TrainingPlanWithAchievement {
     public transient String planDescription {get; private set;}
     public transient String planDetailURL {get; private set;}
     public transient String planAccess{get;private set;}
+    public transient String planEndDate{get;private set;}
+    public transient String planCompletedDate{get;set;}
     public transient Achievement__c mainAchievement {get; private set;}
     public transient Boolean hasAssignment{get;set;}
     public transient String assignmentStatus{get;set;}
     public transient Boolean selfRegistrationEnabled{get;set;}
     public transient Date newUntil{get;set;}
+    public transient Boolean isExpired{get;set;}
+    public transient Boolean hideAfterEndDate{get;set;}
 
     public TrainingPlanWithAchievement(Training_Plan__c tplan, Achievement__c tachievement,String detailURL, Boolean hasAssignment){
         planName = tplan.Name;
@@ -51,5 +55,11 @@ public with sharing class TrainingPlanWithAchievement {
         mainAchievement = tachievement;
         assignmentStatus = null;
         this.hasAssignment = hasAssignment;
+        if(tplan.End_Date__c != null){
+            planEndDate = (tplan.End_Date__c).format();
+        }
+        planCompletedDate = null;
+        isExpired = false;
+        hideAfterEndDate = false;
     }
 }

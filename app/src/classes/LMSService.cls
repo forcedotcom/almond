@@ -123,6 +123,7 @@ public with sharing class LMSService{
             ,'Hide_Chatter_Photos__c'
             ,'Optional_Feedback_Comments__c'
             ,'New_Until__c'
+            ,'Hide_After_End_Date__c'
         });
         LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
         //END Access Check
@@ -150,6 +151,7 @@ public with sharing class LMSService{
             ,'Hide_Chatter_Photos__c'
             ,'Optional_Feedback_Comments__c'
             ,'New_Until__c'
+            ,'Hide_After_End_Date__c'
         };
 
         if(isPortalUser){
@@ -158,7 +160,7 @@ public with sharing class LMSService{
         }
 
         String soqlQuery = 'select '+String.join(listSOQLFields,',')+' from Training_Plan__c where Id in :tpIds';
-        soqlQuery += ' order by SystemModStamp desc';
+        soqlQuery += ' order by End_Date__c asc, SystemModStamp desc';
 
         if(isPortalUser){
             LMSService.WithoutSharingOps wsops = new LMSService.WithoutSharingOps();
@@ -193,6 +195,7 @@ public with sharing class LMSService{
             ,'Training_Plan_Rating__c'
             ,'Hide_Chatter_Photos__c'
             ,'Optional_Feedback_Comments__c'
+            ,'Hide_After_End_Date__c'
         });
         LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
         //END Access Check
@@ -219,6 +222,7 @@ public with sharing class LMSService{
             ,'Training_Plan_Rating__c'
             ,'Hide_Chatter_Photos__c'
             ,'Optional_Feedback_Comments__c'
+            ,'Hide_After_End_Date__c'
         };
 
         String registrationAccess = LMSConstants.TPLAN_PUBLIC_EXTERNAL;
@@ -1582,6 +1586,7 @@ public with sharing class LMSService{
             ,'Background_Color__c'
             ,'Text_Color__c'
             ,'New_Until__c'
+            ,'Hide_After_End_Date__c'
         });
         LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
         //END Access Check
@@ -1611,6 +1616,7 @@ public with sharing class LMSService{
             ,'Training_Plan__r.Enable_Self_Registration__c'
             ,'Training_Plan__r.Self_Registration_Access__c'
             ,'Training_Plan__r.New_Until__c'
+            ,'Training_Plan__r.Hide_After_End_Date__c'
         };
 
         Id trId = trackId;
@@ -1664,6 +1670,7 @@ public with sharing class LMSService{
                                                   ,Training_Plan_Section__c
                                                   ,Shared_Learning_Assignment__c
                                                   ,Approver_Notes__c
+                                                  ,User_Notes__c
                                                   from Learning_Assignment__c
                                                   where id = :assignmentId
                                                   and User__c = :userId
@@ -1689,18 +1696,16 @@ public with sharing class LMSService{
         }
     }
 
-    // TODO : Use this function to hide expired training plans
-    // Still analyzing how this will affect progress calculation
-    /*
+    //Determines if we should display a Training Plan based on it's status and date ranges
     public static Boolean isActiveTrainingPlan(Training_Plan__c tp){
         if(tp != null){
             // Always make training plans active for admins
-            if(LMSUtils.isAdminUser()){
+            if(LMSUtils.isAdminUser() && tp.Status__c != LMSConstants.TPLAN_STATUS_ARCHIVED){
                 return true;
             }
             Boolean isActive = tp.Status__c == LMSConstants.TPLAN_STATUS_ACTIVE;
             Boolean isWithinDateRange = true;
-            if(tp.Start_Date__c != null && tp.End_Date__c != null && !(Date.today() >= tp.Start_Date__c && Date.today() <= tp.End_Date__c)){
+            if(tp.Hide_After_End_Date__c && tp.Start_Date__c != null && tp.End_Date__c != null && !(Date.today() >= tp.Start_Date__c && Date.today() <= tp.End_Date__c)){
                 isWithinDateRange = false;
             }
             return isActive && isWithinDateRange;
@@ -1708,7 +1713,6 @@ public with sharing class LMSService{
             return false;
         }
     }
-    */
 
     //Without sharing operations
     public without sharing class WithoutSharingOps{
@@ -2039,7 +2043,7 @@ public with sharing class LMSService{
                 ,'Item_Id__c'
             });
             //NOTE: We know users don't have access to see the "Is Correct Answer" field so we're excluding it from the FLS check
-            //This field should only be used at the controller level to validate answer
+            //This field should only be used at the controller level to validate answers
             LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
             //END Access Check
 
@@ -2329,29 +2333,32 @@ public with sharing class LMSService{
             return results;
         }
 
-        //Query training Plans
+        //Query training plan data for users that don't have access to these records through sharing
         public List<Training_Plan__c> queryTrainingPlans(String soqlQuery,Set<Id> tpIds, String registrationAccess){
             return (List<Training_Plan__c>)Database.query(soqlQuery);
         }
 
-        //Query training plan achievements
+        //Query training plan achievements data for users that don't have access to these records through sharing
         public List<Training_Plan_Achievement__c> queryTrainingPlanAchievements(String soqlQuery, Set<Id> tplIds, String tpaType){
             return (List<Training_Plan_Achievement__c>)Database.query(soqlQuery);
         }
 
-        //Query training plan section achievements
+        //Query training plan section achievements data for users that don't have access to these records through sharing
         public List<Training_Plan_Achievement__c> queryTrainingPlanSectionAchievements(String soqlQuery, Set<Id> tpsIds, String tpaType){
             return (List<Training_Plan_Achievement__c>)Database.query(soqlQuery);
         }
 
+        //Query training plan section data for users that don't have access to these records through sharing
         public List<Training_Plan_Section__c> queryTrainingPlanSections(String soqlQuery,Set<Id> tpIds){
             return (List<Training_Plan_Section__c>)Database.query(soqlQuery);
         }
 
+        //Query training plan data for users that don't have access to these records through sharing
         public List<Training_Plan__c> queryTrainingPlanAccessLevel(Id tplanId){
             return [select id,Enable_Self_Registration__c,Self_Registration_Access__c from Training_Plan__c where id = :tplanId];
         }
 
+        //Query training plan access request data for users that don't have access to these records through sharing
         public List<Training_Plan_Access_Request__c> queryTrainingPlanAccessRequests(String soqlQuery,Id uId,Id tplanId,Set<String> statuses){
             return (List<Training_Plan_Access_Request__c>)Database.query(soqlQuery);
         }
@@ -2427,6 +2434,7 @@ public with sharing class LMSService{
                                         ,Task__r.Requires_Manager_Approval__c
                                         ,Task__r.Enable_Image_Upload__c
                                         ,Task__r.Disable_Undo__c
+                                        ,Task__r.Disable_Comments__c
                                         from Learning_Version__c
                                         where id = :learningVersionId
                                         limit 1];
@@ -2473,14 +2481,17 @@ public with sharing class LMSService{
             return learning;
         }
 
+        //Query training track data for users that don't have access to these records through sharing
         public List<Training_Track__c> queryTrainingTracks(String soqlQuery, String filterStatus, Set<Id> trIds){
             return (List<Training_Track__c>)Database.query(soqlQuery);
         }
 
+        //Query training track level data for users that don't have access to these records through sharing
         public List<Training_Track_Level__c> queryTrainingTrackLevels(String soqlQuery, Id trId){
             return (List<Training_Track_Level__c>)Database.query(soqlQuery);
         }
 
+        //Get a training plan achievement data, this is used to filter out achievement assignment data
         public Map<Id,Training_Plan_Achievement__c> getTrainingPlanAchievementDetails(Set<Id> tplanAchievementIds){
             Map<Id,Training_Plan_Achievement__c> results = new Map<Id,Training_Plan_Achievement__c>();
             for(Training_Plan_Achievement__c tpa : [select id

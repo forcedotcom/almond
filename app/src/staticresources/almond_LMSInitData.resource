@@ -257,7 +257,7 @@
             "name" : "Sample Training Plan",
             "description" : "Sample Training Plan description",
             "status" : "Active",
-            "enforce-sequence" : true,
+            "enforce-sequence" : false,
             "enable-self-registration" : false,
             "self-registration-access" : null,
             "sections" : [

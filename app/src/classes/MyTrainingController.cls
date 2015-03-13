@@ -50,8 +50,10 @@ public with sharing class MyTrainingController extends LMSBaseController{
 
     public void loadTrainingPlans(){
 
+        Boolean includeAssignmentData = false;
         if(selectedType == LMSConstants.TPLAN_STATUS_COMPLETED){
             trainingPlans = LMSService.getCompletedTrainingPlans(UserInfo.getUserId(),LMSUtils.isPortalUser());
+            includeAssignmentData = true;
         }else if(selectedType == LMSConstants.TPLAN_STATUS_IN_PROGRESS){
             trainingPlans = LMSService.getInProgressTrainingPlans(UserInfo.getUserId(),LMSUtils.isPortalUser());
         }else if(selectedType == LMSConstants.TPLAN_STATUS_NOT_STARTED){
@@ -60,13 +62,30 @@ public with sharing class MyTrainingController extends LMSBaseController{
             trainingPlans = new List<Training_Plan__c>();
         }
 
-        createWrapperObjects(trainingPlans);
+        createWrapperObjects(trainingPlans, includeAssignmentData);
 
     }
 
-    private void createWrapperObjects(List<Training_Plan__c> trainingPlans){
+    private void createWrapperObjects(List<Training_Plan__c> trainingPlans, Boolean includeAssignmentData){
+
+        //Get assignments for existing training plans
+        Map<Id,Training_Plan_Assignment__c> assignedTrainingPlanIds = new Map<Id,Training_Plan_Assignment__c>();
+
+        if(includeAssignmentData){
+            //This query should always run with sharing as the end-user should be the full owner of the assignment
+            for(Training_Plan_Assignment__c tpa : [select id
+                                                        ,Status__c
+                                                        ,Completed_On__c
+                                                        ,Training_Plan__c
+                                                        from Training_Plan_Assignment__c
+                                                        where User__c = :UserInfo.getUserId()
+                                                        and Training_Plan__c in :trainingPlans]){
+                assignedTrainingPlanIds.put(tpa.Training_Plan__c,tpa);
+            }
+        }
 
         tPlans = new List<TrainingPlanWithAchievement>();
+
         //Create wrapper objects that include main reward information
         if(trainingPlans.size()>0){
 
@@ -75,11 +94,31 @@ public with sharing class MyTrainingController extends LMSBaseController{
             Map<Id,Achievement__c> tmp = LMSService.getTrainingMainAchievements(LMSUtils.objectListToIdSet(trainingPlans));
 
             for(Training_Plan__c tp : trainingPlans){
-                if(tp.Status__c == LMSConstants.TPLAN_STATUS_ACTIVE || LMSUtils.isAdminUser()){
-                    tPlans.add(new TrainingPlanWithAchievement(tp, tmp.get(tp.Id),LMSUtils.updateURLCommunityPath(tempRef.getUrl()), true));
+
+                Training_Plan_Assignment__c tpAssignment = null;
+                if(assignedTrainingPlanIds.containsKey(tp.Id)){
+                    tpAssignment = assignedTrainingPlanIds.get(tp.Id);
                 }
+
+                if(LMSService.isActiveTrainingPlan(tp)){
+
+                    TrainingPlanWithAchievement tplach = new TrainingPlanWithAchievement(tp, tmp.get(tp.Id),LMSUtils.updateURLCommunityPath(tempRef.getUrl()), true);
+                    if(tpAssignment != null){
+                        if(tpAssignment.Completed_On__c != null){
+                            tplach.planCompletedDate = (tpAssignment.Completed_On__c).format();
+                        }
+                        tplach.assignmentStatus = tpAssignment.Status__c;
+                    }
+
+                    tplach.hideAfterEndDate = tp.Hide_After_End_Date__c;
+
+                    tPlans.add(tplach);
+                }
+
             }
+
         }
+
     }
 
 

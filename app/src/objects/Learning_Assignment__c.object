@@ -370,6 +370,27 @@
         <type>Text</type>
         <unique>false</unique>
     </fields>
+    <fields>
+        <fullName>Completed_On__c</fullName>
+        <inlineHelpText>Date this assignment was completed</inlineHelpText>
+        <externalId>false</externalId>
+        <label>Completed On</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>User_Notes__c</fullName>
+        <externalId>false</externalId>
+        <label>User Notes</label>
+        <length>32000</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
     <label>Learning Assignment</label>
     <listViews>
         <fullName>All</fullName>

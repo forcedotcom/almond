@@ -72,7 +72,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                         <apex:variable var="hasBadge" value="{!ti.mainAchievement.Acquired_Image__c != null || ti.mainAchievement.Work_Badge_Image_URL__c != null}" />
                         <apex:variable var="itemURL" value="{!ti.itemURL}"/>
 
-                        <div class="col-xs-12 col-sm-6 col-md-4 track-level-item-content" item-url="{!itemURL}">
+                        <div class="col-xs-12 col-sm-6 col-md-4 track-level-item-content" item-url="{!IF(ti.isExpired,'',itemURL)}">
                             <div class="tplan_box {!IF(itemURL == null,'tplan_box_disabled','')}">
                                 <apex:outputPanel layout="none" rendered="{!hasBadge}">
                                     <div class="tplan_img">
@@ -88,16 +88,22 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                                 </apex:outputPanel>
                                 <div class="{!IF(hasBadge,'tplan_details','tplan_details_no_image')}" >
                                     <h4>{!ti.trackItem.Training_Plan__r.Name}</h4>
-                                    <apex:outputPanel layout="block" rendered="{!ti.tplanAssignment != null}">
+                                    <apex:outputPanel layout="block" rendered="{!ti.tplanAssignment != null && !ti.isExpired}">
                                         <label class="label {!IF(ti.tplanAssignment.Status__c=='Completed','label-success',IF(ti.tplanAssignment.Status__c=='In Progress','label-primary','label-default'))}">
                                             {!IF(ti.tplanAssignment.Status__c == 'Completed',$Label.ALMS_Training_Status_Completed, IF(ti.tplanAssignment.Status__c == 'In Progress', $Label.ALMS_Training_Status_In_Progress, $Label.ALMS_Training_Status_Not_Started))}
                                         </label>
                                     </apex:outputPanel>
-                                    <apex:outputPanel layout="block" rendered="{!itemURL != null && ti.tplanAssignment == null}">
+                                    <apex:outputPanel layout="block" rendered="{!itemURL != null && ti.tplanAssignment == null && !ti.isExpired}">
                                         <label class="label label-info">{!$Label.ALMS_TPlan_Not_Registered}</label>
                                     </apex:outputPanel>
-                                    <apex:outputPanel layout="block" rendered="{!itemURL == null}">
+                                    <apex:outputPanel layout="block" rendered="{!itemURL == null && !ti.isExpired}">
                                         <label class="label label-default">{!$Label.ALMS_TPlan_Requires_Assignment}</label>
+                                    </apex:outputPanel>
+                                    <apex:outputPanel layout="block" rendered="{!ti.isExpired}">
+                                        <label class="label label-default">{!IF(ti.trackItem.Training_Plan__r.Status__c == 'Archived',$Label.ALMS_TPlan_Archived, $Label.ALMS_TPlan_Expired)}</label>
+                                    </apex:outputPanel>
+                                    <apex:outputPanel layout="none" rendered="{!ti.trackItem.Training_Plan__r.Hide_After_End_Date__c && ti.trackItem.Training_Plan__r.End_Date__c != null}">
+                                        <span class="plan-due-date">{!$Label.ALMS_Training_Plan_Due} :&nbsp;<apex:outputField value="{!ti.trackItem.Training_Plan__r.End_Date__c}" /></span>
                                     </apex:outputPanel>
                                 </div>
                                 <apex:outputPanel rendered="{!ti.trackItem.Training_Plan__r.New_Until__c != null && TODAY() <= ti.trackItem.Training_Plan__r.New_Until__c}">

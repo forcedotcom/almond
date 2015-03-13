@@ -47,6 +47,8 @@ public with sharing class TrainingPlansSearchController extends LMSBaseControlle
                 ,'Description__c'
                 ,'Self_Registration_Access__c'
                 ,'Enable_Self_Registration__c'
+                ,'New_Until__c'
+                ,'Hide_After_End_Date__c'
                 });
             LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
             //END Access Check
@@ -69,14 +71,19 @@ public with sharing class TrainingPlansSearchController extends LMSBaseControlle
                                 ,Enable_Self_Registration__c
                                 ,Self_Registration_Access__c
                                 ,New_Until__c
+                                ,Start_Date__c
+                                ,End_Date__c
+                                ,Hide_After_End_Date__c
+                                ,Status__c
                                 FROM Training_Plan__c
                                 WHERE Name LIKE :searchTerm
+                                AND Status__c = :LMSConstants.TPLAN_STATUS_ACTIVE
                                 ORDER BY CreatedDate desc
                                 LIMIT 200]
                     ));
                 }
                 this.setCon.setpageNumber(1);
-                this.setCon.setPageSize(10);
+                this.setCon.setPageSize(12);
             }else{
                 LMSUtils.addErrorMessage(System.Label.ALMS_Search_Minimum_Characters);
             }
@@ -159,6 +166,9 @@ public with sharing class TrainingPlansSearchController extends LMSBaseControlle
                 if(tpAssignment != null){
                     tplach.assignmentStatus = tpAssignment.Status__c;
                 }
+                tplach.hideAfterEndDate = tp.Hide_After_End_Date__c;
+                tplach.isExpired = !LMSService.isActiveTrainingPlan(tp);
+
                 tPlans.add(tplach);
             }
         }
@@ -177,8 +187,13 @@ public with sharing class TrainingPlansSearchController extends LMSBaseControlle
                             ,Enable_Self_Registration__c
                             ,Self_Registration_Access__c
                             ,New_Until__c
+                            ,Start_Date__c
+                            ,End_Date__c
+                            ,Hide_After_End_Date__c
+                            ,Status__c
                             FROM Training_Plan__c
                             WHERE Name LIKE :searchTerm
+                            AND Status__c = :LMSConstants.TPLAN_STATUS_ACTIVE
                             AND (Self_Registration_Access__c = :LMSConstants.TPLAN_PUBLIC_EXTERNAL
                               OR id in :accountTPlanIds
                             )

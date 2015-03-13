@@ -118,6 +118,17 @@
         <type>Text</type>
         <unique>false</unique>
     </fields>
+    <fields>
+        <fullName>Completed_On__c</fullName>
+        <inlineHelpText>Date this assignment was completed</inlineHelpText>
+        <externalId>false</externalId>
+        <label>Completed On</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
     <label>Training Plan Assignment</label>
     <nameField>
         <displayFormat>TPAS-{0000000}</displayFormat>

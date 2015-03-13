@@ -28,6 +28,18 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 public with sharing class TrainingPlanAssignmentHelper{
 
+    public static void processBeforeUpdate(Map<Id,Training_Plan_Assignment__c> oldAssignmentsMap,Map<Id,Training_Plan_Assignment__c> newAssignmentsMap){
+        //Only process assignments that have changed
+        for(Training_Plan_Assignment__c tpa : newAssignmentsMap.values()){
+
+            Training_Plan_Assignment__c oldTPA = oldAssignmentsMap.get(tpa.Id);
+
+            if(oldTPA.Status__c != LMSConstants.ASSIGNMENT_STATUS_COMPLETED && tpa.Status__c == LMSConstants.ASSIGNMENT_STATUS_COMPLETED){
+                tpa.Completed_On__c = Date.today();
+            }
+        }
+    }
+
     public static void processAfterInsert(List<Training_Plan_Assignment__c> assignments){
         postChatterNotifications(assignments);
     }
@@ -195,22 +207,30 @@ public with sharing class TrainingPlanAssignmentHelper{
                     try{
                         //Create message body input
                         ConnectApi.MessageBodyInput messageInput = new ConnectApi.MessageBodyInput();
-                        //initalize message body segements
+                        //initalize message body segments
                         messageInput.messageSegments = new List<ConnectApi.MessageSegmentInput>();
 
                         //Create a text segment
                         ConnectApi.TextSegmentInput textSegment = new ConnectApi.TextSegmentInput();
                         textSegment.text = System.Label.ALMS_Chatter_Notification_Greeting+' ';
-                        messageInput.messageSegments.add(textSegment);
+
+                        if(tPlanInfo.Custom_Notification_Message__c == null){
+                            messageInput.messageSegments.add(textSegment);
+                        }
 
                         //Create a mention segment
                         ConnectApi.MentionSegmentInput mentionSegment = new ConnectApi.MentionSegmentInput();
                         mentionSegment.id = uId;
                         messageInput.messageSegments.add(mentionSegment);
 
-                        //Create a text segement
+                        //Create a text segment
                         textSegment = new ConnectApi.TextSegmentInput();
-                        textSegment.text = ' '+System.Label.ALMS_Chatter_Notification_Message_1+' : '+tPlanInfo.Name+'. '+System.Label.ALMS_Chatter_Notification_Message_2+' : ';
+
+                        if(tPlanInfo.Custom_Notification_Message__c != null){
+                            textSegment.text = '\n\n'+tPlanInfo.Custom_Notification_Message__c;
+                        }else{
+                            textSegment.text = ' '+System.Label.ALMS_Chatter_Notification_Message_1+' : '+tPlanInfo.Name+'. '+System.Label.ALMS_Chatter_Notification_Message_2+' : ';
+                        }
                         messageInput.messageSegments.add(textSegment);
 
                         ConnectApi.LinkAttachmentInput linkSegment = new ConnectApi.LinkAttachmentInput();
@@ -543,6 +563,7 @@ public with sharing class TrainingPlanAssignmentHelper{
             List<Training_Plan__c> results = [select id
                                                     ,Name
                                                     ,Chatter_Notifications_Enabled__c
+                                                    ,Custom_Notification_Message__c
                                                     from Training_Plan__c
                                                     where id in :tplanIds];
             return results;

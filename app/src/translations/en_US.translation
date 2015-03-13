@@ -761,6 +761,14 @@
         <name>ALMS_TPlan_Requires_Assignment</name>
     </customLabels>
     <customLabels>
+        <label><!-- Expired --></label>
+        <name>ALMS_TPlan_Expired</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Archived --></label>
+        <name>ALMS_TPlan_Archived</name>
+    </customLabels>
+    <customLabels>
         <label><!-- Take New Version --></label>
         <name>ALMS_Take_New_Version</name>
     </customLabels>
@@ -967,6 +975,26 @@
     <customLabels>
         <label><!-- Specify the community for which this user will launch the training plan from, for non-community users you can leave this blank. --></label>
         <name>ALMS_Single_Assignments_Info_Message</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Available Until --></label>
+        <name>ALMS_Training_Plan_Due</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Completed --></label>
+        <name>ALMS_Training_Plan_Completed_Date</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Status --></label>
+        <name>ALMS_Training_Plan_Assignment_Status</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Comments --></label>
+        <name>ALMS_Task_Comments</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Comments cannot be longer than 255 characters --></label>
+        <name>ALMS_Task_Comments_Max_Length</name>
     </customLabels>
     <customTabs>
         <label><!-- Learning --></label>

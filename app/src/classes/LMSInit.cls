@@ -44,7 +44,7 @@ public with sharing class LMSInit{
 
     public static void initData(String jsonData, Boolean addTimeStamp){
 
-        if(jsonData == null){
+        if(String.isBlank(jsonData)){
             throw new LMSInitException(System.Label.ALMS_Invalid_Import_Data);
         }
 
@@ -219,6 +219,7 @@ public with sharing class LMSInit{
                     tk.Learning__c = learnings.get(headerName).Id;
                     tk.Enable_Image_Upload__c = getBooleanValue(lContent.get('enable-image-upload'),false);
                     tk.Disable_Undo__c = getBooleanValue(lContent.get('disable-undo'),false);
+                    tk.Disable_Comments__c = getBooleanValue(lContent.get('disable-comments'),false);
                     tasks.put(tk.Learning__c ,tk);
                 }else if((String)lHeader.get('record-type') == 'Quiz'){
                     Quiz__c qz = new Quiz__c();
@@ -410,6 +411,8 @@ public with sharing class LMSInit{
                 tp.Self_Registration_Access__c = getStringValue(pHeader.get('self-registration-access'),null);
                 tp.Hide_Chatter_Photos__c = getBooleanValue(pHeader.get('hide-chatter-photos'),false);
                 tp.Optional_Feedback_Comments__c = getBooleanValue(pHeader.get('optional-feedback-comments'),false);
+                tp.Custom_Notification_Message__c = getStringValue(pHeader.get('custom-notification-message'),null);
+                tp.Hide_After_End_Date__c = getBooleanValue(pHeader.get('hide-after-end-date'),false);
                 plans.put(tp.Name,tp);
             }
 

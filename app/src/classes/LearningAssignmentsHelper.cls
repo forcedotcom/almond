@@ -139,7 +139,7 @@ public with sharing class LearningAssignmentsHelper{
         //Iterate over assignments to get trainin plan section item keys
         Map<Id,Boolean> tPlanSectionItemMap = new Map<Id,Boolean>();
 
-        //Only process assignments that have changd
+        //Only process assignments that have changed
         for(Learning_Assignment__c la : newAssignmentsMap.values()){
 
             Learning_Assignment__c oldLA = oldAssignmentsMap.get(la.Id);
@@ -148,6 +148,10 @@ public with sharing class LearningAssignmentsHelper{
                 la.Approved_By__c = UserInfo.getUserId();
                 la.Progress__c = LMSConstants.ASSIGNMENT_STATUS_COMPLETED;
                 la.Progress_Percentage__c = 100;
+            }
+
+            if(oldLA.Progress__c != LMSConstants.ASSIGNMENT_STATUS_COMPLETED && la.Progress__c == LMSConstants.ASSIGNMENT_STATUS_COMPLETED){
+                la.Completed_On__c = Date.today();
             }
 
             if(la.Training_Plan_Section_Item__c != null){
@@ -250,7 +254,7 @@ public with sharing class LearningAssignmentsHelper{
                 }
             }else{
                 //TODO: Analyze use cases and impact of not updating shared assignments in this scenario
-                //It's important to understand that enabling this could potentially introduce an update loop
+                //It's important to understand that enabling this could potentially introduce update loops
                 System.debug('*** Blocked updating shared assignment progress since we are already in future context');
             }
         }

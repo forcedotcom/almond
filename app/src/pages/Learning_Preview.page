@@ -27,7 +27,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 <apex:page standardController="Learning__c" extensions="Learning_Preview_Ext" sidebar="false">
 
-    <apex:sectionHeader title="{!$Label.ALMS_Learning}" subtitle="{!$Label.ALMS_Preview}">
+    <apex:sectionHeader title="{!$Label.ALMS_Learning}" subtitle="{!$Label.ALMS_Preview}" rendered="{!learning != null}">
         <div class="bPageTitle" style="padding:0px;">
             <div class="ptBreadcrumb">&nbsp;&lt;&lt;&nbsp;<a href="/{!Learning__c}">{!$Label.ALMS_Learning_Back}: {!learning.Name} </a></div>
         </div>

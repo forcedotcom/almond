@@ -227,9 +227,10 @@ public with sharing class TrainingPlanDetailController extends LMSBaseController
             lPR = Page.QuizViewer;
             learningTarget = '_self';
         }else{
+            learningTarget = '_self';
             //Check for plugin launch URL
             LMSPlugins.LearningConfig customLearningConfig = LMSPlugins.getLearningPluginConfig(currentRecordType);
-            ref = new PageReference(customLearningConfig.getLaunchURLWithNamespace());
+            lPR = new PageReference(customLearningConfig.getLaunchURLWithNamespace());
         }
 
         if(learning.Custom_Preview_URL__c != null){

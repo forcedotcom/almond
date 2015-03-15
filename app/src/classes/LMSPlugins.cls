@@ -39,9 +39,19 @@ global with sharing class LMSPlugins{
 
         public String namespacePrefix{get;set;}
         public String getLaunchURLWithNamespace(){
-            if(!String.isBlank(launchURL) && !String.isBlank(namespacePrefix) && launchURL.startsWith('/apex/') && !launchURL.contains(namespacePrefix+'__')){
-                //Update launchURL If a relative url starting with /apex/ doesn't contain the namespace of the apex
-                launchURL = '/apex/'+namespacePrefix+'__'+launchURL.substringAfter('/apex/');
+            if(!String.isBlank(launchURL)  && launchURL.startsWith('/apex/')){
+                String sfdcBaseURL = System.URL.getSalesforceBaseUrl().toExternalForm();
+
+                if(System.URL.getSalesforceBaseUrl().getHost().startsWith(LMSUtils.getNamespacePrefix())){
+                    sfdcBaseURL = 'https://'+LMSUtils.getCurrentInstance()+'.salesforce.com';
+                }
+
+                if(!String.isBlank(namespacePrefix) && !launchURL.contains(namespacePrefix+'__')){
+                    //Update launchURL If a relative url starting with /apex/ doesn't contain the namespace of the apex
+                    launchURL = sfdcBaseURL+'/apex/'+namespacePrefix+'__'+launchURL.substringAfter('/apex/');
+                }else{
+                    launchURL = sfdcBaseURL+launchURL;
+                }
             }
             return launchURL;
         }

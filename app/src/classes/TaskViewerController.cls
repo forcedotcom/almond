@@ -151,6 +151,10 @@ public with sharing class TaskViewerController extends LMSBaseController{
                 //Additionally, we bypass CRUD/FLS settings for updating learning assignments as LMS Users have read only access
             //END Access Check
 
+            if(isPreviewMode){
+                LearningAssignmentsHelper.previewMode = true;
+            }
+
             //Check for assignment notes length
             if(!String.isBlank(assignmentComments) && assignmentComments.length() > 32000){
                 LMSUtils.addErrorMessage(System.Label.ALMS_Task_Comments_Max_Length);

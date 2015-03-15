@@ -126,7 +126,7 @@ public with sharing class Learning_Preview_Ext{
                 continue;
             }
             LMSPlugins.LearningConfig customLearningConfig = LMSPlugins.getLearningPluginConfig(rt.DeveloperName);
-            String nameSpacePrefix = customLearningConfig.namespacePrefix!=null?customLearningConfig.namespacePrefix+'__':'';
+            String nameSpacePrefix = String.isBlank(customLearningConfig.namespacePrefix)?'':customLearningConfig.namespacePrefix+'__';
             rtObjectMapping.put(developerName, nameSpacePrefix+customLearningConfig.objectName);
             rtFieldMapping.put(developerName, nameSpacePrefix+customLearningConfig.learningVersionLookupField);
         }

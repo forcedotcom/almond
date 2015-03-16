@@ -39,13 +39,30 @@ global with sharing class LMSPlugins{
 
         public String namespacePrefix{get;set;}
         public String getLaunchURLWithNamespace(){
-            if(!String.isBlank(launchURL)  && launchURL.startsWith('/apex/')){
-                String sfdcBaseURL = System.URL.getSalesforceBaseUrl().toExternalForm();
 
-                if(System.URL.getSalesforceBaseUrl().getHost().startsWith(LMSUtils.getNamespacePrefix())){
-                    sfdcBaseURL = 'https://'+LMSUtils.getCurrentInstance()+'.salesforce.com';
+            //Update relative urls to avoid using the almond package namespace instead of the plugin's namespace
+            if(!String.isBlank(launchURL)  && launchURL.startsWith('/apex/')){
+                //Get the current org's instance url
+                String sfdcBaseURL = System.URL.getSalesforceBaseUrl().toExternalForm();
+                String sfdcHost = System.URL.getSalesforceBaseUrl().getHost();
+                String customDomain = sfdcHost.substring(0,sfdcHost.indexOf('.'));
+
+                String almondNSPrefix  = LMSUtils.getNamespacePrefix();
+
+                if(!String.isBlank(almondNSPrefix)){
+                    String domainNS1 = almondNSPrefix+'.';
+                    String domainNS2 = '--'+almondNSPrefix;
+                    Boolean startsWithNS = customDomain.startsWith(domainNS1);
+                    Boolean endsWithNS = customDomain.endsWith(domainNS2);
+
+                    if(startsWithNS || endsWithNS){
+                        String toReplace = startsWithNS?domainNS1:domainNS2;
+                        String cleanSfdcHost =  sfdcHost.replace(toReplace,'');
+                        sfdcBaseURL = sfdcBaseURL.replace(sfdcHost, cleanSfdcHost);
+                    }
                 }
 
+                //Pre-pend base url to the relative path
                 if(!String.isBlank(namespacePrefix) && !launchURL.contains(namespacePrefix+'__')){
                     //Update launchURL If a relative url starting with /apex/ doesn't contain the namespace of the apex
                     launchURL = sfdcBaseURL+'/apex/'+namespacePrefix+'__'+launchURL.substringAfter('/apex/');

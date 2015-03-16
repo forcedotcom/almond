@@ -224,16 +224,4 @@ public with sharing class LMSUtils{
         return urlPath;
     }
 
-    public static String getCurrentInstance(){
-        String sfdcHost = URL.getSalesforceBaseUrl().getHost();
-        //Clear namespace
-        Integer lowerLimit = 0;
-        String packageNS = getNamespacePrefix();
-        if(!String.isBlank(packageNS) && sfdcHost.startsWith(packageNS)){
-            lowerLimit = sfdcHost.indexOf('.')+1;
-        }
-        String sfdcHostAfterNS = sfdcHost.substring(lowerLimit);
-        return sfdcHostAfterNS.substring(0,sfdcHostAfterNS.indexOf('.'));
-    }
-
 }

@@ -119,6 +119,8 @@ public with sharing class Learning_Preview_Ext{
 
         //Get additional record types for learning plugins
         String learningObjectName = LMSUtils.getPackageNamespace()+'Learning__c';
+
+        String learningFieldNS = '';
         for(RecordType rt : [select Id,DeveloperName from RecordType where SobjectType = :learningObjectName]){
             String developerName = (rt.DeveloperName).toLowerCase();
             //Skip standard learnings
@@ -127,13 +129,14 @@ public with sharing class Learning_Preview_Ext{
             }
             LMSPlugins.LearningConfig customLearningConfig = LMSPlugins.getLearningPluginConfig(rt.DeveloperName);
             String nameSpacePrefix = String.isBlank(customLearningConfig.namespacePrefix)?'':customLearningConfig.namespacePrefix+'__';
+            learningFieldNS = nameSpacePrefix;
             rtObjectMapping.put(developerName, nameSpacePrefix+customLearningConfig.objectName);
             rtFieldMapping.put(developerName, nameSpacePrefix+customLearningConfig.learningVersionLookupField);
         }
 
         //Init Standard set controller
         Id lid = learning.Id;
-        String soql = 'select '+String.join(listSOQLFields,',')+' from '+rtObjectMapping.get(currentRecordType)+' where Learning__c = :lid order by CreatedDate desc';
+        String soql = 'select '+String.join(listSOQLFields,',')+' from '+rtObjectMapping.get(currentRecordType)+' where '+learningFieldNS+'Learning__c = :lid order by CreatedDate desc';
         contentsSSC = new ApexPages.StandardSetController(Database.getQueryLocator(soql));
     }
 

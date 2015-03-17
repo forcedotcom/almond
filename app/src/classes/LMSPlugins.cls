@@ -48,7 +48,6 @@ global with sharing class LMSPlugins{
                 String sfdcBaseURL = System.URL.getSalesforceBaseUrl().toExternalForm();
                 String sfdcHost = System.URL.getSalesforceBaseUrl().getHost();
                 String customDomain = sfdcHost.substring(0,sfdcHost.indexOf('.'));
-
                 String almondNSPrefix  = LMSUtils.getNamespacePrefix();
 
                 if(!String.isBlank(almondNSPrefix)){

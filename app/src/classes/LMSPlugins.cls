@@ -36,6 +36,8 @@ global with sharing class LMSPlugins{
         global String objectName{get;set;}
         global String learningVersionLookupField{get;set;}
         global String launchURL{get;set;}
+        global String launchTarget{get;set;}
+        global String customVFDomain{get;set;}
 
         public String namespacePrefix{get;set;}
         public String getLaunchURLWithNamespace(){
@@ -52,12 +54,13 @@ global with sharing class LMSPlugins{
                 if(!String.isBlank(almondNSPrefix)){
                     String domainNS1 = almondNSPrefix+'.';
                     String domainNS2 = '--'+almondNSPrefix;
-                    Boolean startsWithNS = customDomain.startsWith(domainNS1);
+                    Boolean startsWithNS = sfdcHost.startsWith(domainNS1);
                     Boolean endsWithNS = customDomain.endsWith(domainNS2);
 
                     if(startsWithNS || endsWithNS){
                         String toReplace = startsWithNS?domainNS1:domainNS2;
-                        String cleanSfdcHost =  sfdcHost.replace(toReplace,'');
+                        String customVFDomain = String.isBlank(customVFDomain)?'salesforce.com':customVFDomain;
+                        String cleanSfdcHost =  sfdcHost.replace(toReplace,'').replace('visual.force.com',customVFDomain);
                         sfdcBaseURL = sfdcBaseURL.replace(sfdcHost, cleanSfdcHost);
                     }
                 }

@@ -119,7 +119,6 @@ public with sharing class Learning_Preview_Ext{
 
         //Get additional record types for learning plugins
         String learningObjectName = LMSUtils.getPackageNamespace()+'Learning__c';
-
         String learningFieldNS = '';
         for(RecordType rt : [select Id,DeveloperName from RecordType where SobjectType = :learningObjectName]){
             String developerName = (rt.DeveloperName).toLowerCase();

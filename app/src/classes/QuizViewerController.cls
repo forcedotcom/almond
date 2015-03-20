@@ -345,10 +345,6 @@ public with sharing class QuizViewerController extends LMSBaseController{
 
     private void updateAssignmentProgress(){
 
-        if(isPreviewMode){
-            LearningAssignmentsHelper.previewMode = true;
-        }
-
         if(learningVersion.Quiz__r.Total_Questions__c != null){
 
             LMSService.WithoutSharingOps wsops = new LMSService.WithoutSharingOps();
@@ -368,11 +364,6 @@ public with sharing class QuizViewerController extends LMSBaseController{
 
     private void updateAssignmentFinalScore(){
 
-        //If running in preview mode
-        if(isPreviewMode){
-            LearningAssignmentsHelper.previewMode = true;
-        }
-        
         LMSService.WithoutSharingOps wsops = new LMSService.WithoutSharingOps();
 
         if(assignment.Evaluation_Times_Taken__c == null){

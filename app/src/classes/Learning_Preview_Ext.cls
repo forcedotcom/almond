@@ -217,7 +217,6 @@ public with sharing class Learning_Preview_Ext{
             List<String> laFields =  new List<String>{'Learning__c'
                                                         ,'Learning_Version__c'
                                                         ,'Is_Test_Assignment__c'
-                                                        ,'User__c'
             };
             Map<Schema.sObjectType,List<String>> relatedFieldsObjectsView = new Map<Schema.sObjectType,List<String>>();
             relatedFieldsObjectsView.put(Learning_Assignment__c.sObjectType,laFields);

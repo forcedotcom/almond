@@ -75,8 +75,7 @@ global with sharing class TPlanAchievementAssignmentsUpdateBatch implements Data
         //BEGIN Access Check
         Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
         relatedFieldsObjects.put(Achievement_Assignment__c.sObjectType,new List<String>{
-            'User__c'
-            ,'Training_Plan_Achievement__c'
+            'Training_Plan_Achievement__c'
             ,'Achievement__c'
             ,'Status__c'
         });

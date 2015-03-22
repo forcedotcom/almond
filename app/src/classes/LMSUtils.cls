@@ -147,6 +147,10 @@ public with sharing class LMSUtils{
         return SObjectType.Learning__c.Name.substringBefore('Learning__c');
     }
 
+    public static String getNamespacePrefix(){
+        return getPackageNamespace().replaceAll('__','');
+    }
+
     public static Id getUserAccountId(){
         User u = getUserDetails();
         return u.AccountId;
@@ -219,4 +223,5 @@ public with sharing class LMSUtils{
         }
         return urlPath;
     }
+
 }

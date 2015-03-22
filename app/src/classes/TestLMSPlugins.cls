@@ -1,4 +1,4 @@
-<!--
+/*
 Copyright (c) 2014, salesforce.com, Inc.
 All rights reserved.
 
@@ -24,40 +24,36 @@ DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
 LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
 OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
 OF THE POSSIBILITY OF SUCH DAMAGE.
--->
-<apex:page standardController="Learning__c" extensions="Learning_Preview_Ext" sidebar="false">
 
-    <apex:sectionHeader title="{!$Label.ALMS_Learning}" subtitle="{!$Label.ALMS_Preview}" rendered="{!learning != null}">
-        <div class="bPageTitle" style="padding:0px;">
-            <div class="ptBreadcrumb">&nbsp;&lt;&lt;&nbsp;<a href="/{!Learning__c}">{!$Label.ALMS_Learning_Back}: {!learning.Name} </a></div>
-        </div>
-    </apex:sectionHeader>
+*/
+@isTest
+public class TestLMSPlugins {
 
-    <apex:form >
-        <apex:pageBlock title="{!$Label.ALMS_Content_Previewed}">
+    static testmethod void testPluginInterface(){
+        Test.startTest();
 
-             <style>
-                a.btnLMSPublish ,a.btnLMSPublish:hover{
-                    text-decoration:none;
-                    color:#fff;
-                }
-            </style>
+        LMSPlugins.LearningConfig config = new LMSPlugins.LearningConfig();
+        config.objectName = 'TestCustomLearning__c';
+        config.learningVersionLookupField = 'TestCustomLearning__c';
+        config.launchURL = '/apex/customLauncher';
+        String launcURL = config.getLaunchURLWithNamespace();
+        System.assert(launcURL != null);
 
-            <apex:pageMessages />
+        Test.stopTest();
+    }
 
-            <apex:pageBlockTable value="{!contents}" var="c">
+    static testmethod void testPluginInit(){
+        Test.startTest();
 
-                <apex:column headerValue="{!$Label.ALMS_Action}">
-                    <apex:commandLink value="{!$Label.ALMS_Preview}" action="{!previewContent}" styleClass="btnImportant btnLMSPublish">
-                        <apex:param name="selectedContent" value="{!c.Id}" assignTo="{!selectedContent}" />
-                    </apex:commandLink>
-                </apex:column>
-                <apex:column value="{!c['Name']}" />
-                <apex:column value="{!c['CreatedDate']}" />
+        try{
+            LMSPlugins.LearningConfig config = LMSPlugins.getLearningPluginConfig('TestCustomLearning1');
+            System.assert(false, 'Plugin exception was not thrown');
+        }catch(LMSPLugins.LMSPluginsException e){
+            System.assert(true);
+        }
 
-            </apex:pageBlockTable>
+        Test.stopTest();
+    }
 
-        </apex:pageBlock>
-    </apex:form>
 
-</apex:page>
+}

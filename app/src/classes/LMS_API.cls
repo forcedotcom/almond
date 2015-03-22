@@ -56,8 +56,7 @@ global with sharing class LMS_API {
         //BEGIN Access Check
         Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
         relatedFieldsObjects.put(Learning_Assignment__c.sObjectType,new List<String>{
-            'User__c'
-            ,'Learning__c'
+            'Learning__c'
             ,'Learning_Version__c'
             ,'Training_Plan__c'
             ,'Training_Plan_Section__c'

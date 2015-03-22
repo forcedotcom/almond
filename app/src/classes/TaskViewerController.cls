@@ -112,7 +112,15 @@ public with sharing class TaskViewerController extends LMSBaseController{
                 }
 
                 if(learningVersion.Task__r.External_Resource_URL__c != null){
-                    PageReference extRef = new PageReference(learningVersion.Task__r.External_Resource_URL__c);
+
+                    String resourceURL = learningVersion.Task__r.External_Resource_URL__c;
+
+                    //Add https prefix in case protocol is not present in the resource url
+                    if(!resourceURL.startsWith('http')){
+                        resourceURL = 'https://'+resourceURL;
+                    }
+
+                    PageReference extRef = new PageReference(resourceURL);
                     if(learningVersion.Task__r.Add_training_parameters_to_URL__c){
                         extRef.getParameters().put('aid',assignment.id);
                         extRef.getParameters().put('tid',assignment.Training_Plan__c);

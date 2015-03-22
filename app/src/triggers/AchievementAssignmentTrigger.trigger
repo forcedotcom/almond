@@ -28,15 +28,10 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 trigger AchievementAssignmentTrigger on Achievement_Assignment__c (after update) {
 
-    //Only execute assignments triggers is preview Mode is Off
-    if(!LearningAssignmentsHelper.previewMode){
-
-        AchievementAssignmentsHelper helper = new AchievementAssignmentsHelper();
-
-        if(Trigger.isAfter){
-            if(Trigger.isUpdate){
-                helper.processAfterUpdates(Trigger.oldMap,Trigger.newMap);
-            }
+    if(Trigger.isAfter){
+        if(Trigger.isUpdate){
+            AchievementAssignmentsHelper helper = new AchievementAssignmentsHelper();
+            helper.processAfterUpdates(Trigger.oldMap,Trigger.newMap);
         }
     }
 

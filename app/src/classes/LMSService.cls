@@ -1639,7 +1639,7 @@ public with sharing class LMSService{
 
     }
 
-    //Fetch resource assignment information, learnings won't be shared with end-users so we need to by-pass sharing rules
+    //Fetch  assignment information for the specified user id
     public static Learning_Assignment__c getLearningAssignmentDetails(String assignmentId, Id userId){
         //BEGIN Access Check
         Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();

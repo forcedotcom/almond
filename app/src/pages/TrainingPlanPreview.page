@@ -155,6 +155,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                                     <apex:outputPanel layout="none" rendered="{!i.learning.RecordType.DeveloperName == 'Task'}"><span class="glyphicon glyphicon-pushpin"></span></apex:outputPanel>
                                     <apex:outputPanel layout="none" rendered="{!i.learning.RecordType.DeveloperName == 'Quiz'}"><span class="glyphicon glyphicon-question-sign"></span></apex:outputPanel>
                                     <apex:outputPanel layout="none" rendered="{!i.learning.RecordType.DeveloperName == 'Resource'}"><span class="glyphicon glyphicon-globe"></span></apex:outputPanel>
+                                    <apex:outputPanel layout="none" rendered="{!i.learning.RecordType.DeveloperName != 'Task' && i.learning.RecordType.DeveloperName != 'Quiz' && i.learning.RecordType.DeveloperName != 'Resource'}"><span class="glyphicon glyphicon-play-circle"></span></apex:outputPanel>
                                 </div>
 
                                 <div class="col-xs-10 col-sm-4 col-md-4 title ls-learning-wrapper">

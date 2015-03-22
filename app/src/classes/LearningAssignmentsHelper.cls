@@ -28,13 +28,6 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 public with sharing class LearningAssignmentsHelper{
 
-    public static Boolean previewMode{get;set;}
-
-    //Initialize static variables
-    static{
-        previewMode = false;
-    }
-
     //Initialize learning assignments with shared learning progress
     public void processBeforeInserts(List<Learning_Assignment__c> newAssignments){
 
@@ -52,25 +45,28 @@ public with sharing class LearningAssignmentsHelper{
 
         //Get ids from new assignments
         for(Learning_Assignment__c la : newAssignments){
-            if(la.Learning__c != null && !la.Is_Test_Assignment__c){
 
-                //Set TPSA Id
-                la.Training_Plan_Section_Assignment__c = sectionAssignments.get(la.User__c+'_'+la.Training_Plan_Section__c);
-
-                referencedLearnings.add(la.Learning__c);
-                referencedUsers.add(la.User__c);
-
-                if(!learningAssignmentsForLearning.containsKey(la.Learning__c)){
-                    learningAssignmentsForLearning.put(la.Learning__c,new List<Learning_Assignment__c>());
-                }
-                learningAssignmentsForLearning.get(la.Learning__c).add(la);
+            //Ignore test assignments
+            if(la.Learning__c == null || la.Is_Test_Assignment__c){
+                continue;
             }
+
+            //Set TPSA Id
+            la.Training_Plan_Section_Assignment__c = sectionAssignments.get(la.User__c+'_'+la.Training_Plan_Section__c);
+
+            referencedLearnings.add(la.Learning__c);
+            referencedUsers.add(la.User__c);
+
+            if(!learningAssignmentsForLearning.containsKey(la.Learning__c)){
+                learningAssignmentsForLearning.put(la.Learning__c,new List<Learning_Assignment__c>());
+            }
+            learningAssignmentsForLearning.get(la.Learning__c).add(la);
         }
 
         //At this point, the learnings should've been already shared with the current user, so this should be fine running with sharing
         //Get ids for learnings that have shared progress
         if(referencedLearnings.size()>0){
-            List<Learning__c> learnings = wosHelper.getLearningDataWOS(referencedLearnings);
+            List<Learning__c> learnings = wosHelper.getSharedLearningDataWOS(referencedLearnings);
             for(Learning__c l : learnings){
                 sharedLearnings.put(l.Id,l);
             }
@@ -142,6 +138,11 @@ public with sharing class LearningAssignmentsHelper{
         //Only process assignments that have changed
         for(Learning_Assignment__c la : newAssignmentsMap.values()){
 
+            //Ignore test assignments
+            if(la.Is_Test_Assignment__c){
+                continue;
+            }
+
             Learning_Assignment__c oldLA = oldAssignmentsMap.get(la.Id);
 
             if(la.Approved__c != oldLA.Approved__c && la.Progress__c == LMSConstants.ASSIGNMENT_STATUS_IN_REVIEW){
@@ -188,9 +189,9 @@ public with sharing class LearningAssignmentsHelper{
 
         Set<Id> deletedUnSharedAssignments = new Set<Id>();
 
-        //Delete responses for assignments that don't have a shared assignment
+        //Delete responses for assignments that don't have a shared assignment or test assignments
         for(Learning_Assignment__c la : oldAssignments){
-            if(la.Shared_Learning_Assignment__c == null){
+            if(la.Shared_Learning_Assignment__c == null || la.Is_Test_Assignment__c){
                 deletedUnSharedAssignments.add(la.Id);
             }
         }
@@ -228,9 +229,14 @@ public with sharing class LearningAssignmentsHelper{
         //Only process assignments that have changd
         for(Learning_Assignment__c la : newAssignmentsMap.values()){
 
+            //Skip triggers for test assignments
+            if(la.Is_Test_Assignment__c){
+                continue;
+            }
+
             Learning_Assignment__c oldLA = oldAssignmentsMap.get(la.Id);
 
-            if(((la.Progress__c != oldLA.Progress__c) || (la.Optional__c != oldLA.Optional__c)) && !la.Is_Test_Assignment__c){
+            if(((la.Progress__c != oldLA.Progress__c) || (la.Optional__c != oldLA.Optional__c))){
                 //Add assignment id to completed list
                 updatedAssignmentIds.add(la.Id);
             }
@@ -270,7 +276,7 @@ public with sharing class LearningAssignmentsHelper{
             sla.Evaluation_Result__c = la.Evaluation_Result__c;
             sla.Evaluation_Score__c = la.Evaluation_Score__c;
             sla.Evaluation_Times_Taken__c = la.Evaluation_Times_Taken__c;
-            //Set the triggering learning assignment in this field to prevent updating it again
+            //Set the triggering learning assignment in the last update field to prevent updating it again
             sla.Learning_Assignment_Last_Update__c = la.Id;
             sla.Approved__c = la.Approved__c;
             sla.Approved_By__c = la.Approved_By__c;
@@ -483,7 +489,7 @@ public with sharing class LearningAssignmentsHelper{
         }
 
         //It's possible that a users with limited access to learnings is creating an assignment for another user, we need to make sure we still have access to read the learning data
-        public List<Learning__c> getLearningDataWOS(Set<Id> referencedLearnings){
+        public List<Learning__c> getSharedLearningDataWOS(Set<Id> referencedLearnings){
             return [select id,Current_Published_Version__c from Learning__c where id in :referencedLearnings and Sync_progress__c = true];
         }
 

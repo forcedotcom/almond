@@ -66,6 +66,8 @@ public with sharing class Learning_Preview_Ext{
 
             init();
 
+         }catch(LMSPlugins.LMSPluginsException e){
+             LMSUtils.addErrorMessage(e.getMessage());
          }catch(Exception e){
              LMSUtils.logException(e,'Learning_Preview_Ext');
              LMSUtils.addGenericUnknownErrorMessage('Learning_Preview_Ext - init (1)');
@@ -109,14 +111,39 @@ public with sharing class Learning_Preview_Ext{
         LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
         //END Access Check
 
+        //Update the object names with the package namespace
+        for(String rtKey : rtObjectMapping.keySet()){
+            String objectName = rtObjectMapping.get(rtKey);
+            rtObjectMapping.put(rtKey,LMSUtils.getPackageNamespace()+objectName);
+        }
+
+        //Get additional record types for learning plugins
+        String learningObjectName = LMSUtils.getPackageNamespace()+'Learning__c';
+        String learningFieldNS = '';
+        for(RecordType rt : [select Id,DeveloperName from RecordType where SobjectType = :learningObjectName]){
+            String developerName = (rt.DeveloperName).toLowerCase();
+            //Skip standard learnings
+            if(rtObjectMapping.containsKey(developerName)){
+                continue;
+            }
+            LMSPlugins.LearningConfig customLearningConfig = LMSPlugins.getLearningPluginConfig(rt.DeveloperName);
+            String nameSpacePrefix = String.isBlank(customLearningConfig.namespacePrefix)?'':customLearningConfig.namespacePrefix+'__';
+            learningFieldNS = nameSpacePrefix;
+            rtObjectMapping.put(developerName, nameSpacePrefix+customLearningConfig.objectName);
+            rtFieldMapping.put(developerName, nameSpacePrefix+customLearningConfig.learningVersionLookupField);
+        }
+
         //Init Standard set controller
         Id lid = learning.Id;
-        String soql = 'select '+String.join(listSOQLFields,',')+' from '+LMSUtils.getPackageNamespace()+rtObjectMapping.get(currentRecordType)+' where Learning__c = :lid order by CreatedDate desc';
+        String soql = 'select '+String.join(listSOQLFields,',')+' from '+rtObjectMapping.get(currentRecordType)+' where '+learningFieldNS+'Learning__c = :lid order by CreatedDate desc';
         contentsSSC = new ApexPages.StandardSetController(Database.getQueryLocator(soql));
     }
 
     //Get records from the standard set controller
     public List<SObject> getContents() {
+        if(contentsSSC == null){
+            return new List<SObject>();
+        }
         return contentsSSC.getRecords();
     }
 
@@ -190,7 +217,6 @@ public with sharing class Learning_Preview_Ext{
             List<String> laFields =  new List<String>{'Learning__c'
                                                         ,'Learning_Version__c'
                                                         ,'Is_Test_Assignment__c'
-                                                        ,'User__c'
             };
             Map<Schema.sObjectType,List<String>> relatedFieldsObjectsView = new Map<Schema.sObjectType,List<String>>();
             relatedFieldsObjectsView.put(Learning_Assignment__c.sObjectType,laFields);
@@ -234,6 +260,10 @@ public with sharing class Learning_Preview_Ext{
                     ref = Page.ResourceViewer;
                 }else if(currentRecordType == LMSConstants.RT_QUIZ){
                     ref = Page.QuizViewer;
+                }else{
+                    //Check for plugin launch URL
+                    LMSPlugins.LearningConfig customLearningConfig = LMSPlugins.getLearningPluginConfig(currentRecordType);
+                    ref = new PageReference(customLearningConfig.getLaunchURLWithNamespace());
                 }
 
             }

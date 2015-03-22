@@ -116,7 +116,7 @@
         <inlineHelpText>Delete quiz response records after quiz submission</inlineHelpText>
         <defaultValue>false</defaultValue>
         <externalId>false</externalId>
-        <label>Delete Respones on Submission</label>
+        <label>Delete Responses on Submission</label>
         <trackFeedHistory>false</trackFeedHistory>
         <trackHistory>true</trackHistory>
         <trackTrending>false</trackTrending>

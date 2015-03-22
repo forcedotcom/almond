@@ -26,23 +26,39 @@ OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISE
 OF THE POSSIBILITY OF SUCH DAMAGE.
 
 */
-public with sharing class LMSSettings {
+global with sharing class LMSSettings {
 
-    public static String getCustomLogo(){
+    /* Global settings - exposed to package extensions */
+
+    global static String getCustomLogo(){
         return (String)getValue('Company_Logo__c',null);
     }
 
-    public static String getHeaderBackgroundColor(){
+    global static String getHeaderBackgroundColor(){
         return (String)getValue('Header_Background_Color__c','#2A94D6');
     }
 
-    public static String getHeaderTextColor(){
+    global static String getHeaderTextColor(){
         return (String)getValue('Header_Text_Color__c','#DBE5F2');
     }
 
-    public static String getHeaderTextHoverColor(){
+    global static String getHeaderTextHoverColor(){
         return (String)getValue('Header_Text_Hover_Color__c','#FFFFFF');
     }
+
+    global static Boolean getShowSalesforceHeader(){
+        return (Boolean)getValue('Show_Salesforce_Header__c',false);
+    }
+
+    global static String getBacktoSFUrl(){
+        String defaultURL = '/home/home.jsp';
+        if(LMSUtils.getCurrentNetworkId() != null){
+            defaultURL = '/'+LMSUtils.getCurrentNetworkURLPath()+defaultURL;
+        }
+        return (String)getValue('Back_to_SF_URL__c',defaultURL);
+    }
+
+    /* Internal Settings - exposed to the current package only */
 
     public static Boolean getDisableTrackAchievements(){
         return (Boolean)getValue('Disable_Track_Achievements__c',false);
@@ -54,18 +70,6 @@ public with sharing class LMSSettings {
 
     public static Boolean getEnableIOSTapFix(){
         return (Boolean)getValue('Enable_iOS_Tap_Fix__c',false);
-    }
-
-    public static Boolean getShowSalesforceHeader(){
-        return (Boolean)getValue('Show_Salesforce_Header__c',false);
-    }
-
-    public static String getBacktoSFUrl(){
-        String defaultURL = '/home/home.jsp';
-        if(LMSUtils.getCurrentNetworkId() != null){
-            defaultURL = '/'+LMSUtils.getCurrentNetworkURLPath()+defaultURL;
-        }
-        return (String)getValue('Back_to_SF_URL__c',defaultURL);
     }
 
     public static Boolean getDisableCorrectResponseCheckbox(){

@@ -224,6 +224,10 @@
         <apexClass>LMS_API</apexClass>
         <enabled>false</enabled>
     </classAccesses>
+    <classAccesses>
+    	<apexClass>LMSPlugins</apexClass>
+    	<enabled>true</enabled>
+    </classAccesses>
     <fieldPermissions>
         <editable>false</editable>
         <field>Achievement_Assignment__c.Achievement__c</field>

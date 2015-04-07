@@ -13,7 +13,7 @@
 	<!-- Set default value in property if not present -->
 	<property name="checkOnly" value="true" />
 	<property name="runAllTests" value="true" />
-	<property name="sf.package.apiVersion" value="32.0" />
+	<property name="sf.package.apiVersion" value="33.0" />
 
 	<!-- Ant doesn't like < in replace tokens or values so set a property with < via cdata for reuse later -->
 	<property name="lt"><![CDATA[<]]></property>

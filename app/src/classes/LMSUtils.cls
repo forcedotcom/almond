@@ -204,7 +204,8 @@ public with sharing class LMSUtils{
             return null;
         }
         SObject n = getNetworkDetails();
-        return ((String)n.get('UrlPathPrefix'));
+        String urlPathPrefix = n.get('UrlPathPrefix')!=null?(String)n.get('UrlPathPrefix'):'';
+        return (urlPathPrefix);
     }
 
     public static String updateURLCommunityPath(String urlPath){

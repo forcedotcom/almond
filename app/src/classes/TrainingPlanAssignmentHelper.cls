@@ -163,6 +163,7 @@ public with sharing class TrainingPlanAssignmentHelper{
         Map<String,Training_Plan__c> mapTrainingPlanInfo = new Map<String,Training_Plan__c>();
         Map<Id,String> communityUserMap = new Map<Id,String>();
         Map<Id,String> communityNamesMap = new Map<Id,String>();
+        Map<String,String> sitePrefixDomainMap = new Map<String,String>();
 
         //Collect all training plan assignments
         for(Training_Plan_Assignment__c tpa : assignments){
@@ -187,7 +188,16 @@ public with sharing class TrainingPlanAssignmentHelper{
         //Fetch additional community information
         if(communityUserMap.size()>0){
             for(SObject r : wosHelper.getCommunitiesInfoWOS(communityUserMap.values())){
-                communityNamesMap.put(r.Id, (String)r.get('UrlPathPrefix'));
+                String communityURLPathPrefix = r.get('UrlPathPrefix')!=null?(String)r.get('UrlPathPrefix'):'';
+                communityNamesMap.put(r.Id, communityURLPathPrefix);
+            }
+        }
+
+        //Fetch site information for the referenced communiy url path prefixes
+        if(communityNamesMap.size()>0){
+            for(SObject s : wosHelper.getSiteInfoWOS()){
+                String urlPrefix = s.get('UrlPathPrefix')!=null?(String)s.get('UrlPathPrefix'):'';
+                sitePrefixDomainMap.put(urlPrefix, (String)s.get('Subdomain'));
             }
         }
 
@@ -202,6 +212,8 @@ public with sharing class TrainingPlanAssignmentHelper{
             Training_Plan__c tPlanInfo = mapTrainingPlanInfo.get(tplanId);
 
             if(tPlanInfo != null && tPlanInfo.Chatter_Notifications_Enabled__c){
+
+                Map<String,List<ConnectApi.BatchInput>> feedItemsMap = new Map<String,List<ConnectApi.BatchInput>>();
                 for(Id uId : mapTrainingPlanAssignments.get(tplanId)){
 
                     try{
@@ -233,14 +245,22 @@ public with sharing class TrainingPlanAssignmentHelper{
                         }
                         messageInput.messageSegments.add(textSegment);
 
-                        ConnectApi.LinkAttachmentInput linkSegment = new ConnectApi.LinkAttachmentInput();
+                        ConnectApi.LinkCapabilityInput linkSegment = new ConnectApi.LinkCapabilityInput();
                         String sfUrl=URL.getSalesforceBaseUrl().getHost();
                         PageReference tPlanDetailPageRef = Page.TrainingPlanDetail;
 
                         String tplanRefURL = tPlanDetailPageRef.getUrl();
 
-                        if(communityUserMap.get(uId) != null){
-                            tplanRefURL = LMSUtils.updateURLCommunityPath(tplanRefURL, communityNamesMap.get(communityUserMap.get(uId)));
+                        Id userCommunityId = communityUserMap.get(uId);
+
+                        if(userCommunityId != null){
+                            String communityURLPathPrefix = communityNamesMap.get(userCommunityId);
+                            tplanRefURL = LMSUtils.updateURLCommunityPath(tplanRefURL,communityURLPathPrefix);
+                            //Override sfURL with subdomain for the associated site
+                            String siteSubdomain = sitePrefixDomainMap.get(communityURLPathPrefix);
+                            if(siteSubdomain != null){
+                                sfUrl = siteSubdomain+'.force.com';
+                            }
                         }
 
                         String tPlanURL = 'https://'+sfUrl+''+tplanRefURL+'?id='+tplanId;
@@ -250,14 +270,32 @@ public with sharing class TrainingPlanAssignmentHelper{
                         //Finally create the feed item
                         ConnectApi.FeedItemInput input = new ConnectApi.FeedItemInput();
                         input.body = messageInput;
-                        input.attachment = linkSegment;
-                        //params(communityId, feedType, subjectId, input,filebody);
-                        ConnectApi.ChatterFeeds.postFeedItem(communityUserMap.get(uId),ConnectApi.FeedType.Record,uId,Input,null);
+                        input.feedElementType = ConnectApi.FeedElementType.FeedItem;
+                        ConnectApi.FeedElementCapabilitiesInput linkCapability = new ConnectApi.FeedElementCapabilitiesInput();
+                        linkCapability.link = linkSegment;
+                        input.capabilities = linkCapability;
+                        input.subjectId = uId;
+
+                        if(!feedItemsMap.containsKey(userCommunityId)){
+                          feedItemsMap.put(userCommunityId, new List<ConnectApi.BatchInput>());
+                        }
+
+                        feedItemsMap.get(userCommunityId).add(new ConnectApi.BatchInput(input));
+
                     }catch(Exception e){
                         LMSUtils.logException(e,'TrainingPlanAssignmentHelper');
                     }
 
                 }
+
+                //Insert feed items in batch
+                for(String communityIdKey : feedItemsMap.keySet()){
+                    List<ConnectApi.BatchInput> feedItems = feedItemsMap.get(communityIdKey);
+                    if(feedItems.size()>0){
+                        List<ConnectApi.BatchResult> results = ConnectApi.ChatterFeeds.postFeedElementBatch(communityIdKey,feedItems);
+                    }
+                }
+
             }
         }
 
@@ -556,6 +594,11 @@ public with sharing class TrainingPlanAssignmentHelper{
 
         public List<SObject> getCommunitiesInfoWOS(List<String> communityIds){
             String soqlQuery = 'select Id,UrlPathPrefix from Network where Id in :communityIds';
+            return Database.query(soqlQuery);
+        }
+
+        public List<SObject> getSiteInfoWOS(){
+            String soqlQuery = 'select Id, UrlPathPrefix, Subdomain from Site where Status = \'Active\'';
             return Database.query(soqlQuery);
         }
 

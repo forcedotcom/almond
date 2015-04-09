@@ -598,7 +598,7 @@ public with sharing class TrainingPlanAssignmentHelper{
         }
 
         public List<SObject> getSiteInfoWOS(){
-            String soqlQuery = 'select Id, UrlPathPrefix, Subdomain from Site where Status = \'Active\'';
+            String soqlQuery = 'select Id, UrlPathPrefix, Subdomain from Site where Status = \'Active\' and SiteType = \'ChatterNetwork\'';
             return Database.query(soqlQuery);
         }
 

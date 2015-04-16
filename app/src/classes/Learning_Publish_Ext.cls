@@ -115,6 +115,7 @@ public with sharing class Learning_Publish_Ext {
             String developerName = (rt.DeveloperName).toLowerCase();
             //Skip standard learnings
             if(rtObjectMapping.containsKey(developerName)){
+                recordTypeNamespaceMap.put(developerName,LMSUtils.getPackageNamespace());
                 continue;
             }
             LMSPlugins.LearningConfig customLearningConfig = LMSPlugins.getLearningPluginConfig(rt.DeveloperName);

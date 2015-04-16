@@ -48,7 +48,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
             <apex:pageBlockTable value="{!contents}" var="c">
 
                 <apex:column headerValue="{!$Label.ALMS_Action}">
-                    <apex:commandLink value="{!$Label.ALMS_Preview}" action="{!previewContent}" styleClass="btnImportant btnLMSPublish">
+                    <apex:commandLink value="{!$Label.ALMS_Preview}" action="{!previewContent}" styleClass="btnImportant btnLMSPublish" target="_blank">
                         <apex:param name="selectedContent" value="{!c.Id}" assignTo="{!selectedContent}" />
                     </apex:commandLink>
                 </apex:column>

@@ -276,9 +276,13 @@ public with sharing class LMSWrappersService{
                                                 sItem.latestAssignment = a;
                                                 sItem.oldestAssignment = a;
                                             }else{
-                                                if(assignmentLV.Version__c > sItem.latestAssignment.Learning_Version__r.Version__c){
+
+                                                Learning_Version__c assignmentLatestVDetails = learningVersionMap.get(sItem.latestAssignment.Learning_Version__c);
+                                                Learning_Version__c assignmentOldVDetails = learningVersionMap.get(sItem.oldestAssignment.Learning_Version__c);
+
+                                                if(assignmentLV.Version__c > assignmentLatestVDetails.Version__c){
                                                     sItem.latestAssignment = a;
-                                                }else if(assignmentLV.Version__c < sItem.oldestAssignment.Learning_Version__r.Version__c){
+                                                }else if(assignmentLV.Version__c < assignmentOldVDetails.Version__c){
                                                     sItem.oldestAssignment = a;
                                                 }
                                             }

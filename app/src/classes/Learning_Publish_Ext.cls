@@ -110,16 +110,17 @@ public with sharing class Learning_Publish_Ext {
 
         //Get additional record types for learning plugins
         String learningObjectName = LMSUtils.getPackageNamespace()+'Learning__c';
-        String learningFieldNS = '';
+        Map<String,String> recordTypeNamespaceMap = new Map<String,String>();
         for(RecordType rt : [select Id,DeveloperName from RecordType where SobjectType = :learningObjectName]){
             String developerName = (rt.DeveloperName).toLowerCase();
             //Skip standard learnings
             if(rtObjectMapping.containsKey(developerName)){
+                recordTypeNamespaceMap.put(developerName,LMSUtils.getPackageNamespace());
                 continue;
             }
             LMSPlugins.LearningConfig customLearningConfig = LMSPlugins.getLearningPluginConfig(rt.DeveloperName);
             String nameSpacePrefix = String.isBlank(customLearningConfig.namespacePrefix)?'':customLearningConfig.namespacePrefix+'__';
-            learningFieldNS = nameSpacePrefix;
+            recordTypeNamespaceMap.put(developerName,nameSpacePrefix);
             rtObjectMapping.put(developerName, nameSpacePrefix+customLearningConfig.objectName);
             rtFieldMapping.put(developerName, nameSpacePrefix+customLearningConfig.learningVersionLookupField);
         }
@@ -139,7 +140,7 @@ public with sharing class Learning_Publish_Ext {
 
         //Init Standard set controller
         Id lid = learning.Id;
-        String soql = 'select '+String.join(listSOQLFields,',')+' from '+rtObjectMapping.get(currentRecordType)+' where '+learningFieldNS+'Learning__c = :lid order by CreatedDate desc';
+        String soql = 'select '+String.join(listSOQLFields,',')+' from '+rtObjectMapping.get(currentRecordType)+' where '+recordTypeNamespaceMap.get(currentRecordType)+'Learning__c = :lid order by CreatedDate desc';
         contentsSSC = new ApexPages.StandardSetController(Database.getQueryLocator(soql));
 
     }

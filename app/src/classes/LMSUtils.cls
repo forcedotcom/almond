@@ -225,4 +225,15 @@ public with sharing class LMSUtils{
         return urlPath;
     }
 
+    public static String getTrainingPlanDetailRetURL(Map<String, String> params){
+        if(String.isBlank(params.get('tpid'))){
+            return null;
+        }
+        PageReference tempRef = Page.TrainingPlanDetail;
+        tempRef.getParameters().put('id',params.get('tpid'));
+        tempRef.getParameters().put('sectionId',params.get('tpsid'));
+        tempRef.getParameters().put('itemId',params.get('tpitid'));
+        return tempRef.getUrl();
+    }
+
 }

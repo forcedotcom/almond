@@ -253,7 +253,7 @@ public with sharing class TaskViewerController extends LMSBaseController{
         if(isPreviewMode){
             ref = new PageReference('/'+assignment.Learning__c);
         }else{
-            String retURL = Apexpages.currentPage().getParameters().get('retURL');
+            String retURL = LMSUtils.getTrainingPlanDetailRetURL(Apexpages.currentPage().getParameters());
             if(!String.isBlank(retURL)){
                 ref= new PageReference(retURL);
             }else{

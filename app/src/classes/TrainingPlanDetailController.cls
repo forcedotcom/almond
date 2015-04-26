@@ -244,11 +244,9 @@ public with sharing class TrainingPlanDetailController extends LMSBaseController
         if(ref != null){
             ref.setRedirect(true);
             ref.getParameters().put('aid',selectedItem.latestAssignment.Id);
-            PageReference tempRef = Page.TrainingPlanDetail;
-            tempRef.getParameters().put('id',trainingPlanId);
-            tempRef.getParameters().put('sectionId',selectedSectionId);
-            tempRef.getParameters().put('itemId',selectedItemId);
-            ref.getParameters().put('retURL',tempRef.getUrl());
+            ref.getParameters().put('tpid',trainingPlanId);
+            ref.getParameters().put('tpsid',selectedSectionId);
+            ref.getParameters().put('tpitid',selectedItemId);
         }
 
         learningLaunchURL = LMSUtils.updateURLCommunityPath(ref.getUrl());

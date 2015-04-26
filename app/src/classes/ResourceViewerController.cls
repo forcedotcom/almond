@@ -47,8 +47,8 @@ global with sharing class ResourceViewerController{
             isPreviewMode = true;
         }
         //Retrieve retURL value from URL
-        if(!String.isBlank(Apexpages.currentPage().getParameters().get('retURL'))){
-            retURL = Apexpages.currentPage().getParameters().get('retURL');
+        if(!String.isBlank(Apexpages.currentPage().getParameters().get('tpid'))){
+            retURL = LMSUtils.getTrainingPlanDetailRetURL(Apexpages.currentPage().getParameters());
         }
 
         continueRedirection = false;

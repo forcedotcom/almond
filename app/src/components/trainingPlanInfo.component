@@ -8,7 +8,7 @@
 
                 <apex:variable var="hasBadge" value="{!o.mainAchievement.Acquired_Image__c != null || o.mainAchievement.Work_Badge_Image_URL__c != null}" />
 
-                <div class="col-xs-12 col-sm-6 col-md-4" onclick="almond.redirectHandlerWithStatus('{!JSINHTMLENCODE(o.planDetailURL)}',true)">
+                <div class="col-xs-12 col-sm-6 col-md-4" onclick="almond.redirectHandlerWithStatus('{!JSENCODE(o.planDetailURL)}',true)">
                     <div class="tplan_box">
                         <apex:outputPanel layout="none" rendered="{!hasBadge}">
                             <div class="tplan_img">

@@ -32,7 +32,7 @@ global with sharing class LMSPlugins{
 
     global class LMSPluginsException extends Exception{}
 
-    global class LearningConfig{
+    global with sharing class LearningConfig{
         global String objectName{get;set;}
         global String learningVersionLookupField{get;set;}
         global String launchURL{get;set;}

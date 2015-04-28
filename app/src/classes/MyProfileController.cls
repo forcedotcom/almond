@@ -202,7 +202,7 @@ public with sharing class MyProfileController extends LMSBaseController{
         return ref;
     }
 
-    public class AchievementTypeWrapper{
+    public with sharing class AchievementTypeWrapper{
         public String name{get;set;}
         public String label{get;set;}
     }

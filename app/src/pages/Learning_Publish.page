@@ -50,7 +50,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 
             <apex:pageBlockTable value="{!contents}" var="c">
                 <apex:column headerValue="{!$Label.ALMS_Action}">
-                    <apex:commandLink value="{!$Label.ALMS_Publish}" action="{!publishContent}" styleClass="btnImportant btnLMSPublish" onclick="return confirm('{!JSENCODE($Label.ALMS_Confirm_Alert)}');">
+                    <apex:commandLink value="{!$Label.ALMS_Publish}" action="{!publishContent}" styleClass="btnImportant btnLMSPublish" onclick="return confirm('{!JSINHTMLENCODE($Label.ALMS_Confirm_Alert)}');">
                         <apex:param name="selectedContent" value="{!c.Id}" assignTo="{!selectedContent}" />
                     </apex:commandLink>
                 </apex:column>

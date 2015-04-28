@@ -148,7 +148,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                         </div>
                     </apex:outputPanel>
 
-                    <apex:commandButton value="{!$Label.ALMS_Task_Undo_Button}" action="{!resetTask}" styleClass="almond-warning-btn large-btn" style="margin-bottom:15px;" onclick="if(!confirm('{!JSENCODE($Label.ALMS_Confirm_Alert)}')){return false}else{forceShowStatus()};" rerender="resultsPanel" oncomplete="doRedirection()" rendered="{!isTaskValidForReset}"/>
+                    <apex:commandButton value="{!$Label.ALMS_Task_Undo_Button}" action="{!resetTask}" styleClass="almond-warning-btn large-btn" style="margin-bottom:15px;" onclick="if(!confirm('{!JSINHTMLENCODE($Label.ALMS_Confirm_Alert)}')){return false}else{forceShowStatus()};" rerender="resultsPanel" oncomplete="doRedirection()" rendered="{!isTaskValidForReset}"/>
 
                     <apex:commandButton value="{!$Label.ALMS_Task_Back_Button}" action="{!cancelTask}" styleClass="almond-danger-btn large-btn" onclick="forceShowStatus();" rerender="resultsPanel" oncomplete="doRedirection()"/>
 

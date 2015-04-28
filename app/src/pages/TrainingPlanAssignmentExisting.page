@@ -34,8 +34,8 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
             <apex:pageMessages />
 
             <apex:pageBlockButtons location="top">
-                <apex:commandButton value="{!$Label.ALMS_Update}" action="{!updateAssignments}" status="status" rerender="assignmentFormExisting" onclick="if(!confirm('{!JSENCODE($Label.ALMS_Confirm_Alert)}')){return};" />
-                <apex:commandButton value="{!$Label.ALMS_Delete}" action="{!deleteAssignments}" status="status" rerender="assignmentFormExisting" onclick="if(!confirm('{!JSENCODE($Label.ALMS_Confirm_Alert)}')){return};"/>
+                <apex:commandButton value="{!$Label.ALMS_Update}" action="{!updateAssignments}" status="status" rerender="assignmentFormExisting" onclick="if(!confirm('{!JSINHTMLENCODE($Label.ALMS_Confirm_Alert)}')){return};" />
+                <apex:commandButton value="{!$Label.ALMS_Delete}" action="{!deleteAssignments}" status="status" rerender="assignmentFormExisting" onclick="if(!confirm('{!JSINHTMLENCODE($Label.ALMS_Confirm_Alert)}')){return};"/>
                 <apex:commandButton value="{!$Label.ALMS_Cancel}" action="{!cancel}" />
             </apex:pageBlockButtons>
 

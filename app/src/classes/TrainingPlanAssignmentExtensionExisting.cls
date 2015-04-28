@@ -34,7 +34,7 @@ public with sharing class TrainingPlanAssignmentExtensionExisting{
 
     public List<TPlanAssignmentWrapper> rows{get;set;}
 
-    public class TPlanAssignmentWrapper{
+    public with sharing class TPlanAssignmentWrapper{
         public Boolean isSelected{get;set;}
         public Training_Plan_Assignment__c assignmentRecord{get;set;}
         public TPlanAssignmentWrapper(){}

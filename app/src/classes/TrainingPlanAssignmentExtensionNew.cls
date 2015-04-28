@@ -44,7 +44,7 @@ public with sharing class TrainingPlanAssignmentExtensionNew{
 
     public List<UserWrapper> users{get;set;}
 
-    public class UserWrapper{
+    public with sharing class UserWrapper{
         public Boolean isSelected{get;set;}
         public String userId{get;set;}
         public transient User userRecord{get;set;}

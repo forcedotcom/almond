@@ -35,7 +35,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 
             <apex:pageBlockButtons location="top">
                 <apex:commandButton value="{!$Label.ALMS_Import_From_Report}" action="{!goToImportAssignments}" status="status" />
-                <apex:commandButton value="{!$Label.ALMS_Assign}" action="{!assignUsers}" status="status" rerender="assignmentForm" onclick="if(!confirm('{!JSENCODE($Label.ALMS_Confirm_Alert)}')){return};" />
+                <apex:commandButton value="{!$Label.ALMS_Assign}" action="{!assignUsers}" status="status" rerender="assignmentForm" onclick="if(!confirm('{!JSINHTMLENCODE($Label.ALMS_Confirm_Alert)}')){return};" />
                 <apex:commandButton value="{!$Label.ALMS_Cancel}" action="{!cancel}" />
             </apex:pageBlockButtons>
 

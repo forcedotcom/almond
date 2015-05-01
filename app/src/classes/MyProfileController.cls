@@ -82,11 +82,15 @@ public with sharing class MyProfileController extends LMSBaseController{
                         where Id =:profileUserId];
 
         if(oUser.ManagerId !=null){
-            oManager = [select Id
-                                ,Name
-                                ,SmallPhotoUrl
-                                from User
-                                where Id = :oUser.ManagerId];
+            List<User> userManagers = [select Id
+                                              ,Name
+                                              ,SmallPhotoUrl
+                                              from User
+                                              where Id = :oUser.ManagerId];
+            if(userManagers.size()>0){
+                oManager = userManagers.get(0);
+            }
+
         }
 
         lcategories = new List<AchievementCategoryWrapper>();

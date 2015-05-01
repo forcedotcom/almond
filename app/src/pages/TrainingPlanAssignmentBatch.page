@@ -35,19 +35,19 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
             <apex:pageBlockButtons location="top">
                 <apex:commandButton value="{!$Label.ALMS_Recalculate_All_Assignments}"
                         action="{!recalculateAllAssignments}"
-                        onclick="if(!confirm('{!JSENCODE($Label.ALMS_Confirm_Alert)}')){return};"
+                        onclick="if(!confirm('{!JSINHTMLENCODE($Label.ALMS_Confirm_Alert)}')){return};"
                         rerender="assignmentFormBatch"
                         status="status"
                 />
                 <apex:commandButton value="{!$Label.ALMS_Update_All_Assignments}"
                         action="{!updateAllAssignments}"
-                        onclick="if(!confirm('{!JSENCODE($Label.ALMS_Confirm_Alert)}')){return};"
+                        onclick="if(!confirm('{!JSINHTMLENCODE($Label.ALMS_Confirm_Alert)}')){return};"
                         rerender="assignmentFormBatch"
                         status="status"
                 />
                 <apex:commandButton value="{!$Label.ALMS_Delete_All_Assignments}"
                         action="{!deleteAllAssignments}"
-                        onclick="if(!confirm('{!JSENCODE($Label.ALMS_Confirm_Alert)}')){return};"
+                        onclick="if(!confirm('{!JSINHTMLENCODE($Label.ALMS_Confirm_Alert)}')){return};"
                         rerender="assignmentFormBatch"
                         status="status"
                 />

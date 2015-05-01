@@ -34,7 +34,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
             <apex:pageMessages />
 
             <apex:pageBlockButtons location="top">
-                <apex:commandButton value="{!$Label.ALMS_Assign}" action="{!assignSingleUser}" status="status" rerender="assignmentFormSingle" onclick="if(!confirm('{!JSENCODE($Label.ALMS_Confirm_Alert)}')){return};" />
+                <apex:commandButton value="{!$Label.ALMS_Assign}" action="{!assignSingleUser}" status="status" rerender="assignmentFormSingle" onclick="if(!confirm('{!JSINHTMLENCODE($Label.ALMS_Confirm_Alert)}')){return};" />
                 <apex:commandButton value="{!$Label.ALMS_Cancel}" action="{!cancel}" />
             </apex:pageBlockButtons>
 

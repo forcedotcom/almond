@@ -4,14 +4,14 @@
     <apex:variable var="qi" value="{!QuizItem}"/>
 
     <apex:repeat value="{!qi.answers.Answer_Sequence_Items__r}" var="l" id="bar">
-        
+
         <div class="radio">
             <label>
-                <input onClick="document.getElementsByName('{!$Component.resource}')[0].value='{!JSENCODE(l.Item_Id__c)}';document.getElementsByName('{!$Component.selectresponse}')[0].value='{!JSENCODE(l.Answer_Text__c)}';" 
-                    type="radio" name="{!qi.question.Id}" 
+                <input onClick="document.getElementsByName('{!$Component.resource}')[0].value='{!JSINHTMLENCODE(l.Item_Id__c)}';document.getElementsByName('{!$Component.selectresponse}')[0].value='{!JSINHTMLENCODE(l.Answer_Text__c)}';" 
+                    type="radio" name="{!qi.question.Id}"
                     id="{!qi.question.id}{!l.Item_Id__c}"
                     value="{!l.Item_Id__c}" />
-                    {!l.Answer_Text__c}            
+                    {!l.Answer_Text__c}
             </label>
         </div>
 
@@ -21,11 +21,11 @@
                 document.getElementById('{!qi.question.id}{!JSENCODE(l.Item_Id__c)}').checked=true;
             };
         </script>
-    
-    </apex:repeat> 
+
+    </apex:repeat>
 
     <apex:inputHidden value="{!qi.response.Response_Answer_Sequence_Long__c}"  id="resource" rendered="true" />
     <apex:inputHidden value="{!qi.response.Response_Answer_Sequence_Label__c}" id="selectresponse" rendered="true" />
 
-        
+
 </apex:component>

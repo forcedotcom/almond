@@ -82,11 +82,15 @@ public with sharing class MyProfileController extends LMSBaseController{
                         where Id =:profileUserId];
 
         if(oUser.ManagerId !=null){
-            oManager = [select Id
-                                ,Name
-                                ,SmallPhotoUrl
-                                from User
-                                where Id = :oUser.ManagerId];
+            List<User> userManagers = [select Id
+                                              ,Name
+                                              ,SmallPhotoUrl
+                                              from User
+                                              where Id = :oUser.ManagerId];
+            if(userManagers.size()>0){
+                oManager = userManagers.get(0);
+            }
+
         }
 
         lcategories = new List<AchievementCategoryWrapper>();
@@ -202,7 +206,7 @@ public with sharing class MyProfileController extends LMSBaseController{
         return ref;
     }
 
-    public class AchievementTypeWrapper{
+    public with sharing class AchievementTypeWrapper{
         public String name{get;set;}
         public String label{get;set;}
     }

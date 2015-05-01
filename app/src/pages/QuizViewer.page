@@ -50,7 +50,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                     </apex:outputPanel>
 
                     <apex:outputPanel layout="block" styleClass="alert alert-info" rendered="{!showBackNoSaveMessage}">
-                        {!$Label.ALMS_Click} <apex:commandLink value="{!$Label.ALMS_here}" action="{!previousNoSave}" styleClass="alert-link" rendered="{!showPreviousButton}" onclick="if(!confirm('{!JSENCODE($Label.ALMS_Quiz_Back_Warning)}')){return false};"/> {!$Label.ALMS_Quiz_Back_Warning_Message}
+                        {!$Label.ALMS_Click} <apex:commandLink value="{!$Label.ALMS_here}" action="{!previousNoSave}" styleClass="alert-link" rendered="{!showPreviousButton}" onclick="if(!confirm('{!JSINHTMLENCODE($Label.ALMS_Quiz_Back_Warning)}')){return false};"/> {!$Label.ALMS_Quiz_Back_Warning_Message}
                     </apex:outputPanel>
 
                     <style>
@@ -131,13 +131,13 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 
                         <apex:outputPanel styleClass="almond-button-wrap">
 
-                            <apex:commandButton value="{!$Label.ALMS_Quiz_Reset}" action="{!reset}" rendered="{!showStartButton}" styleClass="almond-warning-btn small-btn" style="margin-right: 10px;" onclick="if(!confirm('{!JSENCODE($Label.ALMS_Quiz_Reset_Warning)}')){return false};" />
+                            <apex:commandButton value="{!$Label.ALMS_Quiz_Reset}" action="{!reset}" rendered="{!showStartButton}" styleClass="almond-warning-btn small-btn" style="margin-right: 10px;" onclick="if(!confirm('{!JSINHTMLENCODE($Label.ALMS_Quiz_Reset_Warning)}')){return false};" />
 
                             <apex:commandButton value="{!$Label.ALMS_Quiz_Back}" action="{!previous}" styleClass="almond-secondary-btn small-btn" style="margin-right: 10px;" rendered="{!showPreviousButton}" onclick="forceShowStatus()" />
 
                             <apex:commandButton value="{!$Label.ALMS_Quiz_Next}" action="{!next}" styleClass="almond-secondary-btn small-btn" style="margin-right: 10px;" rendered="{!showNextButton}" onclick="forceShowStatus()"/>
 
-                            <apex:commandButton value="{!$Label.ALMS_Quiz_Submit}" action="{!done}" styleClass="almond-default-btn small-btn" style="margin-right: 10px;" rendered="{!showDoneButton}" onclick="if(!confirm('{!JSENCODE($Label.ALMS_Confirm_Alert)}')){return false};" />
+                            <apex:commandButton value="{!$Label.ALMS_Quiz_Submit}" action="{!done}" styleClass="almond-default-btn small-btn" style="margin-right: 10px;" rendered="{!showDoneButton}" onclick="if(!confirm('{!JSINHTMLENCODE($Label.ALMS_Confirm_Alert)}')){return false};" />
 
                             <apex:commandButton value="{!$Label.ALMS_Quiz_Cancel}" action="{!backToTrainingPlan}" styleClass="almond-danger-btn small-btn" />
 

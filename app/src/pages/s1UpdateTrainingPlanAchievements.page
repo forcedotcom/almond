@@ -32,7 +32,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
             <apex:form id="aaAssignmentFormBatch">
                 <apex:commandButton value="{!$Label.ALMS_Update_Achievements}"
                        action="{!upsertAchievementAssignments}"
-                       onclick="if(!confirm('{!JSENCODE($Label.ALMS_Confirm_Alert)}')){return};"
+                       onclick="if(!confirm('{!JSINHTMLENCODE($Label.ALMS_Confirm_Alert)}')){return};"
                        styleClass="btn btn-success btn-lg btn-block"
                        rerender="aaAssignmentFormBatch"
                        status="status"/>

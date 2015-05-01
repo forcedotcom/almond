@@ -47,7 +47,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
             <apex:pageBlockButtons location="top">
                 <apex:commandButton value="{!$Label.ALMS_Section_Delete_Assignments_Button}"
                         action="{!deleteAllSectionAssignments}"
-                        onclick="if(!confirm('{!JSENCODE($Label.ALMS_Confirm_Alert)}')){return};"
+                        onclick="if(!confirm('{!JSINHTMLENCODE($Label.ALMS_Confirm_Alert)}')){return};"
                         styleClass="btnImportant"
                         rerender="sectionAssignmentDeleteForm"
                         status="status"

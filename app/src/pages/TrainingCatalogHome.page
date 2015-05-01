@@ -46,7 +46,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                                 <apex:outputPanel rendered="{!o.Logo__c != null}" layout="none">
                                     <apex:image value="{!o.Logo__c}"  />
                                 </apex:outputPanel>
-                                <div class="categoryName" style="color:{!JSENCODE(o.Text_Color__c)}">
+                                <div class="categoryName" style="color:{!JSINHTMLENCODE(o.Text_Color__c)}">
                                     <span>{!o.Name}</span>
                                 </div>
                             </div>

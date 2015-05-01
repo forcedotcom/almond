@@ -53,7 +53,10 @@ global with sharing class LMSSettings {
     global static String getBacktoSFUrl(){
         String defaultURL = '/home/home.jsp';
         if(LMSUtils.getCurrentNetworkId() != null){
-            defaultURL = '/'+LMSUtils.getCurrentNetworkURLPath()+defaultURL;
+            String networkURLPath = LMSUtils.getCurrentNetworkURLPath();
+            if(!String.isBlank(networkURLPath)){
+                defaultURL = '/'+networkURLPath+defaultURL;
+            }
         }
         return (String)getValue('Back_to_SF_URL__c',defaultURL);
     }

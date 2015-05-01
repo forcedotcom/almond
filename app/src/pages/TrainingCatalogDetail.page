@@ -30,7 +30,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
     <style>
         #hero-banner {
             background: url({!JSENCODE(learningcategory.Background_Image_URL__c)});
-            color : {!JSENCODE(learningcategory.Text_Color__c)};
+            color : {!JSINHTMLENCODE(learningcategory.Text_Color__c)};
         }
     </style>
     <apex:composition template="LMS_HeroTemplate">
@@ -41,7 +41,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 
         <apex:define name="hero-banner-badge">
             <div id="hb-right" class="col-xs-12 col-sm-12 col-md-12">
-                <div class="banner-title-left" style="color:{!JSENCODE(learningcategory.Text_Color__c)}">
+                <div class="banner-title-left" style="color:{!JSINHTMLENCODE(learningcategory.Text_Color__c)}">
                     <span>{!$Label.ALMS_Category}</span>
                     <h1>{!learningcategory.Name}</h1>
                 </div>

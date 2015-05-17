@@ -259,6 +259,10 @@ public with sharing class TrainingPlanAssignmentHelper{
                             //Override sfURL with subdomain for the associated site
                             String siteSubdomain = sitePrefixDomainMap.get(communityURLPathPrefix);
                             if(siteSubdomain != null){
+                                //Fix for dev edition url path
+                                if(siteSubdomain.endsWith('developer-edition')){
+                                    siteSubdomain += '.'+LMSUtils.getCurrentInstance();
+                                }
                                 sfUrl = siteSubdomain+'.force.com';
                             }
                         }

@@ -205,13 +205,13 @@ public with sharing class LMSUtils{
         }
         SObject n = getNetworkDetails();
         String urlPathPrefix = n.get('UrlPathPrefix')!=null?(String)n.get('UrlPathPrefix'):'';
-        return (urlPathPrefix);
+        return urlPathPrefix;
     }
 
     public static String updateURLCommunityPath(String urlPath){
         if(getCurrentNetworkId() != null){
             String networkURLPath = getCurrentNetworkURLPath();
-            if(networkURLPath != null){
+            if(!String.isBlank(networkURLPath)){
                 urlPath = '/'+getCurrentNetworkURLPath()+urlPath;
             }
         }
@@ -219,8 +219,8 @@ public with sharing class LMSUtils{
     }
 
     public static String updateURLCommunityPath(String urlPath, String communityName){
-        if(communityName != null){
-            urlPath = '/'+communityName.toLowerCase()+urlPath;
+        if(!String.isBlank(communityName)){
+            urlPath = '/'+communityName+urlPath;
         }
         return urlPath;
     }
@@ -234,6 +234,31 @@ public with sharing class LMSUtils{
         tempRef.getParameters().put('sectionId',params.get('tpsid'));
         tempRef.getParameters().put('itemId',params.get('tpitid'));
         return tempRef.getUrl();
+    }
+
+    public static String getCurrentInstance(){
+        URL baseUrl = URL.getSalesforceBaseUrl();
+        if(baseUrl == null){
+            return null;
+        }
+        String host = baseUrl.getHost();
+        String vfDomain = '.visual.force.com';
+        Boolean isVFContext = host.contains(vfDomain)?true:false;
+        String contextIndexOf = isVFContext==true?vfDomain:'.';
+        String instance = host.substring(0,host.indexOf(contextIndexOf));
+        if(isVFContext){
+            String vfNameSpace = getVisualforceNamespace();
+            instance = instance.replace(vfNameSpace+'.','');
+        }
+        return instance;
+    }
+
+    public static String getVisualforceNamespace(){
+        String nsPrefix = getNamespacePrefix();
+        if(String.isBlank(nsPrefix)){
+            nsPrefix = 'c';
+        }
+        return nsPrefix;
     }
 
 }

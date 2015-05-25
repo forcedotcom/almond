@@ -1,264 +1,264 @@
 <project name="App build file" default="deploy" basedir="." xmlns:sf="antlib:com.salesforce">
 
-	<!-- Properties -->
-	<property environment="env"/>
-	<property name="build_props" value="sfdc-build.properties"/>
-	<property file="${build_props}"/>
-	<property name="destructive.dir" value="../build/destructive"/>
-	<property name="src.dir" value="../app/src"/>
-	<property name="staticres.src.dir" value="../static-resources"/>
-	<property name="app.deploy.tmp.dir" value="../build/tmp/src"/>
-	<property name="packageVersionTag" value="&lt;packageVersions&gt;"/>
+    <!-- Properties -->
+    <property environment="env"/>
+    <property name="build_props" value="sfdc-build.properties"/>
+    <property file="${build_props}"/>
+    <property name="destructive.dir" value="../build/destructive"/>
+    <property name="src.dir" value="../src"/>
+    <property name="staticres.src.dir" value="../static-resources"/>
+    <property name="app.deploy.tmp.dir" value="../build/tmp/src"/>
+    <property name="packageVersionTag" value="&lt;packageVersions&gt;"/>
 
-	<!-- Set default value in property if not present -->
-	<property name="checkOnly" value="true" />
-	<property name="runAllTests" value="true" />
-	<property name="sf.package.apiVersion" value="33.0" />
+    <!-- Set default value in property if not present -->
+    <property name="checkOnly" value="true" />
+    <property name="runAllTests" value="true" />
+    <property name="sf.package.apiVersion" value="33.0" />
 
-	<!-- Ant doesn't like < in replace tokens or values so set a property with < via cdata for reuse later -->
-	<property name="lt"><![CDATA[<]]></property>
+    <!-- Ant doesn't like < in replace tokens or values so set a property with < via cdata for reuse later -->
+    <property name="lt"><![CDATA[<]]></property>
 
-	<!-- Import additional macros-->
+    <!-- Import additional macros-->
     <import file="${basedir}/tools/ant-salesforce.xml"/>
 
-	<!-- Output timestamp -->
-	<target name="timestamp">
-		<tstamp prefix="start">
-			<format property="touch.time" pattern="MM/dd/yyyy hh:mm aa" />
-		</tstamp>
-		<echo message="${start.touch.time}" />
-	</target>
+    <!-- Output timestamp -->
+    <target name="timestamp">
+        <tstamp prefix="start">
+            <format property="touch.time" pattern="MM/dd/yyyy hh:mm aa" />
+        </tstamp>
+        <echo message="${start.touch.time}" />
+    </target>
 
-	<!-- Check if meta xml contains unnecessary version tags and throw exception if tag is found-->
-	<target name="checkMetaHasPackageVersions">
-		<fileset id="meta.file" dir="${src.dir}" includes="**/*meta.xml">
-			<contains text="${packageVersionTag}"/>
-		</fileset>
-		<fail message="meta files contain '${packageVersionTag}' tag! Please remove before build">
-			<condition>
-				<resourcecount when="greater" count="0" refid="meta.file" />
-			</condition>
-		</fail>
-	</target>
+    <!-- Check if meta xml contains unnecessary version tags and throw exception if tag is found-->
+    <target name="checkMetaHasPackageVersions">
+        <fileset id="meta.file" dir="${src.dir}" includes="**/*meta.xml">
+            <contains text="${packageVersionTag}"/>
+        </fileset>
+        <fail message="meta files contain '${packageVersionTag}' tag! Please remove before build">
+            <condition>
+                <resourcecount when="greater" count="0" refid="meta.file" />
+            </condition>
+        </fail>
+    </target>
 
-	<!-- Resolves password for target environment.  Read from properties file, if it's not available read it from prompt -->
-	<target name="resolvePasswordForTargetEnv">
-		<antcallback target="readPasswordFromPrompt" return="passwordFromPrompt">
-			<param name="targetEnvFile" value="${build_props}"/>
-		</antcallback>
-		<condition property="targetPassword" value="${sf.target.password}">
-			<and>
-				<isset property="sf.target.password"/>
-				<not>
-					<equals arg1="${sf.target.password}" arg2="" trim="true"/>
-				</not>
-			</and>
-		</condition>
-		<condition property="targetPassword" value="${passwordFromPrompt}">
-			<isset property="passwordFromPrompt"/>
-		</condition>
-	</target>
+    <!-- Resolves password for target environment.  Read from properties file, if it's not available read it from prompt -->
+    <target name="resolvePasswordForTargetEnv">
+        <antcallback target="readPasswordFromPrompt" return="passwordFromPrompt">
+            <param name="targetEnvFile" value="${build_props}"/>
+        </antcallback>
+        <condition property="targetPassword" value="${sf.target.password}">
+            <and>
+                <isset property="sf.target.password"/>
+                <not>
+                    <equals arg1="${sf.target.password}" arg2="" trim="true"/>
+                </not>
+            </and>
+        </condition>
+        <condition property="targetPassword" value="${passwordFromPrompt}">
+            <isset property="passwordFromPrompt"/>
+        </condition>
+    </target>
 
-	<!-- Read password from prompt  if it's not available in properties file -->
-	<target name="readPasswordFromPrompt" unless="isPasswordPropertySet" depends="checkIfPasswordPropertyIsSet">
-		<input message="Password for target org not found in ${targetEnvFile}.  Please enter password here>" addproperty="passwordFromPrompt">
-			<handler classname="org.apache.tools.ant.input.SecureInputHandler" />
-		</input>
-	</target>
+    <!-- Read password from prompt  if it's not available in properties file -->
+    <target name="readPasswordFromPrompt" unless="isPasswordPropertySet" depends="checkIfPasswordPropertyIsSet">
+        <input message="Password for target org not found in ${targetEnvFile}.  Please enter password here>" addproperty="passwordFromPrompt">
+            <handler classname="org.apache.tools.ant.input.SecureInputHandler" />
+        </input>
+    </target>
 
-	<!-- Check if password was set in properties file -->
-	<target name="checkIfPasswordPropertyIsSet">
-		<condition property="isPasswordPropertySet" value="true">
-			<and>
-				<isset property="sf.target.password"/>
-				<not>
-					<equals arg1="${sf.target.password}" arg2="" trim="true"/>
-				</not>
-			</and>
-		</condition>
-	</target>
+    <!-- Check if password was set in properties file -->
+    <target name="checkIfPasswordPropertyIsSet">
+        <condition property="isPasswordPropertySet" value="true">
+            <and>
+                <isset property="sf.target.password"/>
+                <not>
+                    <equals arg1="${sf.target.password}" arg2="" trim="true"/>
+                </not>
+            </and>
+        </condition>
+    </target>
 
-	<!-- Update metadata info that changes from one environment to another-->
-	<target name="updateMetadata">
-		<echo message="Updating metadata..." />
-		<!-- Task to replace profile specific user license settings -->
-		<xmltask source="${src.dir}/dashboards/LMS_Dashboards/Achievements_Dashboard.dashboard" dest="${src.dir}/dashboards/LMS_Dashboards/Achievements_Dashboard.dashboard">
-			<replace path="/*[local-name()='Dashboard']/*[local-name()='runningUser']/text()" withText="${sf.target.username}"/>
-		</xmltask>
-		<xmltask source="${src.dir}/dashboards/LMS_Dashboards/Training_Plans_Dashboard.dashboard" dest="${src.dir}/dashboards/LMS_Dashboards/Training_Plans_Dashboard.dashboard">
-		  <replace path="/*[local-name()='Dashboard']/*[local-name()='runningUser']/text()" withText="${sf.target.username}"/>
-		</xmltask>
-	</target>
+    <!-- Update metadata info that changes from one environment to another-->
+    <target name="updateMetadata">
+        <echo message="Updating metadata..." />
+        <!-- Task to replace profile specific user license settings -->
+        <xmltask source="${src.dir}/dashboards/LMS_Dashboards/Achievements_Dashboard.dashboard" dest="${src.dir}/dashboards/LMS_Dashboards/Achievements_Dashboard.dashboard">
+            <replace path="/*[local-name()='Dashboard']/*[local-name()='runningUser']/text()" withText="${sf.target.username}"/>
+        </xmltask>
+        <xmltask source="${src.dir}/dashboards/LMS_Dashboards/Training_Plans_Dashboard.dashboard" dest="${src.dir}/dashboards/LMS_Dashboards/Training_Plans_Dashboard.dashboard">
+          <replace path="/*[local-name()='Dashboard']/*[local-name()='runningUser']/text()" withText="${sf.target.username}"/>
+        </xmltask>
+    </target>
 
-	<target name="revertMetadataChanges">
-		<echo message="Reverting metadata changes..." />
-		<!-- Task to replace profile specific user license settings -->
-		<xmltask source="${src.dir}/dashboards/LMS_Dashboards/Achievements_Dashboard.dashboard" dest="${src.dir}/dashboards/LMS_Dashboards/Achievements_Dashboard.dashboard">
-			<replace path="/*[local-name()='Dashboard']/*[local-name()='runningUser']/text()" withText="{{RUNNING_USER}}"/>
-		</xmltask>
-		<xmltask source="${src.dir}/dashboards/LMS_Dashboards/Training_Plans_Dashboard.dashboard" dest="${src.dir}/dashboards/LMS_Dashboards/Training_Plans_Dashboard.dashboard">
-		  <replace path="/*[local-name()='Dashboard']/*[local-name()='runningUser']/text()" withText="{{RUNNING_USER}}"/>
-		</xmltask>
-	</target>
+    <target name="revertMetadataChanges">
+        <echo message="Reverting metadata changes..." />
+        <!-- Task to replace profile specific user license settings -->
+        <xmltask source="${src.dir}/dashboards/LMS_Dashboards/Achievements_Dashboard.dashboard" dest="${src.dir}/dashboards/LMS_Dashboards/Achievements_Dashboard.dashboard">
+            <replace path="/*[local-name()='Dashboard']/*[local-name()='runningUser']/text()" withText="{{RUNNING_USER}}"/>
+        </xmltask>
+        <xmltask source="${src.dir}/dashboards/LMS_Dashboards/Training_Plans_Dashboard.dashboard" dest="${src.dir}/dashboards/LMS_Dashboards/Training_Plans_Dashboard.dashboard">
+          <replace path="/*[local-name()='Dashboard']/*[local-name()='runningUser']/text()" withText="{{RUNNING_USER}}"/>
+        </xmltask>
+    </target>
 
-	<!-- Deploy the unpackaged set of metadata retrieved with retrieveUnpackaged -->
-	<target name="deploy" depends="runTargetValidations,updateMetadata,create-static-res,resolvePasswordForTargetEnv">
-		<sf:deploy username="${sf.target.username}" password="${sf.target.password}" serverurl="${sf.target.serverurl}"
+    <!-- Deploy the unpackaged set of metadata retrieved with retrieveUnpackaged -->
+    <target name="deploy" depends="runTargetValidations,updateMetadata,create-static-res,resolvePasswordForTargetEnv">
+        <sf:deploy username="${sf.target.username}" password="${sf.target.password}" serverurl="${sf.target.serverurl}"
         deployRoot="${src.dir}" checkOnly="${checkOnly}" logType="Debugonly" pollWaitMillis="20000"  maxPoll="50" runAllTests="false">
-		</sf:deploy>
-		<antcall target="revertMetadataChanges"/>
-	</target>
+        </sf:deploy>
+        <antcall target="revertMetadataChanges"/>
+    </target>
 
-	<!-- Only Deploy destructive changes -->
-	<target name="deploy-destructive" depends="runTargetValidations,timestamp,resolvePasswordForTargetEnv">
-		<sf:deploy username="${sf.target.username}" password="${targetPassword}" serverurl="${sf.target.serverurl}"
+    <!-- Only Deploy destructive changes -->
+    <target name="deploy-destructive" depends="runTargetValidations,timestamp,resolvePasswordForTargetEnv">
+        <sf:deploy username="${sf.target.username}" password="${targetPassword}" serverurl="${sf.target.serverurl}"
         deployRoot="${destructive.dir}" checkOnly="${checkOnly}" logType="Debugonly" pollWaitMillis="20000"  maxPoll="50" runAllTests="false">
-		</sf:deploy>
-	</target>
+        </sf:deploy>
+    </target>
 
-	<!-- Deploy with destructive changes -->
-	<target name="deploy-with-destructive-changes">
-		<antcall target="deploy"/>
-		<antcall target="deploy-destructive"/>
-	</target>
+    <!-- Deploy with destructive changes -->
+    <target name="deploy-with-destructive-changes">
+        <antcall target="deploy"/>
+        <antcall target="deploy-destructive"/>
+    </target>
 
-	<!-- Deploy Static Resources Only-->
-	<target name="deploy-static-res" depends="create-static-res">
-		<deploy-subset-package>
-			<ss-elements>
-				<copy todir="${app.deploy.tmp.dir}/staticresources">
-					<fileset dir="${src.dir}/staticresources"/>
-				</copy>
-				<echo file="${app.deploy.tmp.dir}/package.xml" append="true"><![CDATA[<types><members>*</members><name>StaticResource</name></types>]]></echo>
-			</ss-elements>
-		</deploy-subset-package>
-	</target>
+    <!-- Deploy Static Resources Only-->
+    <target name="deploy-static-res" depends="create-static-res">
+        <deploy-subset-package>
+            <ss-elements>
+                <copy todir="${app.deploy.tmp.dir}/staticresources">
+                    <fileset dir="${src.dir}/staticresources"/>
+                </copy>
+                <echo file="${app.deploy.tmp.dir}/package.xml" append="true"><![CDATA[<types><members>*</members><name>StaticResource</name></types>]]></echo>
+            </ss-elements>
+        </deploy-subset-package>
+    </target>
 
-	<!-- Deploy Apex Only-->
-	<target name="deploy-apex">
-		<deploy-subset-package>
-			<ss-elements>
-				<copy todir="${app.deploy.tmp.dir}/classes">
-					<fileset dir="${src.dir}/classes"/>
-				</copy>
-				<echo file="${app.deploy.tmp.dir}/package.xml" append="true"><![CDATA[<types><members>*</members><name>ApexClass</name></types>]]></echo>
-				<copy todir="${app.deploy.tmp.dir}/triggers">
-					<fileset dir="${src.dir}/triggers"/>
-				</copy>
-				<echo file="${app.deploy.tmp.dir}/package.xml" append="true"><![CDATA[<types><members>*</members><name>ApexTrigger</name></types>]]></echo>
-			</ss-elements>
-		</deploy-subset-package>
-	</target>
+    <!-- Deploy Apex Only-->
+    <target name="deploy-apex">
+        <deploy-subset-package>
+            <ss-elements>
+                <copy todir="${app.deploy.tmp.dir}/classes">
+                    <fileset dir="${src.dir}/classes"/>
+                </copy>
+                <echo file="${app.deploy.tmp.dir}/package.xml" append="true"><![CDATA[<types><members>*</members><name>ApexClass</name></types>]]></echo>
+                <copy todir="${app.deploy.tmp.dir}/triggers">
+                    <fileset dir="${src.dir}/triggers"/>
+                </copy>
+                <echo file="${app.deploy.tmp.dir}/package.xml" append="true"><![CDATA[<types><members>*</members><name>ApexTrigger</name></types>]]></echo>
+            </ss-elements>
+        </deploy-subset-package>
+    </target>
 
-	<!-- Deploy Visualforce Only-->
-	<target name="deploy-visualforce">
-		<deploy-subset-package>
-			<ss-elements>
-				<copy todir="${app.deploy.tmp.dir}/pages">
-					<fileset dir="${src.dir}/pages"/>
-				</copy>
-				<echo file="${app.deploy.tmp.dir}/package.xml" append="true"><![CDATA[<types><members>*</members><name>ApexPage</name></types>]]></echo>
-			</ss-elements>
-		</deploy-subset-package>
-	</target>
+    <!-- Deploy Visualforce Only-->
+    <target name="deploy-visualforce">
+        <deploy-subset-package>
+            <ss-elements>
+                <copy todir="${app.deploy.tmp.dir}/pages">
+                    <fileset dir="${src.dir}/pages"/>
+                </copy>
+                <echo file="${app.deploy.tmp.dir}/package.xml" append="true"><![CDATA[<types><members>*</members><name>ApexPage</name></types>]]></echo>
+            </ss-elements>
+        </deploy-subset-package>
+    </target>
 
-	<!-- Deploy Single File -->
-	<target name="deploy-single-file">
-		<deploy-subset-package>
-			<ss-elements>
-				<echo message="${deploy.single.folderName} / ${deploy.single.subFolderName} / ${deploy.single.fileName} / ${deploy.single.metadataType}" />
-				<if>
-					<isset property="deploy.single.subFolderName"/>
-					<then>
-						<if>
-							<equals arg1="${deploy.single.metadataType}" arg2="AuraDefinitionBundle"/>
-							<then>
-								<echo message="Processing aura bundle..."/>
-								<copy todir="${app.deploy.tmp.dir}/${deploy.single.folderName}/${deploy.single.subFolderName}">
-									<fileset dir="${src.dir}/${deploy.single.folderName}/${deploy.single.subFolderName}"/>
-								</copy>
-								<echo file="${app.deploy.tmp.dir}/package.xml" append="true"><![CDATA[<types><members>${deploy.single.subFolderName}</members><name>${deploy.single.metadataType}</name></types>]]></echo>
-							</then>
-							<else>
-								<echo message="Processing sub-folders..."/>
-								<copy todir="${app.deploy.tmp.dir}/${deploy.single.folderName}/${deploy.single.subFolderName}">
-									<fileset dir="${src.dir}/${deploy.single.folderName}/${deploy.single.subFolderName}" >
-										<include name="${deploy.single.fileName}.*" />
-										<include name="${deploy.single.fileName}.*-meta.xml" />
-									</fileset>
-								</copy>
-								<echo file="${app.deploy.tmp.dir}/package.xml" append="true"><![CDATA[<types><members>${deploy.single.subFolderName}</members><members>${deploy.single.subFolderName}/${deploy.single.fileName}</members><name>${deploy.single.metadataType}</name></types>]]></echo>
-							</else>
-						</if>
-					</then>
-					<else>
-						<copy todir="${app.deploy.tmp.dir}/${deploy.single.folderName}/">
-							<fileset dir="${src.dir}/${deploy.single.folderName}" >
-								<include name="${deploy.single.fileName}.*" />
-								<include name="${deploy.single.fileName}.*-meta.xml" />
-							</fileset>
-						</copy>
-						<echo file="${app.deploy.tmp.dir}/package.xml" append="true"><![CDATA[<types><members>${deploy.single.fileName}</members><name>${deploy.single.metadataType}</name></types>]]></echo>
-					</else>
-				</if>
-			</ss-elements>
-		</deploy-subset-package>
-	</target>
+    <!-- Deploy Single File -->
+    <target name="deploy-single-file">
+        <deploy-subset-package>
+            <ss-elements>
+                <echo message="${deploy.single.folderName} / ${deploy.single.subFolderName} / ${deploy.single.fileName} / ${deploy.single.metadataType}" />
+                <if>
+                    <isset property="deploy.single.subFolderName"/>
+                    <then>
+                        <if>
+                            <equals arg1="${deploy.single.metadataType}" arg2="AuraDefinitionBundle"/>
+                            <then>
+                                <echo message="Processing aura bundle..."/>
+                                <copy todir="${app.deploy.tmp.dir}/${deploy.single.folderName}/${deploy.single.subFolderName}">
+                                    <fileset dir="${src.dir}/${deploy.single.folderName}/${deploy.single.subFolderName}"/>
+                                </copy>
+                                <echo file="${app.deploy.tmp.dir}/package.xml" append="true"><![CDATA[<types><members>${deploy.single.subFolderName}</members><name>${deploy.single.metadataType}</name></types>]]></echo>
+                            </then>
+                            <else>
+                                <echo message="Processing sub-folders..."/>
+                                <copy todir="${app.deploy.tmp.dir}/${deploy.single.folderName}/${deploy.single.subFolderName}">
+                                    <fileset dir="${src.dir}/${deploy.single.folderName}/${deploy.single.subFolderName}" >
+                                        <include name="${deploy.single.fileName}.*" />
+                                        <include name="${deploy.single.fileName}.*-meta.xml" />
+                                    </fileset>
+                                </copy>
+                                <echo file="${app.deploy.tmp.dir}/package.xml" append="true"><![CDATA[<types><members>${deploy.single.subFolderName}</members><members>${deploy.single.subFolderName}/${deploy.single.fileName}</members><name>${deploy.single.metadataType}</name></types>]]></echo>
+                            </else>
+                        </if>
+                    </then>
+                    <else>
+                        <copy todir="${app.deploy.tmp.dir}/${deploy.single.folderName}/">
+                            <fileset dir="${src.dir}/${deploy.single.folderName}" >
+                                <include name="${deploy.single.fileName}.*" />
+                                <include name="${deploy.single.fileName}.*-meta.xml" />
+                            </fileset>
+                        </copy>
+                        <echo file="${app.deploy.tmp.dir}/package.xml" append="true"><![CDATA[<types><members>${deploy.single.fileName}</members><name>${deploy.single.metadataType}</name></types>]]></echo>
+                    </else>
+                </if>
+            </ss-elements>
+        </deploy-subset-package>
+    </target>
 
-	<!-- Retrieve Single File -->
-	<target name="retrieve-single-file">
-		<retrieve-unpackaged-subset-package>
-			<ss-elements>
-				<echo message="${retrieve.single.folderName} / ${retrieve.single.subFolderName} / ${retrieve.single.fileName} / ${retrieve.single.metadataType}" />
-				<if>
-					<isset property="retrieve.single.subFolderName"/>
-					<then>
-						<if>
-							<equals arg1="${retrieve.single.metadataType}" arg2="AuraDefinitionBundle"/>
-							<then>
-								<echo message="Processing aura bundle..."/>
-								<echo file="${app.deploy.tmp.dir}/package.xml" append="true"><![CDATA[<types><members>${retrieve.single.subFolderName}</members><name>${retrieve.single.metadataType}</name></types>]]></echo>
-							</then>
-							<else>
-								<echo message="Processing sub-folders..."/>
-								<echo file="${app.deploy.tmp.dir}/package.xml" append="true"><![CDATA[<types><members>${retrieve.single.subFolderName}</members><members>${retrieve.single.subFolderName}/${retrieve.single.fileName}</members><name>${retrieve.single.metadataType}</name></types>]]></echo>
-							</else>
-						</if>
-					</then>
-					<else>
-						<echo file="${app.deploy.tmp.dir}/package.xml" append="true"><![CDATA[<types><members>${retrieve.single.fileName}</members><name>${retrieve.single.metadataType}</name></types>]]></echo>
-					</else>
-				</if>
-			</ss-elements>
-		</retrieve-unpackaged-subset-package>
-	</target>
+    <!-- Retrieve Single File -->
+    <target name="retrieve-single-file">
+        <retrieve-unpackaged-subset-package>
+            <ss-elements>
+                <echo message="${retrieve.single.folderName} / ${retrieve.single.subFolderName} / ${retrieve.single.fileName} / ${retrieve.single.metadataType}" />
+                <if>
+                    <isset property="retrieve.single.subFolderName"/>
+                    <then>
+                        <if>
+                            <equals arg1="${retrieve.single.metadataType}" arg2="AuraDefinitionBundle"/>
+                            <then>
+                                <echo message="Processing aura bundle..."/>
+                                <echo file="${app.deploy.tmp.dir}/package.xml" append="true"><![CDATA[<types><members>${retrieve.single.subFolderName}</members><name>${retrieve.single.metadataType}</name></types>]]></echo>
+                            </then>
+                            <else>
+                                <echo message="Processing sub-folders..."/>
+                                <echo file="${app.deploy.tmp.dir}/package.xml" append="true"><![CDATA[<types><members>${retrieve.single.subFolderName}</members><members>${retrieve.single.subFolderName}/${retrieve.single.fileName}</members><name>${retrieve.single.metadataType}</name></types>]]></echo>
+                            </else>
+                        </if>
+                    </then>
+                    <else>
+                        <echo file="${app.deploy.tmp.dir}/package.xml" append="true"><![CDATA[<types><members>${retrieve.single.fileName}</members><name>${retrieve.single.metadataType}</name></types>]]></echo>
+                    </else>
+                </if>
+            </ss-elements>
+        </retrieve-unpackaged-subset-package>
+    </target>
 
-	<!-- Deploy metadata from the tmp directory -->
-	<target name="deploy-subset" depends="runTargetValidations,checkMetaHasPackageVersions">
-		<sf:deploy username="${sf.target.username}" password="${sf.target.password}" serverurl="${sf.target.serverurl}"
-				deployRoot="${app.deploy.tmp.dir}" logType="Debugonly" pollWaitMillis="20000"  maxPoll="50" runAllTests="${runAllTests}">
-		</sf:deploy>
-	</target>
+    <!-- Deploy metadata from the tmp directory -->
+    <target name="deploy-subset" depends="runTargetValidations,checkMetaHasPackageVersions">
+        <sf:deploy username="${sf.target.username}" password="${sf.target.password}" serverurl="${sf.target.serverurl}"
+                deployRoot="${app.deploy.tmp.dir}" logType="Debugonly" pollWaitMillis="20000"  maxPoll="50" runAllTests="${runAllTests}">
+        </sf:deploy>
+    </target>
 
-	<!-- Create static resource zip file from exploded directory structure -->
-	<!-- <target name="create-static-res" depends="checkMetaHasPackageVersions">
-		<dirset id="dist.contents" dir="../static-resources" includes="static-resources *"/>
-		<property name="prop.dist.contents" refid="dist.contents"/>
-		<for list="${prop.dist.contents}" delimiter=";" param = "val">
-			<sequential>
-				<echo message = "Processing @{val} static resource ..."/>
-				<delete file="${src.dir}/staticresources/@{val}.resource"/>
-				<zip destfile="${src.dir}/staticresources/@{val}.resource" basedir="${staticres.src.dir}/@{val}" />
-			</sequential>
-		</for>
-	</target> -->
+    <!-- Create static resource zip file from exploded directory structure -->
+    <!-- <target name="create-static-res" depends="checkMetaHasPackageVersions">
+        <dirset id="dist.contents" dir="../static-resources" includes="static-resources *"/>
+        <property name="prop.dist.contents" refid="dist.contents"/>
+        <for list="${prop.dist.contents}" delimiter=";" param = "val">
+            <sequential>
+                <echo message = "Processing @{val} static resource ..."/>
+                <delete file="${src.dir}/staticresources/@{val}.resource"/>
+                <zip destfile="${src.dir}/staticresources/@{val}.resource" basedir="${staticres.src.dir}/@{val}" />
+            </sequential>
+        </for>
+    </target> -->
 
-	<!-- Create static resource zip file from exploded directory structure -->
-	<target name="create-static-res" depends="checkMetaHasPackageVersions, grunt">
-		<echo message = "Processing static resource ..."/>
-	</target>
+    <!-- Create static resource zip file from exploded directory structure -->
+    <target name="create-static-res" depends="checkMetaHasPackageVersions, grunt">
+        <echo message = "Processing static resource ..."/>
+    </target>
 
-	<!-- ###################################### -->
+    <!-- ###################################### -->
   <!-- TASK FOR PRE PROCESING FRONT END FILES -->
   <!-- ###################################### -->
 
@@ -300,7 +300,7 @@
       </exec>
   </target>
 
-	<!-- Path to Grunt -->
+    <!-- Path to Grunt -->
   <property name="tools.grunt.exec" location="${tools.node.modules}/grunt-cli/bin/grunt" />
 
   <!-- Run grunt task to process static resources -->
@@ -311,48 +311,48 @@
       </exec>
   </target>
 
-	<!-- Run target validations to prevent unintended deployments to production -->
-	<target name="runTargetValidations" >
-		<if>
-			<isset property="sf.target.prodOrg.ids"/>
-			<then>
-				<executeSOQLSingle username="${sf.target.username}" password="${sf.target.password}" serverurl="${sf.target.serverurl}">Select Id from Organization</executeSOQLSingle>
-				<echo message="Target Org Id : ${soqlRecord.Id}"/>
-				<condition property="is-prod-org">
-				    <matches pattern="(${sf.target.prodOrg.ids})" string="${soqlRecord.Id}"/>
-				</condition>
-				<if>
-					<equals arg1="${is-prod-org}" arg2="true"/>
-					<then>
-						<input
-						    message="You're building against a production org. Do you wish to continue?"
-						    validargs="y,n"
-						    addproperty="do.delete"
-						  />
-						  <condition property="do.abort">
-						    <equals arg1="n" arg2="${do.delete}"/>
-						  </condition>
-						  <fail if="do.abort">Build aborted by user.</fail>
-					</then>
-					<else>
-						<echo message="Ok to continue with deployment..." />
-					</else>
-				</if>
-			</then>
-			<else>
-				<echo message="Ok to continue with deployment, no production checks have been defined..." />
-			</else>
-		</if>
-	</target>
+    <!-- Run target validations to prevent unintended deployments to production -->
+    <target name="runTargetValidations" >
+        <if>
+            <isset property="sf.target.prodOrg.ids"/>
+            <then>
+                <executeSOQLSingle username="${sf.target.username}" password="${sf.target.password}" serverurl="${sf.target.serverurl}">Select Id from Organization</executeSOQLSingle>
+                <echo message="Target Org Id : ${soqlRecord.Id}"/>
+                <condition property="is-prod-org">
+                    <matches pattern="(${sf.target.prodOrg.ids})" string="${soqlRecord.Id}"/>
+                </condition>
+                <if>
+                    <equals arg1="${is-prod-org}" arg2="true"/>
+                    <then>
+                        <input
+                            message="You're building against a production org. Do you wish to continue?"
+                            validargs="y,n"
+                            addproperty="do.delete"
+                          />
+                          <condition property="do.abort">
+                            <equals arg1="n" arg2="${do.delete}"/>
+                          </condition>
+                          <fail if="do.abort">Build aborted by user.</fail>
+                    </then>
+                    <else>
+                        <echo message="Ok to continue with deployment..." />
+                    </else>
+                </if>
+            </then>
+            <else>
+                <echo message="Ok to continue with deployment, no production checks have been defined..." />
+            </else>
+        </if>
+    </target>
 
-	<!-- Retrieve the contents listed in the file app/package.xml into the app directory -->
-	<target name="retrieve-unpackaged">
-	   <sf:retrieve username="${sf.target.username}" password="${sf.target.password}" serverurl="${sf.target.serverurl}" retrieveTarget="${src.dir}" unpackaged="${src.dir}/package.xml"/>
-	</target>
+    <!-- Retrieve the contents listed in the file src/package.xml into the app directory -->
+    <target name="retrieve-unpackaged">
+       <sf:retrieve username="${sf.target.username}" password="${sf.target.password}" serverurl="${sf.target.serverurl}" retrieveTarget="${src.dir}" unpackaged="${src.dir}/package.xml"/>
+    </target>
 
-	<!-- Retrieve metadata from the tmp directory -->
-	<target name="retrieve-unpackaged-subset">
-		<sf:retrieve username="${sf.target.username}" password="${sf.target.password}" serverurl="${sf.target.serverurl}" retrieveTarget="${src.dir}" unpackaged="${app.deploy.tmp.dir}/package.xml" />
-	</target>
+    <!-- Retrieve metadata from the tmp directory -->
+    <target name="retrieve-unpackaged-subset">
+        <sf:retrieve username="${sf.target.username}" password="${sf.target.password}" serverurl="${sf.target.serverurl}" retrieveTarget="${src.dir}" unpackaged="${app.deploy.tmp.dir}/package.xml" />
+    </target>
 
 </project>

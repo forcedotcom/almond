@@ -34,7 +34,7 @@ module.exports = function(grunt) {
     compress: {
       almond: {
         options: {
-          archive: '../app/src/staticresources/almond_uilib.resource',
+          archive: '../src/staticresources/almond_uilib.resource',
           mode: 'zip'
         },
         files: [

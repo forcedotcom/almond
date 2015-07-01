@@ -170,11 +170,8 @@ public with sharing class LMSInit{
             }
 
             //Iterate over learning objects
-
             List<Object> learningObjects = getObjectList(dataMap,'learning-objects');
-
             for(Object lo : learningObjects){
-
                 //Create learning header
                 Map<String,Object> lHeader = (Map<String,Object>)lo;
                 Learning__c l = new Learning__c();
@@ -185,7 +182,6 @@ public with sharing class LMSInit{
                 l.Description__c = getStringValue(lHeader.get('description'),null);
                 l.Sync_progress__c = getBooleanValue(lHeader.get('sync-progress'),false);
                 learnings.put(l.Name,l);
-
             }
 
             if(learnings.size() > 0){

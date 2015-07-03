@@ -28,10 +28,16 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 public with sharing class LMSExport{
 
-    private Id trainingPlanId;
+    private Set<Id> trainingPlanIds;
+
+    //Learning aux collections
     private Map<Id,Learning__c> learningsMap;
     private Map<String,List<Id>> learningIdsByType;
+
+    //Lookup aux collections
+    private Map<Id,Achievement__c> achievementsMap;
     private Set<Id> answerSequenceItemIds;
+    private Set<Id> achievementCategoryIds;
 
     private Map<String,String> quizMappings = new Map<String,String>{
         'Name' => 'name'
@@ -55,6 +61,9 @@ public with sharing class LMSExport{
         'Order__c' => 'order'
         ,'Description__c' => 'description'
         ,'Type__c' => 'type'
+        ,'Correct_Boolean__c' => 'correct-boolean'
+        ,'Correct_Number__c' => 'correct-number'
+        ,'Description_RTA__c' => 'description-rta'
     };
 
     Map<String,String> taskMappings = new Map<String,String>{
@@ -64,6 +73,7 @@ public with sharing class LMSExport{
         ,'External_Resource_Target__c' => 'resource-target'
         ,'Add_training_parameters_to_URL__c' => 'training-params-url'
         ,'Description__c' => 'description'
+        ,'Description_RTA__c' => 'description-rta'
         ,'Enable_Image_Upload__c' => 'enable-image-upload'
         ,'Disable_Undo__c' => 'disable-undo'
         ,'Disable_Comments__c' => 'disable-comments'
@@ -84,26 +94,82 @@ public with sharing class LMSExport{
         ,'Is_Correct_Answer__c' => 'is-correct-answer'
     };
 
-    public static String trainingPlanToJSON(Id trainingPlanId){
-        LMSExport exprt = new LMSExport(trainingPlanId);
-        List<Object> learningObjects = exprt.buildLearningObjects();
-        List<Object> lookupObjects = exprt.buildLookupObjects();
-        List<Object> achievementObjects = exprt.buildAchievementObjects();
-        List<Object> planObjects = exprt.buildPlanObjects();
+    Map<String,String> achievementMappings = new Map<String,String>{
+        'Name' => 'name'
+        ,'Type__c' => 'type'
+        ,'Acquired_Image__c' => 'acquired-image'
+        ,'Eligible_Image__c' => 'eligible-image'
+        ,'Hidden__c' => 'hidden'
+        ,'Is_Internal__c' => 'is-internal'
+        ,'Override_Completed_Status__c' => 'override-completed-status'
+        ,'Override_URL__c' => 'override-url'
+        ,'Work_Badge_Message__c' => 'work-badge-message'
+    };
 
-        Map<String, Object> exportResults = new Map<String, Object>();
-        exportResults.put('learning-objects',learningObjects);
-        exportResults.put('lookup-objects',lookupObjects);
+    Map<String,String> trainingPlanMappings = new Map<String,String>{
+        'Name' => 'name',
+        'Description__c' => 'description',
+        'Status__c' => 'status',
+        'Intro_Video_URL__c' => 'intro-video-url',
+        'Background_Image_URL__c' => 'background-image-url',
+        'Background_Color__c' => 'background-color',
+        'Text_Color__c' => 'text-color',
+        'Enforce_Sequence__c' => 'enforce-sequence',
+        'Enable_Self_Registration__c' => 'enable-self-registration',
+        'Self_Registration_Access__c' => 'self-registration-access',
+        'Hide_Chatter_Photos__c' => 'hide-chatter-photos',
+        'Optional_Feedback_Comments__c' => 'optional-feedback-comments',
+        'Custom_Notification_Message__c' => 'custom-notification-message',
+        'Hide_After_End_Date__c' => 'hide-after-end-date'
+    };
+
+    Map<String,String> trainingPlanSectionMappings = new Map<String,String>{
+        'Name' => 'name',
+        'Order__c' => 'order',
+        'Optional__c' => 'optional'
+    };
+
+    Map<String,String> trainingPlanSectionItemMappings = new Map<String,String>{
+        'Order__c' => 'order',
+        'Optional__c' => 'optional'
+    };
+
+    Map<String,String> trainingPlanAchievementMappings = new Map<String,String>{
+        'Main_Achievement__c' => 'main-achievement'
+    };
+
+    public static String trainingPlanToJSON(Id trainingPlanId, Boolean serializePretty){
+        LMSExport exprt = new LMSExport();
+        Map<String,Object> exportResults = exprt.exportTrainingPlans(new Set<Id>{trainingPlanId});
+        if(serializePretty){
+            return JSON.serializePretty(exportResults);
+        }
         return JSON.serialize(exportResults);
     }
 
     public class LMSExportException extends Exception{}
 
-    public LMSExport(Id trainingPlanId){
-        this.trainingPlanId = trainingPlanId;
+    public LMSExport(){
         this.learningsMap = new Map<Id,Learning__c>();
+        this.achievementsMap = new Map<Id,Achievement__c>();
         this.answerSequenceItemIds = new Set<Id>();
+        this.achievementCategoryIds = new Set<Id>();
         this.learningIdsByType = new Map<String,List<Id>>();
+    }
+
+    public Map<String, Object> exportTrainingPlans(Set<Id> trainingPlanIds){
+        this.trainingPlanIds = trainingPlanIds;
+        List<Object> learningObjects = buildLearningObjects();
+        List<Object> achievementObjects = buildAchievementObjects();
+        List<Object> planObjects = buildPlanObjects();
+        List<Object> lookupObjects = buildLookupObjects();
+
+        Map<String, Object> tPlanExportResults = new Map<String, Object>();
+        tPlanExportResults.put('learning-objects',learningObjects);
+        tPlanExportResults.put('lookup-objects',lookupObjects);
+        tPlanExportResults.put('achievement-objects',achievementObjects);
+        tPlanExportResults.put('plan-objects',planObjects);
+        return tPlanExportResults;
     }
 
     private Set<Id> getLearningIds(){
@@ -111,12 +177,60 @@ public with sharing class LMSExport{
         for(Training_Plan_Section_Item__c tpi : [select id
                                                         ,Learning__c
                                                         from Training_Plan_Section_Item__c
-                                                        where Training_Plan_Section__r.Training_Plan__c = :trainingPlanId]){
+                                                        where Training_Plan_Section__r.Training_Plan__c in :trainingPlanIds]){
             if(tpi.Learning__c != null){
                 learningIds.add(tpi.Learning__c);
             }
         }
         return learningIds;
+    }
+
+    private Set<Id> getAchievementIds(){
+        Set<Id> achievementIds = new Set<Id>();
+        for(Training_Plan_Achievement__c tpa : [select id
+                                                        ,Achievement__c
+                                                        from Training_Plan_Achievement__c
+                                                        where Training_Plan__c in :trainingPlanIds]){
+            if(tpa.Achievement__c != null){
+                achievementIds.add(tpa.Achievement__c);
+            }
+        }
+        return achievementIds;
+    }
+
+    private List<Object> buildAchievementObjects(){
+        Set<Id> achievementIds = getAchievementIds();
+        List<Object> results = new List<Object>();
+        for(Achievement__c a : [select id
+                                    ,Name
+                                    ,Achievement_Category__c
+                                    ,Achievement_Category__r.Name
+                                    ,Acquired_Image__c
+                                    ,Eligible_Image__c
+                                    ,Expiration_Date__c
+                                    ,Override_Completed_Status__c
+                                    ,Override_URL__c
+                                    ,Type__c
+                                    ,Work_Badge_Message__c
+                                    ,Hidden__c
+                                    ,Is_Internal__c
+                                    from Achievement__c where id in :achievementIds]){
+            achievementsMap.put(a.Id, a);
+        }
+
+        for(Achievement__c a : achievementsMap.values()){
+            Map<String,Object> achievementObject = mapSObject(a, achievementMappings);
+            if(a.Achievement_Category__c != null){
+                achievementCategoryIds.add(a.Achievement_Category__c);
+                achievementObject.put('achievement-category', a.Achievement_Category__r.Name);
+            }
+            if(a.Expiration_Date__c != null){
+                achievementObject.put('expiration-date', formatDateForExport(a.Expiration_Date__c));
+            }
+            results.add(achievementObject);
+        }
+
+        return results;
     }
 
     private List<Object> buildLearningObjects(){
@@ -173,7 +287,6 @@ public with sharing class LMSExport{
         }
 
         return result;
-
     }
 
     private List<Object> buildTaskLearningsContent(){
@@ -321,6 +434,40 @@ public with sharing class LMSExport{
 
     private List<Object> buildLookupObjects(){
         List<Object> results = new List<Object>();
+        results.addAll(buildAnswerSequenceLookups());
+        results.addAll(buildAchievementCategoryLookups());
+        return results;
+    }
+
+    private List<Object> buildAchievementCategoryLookups(){
+        List<Object> results = new List<Object>();
+
+        if(achievementCategoryIds.size() == 0){
+            return results;
+        }
+
+        Map<Id,Achievement_Category__c> achievementCategoryMap = new Map<Id,Achievement_Category__c>();
+
+        for(Achievement_Category__c ac : [select Id
+                                            ,Name
+                                            from Achievement_Category__c
+                                            where id in :achievementCategoryIds]){
+            achievementCategoryMap.put(ac.Id, ac);
+        }
+
+        for(Achievement_Category__c ac : achievementCategoryMap.values()){
+            Map<String,Object> acObject = new Map<String,Object>();
+            acObject.put('type','achievement-category');
+            acObject.put('name', ac.Name);
+            acObject.put('content',new Map<String,Object>());
+            results.add(acObject);
+        }
+
+        return results;
+    }
+
+    private List<Object> buildAnswerSequenceLookups(){
+        List<Object> results = new List<Object>();
 
         if(answerSequenceItemIds.size() == 0){
             return results;
@@ -374,12 +521,133 @@ public with sharing class LMSExport{
         return results;
     }
 
-    private List<Object> buildAchievementObjects(){
-        return null;
-    }
-
     private List<Object> buildPlanObjects(){
-        return null;
+        List<Object> results = new List<Object>();
+
+        Map<Id, Training_Plan__c> trainingPlansMap = new Map<Id, Training_Plan__c>();
+        Map<Id, Training_Plan_Section__c> trainingSectionsMap = new Map<Id, Training_Plan_Section__c>();
+        Map<Id, List<Id>> sectionsForTrainingPlan = new Map<Id, List<Id>>();
+        Map<Id, Training_Plan_Section_Item__c> trainingSectionItemsMap = new Map<Id, Training_Plan_Section_Item__c>();
+        Map<Id, List<Id>> itemsForTrainingPlanSection = new Map<Id, List<Id>>();
+        Map<Id, Training_Plan_Achievement__c> trainingPlanAchievementsMap = new Map<Id, Training_Plan_Achievement__c>();
+        Map<Id, List<Id>> achievementsForTrainingPlan = new Map<Id, List<Id>>();
+
+        //Fetch training plans
+        for(Training_Plan__c tp : [select Id
+                                        ,Name
+                                        ,Description__c
+                                        ,Status__c
+                                        ,Intro_Video_URL__c
+                                        ,Background_Image_URL__c
+                                        ,Background_Color__c
+                                        ,Text_Color__c
+                                        ,Enforce_Sequence__c
+                                        ,Enable_Self_Registration__c
+                                        ,Self_Registration_Access__c
+                                        ,Hide_Chatter_Photos__c
+                                        ,Optional_Feedback_Comments__c
+                                        ,Custom_Notification_Message__c
+                                        ,Hide_After_End_Date__c
+                                        ,Start_Date__c
+                                        ,End_Date__c
+                                        from Training_Plan__c
+                                        where id in :trainingPlanIds]){
+            trainingPlansMap.put(tp.Id, tp);
+        }
+
+        //Fetch training plan achievements
+        for(Training_Plan_Achievement__c tpa : [select Id
+                                        ,Name
+                                        ,Achievement__c
+                                        ,Achievement__r.Name
+                                        ,Main_Achievement__c
+                                        ,Training_Plan_Section__c
+                                        ,Training_Plan_Section__r.Name
+                                        ,Training_Plan__c
+                                        ,Type__c
+                                        from Training_Plan_Achievement__c
+                                        where Training_Plan__c in :trainingPlanIds]){
+            trainingPlanAchievementsMap.put(tpa.Id, tpa);
+            if(!achievementsForTrainingPlan.containsKey(tpa.Training_Plan__c)){
+                achievementsForTrainingPlan.put(tpa.Training_Plan__c, new List<Id>());
+            }
+            achievementsForTrainingPlan.get(tpa.Training_Plan__c).add(tpa.Id);
+        }
+
+        //Fetch training plan sections
+        for(Training_Plan_Section__c tps : [select Id
+                                                    ,Name
+                                                    ,Order__c
+                                                    ,Optional__c
+                                                    ,Training_Plan__c
+                                                    from Training_Plan_Section__c
+                                                    where Training_Plan__c in :trainingPlanIds]){
+            trainingSectionsMap.put(tps.Id, tps);
+            if(!sectionsForTrainingPlan.containsKey(tps.Training_Plan__c)){
+                sectionsForTrainingPlan.put(tps.Training_Plan__c, new List<Id>());
+            }
+            sectionsForTrainingPlan.get(tps.Training_Plan__c).add(tps.Id);
+        }
+
+        //Fetch training plan section items
+        for(Training_Plan_Section_Item__c tpsi : [select Id
+                                                    ,Order__c
+                                                    ,Learning__c
+                                                    ,Learning__r.Name
+                                                    ,Training_Plan_Section__c
+                                                    ,Optional__c
+                                                    from Training_Plan_Section_Item__c
+                                                    where Training_Plan_Section__c in :trainingSectionsMap.keySet()]){
+            trainingSectionItemsMap.put(tpsi.Id, tpsi);
+            if(!itemsForTrainingPlanSection.containsKey(tpsi.Training_Plan_Section__c)){
+                itemsForTrainingPlanSection.put(tpsi.Training_Plan_Section__c, new List<Id>());
+            }
+            itemsForTrainingPlanSection.get(tpsi.Training_Plan_Section__c).add(tpsi.Id);
+        }
+
+        for(Training_Plan__c tp : trainingPlansMap.values()){
+            Map<String,Object> planObject = mapSObject(tp, trainingPlanMappings);
+            if(tp.Start_Date__c != null){
+                planObject.put('start-date', formatDateForExport(tp.Start_Date__c));
+            }
+            if(tp.End_Date__c != null){
+                planObject.put('end-date', formatDateForExport(tp.End_Date__c));
+            }
+
+            List<Object> tplanSectionObjects = new List<Object>();
+            for(Id tpsId : sectionsForTrainingPlan.get(tp.Id)){
+                Training_Plan_Section__c tps = trainingSectionsMap.get(tpsId);
+                Map<String,Object> sectionObject = mapSObject(tps, trainingPlanSectionMappings);
+                List<Object> tplanSectionItemObjects = new List<Object>();
+                for(Id tpsiId : itemsForTrainingPlanSection.get(tps.Id)){
+                    Training_Plan_Section_Item__c tpsi = trainingSectionItemsMap.get(tpsiId);
+                    Map<String,Object> sectionItemObject = mapSObject(tpsi, trainingPlanSectionItemMappings);
+                    sectionItemObject.put('learning', tpsi.Learning__r.Name);
+                    tplanSectionItemObjects.add(sectionItemObject);
+                }
+                sectionObject.put('items',tplanSectionItemObjects);
+                tplanSectionObjects.add(sectionObject);
+            }
+
+            List<Object> tplanAchievementObjects = new List<Object>();
+            for(Id tpaId : achievementsForTrainingPlan.get(tp.Id)){
+                Training_Plan_Achievement__c tpa = trainingPlanAchievementsMap.get(tpaId);
+                if(tpa.Achievement__c == null){
+                    continue;
+                }
+                Map<String,Object> tPlanAchievementObject = mapSObject(tpa, trainingPlanAchievementMappings);
+                tPlanAchievementObject.put('achievement',tpa.Achievement__r.Name);
+                if(tpa.Training_Plan_Section__c != null){
+                    tPlanAchievementObject.put('section',tpa.Training_Plan_Section__r.Name);
+                }
+                tplanAchievementObjects.add(tPlanAchievementObject);
+            }
+            planObject.put('sections', tplanSectionObjects);
+            planObject.put('achievements', tplanAchievementObjects);
+            results.add(planObject);
+        }
+
+        return results;
     }
 
     private List<Object> mapSObjects(List<SObject> sobjects, Map<String,String> mappings){
@@ -396,6 +664,15 @@ public with sharing class LMSExport{
             result.put(mappings.get(key), obj.get(key));
         }
         return result;
+    }
+
+    private String formatDateForExport(Date dt){
+        String monthValue = String.valueOf(dt.month());
+        monthValue = monthValue.length()==1?'0'+monthValue:monthValue;
+        String dayValue = String.valueOf(dt.day());
+        dayValue = dayValue.length()==1?'0'+dayValue:dayValue;
+        String dateValue = dt.year()+'-'+monthValue+'-'+dayValue;
+        return dateValue;
     }
 
 }

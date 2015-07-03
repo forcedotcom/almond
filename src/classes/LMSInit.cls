@@ -212,6 +212,7 @@ public with sharing class LMSInit{
                     tk.External_Resource_Target__c = getStringValue(lContent.get('resource-target'),null);
                     tk.Add_training_parameters_to_URL__c = getBooleanValue(lContent.get('training-params-url'),false);
                     tk.Description__c = getStringValue(lContent.get('description'),null);
+                    tk.Description_RTA__c = getStringValue(lContent.get('description-rta'),null);
                     tk.Learning__c = learnings.get(headerName).Id;
                     tk.Enable_Image_Upload__c = getBooleanValue(lContent.get('enable-image-upload'),false);
                     tk.Disable_Undo__c = getBooleanValue(lContent.get('disable-undo'),false);
@@ -291,6 +292,7 @@ public with sharing class LMSInit{
                             q.Type__c = (String)qHeader.get('type');
                             q.Order__c = getIntegerValue(qHeader.get('order'),null);
                             q.Description__c = getStringValue(qHeader.get('description'),null);
+                            q.Description_RTA__c = getStringValue(qHeader.get('description-rta'),null);
                             if(qHeader.get('answer-sequence') != null){
                                 String aswSeqName = addTimeStamp?(String)qHeader.get('answer-sequence')+ts:(String)qHeader.get('answer-sequence');
                                 q.Answer_Sequence__c = answerSequences.get(aswSeqName).Id;
@@ -368,6 +370,10 @@ public with sharing class LMSInit{
                 a.Acquired_Image__c = getStringValue(achievementHeader.get('acquired-image'),'');
                 a.Hidden__c = getBooleanValue(achievementHeader.get('hidden'),false);
                 a.Is_Internal__c = getBooleanValue(achievementHeader.get('is-internal'),false);
+                a.Override_Completed_Status__c = getStringValue(achievementHeader.get('override-completed-status'),'');
+                a.Override_URL__c = getStringValue(achievementHeader.get('override-url'),'');
+                a.Work_Badge_Message__c = getStringValue(achievementHeader.get('work-badge-message'),'');
+                a.Expiration_Date__c = getDateValue(achievementHeader.get('expiration-date'),null);
                 if(LMSUtils.getPackageNamespace() != ''){
                     String uiLibNS = LMSUtils.getPackageNamespace()+'almond_uilib';
                     a.Eligible_Image__c = a.Eligible_Image__c.replace('almond_uilib',uiLibNS);
@@ -396,8 +402,8 @@ public with sharing class LMSInit{
                 tp.Name = tplanName;
                 tp.Description__c = getStringValue(pHeader.get('description'),null);
                 tp.Status__c = getStringValue(pHeader.get('status'),null);
-                tp.Start_Date__c = (Date.today()).addDays(-1);
-                tp.End_Date__c = (Date.today()).addDays(365);
+                tp.Start_Date__c = getDateValue(pHeader.get('start-date'),(Date.today()).addDays(-1));
+                tp.End_Date__c = getDateValue(pHeader.get('end-date'),(Date.today()).addDays(365));
                 tp.Intro_Video_URL__c = getStringValue(pHeader.get('intro-video-url'),null);
                 tp.Background_Image_URL__c = getStringValue(pHeader.get('background-image-url'),null);
                 tp.Background_Color__c = getStringValue(pHeader.get('background-color'),null);
@@ -609,6 +615,18 @@ public with sharing class LMSInit{
 
     private static String getStringValue(Object o, String defaultValue){
         return o!=null?(String)o:defaultValue;
+    }
+
+    private static Date getDateValue(Object o, Date defaultValue){
+        Date dateValue = defaultValue;
+        if(o != null){
+            String dateString = (String)o;
+            List<String> dComp = dateString.split('-');
+            if(dComp.size() == 3){
+                dateValue = Date.newInstance(Integer.valueOf(dComp[0]), Integer.valueOf(dComp[1]), Integer.valueOf(dComp[2]));
+            }
+        }
+        return dateValue;
     }
 
     private static Boolean getBooleanValue(Object o, Boolean defaultValue){

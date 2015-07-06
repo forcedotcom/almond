@@ -29,27 +29,25 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 global with sharing class LMS_API {
 
     global static void upsertAssignments(Set<Id> selectedUserIds, Id trainingPlanId){
-
         checkAssignmentsPermissions();
-
         if(trainingPlanId != null && selectedUserIds.size() >0){
             LMSService.upsertAssignments(selectedUserIds,trainingPlanId,null);
         }
-
     }
 
     global static void upsertAssignmentsForCommunity(Set<Id> selectedUserIds, Id trainingPlanId, Id communityId){
-
         checkAssignmentsPermissions();
-
         if(trainingPlanId != null && selectedUserIds.size() >0){
             LMSService.upsertAssignments(selectedUserIds,trainingPlanId,communityId);
         }
-
     }
 
     global static void importJSON(String jsonData, Boolean addTimeStamps){
         LMSInit.initData(jsonData,addTimeStamps);
+    }
+
+    global static String exportTrainingPlan(Id trainingPlanId, Boolean serializePretty){
+        return LMSExport.trainingPlanToJSON(trainingPlanId,serializePretty);
     }
 
     private static void checkAssignmentsPermissions(){

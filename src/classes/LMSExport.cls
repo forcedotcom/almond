@@ -182,6 +182,8 @@ public with sharing class LMSExport{
             return tPlanExportResults;
         }
 
+        checkCRUDFLS();
+
         List<Object> learningObjects = buildLearningObjects();
         List<Object> achievementObjects = buildAchievementObjects();
         List<Object> planObjects = buildPlanObjects();
@@ -192,6 +194,24 @@ public with sharing class LMSExport{
         tPlanExportResults.put('achievement-objects',achievementObjects);
         tPlanExportResults.put('plan-objects',planObjects);
         return tPlanExportResults;
+    }
+
+    private void checkCRUDFLS(){
+        //BEGIN Access Check
+        Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
+        relatedFieldsObjects.put(Learning__c.sObjectType,new List<String>{'Name'});
+        relatedFieldsObjects.put(Training_Resource__c.sObjectType,new List<String>{'Name'});
+        relatedFieldsObjects.put(Task__c.sObjectType,new List<String>{'Name'});
+        relatedFieldsObjects.put(Quiz__c.sObjectType,new List<String>{'Name'});
+        relatedFieldsObjects.put(Achievement__c.sObjectType,new List<String>{'Name'});
+        relatedFieldsObjects.put(Training_Plan__c.sObjectType,new List<String>{'Name'});
+        relatedFieldsObjects.put(Training_Plan_Section__c.sObjectType,new List<String>{'Name','Training_Plan__c'});
+        relatedFieldsObjects.put(Training_Plan_Section_Item__c.sObjectType,new List<String>{'Training_Plan_Section__c'});
+        relatedFieldsObjects.put(Training_Plan_Achievement__c.sObjectType,new List<String>{'Training_Plan__c'});
+        relatedFieldsObjects.put(Training_Track__c.sObjectType,new List<String>{'Name'});
+        relatedFieldsObjects.put(Training_Track_Level__c.sObjectType,new List<String>{'Name','Training_Track__c'});
+        LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
+        //END Access Check
     }
 
     private Set<Id> filterTrainingPlans(Set<Id> tplanIds){
@@ -208,7 +228,7 @@ public with sharing class LMSExport{
     }
     private Set<Id> getLearningIds(){
         Set<Id> learningIds = new Set<Id>();
-        for(Training_Plan_Section_Item__c tpi : [select id
+        for(Training_Plan_Section_Item__c tpi : [select Id
                                                         ,Learning__c
                                                         from Training_Plan_Section_Item__c
                                                         where Training_Plan_Section__r.Training_Plan__c in :trainingPlanIds]){
@@ -221,7 +241,7 @@ public with sharing class LMSExport{
 
     private Set<Id> getAchievementIds(){
         Set<Id> achievementIds = new Set<Id>();
-        for(Training_Plan_Achievement__c tpa : [select id
+        for(Training_Plan_Achievement__c tpa : [select Id
                                                         ,Achievement__c
                                                         from Training_Plan_Achievement__c
                                                         where Training_Plan__c in :trainingPlanIds]){
@@ -235,7 +255,7 @@ public with sharing class LMSExport{
     private List<Object> buildAchievementObjects(){
         Set<Id> achievementIds = getAchievementIds();
         List<Object> results = new List<Object>();
-        for(Achievement__c a : [select id
+        for(Achievement__c a : [select Id
                                     ,Name
                                     ,Achievement_Category__c
                                     ,Achievement_Category__r.Name
@@ -702,8 +722,8 @@ public with sharing class LMSExport{
     private without sharing class WithoutSharingOps{
 
         public List<Learning__c> getLearningObjects(Set<Id> learningIds){
-            List<Learning__c> result = [select id
-                                                ,name
+            List<Learning__c> result = [select Id
+                                                ,Name
                                                 ,RecordType.DeveloperName
                                                 ,Duration__c
                                                 ,Description__c

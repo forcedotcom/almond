@@ -27,7 +27,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 <apex:page controller="TrainingPlanExportController" sidebar="false" showHeader="true" tabStyle="Training_Plan__c">
 
-    <apex:sectionHeader title="Export Training Plan" subtitle="{!tplan.name}">
+    <apex:sectionHeader title="{!$Label.ALMS_Export_Training_Plan}" subtitle="{!tplan.name}">
         <div class="bPageTitle" style="padding:0px;">
             <div class="ptBreadcrumb">&nbsp;&lt;&lt;&nbsp;<a href="/{!tplan.Id}">{!$Label.ALMS_Training_Plan_Back}</a></div>
         </div>
@@ -44,11 +44,8 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
         </apex:actionStatus>
 
         <apex:pageBlock >
-
             <apex:pageMessages />
-
             <apex:inputTextArea value="{!tPlanJSON}" style="height:300px;width:98%;"/>
-
         </apex:pageBlock >
 
     </apex:form>

@@ -198,4 +198,8 @@
         <label><!-- Manage_Assignments --></label>
         <name>Manage_Assignments</name>
     </webLinks>
+    <webLinks>
+        <label><!-- Export --></label>
+        <name>Export_Training_Plan</name>
+    </webLinks>
 </CustomObjectTranslation>

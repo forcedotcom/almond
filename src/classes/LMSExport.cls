@@ -29,6 +29,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 public with sharing class LMSExport{
 
     private Set<Id> trainingPlanIds;
+    private LMSExport.WithoutSharingOps wsops;
 
     //Learning aux collections
     private Map<Id,Learning__c> learningsMap;
@@ -104,29 +105,32 @@ public with sharing class LMSExport{
         ,'Override_Completed_Status__c' => 'override-completed-status'
         ,'Override_URL__c' => 'override-url'
         ,'Work_Badge_Message__c' => 'work-badge-message'
+        ,'$DATE_Expiration_Date__c' => 'expiration-date'
     };
 
     Map<String,String> trainingPlanMappings = new Map<String,String>{
-        'Name' => 'name',
-        'Description__c' => 'description',
-        'Status__c' => 'status',
-        'Intro_Video_URL__c' => 'intro-video-url',
-        'Background_Image_URL__c' => 'background-image-url',
-        'Background_Color__c' => 'background-color',
-        'Text_Color__c' => 'text-color',
-        'Enforce_Sequence__c' => 'enforce-sequence',
-        'Enable_Self_Registration__c' => 'enable-self-registration',
-        'Self_Registration_Access__c' => 'self-registration-access',
-        'Hide_Chatter_Photos__c' => 'hide-chatter-photos',
-        'Optional_Feedback_Comments__c' => 'optional-feedback-comments',
-        'Custom_Notification_Message__c' => 'custom-notification-message',
-        'Hide_After_End_Date__c' => 'hide-after-end-date'
+        'Name' => 'name'
+        ,'Description__c' => 'description'
+        ,'Status__c' => 'status'
+        ,'Intro_Video_URL__c' => 'intro-video-url'
+        ,'Background_Image_URL__c' => 'background-image-url'
+        ,'Background_Color__c' => 'background-color'
+        ,'Text_Color__c' => 'text-color'
+        ,'Enforce_Sequence__c' => 'enforce-sequence'
+        ,'Enable_Self_Registration__c' => 'enable-self-registration'
+        ,'Self_Registration_Access__c' => 'self-registration-access'
+        ,'Hide_Chatter_Photos__c' => 'hide-chatter-photos'
+        ,'Optional_Feedback_Comments__c' => 'optional-feedback-comments'
+        ,'Custom_Notification_Message__c' => 'custom-notification-message'
+        ,'Hide_After_End_Date__c' => 'hide-after-end-date'
+        ,'$DATE_Start_Date__c' => 'start-date'
+        ,'$DATE_End_Date__c' => 'end-date'
     };
 
     Map<String,String> trainingPlanSectionMappings = new Map<String,String>{
-        'Name' => 'name',
-        'Order__c' => 'order',
-        'Optional__c' => 'optional'
+        'Name' => 'name'
+        ,'Order__c' => 'order'
+        ,'Optional__c' => 'optional'
     };
 
     Map<String,String> trainingPlanSectionItemMappings = new Map<String,String>{
@@ -138,18 +142,30 @@ public with sharing class LMSExport{
         'Main_Achievement__c' => 'main-achievement'
     };
 
+    Map<String,String> learningRTFieldMappings = new Map<String,String>{
+        'Quiz' => 'Quiz__c'
+        ,'Resource' => 'Training_Resource__c'
+        ,'Task' => 'Task__c'
+    };
+
     public static String trainingPlanToJSON(Id trainingPlanId, Boolean serializePretty){
-        LMSExport exprt = new LMSExport();
-        Map<String,Object> exportResults = exprt.exportTrainingPlans(new Set<Id>{trainingPlanId});
-        if(serializePretty){
-            return JSON.serializePretty(exportResults);
+        try{
+            LMSExport exprt = new LMSExport();
+            Map<String,Object> exportResults = exprt.exportTrainingPlans(new Set<Id>{trainingPlanId});
+            if(serializePretty){
+                return JSON.serializePretty(exportResults);
+            }
+            return JSON.serialize(exportResults);
+        }catch(Exception e){
+            LMSUtils.logException(e,'LMSExport');
+            return null;
         }
-        return JSON.serialize(exportResults);
     }
 
     public class LMSExportException extends Exception{}
 
     public LMSExport(){
+        this.wsops = new LMSExport.WithoutSharingOps();
         this.learningsMap = new Map<Id,Learning__c>();
         this.achievementsMap = new Map<Id,Achievement__c>();
         this.answerSequenceItemIds = new Set<Id>();
@@ -158,13 +174,19 @@ public with sharing class LMSExport{
     }
 
     public Map<String, Object> exportTrainingPlans(Set<Id> trainingPlanIds){
-        this.trainingPlanIds = trainingPlanIds;
+
+        Map<String, Object> tPlanExportResults = new Map<String, Object>();
+        this.trainingPlanIds = filterTrainingPlans(trainingPlanIds);
+
+        if(this.trainingPlanIds == null || this.trainingPlanIds.size() == 0){
+            return tPlanExportResults;
+        }
+
         List<Object> learningObjects = buildLearningObjects();
         List<Object> achievementObjects = buildAchievementObjects();
         List<Object> planObjects = buildPlanObjects();
         List<Object> lookupObjects = buildLookupObjects();
 
-        Map<String, Object> tPlanExportResults = new Map<String, Object>();
         tPlanExportResults.put('learning-objects',learningObjects);
         tPlanExportResults.put('lookup-objects',lookupObjects);
         tPlanExportResults.put('achievement-objects',achievementObjects);
@@ -172,6 +194,13 @@ public with sharing class LMSExport{
         return tPlanExportResults;
     }
 
+    private Set<Id> filterTrainingPlans(Set<Id> tplanIds){
+        Set<Id> result = new Set<Id>();
+        for(Training_Plan__c tp : [select id from Training_Plan__c where id in :tplanIds]){
+            result.add(tp.Id);
+        }
+        return result;
+    }
     private Set<Id> getLearningIds(){
         Set<Id> learningIds = new Set<Id>();
         for(Training_Plan_Section_Item__c tpi : [select id
@@ -224,9 +253,6 @@ public with sharing class LMSExport{
                 achievementCategoryIds.add(a.Achievement_Category__c);
                 achievementObject.put('achievement-category', a.Achievement_Category__r.Name);
             }
-            if(a.Expiration_Date__c != null){
-                achievementObject.put('expiration-date', formatDateForExport(a.Expiration_Date__c));
-            }
             results.add(achievementObject);
         }
 
@@ -236,18 +262,21 @@ public with sharing class LMSExport{
     private List<Object> buildLearningObjects(){
         Set<Id> learningIds = getLearningIds();
         List<Object> results = new List<Object>();
-        for(Learning__c l : [select id
-                            ,name
-                            ,RecordType.DeveloperName
-                            ,Duration__c
-                            ,Description__c
-                            ,Sync_progress__c
-                            from Learning__c where id in :learningIds]){
+
+        List<Learning__c> learnings = wsops.getLearningObjects(learningIds);
+        for(Learning__c l : learnings){
             learningsMap.put(l.Id,l);
-            if(!learningIdsByType.containsKey(l.RecordType.DeveloperName)){
-                learningIdsByType.put(l.RecordType.DeveloperName, new List<Id>());
+            if(l.Current_Published_Version__c != null){
+                String contentFieldName = learningRTFieldMappings.get(l.RecordType.DeveloperName);
+                if(contentFieldName == null){
+                    continue;
+                }
+                Learning_Version__c lv = (Learning_Version__c)l.getSObject('Current_Published_Version__r');
+                if(!learningIdsByType.containsKey(l.RecordType.DeveloperName)){
+                    learningIdsByType.put(l.RecordType.DeveloperName, new List<Id>());
+                }
+                learningIdsByType.get(l.RecordType.DeveloperName).add((Id)lv.get(contentFieldName));
             }
-            learningIdsByType.get(l.RecordType.DeveloperName).add(l.Id);
         }
         results.addAll(buildQuizLearningsContent());
         results.addAll(buildTaskLearningsContent());
@@ -267,15 +296,8 @@ public with sharing class LMSExport{
         Map<Id,Training_Resource__c> resourcesMap = new Map<Id,Training_Resource__c>();
 
         //Fetch Resource Info
-        for(Training_Resource__c tr : [select Id
-                            ,Name
-                            ,Resource_URL__c
-                            ,Add_training_parameters_to_URL__c
-                            ,Description__c
-                            ,Display_in_Iframe__c
-                            ,Learning__c
-                            from Training_Resource__c
-                            where Learning__c in :resourceLearningIds]){
+        List<Training_Resource__c> trainingResources = wsops.getResourceObjects(resourceLearningIds);
+        for(Training_Resource__c tr : trainingResources){
             resourcesMap.put(tr.Id,tr);
         }
 
@@ -293,7 +315,6 @@ public with sharing class LMSExport{
 
         List<Object> result = new List<Object>();
         List<Id> taskLearningIds = learningIdsByType.get('Task');
-
         if(taskLearningIds == null || taskLearningIds.size() == 0){
             return result;
         }
@@ -301,21 +322,8 @@ public with sharing class LMSExport{
         Map<Id,Task__c> tasksMap = new Map<Id,Task__c>();
 
         //Fetch Task Info
-        for(Task__c t : [select Id
-                            ,Name
-                            ,External_Resource_Name__c
-                            ,External_Resource_URL__c
-                            ,External_Resource_Target__c
-                            ,Requires_Manager_Approval__c
-                            ,Disable_Undo__c
-                            ,Description_RTA__c
-                            ,Description__c
-                            ,Disable_Comments__c
-                            ,Add_training_parameters_to_URL__c
-                            ,Enable_Image_Upload__c
-                            ,Learning__c
-                            from Task__c
-                            where Learning__c in :taskLearningIds]){
+        List<Task__c> tasks = wsops.getTaskObjects(taskLearningIds);
+        for(Task__c t : tasks){
             tasksMap.put(t.Id,t);
         }
 
@@ -346,46 +354,24 @@ public with sharing class LMSExport{
         Map<Id,Quiz__c> quizzesMap = new Map<Id,Quiz__c>();
 
         //Fetch Quiz Info
-        for(Quiz__c q : [select Id
-                            ,Name
-                            ,Passing_Score__c
-                            ,Max_Attempts__c
-                            ,Description__c
-                            ,Learning__c
-                            from Quiz__c
-                            where Learning__c in :quizLearningIds]){
+        List<Quiz__c> quizzes = wsops.getQuizObjects(quizLearningIds);
+        for(Quiz__c q : quizzes){
             quizzesMap.put(q.Id,q);
         }
 
         //Fetch Question Lines
-        for(Question_Line__c ql : [select Id
-                                        ,Name
-                                        ,Order__c
-                                        ,Description__c
-                                        ,Quiz__c
-                                        from Question_Line__c
-                                        where Quiz__c in :quizzesMap.keySet()]){
-
+        List<Question_Line__c> questionLines = wsops.getQuestionLineObjects(quizzesMap.keySet());
+        for(Question_Line__c ql : questionLines){
             questionLinemap.put(ql.Id,ql);
             if(!questionLinesForQuiz.containsKey(ql.Quiz__c)){
                 questionLinesForQuiz.put(ql.Quiz__c, new List<Id>());
             }
             questionLinesForQuiz.get(ql.Quiz__c).add(ql.Id);
         }
-        //Fetch Questions
-        for(Question__c q : [select Id
-                                    ,Name
-                                    ,Order__c
-                                    ,Description__c
-                                    ,Description_RTA__c
-                                    ,Type__c
-                                    ,Correct_Boolean__c
-                                    ,Correct_Number__c
-                                    ,Answer_Sequence__c
-                                    ,Question_Line__c
-                                    from Question__c
-                                    where Question_Line__c in :questionLinemap.keySet()]){
 
+        //Fetch Questions
+        List<Question__c> questions = wsops.getQuestionObjects(questionLinemap.keySet());
+        for(Question__c q : questions){
             questionMap.put(q.Id,q);
             if(q.Answer_Sequence__c != null){
                 answerSequenceItemIds.add(q.Answer_Sequence__c);
@@ -400,14 +386,29 @@ public with sharing class LMSExport{
             Map<String,Object> learningObject = initLearningObject(learningsMap.get(q.Learning__c));
             Map<String,Object> quizObject = mapSObject(q, quizMappings);
 
-            List<Object> questionLines = new List<Object>();
-            for(Id qlId : questionLinesForQuiz.get(q.Id)){
+            List<Object> questionLineObjects = new List<Object>();
+
+            List<Id> questionLineIds = questionLinesForQuiz.get(q.Id);
+
+            if(questionLineIds == null){
+                learningObject.put('content', quizObject);
+                continue;
+            }
+
+            for(Id qlId : questionLineIds){
                 Question_Line__c ql = questionLinemap.get(qlId);
                 Map<String,Object> questionLineObject = mapSObject(ql, questionLineMappings);
-                questionLines.add(questionLineObject);
+                questionLineObjects.add(questionLineObject);
 
                 List<Object> questionLineQuestions = new List<Object>();
-                for(Id qsId : questionsForQuestionLine.get(ql.Id)){
+
+                List<Id> questionForQLineIds = questionsForQuestionLine.get(ql.Id);
+
+                if(questionForQLineIds == null){
+                    continue;
+                }
+
+                for(Id qsId : questionForQLineIds){
                     Question__c qs = questionMap.get(qsId);
                     Map<String,Object> questionObject = mapSObject(qs, questionMappings);
                     questionObject.put('answer-sequence',qs.Answer_Sequence__c);
@@ -416,7 +417,7 @@ public with sharing class LMSExport{
                 questionLineObject.put('questions', questionLineQuestions);
             }
 
-            quizObject.put('question-lines',questionLines);
+            quizObject.put('question-lines',questionLineObjects);
             learningObject.put('content', quizObject);
             result.add(learningObject);
         }
@@ -477,24 +478,13 @@ public with sharing class LMSExport{
         Map<Id,Answer_Sequence_Item__c> answerSequenceItemMap = new Map<Id,Answer_Sequence_Item__c>();
         Map<Id, List<Id>> itemsForAnswerSequence = new Map<Id, List<Id>>();
 
-        for(Answer_Sequence__c aseq : [select Id
-                                            ,Name
-                                            ,Internal_Notes__c
-                                            from Answer_Sequence__c
-                                            where id in :answerSequenceItemIds]){
+        List<Answer_Sequence__c> answerSequences = wsops.getAnswerSequenceObjects(answerSequenceItemIds);
+        for(Answer_Sequence__c aseq : answerSequences){
             answerSequenceMap.put(aseq.Id, aseq);
         }
 
-        for(Answer_Sequence_Item__c asi : [select Id
-                                            ,Name
-                                            ,Answer_Text__c
-                                            ,Is_Correct_Answer__c
-                                            ,Item_Id__c
-                                            ,Order__c
-                                            ,Answer_Sequence__c
-                                            from Answer_Sequence_Item__c
-                                            where Answer_Sequence__c in :answerSequenceMap.keySet()]){
-
+        List<Answer_Sequence_Item__c> answerSequenceItems = wsops.getAnswerSequenceItemObjects(answerSequenceMap.keySet());
+        for(Answer_Sequence_Item__c asi : answerSequenceItems){
             answerSequenceItemMap.put(asi.Id, asi);
             if(!itemsForAnswerSequence.containsKey(asi.Answer_Sequence__c)){
                 itemsForAnswerSequence.put(asi.Answer_Sequence__c, new List<Id>());
@@ -509,7 +499,14 @@ public with sharing class LMSExport{
 
             Map<String,Object> asOptions = new Map<String,Object>();
             List<Object> asItems = new List<Object>();
-            for(Id asId : itemsForAnswerSequence.get(aseq.Id)){
+
+            List<Id> asIds = itemsForAnswerSequence.get(aseq.Id);
+
+            if(asIds == null){
+                continue;
+            }
+
+            for(Id asId : asIds){
                 Answer_Sequence_Item__c asi = answerSequenceItemMap.get(asId);
                 asItems.add(mapSObject(asi, answerSequenceMappings));
             }
@@ -593,7 +590,6 @@ public with sharing class LMSExport{
         for(Training_Plan_Section_Item__c tpsi : [select Id
                                                     ,Order__c
                                                     ,Learning__c
-                                                    ,Learning__r.Name
                                                     ,Training_Plan_Section__c
                                                     ,Optional__c
                                                     from Training_Plan_Section_Item__c
@@ -607,40 +603,54 @@ public with sharing class LMSExport{
 
         for(Training_Plan__c tp : trainingPlansMap.values()){
             Map<String,Object> planObject = mapSObject(tp, trainingPlanMappings);
-            if(tp.Start_Date__c != null){
-                planObject.put('start-date', formatDateForExport(tp.Start_Date__c));
-            }
-            if(tp.End_Date__c != null){
-                planObject.put('end-date', formatDateForExport(tp.End_Date__c));
-            }
 
             List<Object> tplanSectionObjects = new List<Object>();
-            for(Id tpsId : sectionsForTrainingPlan.get(tp.Id)){
+            List<Id> tpsIds = sectionsForTrainingPlan.get(tp.Id);
+
+            if(tpsIds == null){
+                results.add(planObject);
+                continue;
+            }
+
+            for(Id tpsId : tpsIds){
                 Training_Plan_Section__c tps = trainingSectionsMap.get(tpsId);
                 Map<String,Object> sectionObject = mapSObject(tps, trainingPlanSectionMappings);
                 List<Object> tplanSectionItemObjects = new List<Object>();
-                for(Id tpsiId : itemsForTrainingPlanSection.get(tps.Id)){
-                    Training_Plan_Section_Item__c tpsi = trainingSectionItemsMap.get(tpsiId);
-                    Map<String,Object> sectionItemObject = mapSObject(tpsi, trainingPlanSectionItemMappings);
-                    sectionItemObject.put('learning', tpsi.Learning__r.Name);
-                    tplanSectionItemObjects.add(sectionItemObject);
+
+                List<Id> tpsiIds = itemsForTrainingPlanSection.get(tps.Id);
+
+                if(tpsiIds != null){
+                    for(Id tpsiId : tpsiIds){
+                        Training_Plan_Section_Item__c tpsi = trainingSectionItemsMap.get(tpsiId);
+                        Map<String,Object> sectionItemObject = mapSObject(tpsi, trainingPlanSectionItemMappings);
+                        Learning__c learning = learningsMap.get(tpsi.Learning__c);
+                        if(learning == null){
+                            continue;
+                        }
+                        sectionItemObject.put('learning', learning.Name);
+                        tplanSectionItemObjects.add(sectionItemObject);
+                    }
+                    sectionObject.put('items',tplanSectionItemObjects);
                 }
-                sectionObject.put('items',tplanSectionItemObjects);
                 tplanSectionObjects.add(sectionObject);
             }
 
             List<Object> tplanAchievementObjects = new List<Object>();
-            for(Id tpaId : achievementsForTrainingPlan.get(tp.Id)){
-                Training_Plan_Achievement__c tpa = trainingPlanAchievementsMap.get(tpaId);
-                if(tpa.Achievement__c == null){
-                    continue;
+            List<Id> achTPlanIds = achievementsForTrainingPlan.get(tp.Id);
+
+            if(achTPlanIds != null){
+                for(Id tpaId : achTPlanIds){
+                    Training_Plan_Achievement__c tpa = trainingPlanAchievementsMap.get(tpaId);
+                    if(tpa.Achievement__c == null){
+                        continue;
+                    }
+                    Map<String,Object> tPlanAchievementObject = mapSObject(tpa, trainingPlanAchievementMappings);
+                    tPlanAchievementObject.put('achievement',tpa.Achievement__r.Name);
+                    if(tpa.Training_Plan_Section__c != null){
+                        tPlanAchievementObject.put('section',tpa.Training_Plan_Section__r.Name);
+                    }
+                    tplanAchievementObjects.add(tPlanAchievementObject);
                 }
-                Map<String,Object> tPlanAchievementObject = mapSObject(tpa, trainingPlanAchievementMappings);
-                tPlanAchievementObject.put('achievement',tpa.Achievement__r.Name);
-                if(tpa.Training_Plan_Section__c != null){
-                    tPlanAchievementObject.put('section',tpa.Training_Plan_Section__r.Name);
-                }
-                tplanAchievementObjects.add(tPlanAchievementObject);
             }
             planObject.put('sections', tplanSectionObjects);
             planObject.put('achievements', tplanAchievementObjects);
@@ -661,18 +671,139 @@ public with sharing class LMSExport{
     private Map<String,Object> mapSObject(SObject obj, Map<String,String> mappings){
         Map<String,Object> result =  new Map<String,Object>();
         for(String key : mappings.keySet()){
-            result.put(mappings.get(key), obj.get(key));
+            if(key.startsWith('$DATE_')){
+                String sObjectFieldKey = key.replace('$DATE_','');
+                result.put(mappings.get(key), formatDateForExport(obj.get(sObjectFieldKey)));
+            }else{
+                result.put(mappings.get(key), obj.get(key));
+            }
         }
         return result;
     }
 
-    private String formatDateForExport(Date dt){
+    private String formatDateForExport(Object dateObj){
+        if(dateObj == null){
+            return null;
+        }
+        Date dt = (Date)dateObj;
         String monthValue = String.valueOf(dt.month());
         monthValue = monthValue.length()==1?'0'+monthValue:monthValue;
         String dayValue = String.valueOf(dt.day());
         dayValue = dayValue.length()==1?'0'+dayValue:dayValue;
         String dateValue = dt.year()+'-'+monthValue+'-'+dayValue;
         return dateValue;
+    }
+
+    //Without sharing operations
+    private without sharing class WithoutSharingOps{
+
+        public List<Learning__c> getLearningObjects(Set<Id> learningIds){
+            List<Learning__c> result = [select id
+                                                ,name
+                                                ,RecordType.DeveloperName
+                                                ,Duration__c
+                                                ,Description__c
+                                                ,Sync_progress__c
+                                                ,Current_Published_Version__c
+                                                ,Current_Published_Version__r.Task__c
+                                                ,Current_Published_Version__r.Quiz__c
+                                                ,Current_Published_Version__r.Training_Resource__c
+                                                from Learning__c where id in :learningIds];
+            return result;
+        }
+
+        public List<Training_Resource__c> getResourceObjects(List<Id> learningIds){
+            List<Training_Resource__c> result = [select Id
+                                                        ,Name
+                                                        ,Resource_URL__c
+                                                        ,Add_training_parameters_to_URL__c
+                                                        ,Description__c
+                                                        ,Display_in_Iframe__c
+                                                        ,Learning__c
+                                                        from Training_Resource__c
+                                                        where Id in :learningIds];
+            return result;
+        }
+
+        public List<Task__c> getTaskObjects(List<Id> learningIds){
+            List<Task__c> result = [select Id
+                                        ,Name
+                                        ,External_Resource_Name__c
+                                        ,External_Resource_URL__c
+                                        ,External_Resource_Target__c
+                                        ,Requires_Manager_Approval__c
+                                        ,Disable_Undo__c
+                                        ,Description_RTA__c
+                                        ,Description__c
+                                        ,Disable_Comments__c
+                                        ,Add_training_parameters_to_URL__c
+                                        ,Enable_Image_Upload__c
+                                        ,Learning__c
+                                        from Task__c
+                                        where Id in :learningIds];
+            return result;
+        }
+
+        public List<Quiz__c> getQuizObjects(List<Id> learningIds){
+            List<Quiz__c> result = [select Id
+                                        ,Name
+                                        ,Passing_Score__c
+                                        ,Max_Attempts__c
+                                        ,Description__c
+                                        ,Learning__c
+                                        from Quiz__c
+                                        where Id in :learningIds];
+            return result;
+        }
+
+        public List<Question_Line__c> getQuestionLineObjects(Set<Id> quizIds){
+            List<Question_Line__c> result = [select Id
+                                                    ,Name
+                                                    ,Order__c
+                                                    ,Description__c
+                                                    ,Quiz__c
+                                                    from Question_Line__c
+                                                    where Quiz__c in :quizIds];
+            return result;
+        }
+
+        public List<Question__c> getQuestionObjects(Set<Id> questionLineIds){
+            List<Question__c> result = [select Id
+                                                ,Name
+                                                ,Order__c
+                                                ,Description__c
+                                                ,Description_RTA__c
+                                                ,Type__c
+                                                ,Correct_Boolean__c
+                                                ,Correct_Number__c
+                                                ,Answer_Sequence__c
+                                                ,Question_Line__c
+                                                from Question__c
+                                                where Question_Line__c in :questionLineIds];
+            return result;
+        }
+
+        public List<Answer_Sequence__c> getAnswerSequenceObjects(Set<Id> answerSequenceIds){
+            List<Answer_Sequence__c> result = [select Id
+                                                    ,Name
+                                                    ,Internal_Notes__c
+                                                    from Answer_Sequence__c
+                                                    where Id in : answerSequenceIds];
+            return result;
+        }
+
+        public List<Answer_Sequence_Item__c> getAnswerSequenceItemObjects(Set<Id> answerSequenceIds){
+            List<Answer_Sequence_Item__c> result = [select Id
+                                                        ,Name
+                                                        ,Answer_Text__c
+                                                        ,Is_Correct_Answer__c
+                                                        ,Item_Id__c
+                                                        ,Order__c
+                                                        ,Answer_Sequence__c
+                                                        from Answer_Sequence_Item__c
+                                                        where Answer_Sequence__c in :answerSequenceIds];
+            return result;
+        }
     }
 
 }

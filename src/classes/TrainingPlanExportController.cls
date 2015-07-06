@@ -46,7 +46,7 @@ public with sharing class TrainingPlanExportController {
     }
 
     private void initJSON(){
-        tPlanJSON = LMSExport.trainingPlanToJSON(tplan.Id);
+        tPlanJSON = LMSExport.trainingPlanToJSON(tplan.Id, true);
     }
 
 }

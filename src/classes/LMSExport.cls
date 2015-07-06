@@ -196,8 +196,13 @@ public with sharing class LMSExport{
 
     private Set<Id> filterTrainingPlans(Set<Id> tplanIds){
         Set<Id> result = new Set<Id>();
-        for(Training_Plan__c tp : [select id from Training_Plan__c where id in :tplanIds]){
-            result.add(tp.Id);
+        for(UserRecordAccess ura : [select HasEditAccess
+                                          ,RecordId
+                                          from UserRecordAccess
+                                          where RecordId in :tplanIds and UserId = :UserInfo.getUserId()]){
+            if(ura.HasEditAccess){
+                result.add(ura.RecordId);
+            }
         }
         return result;
     }
@@ -616,7 +621,6 @@ public with sharing class LMSExport{
                 Training_Plan_Section__c tps = trainingSectionsMap.get(tpsId);
                 Map<String,Object> sectionObject = mapSObject(tps, trainingPlanSectionMappings);
                 List<Object> tplanSectionItemObjects = new List<Object>();
-
                 List<Id> tpsiIds = itemsForTrainingPlanSection.get(tps.Id);
 
                 if(tpsiIds != null){

@@ -199,4 +199,8 @@
         <label>Gestionar Asignaciones</label>
         <name>Manage_Assignments</name>
     </webLinks>
+    <webLinks>
+        <label>Exportar</label>
+        <name>Export_Training_Plan</name>
+    </webLinks>
 </CustomObjectTranslation>

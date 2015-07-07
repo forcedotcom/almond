@@ -1992,4 +1992,12 @@
         <shortDescription>Task Comments Max Length Message</shortDescription>
         <value>Comments cannot be longer than 32,000 characters</value>
     </labels>
+    <labels>
+        <fullName>ALMS_Export_Training_Plan</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Export Training Plan</shortDescription>
+        <value>Export Training Plan</value>
+    </labels>
 </CustomLabels>

@@ -996,6 +996,10 @@
         <label><!-- Comments cannot be longer than 255 characters --></label>
         <name>ALMS_Task_Comments_Max_Length</name>
     </customLabels>
+    <customLabels>
+        <label><!-- Export Training Plan --></label>
+        <name>ALMS_Export_Training_Plan</name>
+    </customLabels>
     <customTabs>
         <label><!-- Learning --></label>
         <name>Learning</name>

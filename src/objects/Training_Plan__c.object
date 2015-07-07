@@ -397,4 +397,16 @@
         <page>TrainingPlanAssignment</page>
         <protected>false</protected>
     </webLinks>
+    <webLinks>
+        <fullName>Export_Training_Plan</fullName>
+        <availability>online</availability>
+        <description>Display VF page for exporting a training plan</description>
+        <displayType>button</displayType>
+        <height>600</height>
+        <linkType>page</linkType>
+        <masterLabel>Export</masterLabel>
+        <openType>noSidebar</openType>
+        <page>TrainingPlanExport</page>
+        <protected>false</protected>
+    </webLinks>
 </CustomObject>

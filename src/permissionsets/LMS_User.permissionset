@@ -232,6 +232,14 @@
     	<apexClass>LMSPlugins</apexClass>
     	<enabled>true</enabled>
     </classAccesses>
+    <classAccesses>
+        <apexClass>LMSExport</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>TrainingPlanExportController</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
     <fieldPermissions>
         <editable>false</editable>
         <field>Achievement_Assignment__c.Achievement__c</field>
@@ -1776,6 +1784,10 @@
     <pageAccesses>
         <apexPage>AchievementsUserSearch</apexPage>
         <enabled>true</enabled>
+    </pageAccesses>
+    <pageAccesses>
+        <apexPage>TrainingPlanExport</apexPage>
+        <enabled>false</enabled>
     </pageAccesses>
     <recordTypeVisibilities>
         <recordType>Learning__c.Quiz</recordType>

@@ -37,8 +37,10 @@ public with sharing class LMSExport{
 
     //Lookup aux collections
     private Map<Id,Achievement__c> achievementsMap;
+    private Map<Id,Learning_Category__c> categoriesMap;
     private Set<Id> answerSequenceItemIds;
     private Set<Id> achievementCategoryIds;
+    private Set<Id> learningCategoryIds;
 
     private Map<String,String> quizMappings = new Map<String,String>{
         'Name' => 'name'
@@ -142,6 +144,20 @@ public with sharing class LMSExport{
         'Main_Achievement__c' => 'main-achievement'
     };
 
+    Map<String,String> categoryMappings = new Map<String,String>{
+        'Name' => 'name'
+        ,'Background_Image_URL__c' => 'background-image-url'
+        ,'Logo__c' => 'logo'
+        ,'Text_Color__c' => 'text-color'
+        ,'Hide_From_Catalog_Home__c' => 'hide-from-catalog-home'
+        ,'Order__c' => 'order'
+        ,'Is_Internal__c' => 'is-internal'
+    };
+
+    Map<String,String> trainingPlanCategoryMappings = new Map<String,String>{
+        'Order__c' => 'order'
+    };
+
     Map<String,String> learningRTFieldMappings = new Map<String,String>{
         'Quiz' => 'Quiz__c'
         ,'Resource' => 'Training_Resource__c'
@@ -168,9 +184,11 @@ public with sharing class LMSExport{
         this.wsops = new LMSExport.WithoutSharingOps();
         this.learningsMap = new Map<Id,Learning__c>();
         this.achievementsMap = new Map<Id,Achievement__c>();
+        this.categoriesMap = new Map<Id,Learning_Category__c>();
         this.answerSequenceItemIds = new Set<Id>();
         this.achievementCategoryIds = new Set<Id>();
         this.learningIdsByType = new Map<String,List<Id>>();
+        this.learningCategoryIds = new Set<Id>();
     }
 
     public Map<String, Object> exportTrainingPlans(Set<Id> trainingPlanIds){
@@ -462,6 +480,7 @@ public with sharing class LMSExport{
         List<Object> results = new List<Object>();
         results.addAll(buildAnswerSequenceLookups());
         results.addAll(buildAchievementCategoryLookups());
+        results.addAll(buildCategoryLookups());
         return results;
     }
 
@@ -472,16 +491,10 @@ public with sharing class LMSExport{
             return results;
         }
 
-        Map<Id,Achievement_Category__c> achievementCategoryMap = new Map<Id,Achievement_Category__c>();
-
         for(Achievement_Category__c ac : [select Id
                                             ,Name
                                             from Achievement_Category__c
                                             where id in :achievementCategoryIds]){
-            achievementCategoryMap.put(ac.Id, ac);
-        }
-
-        for(Achievement_Category__c ac : achievementCategoryMap.values()){
             Map<String,Object> acObject = new Map<String,Object>();
             acObject.put('type','achievement-category');
             acObject.put('name', ac.Name);
@@ -543,6 +556,29 @@ public with sharing class LMSExport{
         return results;
     }
 
+    private List<Object> buildCategoryLookups(){
+        List<Object> results = new List<Object>();
+        if(learningCategoryIds == null || learningCategoryIds.size() == 0){
+            return results;
+        }
+        for(Learning_Category__c lc : [select Id
+                                            ,Name
+                                            ,Background_Image_URL__c
+                                            ,Logo__c
+                                            ,Text_Color__C
+                                            ,Hide_From_Catalog_Home__c
+                                            ,Is_Internal__c
+                                            ,Order__c
+                                            from Learning_Category__c where id in :learningCategoryIds]){
+
+            Map<String,Object> learningCategoryObject = mapSObject(lc, categoryMappings);
+            learningCategoryObject.put('type','learning-category');
+            results.add(learningCategoryObject);
+        }
+
+        return results;
+    }
+
     private List<Object> buildPlanObjects(){
         List<Object> results = new List<Object>();
 
@@ -553,6 +589,8 @@ public with sharing class LMSExport{
         Map<Id, List<Id>> itemsForTrainingPlanSection = new Map<Id, List<Id>>();
         Map<Id, Training_Plan_Achievement__c> trainingPlanAchievementsMap = new Map<Id, Training_Plan_Achievement__c>();
         Map<Id, List<Id>> achievementsForTrainingPlan = new Map<Id, List<Id>>();
+        Map<Id, Training_Plan_Category__c> trainingPlanCategoriesMap = new Map<Id, Training_Plan_Category__c>();
+        Map<Id, List<Id>> categoriesForTrainingPlan = new Map<Id, List<Id>>();
 
         //Fetch training plans
         for(Training_Plan__c tp : [select Id
@@ -589,11 +627,32 @@ public with sharing class LMSExport{
                                         ,Type__c
                                         from Training_Plan_Achievement__c
                                         where Training_Plan__c in :trainingPlanIds]){
-            trainingPlanAchievementsMap.put(tpa.Id, tpa);
-            if(!achievementsForTrainingPlan.containsKey(tpa.Training_Plan__c)){
-                achievementsForTrainingPlan.put(tpa.Training_Plan__c, new List<Id>());
+            if(tpa.Achievement__c != null){
+                trainingPlanAchievementsMap.put(tpa.Id, tpa);
+                if(!achievementsForTrainingPlan.containsKey(tpa.Training_Plan__c)){
+                    achievementsForTrainingPlan.put(tpa.Training_Plan__c, new List<Id>());
+                }
+                achievementsForTrainingPlan.get(tpa.Training_Plan__c).add(tpa.Id);
             }
-            achievementsForTrainingPlan.get(tpa.Training_Plan__c).add(tpa.Id);
+        }
+
+        //Fetch training plan categories
+        for(Training_Plan_Category__c tpc : [select Id
+                                        ,Name
+                                        ,Order__c
+                                        ,Learning_Category__c
+                                        ,Learning_Category__r.Name
+                                        ,Training_Plan__c
+                                        from Training_Plan_Category__c
+                                        where Training_Plan__c in :trainingPlanIds]){
+            if(tpc.Learning_Category__c != null){
+                learningCategoryIds.add(tpc.Learning_Category__c);
+                trainingPlanCategoriesMap.put(tpc.Id, tpc);
+                if(!categoriesForTrainingPlan.containsKey(tpc.Training_Plan__c)){
+                    categoriesForTrainingPlan.put(tpc.Training_Plan__c, new List<Id>());
+                }
+                categoriesForTrainingPlan.get(tpc.Training_Plan__c).add(tpc.Id);
+            }
         }
 
         //Fetch training plan sections
@@ -676,8 +735,25 @@ public with sharing class LMSExport{
                     tplanAchievementObjects.add(tPlanAchievementObject);
                 }
             }
+
+            List<Object> tplanCategoryObjects = new List<Object>();
+            List<Id> categoryTPlanIds = categoriesForTrainingPlan.get(tp.Id);
+
+            if(categoryTPlanIds != null){
+                for(Id tpcId : categoryTPlanIds){
+                    Training_Plan_Category__c tpc = trainingPlanCategoriesMap.get(tpcId);
+                    if(tpc.Learning_Category__c == null){
+                        continue;
+                    }
+                    Map<String,Object> tPlanCategoryObject = mapSObject(tpc, trainingPlanCategoryMappings);
+                    tPlanCategoryObject.put('category',tpc.Learning_Category__r.Name);
+                    tplanCategoryObjects.add(tPlanCategoryObject);
+                }
+            }
+
             planObject.put('sections', tplanSectionObjects);
             planObject.put('achievements', tplanAchievementObjects);
+            planObject.put('categories', tplanCategoryObjects);
             results.add(planObject);
         }
 

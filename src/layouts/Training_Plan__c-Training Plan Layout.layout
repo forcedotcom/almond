@@ -2,6 +2,7 @@
 <Layout xmlns="http://soap.sforce.com/2006/04/metadata">
     <customButtons>Manage_Assignments</customButtons>
     <customButtons>Manage_Achievements</customButtons>
+    <customButtons>Export_Training_Plan</customButtons>
     <excludeButtons>Submit</excludeButtons>
     <layoutSections>
         <customLabel>false</customLabel>

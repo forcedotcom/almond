@@ -996,6 +996,10 @@
         <label>Los comentarios no pueden exceder 32,000 caracteres</label>
         <name>ALMS_Task_Comments_Max_Length</name>
     </customLabels>
+    <customLabels>
+        <label>Exportar Curso</label>
+        <name>ALMS_Export_Training_Plan</name>
+    </customLabels>
     <customTabs>
         <label>Aprendizaje</label>
         <name>Learning</name>

@@ -232,6 +232,14 @@
     	<apexClass>LMSPlugins</apexClass>
     	<enabled>true</enabled>
     </classAccesses>
+    <classAccesses>
+        <apexClass>LMSExport</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>TrainingPlanExportController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
     <fieldPermissions>
         <editable>true</editable>
         <field>Achievement_Assignment__c.Achievement__c</field>
@@ -1818,6 +1826,10 @@
     </pageAccesses>
     <pageAccesses>
         <apexPage>AchievementWorkCom</apexPage>
+        <enabled>true</enabled>
+    </pageAccesses>
+    <pageAccesses>
+        <apexPage>TrainingPlanExport</apexPage>
         <enabled>true</enabled>
     </pageAccesses>
     <recordTypeVisibilities>

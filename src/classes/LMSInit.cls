@@ -85,6 +85,7 @@ public with sharing class LMSInit{
             Map<String,Training_Plan_Section__c> sections = new Map<String,Training_Plan_Section__c>();
             Map<String,Training_Plan_Section_Item__c> sectionItems = new Map<String,Training_Plan_Section_Item__c>();
             Map<String,Training_Plan_Achievement__c> planAchievements = new Map<String,Training_Plan_Achievement__c>();
+            Map<String,Training_Plan_Category__c> planCategories = new Map<String,Training_Plan_Category__c>();
             Map<String,Training_Track__c> tracks = new Map<String,Training_Track__c>();
             Map<String,Training_Track_Level__c> levels = new Map<String,Training_Track_Level__c>();
             Map<String,Training_Track_Level_Item__c> trackItems = new Map<String,Training_Track_Level_Item__c>();
@@ -92,6 +93,7 @@ public with sharing class LMSInit{
             //Check for existing lookups
             Map<String,Map<String,String>> existingRecordsMap = new Map<String,Map<String,String>>();
             List<Object> lookupObjects = getObjectList(dataMap,'lookup-objects');
+            Map<String, Object> learningCategoryObjectsMap = new Map<String, Object>();
 
             for(Object lo : lookupObjects){
                 Map<String,Object> lHeader = (Map<String,Object>)lo;
@@ -106,15 +108,15 @@ public with sharing class LMSInit{
                 if(type == 'answer-sequence'){
                     Answer_Sequence__c aseq = new Answer_Sequence__c();
                     answerSequences.put(name,aseq);
+                }else if(type == 'learning-category'){
+                    learningCategoryObjectsMap.put(name, lHeader);
                 }
-
             }
 
             //Insert missing lookups
             if(existingRecordsMap.get('achievement-category') != null){
-
                 Map<String,Achievement_Category__c> acMap = new Map<String,Achievement_Category__c>();
-
+                //Look for existing achievement categories
                 for(Achievement_Category__c extAC : [select id,name from Achievement_Category__c where Name = :existingRecordsMap.get('achievement-category').keySet()]){
                     existingRecordsMap.get('achievement-category').put(extAC.name, extAC.id);
                 }
@@ -134,6 +136,37 @@ public with sharing class LMSInit{
                     }
                 }
             }
+
+            if(existingRecordsMap.get('learning-category') != null){
+                Map<String,Learning_Category__c> lcMap = new Map<String,Learning_Category__c>();
+                //Look for existing learning categories
+                for(Learning_Category__c extLC : [select id,name from Learning_Category__c where Name = :existingRecordsMap.get('learning-category').keySet()]){
+                    existingRecordsMap.get('learning-category').put(extLC.name, extLC.id);
+                }
+                //Insert missing values
+                for(String lcKey : existingRecordsMap.get('learning-category').keySet()){
+                    if(existingRecordsMap.get('learning-category').get(lcKey) == null){
+                        Map<String,Object> lcObj = (Map<String,Object>)learningCategoryObjectsMap.get(lcKey);
+                        Learning_Category__c lc = new Learning_Category__c();
+                        lc.Name = lcKey;
+                        lc.Background_Image_URL__c = getStringValue(lcObj.get('background-image-url'),null);
+                        lc.Logo__c = getStringValue(lcObj.get('logo'),null);
+                        lc.Text_Color__c = getStringValue(lcObj.get('text-color'),null);
+                        lc.Hide_From_Catalog_Home__c = getBooleanValue(lcObj.get('hide-from-catalog-home'),false);
+                        lc.Order__c = getIntegerValue(lcObj.get('order'),null);
+                        lc.Is_Internal__c = getBooleanValue(lcObj.get('is-internal'),false);
+                        lcMap.put(lc.name,lc);
+                    }
+                }
+                // Update existing mappings map
+                if(lcMap.size()>0){
+                    insert lcMap.values();
+                    for(Learning_Category__c lc : lcMap.values()){
+                        existingRecordsMap.get('learning-category').put(lc.name, lc.id);
+                    }
+                }
+            }
+
             if(answerSequences.size() > 0){
                 insert answerSequences.values();
             }
@@ -170,11 +203,8 @@ public with sharing class LMSInit{
             }
 
             //Iterate over learning objects
-
             List<Object> learningObjects = getObjectList(dataMap,'learning-objects');
-
             for(Object lo : learningObjects){
-
                 //Create learning header
                 Map<String,Object> lHeader = (Map<String,Object>)lo;
                 Learning__c l = new Learning__c();
@@ -185,7 +215,6 @@ public with sharing class LMSInit{
                 l.Description__c = getStringValue(lHeader.get('description'),null);
                 l.Sync_progress__c = getBooleanValue(lHeader.get('sync-progress'),false);
                 learnings.put(l.Name,l);
-
             }
 
             if(learnings.size() > 0){
@@ -216,6 +245,7 @@ public with sharing class LMSInit{
                     tk.External_Resource_Target__c = getStringValue(lContent.get('resource-target'),null);
                     tk.Add_training_parameters_to_URL__c = getBooleanValue(lContent.get('training-params-url'),false);
                     tk.Description__c = getStringValue(lContent.get('description'),null);
+                    tk.Description_RTA__c = getStringValue(lContent.get('description-rta'),null);
                     tk.Learning__c = learnings.get(headerName).Id;
                     tk.Enable_Image_Upload__c = getBooleanValue(lContent.get('enable-image-upload'),false);
                     tk.Disable_Undo__c = getBooleanValue(lContent.get('disable-undo'),false);
@@ -295,6 +325,7 @@ public with sharing class LMSInit{
                             q.Type__c = (String)qHeader.get('type');
                             q.Order__c = getIntegerValue(qHeader.get('order'),null);
                             q.Description__c = getStringValue(qHeader.get('description'),null);
+                            q.Description_RTA__c = getStringValue(qHeader.get('description-rta'),null);
                             if(qHeader.get('answer-sequence') != null){
                                 String aswSeqName = addTimeStamp?(String)qHeader.get('answer-sequence')+ts:(String)qHeader.get('answer-sequence');
                                 q.Answer_Sequence__c = answerSequences.get(aswSeqName).Id;
@@ -360,18 +391,41 @@ public with sharing class LMSInit{
 
             //Create achievements
             List<Object> achievementObjects = getObjectList(dataMap,'achievement-objects');
+            Set<String> existingAchievementNames = new Set<String>();
+            Map<String,Achievement__c> existingAchievements = new Map<String,Achievement__c>();
 
+            //Collect achievement names
             for(Object ao : achievementObjects){
-
                 Map<String,Object> achievementHeader = (Map<String,Object>)ao;
-                Achievement__c a = new Achievement__c();
                 String aName = addTimeStamp?(String)achievementHeader.get('name')+ts:(String)achievementHeader.get('name');
+                existingAchievementNames.add(aName);
+            }
+            //Look for existing achievements
+            if(existingAchievementNames.size() > 0){
+                for(Achievement__c a : [select id,name from Achievement__c where name in :existingAchievementNames]){
+                    existingAchievements.put(a.name, a);
+                }
+            }
+            //Create missing achievements
+            for(Object ao : achievementObjects){
+                Map<String,Object> achievementHeader = (Map<String,Object>)ao;
+                String aName = addTimeStamp?(String)achievementHeader.get('name')+ts:(String)achievementHeader.get('name');
+                Achievement__c extAchievement = existingAchievements.get(aName);
+                if(extAchievement != null){
+                    achievements.put(extAchievement.Name, extAchievement);
+                    continue;
+                }
+                Achievement__c a = new Achievement__c();
                 a.Name = aName;
                 a.Type__c = (String)achievementHeader.get('type');
                 a.Eligible_Image__c = getStringValue(achievementHeader.get('eligible-image'),'');
                 a.Acquired_Image__c = getStringValue(achievementHeader.get('acquired-image'),'');
                 a.Hidden__c = getBooleanValue(achievementHeader.get('hidden'),false);
                 a.Is_Internal__c = getBooleanValue(achievementHeader.get('is-internal'),false);
+                a.Override_Completed_Status__c = getStringValue(achievementHeader.get('override-completed-status'),'');
+                a.Override_URL__c = getStringValue(achievementHeader.get('override-url'),'');
+                a.Work_Badge_Message__c = getStringValue(achievementHeader.get('work-badge-message'),'');
+                a.Expiration_Date__c = getDateValue(achievementHeader.get('expiration-date'),null);
                 if(LMSUtils.getPackageNamespace() != ''){
                     String uiLibNS = LMSUtils.getPackageNamespace()+'almond_uilib';
                     a.Eligible_Image__c = a.Eligible_Image__c.replace('almond_uilib',uiLibNS);
@@ -384,9 +438,9 @@ public with sharing class LMSInit{
                 }
                 achievements.put(a.Name,a);
             }
-
+            //Upsert achievement records
             if(achievements.size() > 0){
-                insert achievements.values();
+                upsert achievements.values();
             }
 
             //Create training plans
@@ -400,8 +454,8 @@ public with sharing class LMSInit{
                 tp.Name = tplanName;
                 tp.Description__c = getStringValue(pHeader.get('description'),null);
                 tp.Status__c = getStringValue(pHeader.get('status'),null);
-                tp.Start_Date__c = (Date.today()).addDays(-1);
-                tp.End_Date__c = (Date.today()).addDays(365);
+                tp.Start_Date__c = getDateValue(pHeader.get('start-date'),(Date.today()).addDays(-1));
+                tp.End_Date__c = getDateValue(pHeader.get('end-date'),(Date.today()).addDays(365));
                 tp.Intro_Video_URL__c = getStringValue(pHeader.get('intro-video-url'),null);
                 tp.Background_Image_URL__c = getStringValue(pHeader.get('background-image-url'),null);
                 tp.Background_Color__c = getStringValue(pHeader.get('background-color'),null);
@@ -475,12 +529,13 @@ public with sharing class LMSInit{
                 insert sectionItems.values();
             }
 
-            //Create training plan achievements
+            //Create training plan achievements & categories
             for(Object po : planObjects){
                 Map<String,Object> pHeader = (Map<String,Object>)po;
                 String planName = addTimeStamp?(String)pHeader.get('name')+ts:(String)pHeader.get('name');
 
                 List<Object> tplanAchievementObjects = getObjectList(pHeader,'achievements');
+                List<Object> tplanCategoryObjects = getObjectList(pHeader,'categories');
 
                 for(Object pa : tplanAchievementObjects){
                     Map<String,Object> tpaHeader = (Map<String,Object>)pa;
@@ -502,10 +557,33 @@ public with sharing class LMSInit{
                     planAchievements.put(planName+'_'+achievementName,tpa);
                 }
 
+                Map<String,String> categoriesMap = existingRecordsMap.get('learning-category');
+                if(categoriesMap != null){
+                    for(Object pc : tplanCategoryObjects){
+                        Map<String,Object> tpcHeader = (Map<String,Object>)pc;
+
+                        String categoryName = addTimeStamp?(String)tpcHeader.get('category')+ts:(String)tpcHeader.get('category');
+
+                        Training_Plan_Category__c tpc = new Training_Plan_Category__c();
+                        tpc.Training_Plan__c = plans.get(planName).Id;
+                        tpc.Order__c = (Integer)tpcHeader.get('order');
+
+                        if(categoriesMap.get(categoryName) != null){
+                            tpc.Learning_Category__c = categoriesMap.get(categoryName);
+                        }
+
+                        planCategories.put(planName+'_'+categoryName,tpc);
+                    }
+                }
+
             }
 
             if(planAchievements.size() > 0){
                 insert planAchievements.values();
+            }
+
+            if(planCategories.size() > 0){
+                insert planCategories.values();
             }
 
             //Create training tracks
@@ -613,6 +691,18 @@ public with sharing class LMSInit{
 
     private static String getStringValue(Object o, String defaultValue){
         return o!=null?(String)o:defaultValue;
+    }
+
+    private static Date getDateValue(Object o, Date defaultValue){
+        Date dateValue = defaultValue;
+        if(o != null){
+            String dateString = (String)o;
+            List<String> dComp = dateString.split('-');
+            if(dComp.size() == 3){
+                dateValue = Date.newInstance(Integer.valueOf(dComp[0]), Integer.valueOf(dComp[1]), Integer.valueOf(dComp[2]));
+            }
+        }
+        return dateValue;
     }
 
     private static Boolean getBooleanValue(Object o, Boolean defaultValue){

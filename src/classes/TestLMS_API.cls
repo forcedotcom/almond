@@ -173,6 +173,31 @@ public class TestLMS_API {
         Test.stopTest();
     }
 
+    static testmethod void testTrainingPlanExport(){
+
+        //Create admin users
+        List<User> adminUsers = TestUtilClass.createUsers(1,'System Administrator');
+
+        System.runAs(adminUsers.get(0)){
+            //Assign corresponding perm sets
+            TestUtilClass.addPermissionSet(adminUsers,'LMS_Admin');
+        }
+
+        TestTrainingPlanData.createSampleData();
+        List<Training_Plan__c> tplan = [select id from Training_Plan__c];
+        System.assertEquals(1,tplan.size());
+        Id tplanId = tplan.get(0).Id;
+        
+        Test.startTest();
+            System.runAs(adminUsers.get(0)){
+                String exportJSON = LMS_API.exportTrainingPlan(tplanId,false);
+                System.assert(exportJSON != null && exportJSON != '{}');
+            }
+
+        Test.stopTest();
+
+    }
+
     static Integer getTrainingPlanCount(){
         return [select count() from Training_Plan__c];
     }

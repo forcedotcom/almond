@@ -45,6 +45,9 @@ public with sharing class LMSExport{
     private Map<String,String> quizMappings = new Map<String,String>{
         'Name' => 'name'
         ,'Description__c' => 'description'
+        ,'Passing_Score__c' => 'passing-score'
+        ,'Max_Attempts__c' => 'max-attempts'
+        ,'Delete_Responses_On_Submission__c' => 'delete-responses-on-submission'
     };
 
     Map<String,String> learningMappings = new Map<String,String>{
@@ -851,6 +854,7 @@ public with sharing class LMSExport{
                                         ,Max_Attempts__c
                                         ,Description__c
                                         ,Learning__c
+                                        ,Delete_Responses_On_Submission__c
                                         from Quiz__c
                                         where Id in :learningIds];
             return result;

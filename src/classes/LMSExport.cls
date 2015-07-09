@@ -133,6 +133,7 @@ public with sharing class LMSExport{
         ,'Hide_After_End_Date__c' => 'hide-after-end-date'
         ,'$DATE_Start_Date__c' => 'start-date'
         ,'$DATE_End_Date__c' => 'end-date'
+        ,'$DATE_New_Until__c' => 'end-date'
     };
 
     Map<String,String> trainingTrackMappings = new Map<String,String>{
@@ -803,6 +804,7 @@ public with sharing class LMSExport{
                                         ,Hide_After_End_Date__c
                                         ,Start_Date__c
                                         ,End_Date__c
+                                        ,New_Until__c
                                         from Training_Plan__c
                                         where id in :trainingPlanIds]){
             trainingPlansMap.put(tp.Id, tp);

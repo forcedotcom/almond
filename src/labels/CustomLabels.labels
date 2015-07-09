@@ -457,6 +457,14 @@
         <value>Back to Training Plan</value>
     </labels>
     <labels>
+        <fullName>ALMS_Training_Track_Back</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Back to training track link</shortDescription>
+        <value>Back to Training Track</value>
+    </labels>
+    <labels>
         <fullName>ALMS_Training_Plan_Back_Section</fullName>
         <categories>ALMOND General, ALMOND UI</categories>
         <language>en_US</language>
@@ -1999,5 +2007,13 @@
         <protected>false</protected>
         <shortDescription>Export Training Plan</shortDescription>
         <value>Export Training Plan</value>
+    </labels>
+    <labels>
+        <fullName>ALMS_Export_Training_Track</fullName>
+        <categories>ALMOND General, ALMOND UI</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Export Training Track</shortDescription>
+        <value>Export Training Track</value>
     </labels>
 </CustomLabels>

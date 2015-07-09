@@ -50,6 +50,10 @@ global with sharing class LMS_API {
         return LMSExport.trainingPlanToJSON(trainingPlanId,serializePretty);
     }
 
+    global static String exportTrainingTrack(Id trainingTrackId, Boolean serializePretty){
+        return LMSExport.trainingTrackToJSON(trainingTrackId,serializePretty);
+    }
+
     private static void checkAssignmentsPermissions(){
         //BEGIN Access Check
         Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();

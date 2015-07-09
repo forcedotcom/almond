@@ -511,6 +511,7 @@ public with sharing class LMSInit{
 
                     List<Object> itemObjects = getObjectList(soHeader,'items');
 
+                    Integer sectionItemCount = 0;
                     for(Object si : itemObjects){
                         Map<String,Object> siHeader = (Map<String,Object>)si;
 
@@ -520,7 +521,8 @@ public with sharing class LMSInit{
                         tpsi.Training_Plan_Section__c = sections.get(soHeaderName).Id;
                         String learningName = addTimeStamp?(String)siHeader.get('learning')+ts:(String)siHeader.get('learning');
                         tpsi.Learning__c = learnings.get(learningName).Id;
-                        sectionItems.put(soHeaderName+'_'+tpsi.Order__c,tpsi);
+                        sectionItems.put(soHeaderName+'_'+sectionItemCount,tpsi);
+                        sectionItemCount++;
                     }
                 }
 
@@ -657,6 +659,7 @@ public with sharing class LMSInit{
 
                         List<Object> itemObjects = getObjectList(lvHeader,'items');
 
+                        Integer levelItemCount = 0;
                         for(Object ti : itemObjects){
                             Map<String,Object> tiHeader = (Map<String,Object>)ti;
                             Training_Track_Level_Item__c ttli = new Training_Track_Level_Item__c();
@@ -664,7 +667,8 @@ public with sharing class LMSInit{
                             ttli.Training_Track_Level__c = levels.get(lvHeaderName).Id;
                             String planName = addTimeStamp?(String)tiHeader.get('plan')+ts:(String)tiHeader.get('plan');
                             ttli.Training_Plan__c = plans.get(planName).Id;
-                            trackItems.put(lvHeaderName+'_'+ttli.Order__c,ttli);
+                            trackItems.put(lvHeaderName+'_'+levelItemCount,ttli);
+                            levelItemCount++;
                         }
                     }
 

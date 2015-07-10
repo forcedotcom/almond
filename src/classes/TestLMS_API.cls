@@ -187,13 +187,39 @@ public class TestLMS_API {
         List<Training_Plan__c> tplan = [select id from Training_Plan__c];
         System.assertEquals(1,tplan.size());
         Id tplanId = tplan.get(0).Id;
-        
+
         Test.startTest();
             System.runAs(adminUsers.get(0)){
                 String exportJSON = LMS_API.exportTrainingPlan(tplanId,false);
                 System.assert(exportJSON != null && exportJSON != '{}');
             }
+        Test.stopTest();
 
+    }
+
+    static testmethod void testTrainingTrackExport(){
+
+        //Create admin users
+        List<User> adminUsers = TestUtilClass.createUsers(1,'System Administrator');
+
+        System.runAs(adminUsers.get(0)){
+            //Assign corresponding perm sets
+            TestUtilClass.addPermissionSet(adminUsers,'LMS_Admin');
+        }
+
+        TestTrainingTrackData.createSampleData();
+
+        List<Training_Track__c> tracks = [select id,name from Training_Track__c];
+        List<Training_Track_Level_Item__c> trackItems = [select id,name from Training_Track_Level_Item__c];
+        System.assertEquals(1,tracks.size());
+        System.assert(trackItems.size()>0);
+        Id ttrackId = tracks.get(0).Id;
+
+        Test.startTest();
+            System.runAs(adminUsers.get(0)){
+                String exportJSON = LMS_API.exportTrainingTrack(ttrackId,false);
+                System.assert(exportJSON != null && exportJSON != '{}');
+            }
         Test.stopTest();
 
     }

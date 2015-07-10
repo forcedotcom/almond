@@ -69,4 +69,8 @@
     </layouts>
     <gender>Feminine</gender>
     <nameFieldLabel>Nombre de Trayectoria</nameFieldLabel>
+    <webLinks>
+        <label>Exportar</label>
+        <name>Export_Training_Track</name>
+    </webLinks>
 </CustomObjectTranslation>

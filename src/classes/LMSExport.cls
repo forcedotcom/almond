@@ -29,6 +29,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 public with sharing class LMSExport{
 
     private Set<Id> trainingPlanIds;
+    private Set<Id> trainingTrackIds;
     private LMSExport.WithoutSharingOps wsops;
 
     //Learning aux collections
@@ -41,7 +42,9 @@ public with sharing class LMSExport{
     private Set<Id> answerSequenceItemIds;
     private Set<Id> achievementCategoryIds;
     private Set<Id> learningCategoryIds;
+    private Set<Id> trackAchievementIds;
 
+    //Export mappings
     private Map<String,String> quizMappings = new Map<String,String>{
         'Name' => 'name'
         ,'Description__c' => 'description'
@@ -130,6 +133,29 @@ public with sharing class LMSExport{
         ,'Hide_After_End_Date__c' => 'hide-after-end-date'
         ,'$DATE_Start_Date__c' => 'start-date'
         ,'$DATE_End_Date__c' => 'end-date'
+        ,'$DATE_New_Until__c' => 'end-date'
+    };
+
+    Map<String,String> trainingTrackMappings = new Map<String,String>{
+        'Name' => 'name'
+        ,'Description__c' => 'description'
+        ,'Status__c' => 'status'
+        ,'Background_Color__c' => 'background-color'
+        ,'Background_Image_URL__c' => 'background-image-url'
+        ,'Text_Color__c' => 'text-color'
+        ,'Order__c' => 'order'
+        ,'Enable_all_external_accounts__c' => 'enable-all-external-accounts'
+        ,'$DATE_New_Until__c' => 'new-until'
+    };
+
+    Map<String,String> trainingTrackLevelMappings = new Map<String,String>{
+        'Name' => 'name'
+        ,'Description__c' => 'description'
+        ,'Order__c' => 'order'
+    };
+
+    Map<String,String> trainingTrackLevelItemMappings = new Map<String,String>{
+        'Order__c' => 'order'
     };
 
     Map<String,String> trainingPlanSectionMappings = new Map<String,String>{
@@ -167,6 +193,39 @@ public with sharing class LMSExport{
         ,'Task' => 'Task__c'
     };
 
+    public static String trainingTrackToJSON(Id trainingTrackId, Boolean serializePretty){
+        try{
+            LMSExport exprt = new LMSExport();
+            Map<String,Object> exportResults = new Map<String,Object>();
+
+            Map<String,Object> ttrackExportResults = exprt.exportTrainingTrack(trainingTrackId);
+            exportResults.putAll(ttrackExportResults);
+
+            //Get associated training plan ids
+            Set<Id> tplanIds = new Set<Id>();
+            for(Training_Track_Level_Item__c ttitem : [select id
+                                                            ,Training_Plan__c
+                                                            from Training_Track_Level_Item__c
+                                                            where Training_Track_Level__r.Training_Track__c = :trainingTrackId]){
+                tplanIds.add(ttitem.Training_Plan__c);
+            }
+            tplanIds.remove(null); //Remove any null items
+
+            Map<String,Object> tplanExportResults = exprt.exportTrainingPlans(tplanIds);
+            if(tplanExportResults != null){
+                exportResults.putAll(tplanExportResults);
+            }
+
+            if(serializePretty){
+                return JSON.serializePretty(exportResults);
+            }
+            return JSON.serialize(exportResults);
+        }catch(Exception e){
+            LMSUtils.logException(e,'LMSExport');
+            return null;
+        }
+    }
+
     public static String trainingPlanToJSON(Id trainingPlanId, Boolean serializePretty){
         try{
             LMSExport exprt = new LMSExport();
@@ -192,18 +251,36 @@ public with sharing class LMSExport{
         this.achievementCategoryIds = new Set<Id>();
         this.learningIdsByType = new Map<String,List<Id>>();
         this.learningCategoryIds = new Set<Id>();
+        this.trackAchievementIds = new Set<Id>();
+    }
+
+    public Map<String, Object> exportTrainingTrack(Id trainingTrackId){
+
+        Map<String, Object> tTrackExportResults = new Map<String, Object>();
+        this.trainingTrackIds = filterRecordsWithoutEditAccess(new Set<Id>{trainingTrackId});
+
+        if(this.trainingTrackIds == null || this.trainingTrackIds.size() == 0){
+            return tTrackExportResults;
+        }
+
+        checkTracksCRUDFLS();
+
+        List<Object> trackObjects = buildTrackObjects();
+
+        tTrackExportResults.put('track-objects',trackObjects);
+        return tTrackExportResults;
     }
 
     public Map<String, Object> exportTrainingPlans(Set<Id> trainingPlanIds){
 
         Map<String, Object> tPlanExportResults = new Map<String, Object>();
-        this.trainingPlanIds = filterTrainingPlans(trainingPlanIds);
+        this.trainingPlanIds = filterRecordsWithoutEditAccess(trainingPlanIds);
 
         if(this.trainingPlanIds == null || this.trainingPlanIds.size() == 0){
             return tPlanExportResults;
         }
 
-        checkCRUDFLS();
+        checkPlansCRUDFLS();
 
         List<Object> learningObjects = buildLearningObjects();
         List<Object> achievementObjects = buildAchievementObjects();
@@ -217,7 +294,15 @@ public with sharing class LMSExport{
         return tPlanExportResults;
     }
 
-    private void checkCRUDFLS(){
+    private void checkTracksCRUDFLS(){
+        //BEGIN Access Check
+        Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
+        relatedFieldsObjects.put(Training_Track__c.sObjectType,new List<String>{'Name'});
+        LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
+        //END Access Check
+    }
+
+    private void checkPlansCRUDFLS(){
         //BEGIN Access Check
         Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
         relatedFieldsObjects.put(Learning__c.sObjectType,new List<String>{'Name'});
@@ -235,12 +320,12 @@ public with sharing class LMSExport{
         //END Access Check
     }
 
-    private Set<Id> filterTrainingPlans(Set<Id> tplanIds){
+    private Set<Id> filterRecordsWithoutEditAccess(Set<Id> recordIds){
         Set<Id> result = new Set<Id>();
         for(UserRecordAccess ura : [select HasEditAccess
                                           ,RecordId
                                           from UserRecordAccess
-                                          where RecordId in :tplanIds and UserId = :UserInfo.getUserId()]){
+                                          where RecordId in :recordIds and UserId = :UserInfo.getUserId()]){
             if(ura.HasEditAccess){
                 result.add(ura.RecordId);
             }
@@ -269,6 +354,10 @@ public with sharing class LMSExport{
             if(tpa.Achievement__c != null){
                 achievementIds.add(tpa.Achievement__c);
             }
+        }
+
+        if(trackAchievementIds.size()>0){
+            achievementIds.addAll(trackAchievementIds);
         }
         return achievementIds;
     }
@@ -582,6 +671,108 @@ public with sharing class LMSExport{
         return results;
     }
 
+    private List<Object> buildTrackObjects(){
+        List<Object> results = new List<Object>();
+        Map<Id, Training_Track__c> trainingTracksMap = new Map<Id, Training_Track__c>();
+        Map<Id, Training_Track_Level__c> trackLevelsMap = new Map<Id, Training_Track_Level__c>();
+        Map<Id, List<Id>> levelsForTrainingTrack = new Map<Id, List<Id>>();
+        Map<Id, Training_Track_Level_Item__c> trackLevelItemsMap = new Map<Id, Training_Track_Level_Item__c>();
+        Map<Id, List<Id>> itemsForTrackLevel = new Map<Id, List<Id>>();
+
+        //Fetch training tracks
+        for(Training_Track__c tt : [select Id
+                                        ,Name
+                                        ,Description__c
+                                        ,Status__c
+                                        ,Background_Color__c
+                                        ,Background_Image_URL__c
+                                        ,Text_Color__c
+                                        ,Order__c
+                                        ,Enable_all_external_accounts__c
+                                        ,New_Until__c
+                                        ,Achievement__c
+                                        ,Achievement__r.Name
+                                        from Training_Track__c
+                                        where id in :trainingTrackIds]){
+            if(tt.Achievement__c != null){
+                trackAchievementIds.add(tt.Achievement__c);
+            }
+            trainingTracksMap.put(tt.Id, tt);
+        }
+
+        //Fetch training track levels
+        for(Training_Track_Level__c ttl : [select Id
+                                        ,Name
+                                        ,Description__c
+                                        ,Order__c
+                                        ,Training_Track__c
+                                        from Training_Track_Level__c
+                                        where Training_Track__c in :trainingTrackIds]){
+            trackLevelsMap.put(ttl.Id, ttl);
+            if(!levelsForTrainingTrack.containsKey(ttl.Training_Track__c)){
+                levelsForTrainingTrack.put(ttl.Training_Track__c, new List<Id>());
+            }
+            levelsForTrainingTrack.get(ttl.Training_Track__c).add(ttl.Id);
+        }
+
+        //Fetch training track level items
+        for(Training_Track_Level_Item__c ttli : [select Id
+                                                    ,Order__c
+                                                    ,Training_Track_Level__c
+                                                    ,Training_Plan__c
+                                                    ,Training_Plan__r.Name
+                                                    from Training_Track_Level_Item__c
+                                                    where Training_Track_Level__c in :trackLevelsMap.keySet()]){
+            trackLevelItemsMap.put(ttli.Id, ttli);
+            if(!itemsForTrackLevel.containsKey(ttli.Training_Track_Level__c)){
+                itemsForTrackLevel.put(ttli.Training_Track_Level__c, new List<Id>());
+            }
+            itemsForTrackLevel.get(ttli.Training_Track_Level__c).add(ttli.Id);
+        }
+
+        for(Training_Track__c tt : trainingTracksMap.values()){
+            Map<String,Object> trackObject = mapSObject(tt, trainingTrackMappings);
+            trackObject.put('achievement', tt.Achievement__r.Name);
+
+            List<Object> tTrackLevelObjects = new List<Object>();
+            List<Id> ttlIds = levelsForTrainingTrack.get(tt.Id);
+
+            if(ttlIds == null){
+                results.add(trackObject);
+                continue;
+            }
+
+            for(Id ttlId : ttlIds){
+                Training_Track_Level__c ttl = trackLevelsMap.get(ttlId);
+                Map<String,Object> levelObject = mapSObject(ttl, trainingTrackLevelMappings);
+
+                List<Object> tTrackLevelItemObjects = new List<Object>();
+                List<Id> ttliIds = itemsForTrackLevel.get(ttl.Id);
+
+                if(ttliIds != null){
+                    for(Id ttliId : ttliIds){
+                        Training_Track_Level_Item__c ttli = trackLevelItemsMap.get(ttliId);
+                        if(ttli.Training_Plan__r.Name == null){
+                            continue;
+                        }
+                        Map<String,Object> levelItemObject = mapSObject(ttli, trainingTrackLevelItemMappings);
+                        levelItemObject.put('plan', ttli.Training_Plan__r.Name);
+                        tTrackLevelItemObjects.add(levelItemObject);
+                    }
+                    levelObject.put('items',tTrackLevelItemObjects);
+                }
+
+                tTrackLevelObjects.add(levelObject);
+            }
+
+            trackObject.put('levels', tTrackLevelObjects);
+            results.add(trackObject);
+        }
+
+        return results;
+
+    }
+
     private List<Object> buildPlanObjects(){
         List<Object> results = new List<Object>();
 
@@ -613,6 +804,7 @@ public with sharing class LMSExport{
                                         ,Hide_After_End_Date__c
                                         ,Start_Date__c
                                         ,End_Date__c
+                                        ,New_Until__c
                                         from Training_Plan__c
                                         where id in :trainingPlanIds]){
             trainingPlansMap.put(tp.Id, tp);

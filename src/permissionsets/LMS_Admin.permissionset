@@ -240,6 +240,10 @@
         <apexClass>TrainingPlanExportController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
+    <classAccesses>
+        <apexClass>TrainingTrackExportController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
     <fieldPermissions>
         <editable>true</editable>
         <field>Achievement_Assignment__c.Achievement__c</field>
@@ -1830,6 +1834,10 @@
     </pageAccesses>
     <pageAccesses>
         <apexPage>TrainingPlanExport</apexPage>
+        <enabled>true</enabled>
+    </pageAccesses>
+    <pageAccesses>
+        <apexPage>TrainingTrackExport</apexPage>
         <enabled>true</enabled>
     </pageAccesses>
     <recordTypeVisibilities>

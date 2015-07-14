@@ -73,4 +73,8 @@
         </sections>
     </layouts>
     <startsWith>Consonant</startsWith>
+    <webLinks>
+        <label><!-- Export --></label>
+        <name>Export_Training_Track</name>
+    </webLinks>
 </CustomObjectTranslation>

@@ -821,6 +821,10 @@
         <name>ALMS_Training_Plan_Back</name>
     </customLabels>
     <customLabels>
+        <label><!-- Back to training track link --></label>
+        <name>ALMS_Training_Track_Back</name>
+    </customLabels>
+    <customLabels>
         <label><!-- Back to training plan section link --></label>
         <name>ALMS_Training_Plan_Back_Section</name>
     </customLabels>
@@ -999,6 +1003,10 @@
     <customLabels>
         <label><!-- Export Training Plan --></label>
         <name>ALMS_Export_Training_Plan</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Export Training Track --></label>
+        <name>ALMS_Export_Training_Track</name>
     </customLabels>
     <customTabs>
         <label><!-- Learning --></label>

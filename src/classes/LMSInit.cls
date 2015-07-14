@@ -467,6 +467,7 @@ public with sharing class LMSInit{
                 tp.Optional_Feedback_Comments__c = getBooleanValue(pHeader.get('optional-feedback-comments'),false);
                 tp.Custom_Notification_Message__c = getStringValue(pHeader.get('custom-notification-message'),null);
                 tp.Hide_After_End_Date__c = getBooleanValue(pHeader.get('hide-after-end-date'),false);
+                tp.New_Until__c = getDateValue(pHeader.get('new-until'),null);
                 plans.put(tp.Name,tp);
             }
 
@@ -510,6 +511,7 @@ public with sharing class LMSInit{
 
                     List<Object> itemObjects = getObjectList(soHeader,'items');
 
+                    Integer sectionItemCount = 0;
                     for(Object si : itemObjects){
                         Map<String,Object> siHeader = (Map<String,Object>)si;
 
@@ -519,7 +521,8 @@ public with sharing class LMSInit{
                         tpsi.Training_Plan_Section__c = sections.get(soHeaderName).Id;
                         String learningName = addTimeStamp?(String)siHeader.get('learning')+ts:(String)siHeader.get('learning');
                         tpsi.Learning__c = learnings.get(learningName).Id;
-                        sectionItems.put(soHeaderName+'_'+tpsi.Order__c,tpsi);
+                        sectionItems.put(soHeaderName+'_'+sectionItemCount,tpsi);
+                        sectionItemCount++;
                     }
                 }
 
@@ -593,18 +596,19 @@ public with sharing class LMSInit{
 
                 for(Object po : trackObjects){
 
-                    //Create plan header
+                    //Create track header
                     Map<String,Object> pHeader = (Map<String,Object>)po;
                     Training_Track__c tk = new Training_Track__c();
                     String trackName = addTimeStamp?(String)pHeader.get('name')+ts:(String)pHeader.get('name');
                     tk.Name = trackName;
                     tk.Description__c = getStringValue(pHeader.get('description'),null);
                     tk.Status__c = getStringValue(pHeader.get('status'),'Draft');
-                    tk.Order__C = getIntegerValue(pHeader.get('order'),null);
+                    tk.Order__c = getIntegerValue(pHeader.get('order'),null);
                     tk.Background_Image_URL__c = getStringValue(pHeader.get('background-image-url'),null);
                     tk.Text_Color__c = getStringValue(pHeader.get('text-color-url'),null);
                     tk.Background_Color__c = getStringValue(pHeader.get('background-color'),null);
                     tk.Enable_all_external_accounts__c = getBooleanValue(pHeader.get('enable-all-external-accounts'),false);
+                    tk.New_Until__c = getDateValue(pHeader.get('new-until'),null);
                     String achievementName = addTimeStamp?(String)pHeader.get('achievement')+ts:(String)pHeader.get('achievement');
 
                     if(achievements.get(achievementName) != null){
@@ -655,6 +659,7 @@ public with sharing class LMSInit{
 
                         List<Object> itemObjects = getObjectList(lvHeader,'items');
 
+                        Integer levelItemCount = 0;
                         for(Object ti : itemObjects){
                             Map<String,Object> tiHeader = (Map<String,Object>)ti;
                             Training_Track_Level_Item__c ttli = new Training_Track_Level_Item__c();
@@ -662,7 +667,8 @@ public with sharing class LMSInit{
                             ttli.Training_Track_Level__c = levels.get(lvHeaderName).Id;
                             String planName = addTimeStamp?(String)tiHeader.get('plan')+ts:(String)tiHeader.get('plan');
                             ttli.Training_Plan__c = plans.get(planName).Id;
-                            trackItems.put(lvHeaderName+'_'+ttli.Order__c,ttli);
+                            trackItems.put(lvHeaderName+'_'+levelItemCount,ttli);
+                            levelItemCount++;
                         }
                     }
 

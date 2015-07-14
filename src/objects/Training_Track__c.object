@@ -192,4 +192,16 @@
         <customTabListAdditionalFields>CREATED_DATE</customTabListAdditionalFields>
     </searchLayouts>
     <sharingModel>Private</sharingModel>
+    <webLinks>
+        <fullName>Export_Training_Track</fullName>
+        <availability>online</availability>
+        <description>Display VF page for exporting a training track</description>
+        <displayType>button</displayType>
+        <height>600</height>
+        <linkType>page</linkType>
+        <masterLabel>Export</masterLabel>
+        <openType>noSidebar</openType>
+        <page>TrainingTrackExport</page>
+        <protected>false</protected>
+    </webLinks>
 </CustomObject>

@@ -359,30 +359,43 @@ public with sharing class LearningAssignmentsHelper{
                 AggregateResult[] tPlanGroupedResults = [select Training_Plan_Section__r.Training_Plan__c tplan
                                                          ,User__c
                                                          ,Status__c
+                                                         ,Training_Plan_Section__r.Optional__c opt
                                                          ,count(Id) cnt
                                                          from Training_Plan_Section_Assignment__c
                                                          where User__c in :relatedUsers
                                                          and Training_Plan_Section__r.Training_Plan__c in :relatedTPlans
-                                                         and Training_Plan_Section__r.Optional__c = false
-                                                         group by Training_Plan_Section__r.Training_Plan__c,User__c,Status__c];
+                                                         group by Training_Plan_Section__r.Training_Plan__c,User__c,Status__c,Training_Plan_Section__r.Optional__c];
 
                 //Update progress on related section assignments
                 String ns = LMSUtils.getPackageNamespace();
+                String OPT_PREFIX = 'opt_';
+
                 for(AggregateResult ar : tPlanGroupedResults){
                     String tPlanId = (String)ar.get('tplan');
                     String userId = (String)ar.get(ns+'User__c');
                     String statusType = (String)ar.get(ns+'Status__c');
                     Integer count = (Integer)ar.get('cnt');
 
+                    String optionalItem = '';
+                    if(ar.get('opt') != null){
+                    	Boolean isOptional = (Boolean)ar.get('opt');
+                    	optionalItem = isOptional?OPT_PREFIX:'';
+                    }
+                    statusType = optionalItem+statusType;
+
                     String arKey = userId+'_'+tPlanId;
 
                     if(!sectionAggregatedResults.containsKey(arKey)){
                         Map<String,Integer> initMap = new Map<String,Integer>{
                             LMSConstants.ASSIGNMENT_STATUS_NOT_STARTED=>0,
-                                LMSConstants.ASSIGNMENT_STATUS_IN_PROGRESS=>0,
-                                LMSConstants.ASSIGNMENT_STATUS_COMPLETED=>0
-                                };
-                                    sectionAggregatedResults.put(arKey,initMap);
+                            LMSConstants.ASSIGNMENT_STATUS_IN_PROGRESS=>0,
+                            LMSConstants.ASSIGNMENT_STATUS_COMPLETED=>0,
+                            ''+OPT_PREFIX+LMSConstants.ASSIGNMENT_STATUS_NOT_STARTED=>0,
+                            ''+OPT_PREFIX+LMSConstants.ASSIGNMENT_STATUS_IN_PROGRESS=>0,
+                            ''+OPT_PREFIX+LMSConstants.ASSIGNMENT_STATUS_IN_REVIEW=>0,
+                            ''+OPT_PREFIX+LMSConstants.ASSIGNMENT_STATUS_COMPLETED=>0
+                        };
+                        sectionAggregatedResults.put(arKey,initMap);
                     }
                     sectionAggregatedResults.get(arKey).put(statusType,count);
                 }
@@ -402,12 +415,18 @@ public with sharing class LearningAssignmentsHelper{
                         Integer lNotStarted = sectionAggregatedResults.get(asKey).get(LMSConstants.ASSIGNMENT_STATUS_NOT_STARTED);
                         Integer lInProgress = sectionAggregatedResults.get(asKey).get(LMSConstants.ASSIGNMENT_STATUS_IN_PROGRESS);
                         Integer lCompleted = sectionAggregatedResults.get(asKey).get(LMSConstants.ASSIGNMENT_STATUS_COMPLETED);
+                        Integer lNotStartedOpt = sectionAggregatedResults.get(asKey).get(OPT_PREFIX+LMSConstants.ASSIGNMENT_STATUS_NOT_STARTED);
+                        Integer lInProgressOpt = sectionAggregatedResults.get(asKey).get(OPT_PREFIX+LMSConstants.ASSIGNMENT_STATUS_IN_PROGRESS);
+                        Integer lCompletedOpt = sectionAggregatedResults.get(asKey).get(OPT_PREFIX+LMSConstants.ASSIGNMENT_STATUS_COMPLETED);
+
                         String currentStatus = LMSConstants.ASSIGNMENT_STATUS_NOT_STARTED;
 
-                        if(lInProgress >= 1 || (lCompleted > 0 && lNotStarted >= 1)){
+                        if(lInProgress >= 1 || (lCompleted > 0 && lNotStarted >= 1) || (lInProgress == 0 && lCompleted == 0 && (lInProgressOpt >= 1 || (lCompletedOpt >= 1 && lNotStarted >= 1)))){
                             currentStatus = LMSConstants.ASSIGNMENT_STATUS_IN_PROGRESS;
                         }else if(lInProgress == 0 && lNotStarted == 0 && lCompleted > 0){
                             currentStatus = LMSConstants.ASSIGNMENT_STATUS_COMPLETED;
+                        }else if (lInProgress == 0 && lNotStarted == 0 && lCompleted == 0 && lInProgressOpt == 0 && lNotStarted == 0 && lCompletedOpt >= 1){
+                        	currentStatus = LMSConstants.ASSIGNMENT_STATUS_COMPLETED;
                         }
 
                         pa.Status__c = currentStatus;
@@ -621,7 +640,7 @@ public with sharing class LearningAssignmentsHelper{
 
                     String currentStatus = LMSConstants.ASSIGNMENT_STATUS_NOT_STARTED;
 
-                    if(lInProgress >= 1 || (lCompleted > 0 && lNotStarted >= 1) || (lInProgress == 0 && lCompleted == 0 && (lInProgressOpt >= 1 || (lCompletedOpt >= 1 && (lNotStartedOpt >= 1 || lNotStarted >= 1))))){
+                    if(lInProgress >= 1 || (lCompleted > 0 && lNotStarted >= 1) || (lInProgress == 0 && lCompleted == 0 && (lInProgressOpt >= 1 || (lCompletedOpt >= 1 && lNotStarted >= 1)))){
                         currentStatus = LMSConstants.ASSIGNMENT_STATUS_IN_PROGRESS;
                     }else if(lInProgress == 0 && lNotStarted == 0 && lCompleted > 0){
                         currentStatus = LMSConstants.ASSIGNMENT_STATUS_COMPLETED;

@@ -392,7 +392,6 @@ public with sharing class LearningAssignmentsHelper{
                             LMSConstants.ASSIGNMENT_STATUS_COMPLETED=>0,
                             ''+OPT_PREFIX+LMSConstants.ASSIGNMENT_STATUS_NOT_STARTED=>0,
                             ''+OPT_PREFIX+LMSConstants.ASSIGNMENT_STATUS_IN_PROGRESS=>0,
-                            ''+OPT_PREFIX+LMSConstants.ASSIGNMENT_STATUS_IN_REVIEW=>0,
                             ''+OPT_PREFIX+LMSConstants.ASSIGNMENT_STATUS_COMPLETED=>0
                         };
                         sectionAggregatedResults.put(arKey,initMap);

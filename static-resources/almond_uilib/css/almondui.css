@@ -1091,7 +1091,7 @@ td.noSidebarCell{
     text-overflow: ellipsis;
 }
 
-.almond .tplan_details span{
+.almond .tplan_details span, .almond .tplan_details_no_image span.plan-due-date{
     display: block;
     font-size: 12px;
     height: 35px;

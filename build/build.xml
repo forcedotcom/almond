@@ -82,23 +82,23 @@
     <target name="updateMetadata">
         <echo message="Updating metadata..." />
         <!-- Task to replace profile specific user license settings -->
-        <xmltask source="${src.dir}/dashboards/LMS_Dashboards/Achievements_Dashboard.dashboard" dest="${src.dir}/dashboards/LMS_Dashboards/Achievements_Dashboard.dashboard">
+        <!-- <xmltask source="${src.dir}/dashboards/LMS_Dashboards/Achievements_Dashboard.dashboard" dest="${src.dir}/dashboards/LMS_Dashboards/Achievements_Dashboard.dashboard">
             <replace path="/*[local-name()='Dashboard']/*[local-name()='runningUser']/text()" withText="${sf.target.username}"/>
         </xmltask>
         <xmltask source="${src.dir}/dashboards/LMS_Dashboards/Training_Plans_Dashboard.dashboard" dest="${src.dir}/dashboards/LMS_Dashboards/Training_Plans_Dashboard.dashboard">
           <replace path="/*[local-name()='Dashboard']/*[local-name()='runningUser']/text()" withText="${sf.target.username}"/>
-        </xmltask>
+        </xmltask> -->
     </target>
 
     <target name="revertMetadataChanges">
         <echo message="Reverting metadata changes..." />
         <!-- Task to replace profile specific user license settings -->
-        <xmltask source="${src.dir}/dashboards/LMS_Dashboards/Achievements_Dashboard.dashboard" dest="${src.dir}/dashboards/LMS_Dashboards/Achievements_Dashboard.dashboard">
+        <!-- <xmltask source="${src.dir}/dashboards/LMS_Dashboards/Achievements_Dashboard.dashboard" dest="${src.dir}/dashboards/LMS_Dashboards/Achievements_Dashboard.dashboard">
             <replace path="/*[local-name()='Dashboard']/*[local-name()='runningUser']/text()" withText="{{RUNNING_USER}}"/>
         </xmltask>
         <xmltask source="${src.dir}/dashboards/LMS_Dashboards/Training_Plans_Dashboard.dashboard" dest="${src.dir}/dashboards/LMS_Dashboards/Training_Plans_Dashboard.dashboard">
           <replace path="/*[local-name()='Dashboard']/*[local-name()='runningUser']/text()" withText="{{RUNNING_USER}}"/>
-        </xmltask>
+        </xmltask> -->
     </target>
 
     <!-- Deploy the unpackaged set of metadata retrieved with retrieveUnpackaged -->

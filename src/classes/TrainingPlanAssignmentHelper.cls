@@ -381,7 +381,13 @@ public with sharing class TrainingPlanAssignmentHelper{
         // And this running user, may not have access to see all of the training tracks in the system
         public void calculateTrainingTrackProgressWOS(Set<Id> uIds, Set<Id> trackIds){
 
-            if(uIds.size() >0 && trackIds.size()>0){
+            if(uIds.size() > 0 && trackIds.size() > 0){
+
+                //Determine if we should link the achievement assignment to a network id
+                Id currentNetworkId = null;
+                if(uIds.size() == 1 && uIds.contains(UserInfo.getUserId())){
+                    currentNetworkId = LMSUtils.getCurrentNetworkId();
+                }
 
                 //Get track achievements
                 Map<Id,String> trackAchievementMap = new Map<Id,String>();
@@ -402,134 +408,136 @@ public with sharing class TrainingPlanAssignmentHelper{
                 }
 
                 //Continue only if the related active tracks have an achievement
+                if(trackAchievementMap.size() == 0){
+                    return;
+                }
 
-                if(trackAchievementMap.size()>0){
+                //Get training plan information from related track items
+                for(Training_Track_Level_Item__c tti : [select id
+                                                        ,Training_Plan__c
+                                                        ,Training_Track_Level__r.Training_Track__c
+                                                        from Training_Track_Level_Item__c
+                                                        where Training_Track_Level__r.Training_Track__c in :trackAchievementMap.keySet()]){
+                    if(tti.Training_Plan__c != null){
+                        tplansToBeChecked.add(tti.Training_Plan__c);
 
-                    //Get training plan information from related track items
-                    for(Training_Track_Level_Item__c tti : [select id
+                        if(!trackPlansMap.containsKey(tti.Training_Track_Level__r.Training_Track__c)){
+                            trackPlansMap.put(tti.Training_Track_Level__r.Training_Track__c, new Set<Id>());
+                        }
+
+                        trackPlansMap.get(tti.Training_Track_Level__r.Training_Track__c).add(tti.Training_Plan__c);
+                    }
+
+                }
+
+                //Continue only if there are items to be checked
+                if(tplansToBeChecked.size() == 0){
+                    return;
+                }
+
+                //Get all the training plan assignments for the specified users
+                for(Training_Plan_Assignment__c tpa : [select id
+                                                            ,User__c
+                                                            ,Status__c
                                                             ,Training_Plan__c
-                                                            ,Training_Track_Level__r.Training_Track__c
-                                                            from Training_Track_Level_Item__c
-                                                            where Training_Track_Level__r.Training_Track__c in :trackAchievementMap.keySet()]){
-                        if(tti.Training_Plan__c != null){
-                            tplansToBeChecked.add(tti.Training_Plan__c);
+                                                            from Training_Plan_Assignment__c
+                                                            where User__c in :uIds
+                                                            and Training_Plan__c in :tplansToBeChecked
+                                                            and Status__c = :LMSConstants.TPLAN_STATUS_COMPLETED
+                                                            order by User__c]){
 
-                            if(!trackPlansMap.containsKey(tti.Training_Track_Level__r.Training_Track__c)){
-                                trackPlansMap.put(tti.Training_Track_Level__r.Training_Track__c, new Set<Id>());
+                    if(!userCompletedPlansMap.containsKey(tpa.User__c)){
+                        userCompletedPlansMap.put(tpa.User__c, new Set<Id>());
+                    }
+
+                    userCompletedPlansMap.get(tpa.User__c).add(tpa.Training_Plan__c);
+                }
+
+
+                //Iterate over each of the training tracks and check if the user has completed all associated training plans
+                Map<Id,Set<Id>> userCompletedTrackMap = new Map<Id,Set<Id>>();
+
+                for(Id trackId : trackPlansMap.keySet()){
+
+                    Set<Id> trackPlanIds = trackPlansMap.get(trackId);
+
+                    if(trackPlanIds != null && trackPlanIds.size()>0){
+                        for(Id uid : uIds){
+                            Set<Id> userCompletedPlanIds = userCompletedPlansMap.get(uid);
+
+                            if(userCompletedPlanIds != null && userCompletedPlanIds.containsAll(trackPlanIds)){
+                                //This user has completed all of the items in this track
+                                if(!userCompletedTrackMap.containsKey(uid)){
+                                    userCompletedTrackMap.put(uid,new Set<Id>());
+                                }
+
+                                userCompletedTrackMap.get(uid).add(trackId);
+
+                                if(!completedTrackAchievementMap.containsKey(trackId)){
+                                    completedTrackAchievementMap.put(trackId,trackAchievementMap.get(trackId));
+                                }
                             }
 
-                            trackPlansMap.get(tti.Training_Track_Level__r.Training_Track__c).add(tti.Training_Plan__c);
+
                         }
 
                     }
 
-                    //Continue only if there are items to be checked
-                    if(tplansToBeChecked.size()>0){
+                }
 
-                        //Get all the training plan assignments for the specified users
-                        for(Training_Plan_Assignment__c tpa : [select id
-                                                                    ,User__c
-                                                                    ,Status__c
-                                                                    ,Training_Plan__c
-                                                                    from Training_Plan_Assignment__c
-                                                                    where User__c in :uIds
-                                                                    and Training_Plan__c in :tplansToBeChecked
-                                                                    and Status__c = :LMSConstants.TPLAN_STATUS_COMPLETED
-                                                                    order by User__c]){
+                // Continue if we found users that have completed tracks
+                if(userCompletedTrackMap.size()>0){
 
-                            if(!userCompletedPlansMap.containsKey(tpa.User__c)){
-                                userCompletedPlansMap.put(tpa.User__c, new Set<Id>());
-                            }
+                    Map<Id,Set<Id>> userAcquiredAchievementsMap = new Map<Id,Set<Id>>();
 
-                            userCompletedPlansMap.get(tpa.User__c).add(tpa.Training_Plan__c);
+                    //Check existing achievement assignments for the current users, to make sure we dont creatre dups
+                    for(Achievement_Assignment__c aa : [select id
+                                                            ,Achievement__c
+                                                            ,User__c
+                                                            from Achievement_Assignment__c
+                                                            where User__c in :userCompletedTrackMap.keySet()
+                                                            and Status__c = :LMSConstants.AA_ACQUIRED_STATUS
+                                                            and Achievement__c in :completedTrackAchievementMap.values()]){
+
+                        if(!userAcquiredAchievementsMap.containsKey(aa.User__c)){
+                            userAcquiredAchievementsMap.put(aa.User__c, new Set<Id>());
                         }
+                        userAcquiredAchievementsMap.get(aa.User__c).add(aa.Achievement__c);
+                    }
 
+                    Map<Id,User> userInfoMap = LMSService.getUserMap(userCompletedTrackMap.keySet(), false);
+                    List<Achievement_Assignment__c> aaInsert = new List<Achievement_Assignment__c>();
 
-                        //Iterate over each of the training tracks and check if the user has completed all associated training plans
+                    //Create achievement assignments if they don't exist already
+                    for(Id uid : userCompletedTrackMap.keySet()){
 
-                        Map<Id,Set<Id>> userCompletedTrackMap = new Map<Id,Set<Id>>();
+                        Set<Id> userAcquiredAchievements = userAcquiredAchievementsMap.get(uid);
+                        Set<Id> userCompTracks = userCompletedTrackMap.get(uid);
+                        User uInfo = userInfoMap.get(uid);
 
-                        for(Id trackId : trackPlansMap.keySet()){
+                        for(Id tid : userCompTracks){
 
-                            Set<Id> trackPlanIds = trackPlansMap.get(trackId);
+                            String trackAchievementId = completedTrackAchievementMap.get(tid);
 
-                            if(trackPlanIds != null && trackPlanIds.size()>0){
-                                for(Id uid : uIds){
-                                    Set<Id> userCompletedPlanIds = userCompletedPlansMap.get(uid);
-
-                                    if(userCompletedPlanIds != null && userCompletedPlanIds.containsAll(trackPlanIds)){
-                                        //This user has completed all of the items in this track
-                                        if(!userCompletedTrackMap.containsKey(uid)){
-                                            userCompletedTrackMap.put(uid,new Set<Id>());
-                                        }
-
-                                        userCompletedTrackMap.get(uid).add(trackId);
-
-                                        if(!completedTrackAchievementMap.containsKey(trackId)){
-                                            completedTrackAchievementMap.put(trackId,trackAchievementMap.get(trackId));
-                                        }
-                                    }
-
-
-                                }
+                            if(userAcquiredAchievements == null || !userAcquiredAchievements.contains(trackAchievementId)){
+                                Achievement_Assignment__c aa = new Achievement_Assignment__c();
+                                aa.User__c = uid;
+                                aa.Contact__c = uInfo.ContactId;
+                                aa.OwnerId = uid;
+                                aa.Achievement__c = trackAchievementId;
+                                aa.Status__c = LMSConstants.AA_ACQUIRED_STATUS;
+                                aa.Training_Track__c = tid;
+                                aaInsert.add(aa);
 
                             }
 
                         }
 
-                        // Continue if we found users that have completed tracks
-                        if(userCompletedTrackMap.size()>0){
+                    }
 
-                            Map<Id,Set<Id>> userAcquiredAchievementsMap = new Map<Id,Set<Id>>();
-
-                            //Check existing achievement assignments for the current users, to make sure we dont creatre dups
-                            for(Achievement_Assignment__c aa : [select id
-                                                                    ,Achievement__c
-                                                                    ,User__c
-                                                                    from Achievement_Assignment__c
-                                                                    where User__c in :userCompletedTrackMap.keySet()
-                                                                    and Status__c = :LMSConstants.AA_ACQUIRED_STATUS
-                                                                    and Achievement__c in :completedTrackAchievementMap.values()]){
-
-                                if(!userAcquiredAchievementsMap.containsKey(aa.User__c)){
-                                    userAcquiredAchievementsMap.put(aa.User__c, new Set<Id>());
-                                }
-                                userAcquiredAchievementsMap.get(aa.User__c).add(aa.Achievement__c);
-                            }
-
-                            List<Achievement_Assignment__c> aaInsert = new List<Achievement_Assignment__c>();
-
-                            //Create achievement assignments if they don't exist already
-                            for(Id uid : userCompletedTrackMap.keySet()){
-
-                                Set<Id> userAcquiredAchievements = userAcquiredAchievementsMap.get(uid);
-                                Set<Id> userCompTracks = userCompletedTrackMap.get(uid);
-
-                                for(Id tid : userCompTracks){
-
-                                    String trackAchievementId = completedTrackAchievementMap.get(tid);
-
-                                    if(userAcquiredAchievements == null || !userAcquiredAchievements.contains(trackAchievementId)){
-                                        Achievement_Assignment__c aa = new Achievement_Assignment__c();
-                                        aa.User__c = uid;
-                                        aa.Achievement__c = trackAchievementId;
-                                        aa.Status__c = LMSConstants.AA_ACQUIRED_STATUS;
-                                        aa.Training_Track__c = tid;
-                                        aaInsert.add(aa);
-
-                                    }
-
-                                }
-
-                            }
-
-                            if(aaInsert.size()>0){
-                                //By-pass CRUD/FLS checks as the invoking user doesn't have access to create achievement assignments
-                                insert aaInsert;
-                            }
-
-                        }
-
+                    if(aaInsert.size()>0){
+                        //By-pass CRUD/FLS checks as the invoking user doesn't have access to create achievement assignments
+                        insert aaInsert;
                     }
 
                 }

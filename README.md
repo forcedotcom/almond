@@ -13,12 +13,12 @@ Almond is a Learning Management app for the Salesforce1 platform. It allows user
 
 #### Deploy using the Deploy to Salesforce Button
 
-<a href="https://githubsfdeploy.herokuapp.com/app/githubdeploy/forcedotcom/almond">
+<a href="https://githubsfdeploy.herokuapp.com?owner=forecedotcom&repo=almond">
   <img alt="Deploy to Salesforce"
        src="https://raw.githubusercontent.com/afawcett/githubsfdeploy/master/src/main/webapp/resources/img/deploy.png">
 </a>
 
-#### Deploy using ant :
+#### Deploy using ANT
 
 1. Make sure [ant](http://ant.apache.org/manual/install.html) and [node.js](http://nodejs.org/) are installed in your local box
 2. Navigate to the build folder and install the build dependencies using node package manager:
@@ -37,7 +37,7 @@ Almond is a Learning Management app for the Salesforce1 platform. It allows user
 9. Run the deploy target by using the following command : `ant deploy -DrunAllTests=false -DcheckOnly=false`
 
 
-### Package configuration:
+### Configuration & User Guides
 
 You can find the latest configuration and user guides in the [appexchange listing](https://appexchange.salesforce.com/listingDetail?listingId=a0N3000000B5V2gEAF).
 

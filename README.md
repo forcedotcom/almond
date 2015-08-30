@@ -13,7 +13,10 @@ Almond is a Learning Management app for the Salesforce1 platform. It allows user
 
 #### Deploy using the Deploy to Salesforce Button
 
-https://githubsfdeploy.herokuapp.com/app/githubdeploy/forcedotcom/almond
+<a href="https://githubsfdeploy.herokuapp.com/app/githubdeploy/forcedotcom/almond">
+  <img alt="Deploy to Salesforce"
+       src="https://raw.githubusercontent.com/afawcett/githubsfdeploy/master/src/main/webapp/resources/img/deploy.png">
+</a>
 
 #### Deploy using ant :
 

@@ -65,6 +65,3 @@ src/settings/Knowledge.settings
 src/settings/Mobile.settings
 src/settings/Security.settings
 #src/settings/Ideas.settings
-
-#dynamically generated static resources
-src/staticresources/almond_uilib.resource

@@ -6,29 +6,38 @@ Native Force.com Learning Management Application
 Almond is a Learning Management app for the Salesforce1 platform. It allows users to create training content and training plans and assign these plans to users. Achievements can be given to users based on their training progress.
 
 ---
+#### Deployment Pre-requisites
 
-#### How to deploy the application :
+1. Make sure Work.com Thanks feature is enabled in your org
+2. Make sure Translation Workbench is enabled in your org
+
+#### Deploy using the Deploy to Salesforce Button
+
+<a href="https://githubsfdeploy.herokuapp.com?owner=forcedotcom&repo=almond">
+  <img alt="Deploy to Salesforce"
+       src="https://raw.githubusercontent.com/afawcett/githubsfdeploy/master/src/main/webapp/resources/img/deploy.png">
+</a>
+
+#### Deploy using ANT
 
 1. Make sure [ant](http://ant.apache.org/manual/install.html) and [node.js](http://nodejs.org/) are installed in your local box
 2. Navigate to the build folder and install the build dependencies using node package manager:
 
    `npm install`
 
-3. Make sure Work.com Thanks feature is enabled in your org
-4. Make sure Translation Workbench is enabled in your org
-5. Open your terminal or command prompt
-6. Get the latest code for the app by using the following command :
+3. Open your terminal or command prompt
+4. Get the latest code for the app by using the following command :
 
    `git clone https://github.com/forcedotcom/almond.git`
 
-7. Go into the almond directory
-8. Update your credentials by making a copy of the sample-sfdc-build.properties file and rename it to "sfdc-build.properties".
-9. Update the sfdc-build.properties with your credentials and login endpoint.
-10. Navigate to the build folder using the terminal or command prompt
-11. Run the deploy target by using the following command : `ant deploy -DrunAllTests=false -DcheckOnly=false`
+5. Go into the almond directory
+6. Update your credentials by making a copy of the sample-sfdc-build.properties file and rename it to "sfdc-build.properties".
+7. Update the sfdc-build.properties with your credentials and login endpoint.
+8. Navigate to the build folder using the terminal or command prompt
+9. Run the deploy target by using the following command : `ant deploy -DrunAllTests=false -DcheckOnly=false`
 
 
-### Package configuration:
+### Configuration & User Guides
 
 You can find the latest configuration and user guides in the [appexchange listing](https://appexchange.salesforce.com/listingDetail?listingId=a0N3000000B5V2gEAF).
 

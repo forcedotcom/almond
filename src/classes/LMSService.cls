@@ -30,7 +30,6 @@ public with sharing class LMSService{
 
     //Return a list of aggregate plan progress results for the specified progress filters and user based on Plan Assignments
     public static List<AggregateResult> getTrainingPlansAssignmentStatus(Set<String> statusFilter,String userId){
-
         //BEGIN Access Check
         Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
             relatedFieldsObjects.put(Training_Plan_Assignment__c.sObjectType,new List<String>{
@@ -45,15 +44,12 @@ public with sharing class LMSService{
                                                     and Status__c in :statusFilter
                                                     group by Training_Plan__c];
         return groupedResults;
-
     }
 
     //Return a list of all training plans with "Not Started" status for the specified user
     public static List<Training_Plan__c> getNewTrainingPlans(String userId, Boolean isPortalUser){
-
         Set<Id> trainingPlanIds = new Set<Id>();
         String ns = LMSUtils.getPackageNamespace();
-
         List<AggregateResult> groupedResultsNotStarted = getTrainingPlansAssignmentStatus(new Set<String>{LMSConstants.TPLAN_STATUS_NOT_STARTED},userId);
 
         for (AggregateResult ar : groupedResultsNotStarted)  {
@@ -61,51 +57,39 @@ public with sharing class LMSService{
                 trainingPlanIds.add((String)ar.get(ns+'Training_Plan__c'));
             }
         }
-
         return getTrainingPlans(trainingPlanIds, isPortalUser);
-
     }
 
     //Return a list of all training plans with "In Progress" status for the specified user
     public static List<Training_Plan__c> getInProgressTrainingPlans(String userId, Boolean isPortalUser){
-
         String ns = LMSUtils.getPackageNamespace();
         List<AggregateResult> groupedResults = getTrainingPlansAssignmentStatus(new Set<String>{LMSConstants.TPLAN_STATUS_IN_PROGRESS},userId);
-
         Set<Id> trainingPlanIds = new Set<Id>();
         for (AggregateResult ar : groupedResults)  {
             if((Integer)ar.get('cnt') > 0){
                 trainingPlanIds.add((String)ar.get(ns+'Training_Plan__c'));
             }
         }
-
         return getTrainingPlans(trainingPlanIds, isPortalUser);
-
     }
 
     //Return a list of all training plans with "Completed" status for the specified user
     public static List<Training_Plan__c> getCompletedTrainingPlans(String userId, Boolean isPortalUser){
-
         String ns = LMSUtils.getPackageNamespace();
         List<AggregateResult> groupedResultsCompleted = getTrainingPlansAssignmentStatus(new Set<String>{LMSConstants.TPLAN_STATUS_COMPLETED},userId);
-
         Set<Id> trainingPlanIds = new Set<Id>();
-
         for (AggregateResult ar : groupedResultsCompleted)  {
             if((Integer)ar.get('cnt') > 0){
                 trainingPlanIds.add((String)ar.get(ns+'Training_Plan__c'));
             }
         }
-
         return getTrainingPlans(trainingPlanIds, isPortalUser);
     }
 
     //Return a list of training plans for the specified training plan ids
     public static List<Training_Plan__c> getTrainingPlans(Set<Id> trainingPlanIds, Boolean isPortalUser){
 
-        //BEGIN Access Check
-        Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
-        relatedFieldsObjects.put(Training_Plan__c.sObjectType,new List<String>{
+        List<String> baseFields = new List<String>{
             'Id'
             ,'Name'
             ,'Description__c'
@@ -117,34 +101,6 @@ public with sharing class LMSService{
             ,'End_Date__c'
             ,'Background_Image_URL__c'
             ,'Intro_Video_URL__c'
-            ,'Background_Color__c'
-            ,'Text_Color__c'
-            ,'Training_Plan_Rating__c'
-            ,'Hide_Chatter_Photos__c'
-            ,'Optional_Feedback_Comments__c'
-            ,'New_Until__c'
-            ,'Hide_After_End_Date__c'
-        });
-        LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
-        //END Access Check
-
-        List<Training_Plan__c> results = new List<Training_Plan__c>();
-
-        //Create local scope vars for Dynamic SOQL binding
-        Set<Id> tpIds = trainingPlanIds;
-
-        List<String> listSOQLFields = new List<String>{
-            'Id'
-            ,'Name'
-            ,'Description__c'
-            ,'Enable_Self_Registration__c'
-            ,'Self_Registration_Access__c'
-            ,'Enforce_Sequence__c'
-            ,'Status__c'
-            ,'Start_Date__c'
-            ,'End_Date__c'
-            ,'Intro_Video_URL__c'
-            ,'Background_Image_URL__c'
             ,'Background_Color__c'
             ,'Text_Color__c'
             ,'Training_Plan_Rating__c'
@@ -154,12 +110,23 @@ public with sharing class LMSService{
             ,'Hide_After_End_Date__c'
         };
 
+        //BEGIN Access Check
+        Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
+        relatedFieldsObjects.put(Training_Plan__c.sObjectType, baseFields);
+        LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
+        //END Access Check
+
+        List<Training_Plan__c> results = new List<Training_Plan__c>();
+
+        //Create local scope vars for Dynamic SOQL binding
+        Set<Id> tpIds = trainingPlanIds;
+
         if(isPortalUser){
             LMSCommunitiesService.WithoutSharingOps commwsops = new LMSCommunitiesService.WithoutSharingOps();
             tpIds = commwsops.filterTrainingPlansForAccount(tpIds,LMSUtils.getUserAccountId());
         }
 
-        String soqlQuery = 'select '+String.join(listSOQLFields,',')+' from Training_Plan__c where Id in :tpIds';
+        String soqlQuery = 'select '+String.join(baseFields,',')+' from Training_Plan__c where Id in :tpIds';
         soqlQuery += ' order by End_Date__c asc, SystemModStamp desc';
 
         if(isPortalUser){
@@ -176,9 +143,7 @@ public with sharing class LMSService{
     //Return a list of training plans enabled for preview for the specified training plan ids
     public static List<Training_Plan__c> getPreviewTrainingPlans(Set<Id> trainingPlanIds,Boolean isPortalUser){
 
-        //BEGIN Access Check
-        Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
-        relatedFieldsObjects.put(Training_Plan__c.sObjectType,new List<String>{
+        List<String> baseFields = new List<String>{
             'Id'
             ,'Name'
             ,'Description__c'
@@ -190,33 +155,6 @@ public with sharing class LMSService{
             ,'End_Date__c'
             ,'Background_Image_URL__c'
             ,'Intro_Video_URL__c'
-            ,'Background_Color__c'
-            ,'Text_Color__c'
-            ,'Training_Plan_Rating__c'
-            ,'Hide_Chatter_Photos__c'
-            ,'Optional_Feedback_Comments__c'
-            ,'Hide_After_End_Date__c'
-        });
-        LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
-        //END Access Check
-
-        List<Training_Plan__c> results = new List<Training_Plan__c>();
-
-        //Create local scope vars for Dynamic SOQL binding
-        Set<Id> tpIds = trainingPlanIds;
-
-        List<String> listSOQLFields = new List<String>{
-            'Id'
-            ,'Name'
-            ,'Description__c'
-            ,'Enable_Self_Registration__c'
-            ,'Self_Registration_Access__c'
-            ,'Enforce_Sequence__c'
-            ,'Status__c'
-            ,'Start_Date__c'
-            ,'End_Date__c'
-            ,'Intro_Video_URL__c'
-            ,'Background_Image_URL__c'
             ,'Background_Color__c'
             ,'Text_Color__c'
             ,'Training_Plan_Rating__c'
@@ -225,8 +163,19 @@ public with sharing class LMSService{
             ,'Hide_After_End_Date__c'
         };
 
+        //BEGIN Access Check
+        Map<Schema.sObjectType,List<String>> relatedFieldsObjects = new Map<Schema.sObjectType,List<String>>();
+        relatedFieldsObjects.put(Training_Plan__c.sObjectType, baseFields);
+        LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
+        //END Access Check
+
+        List<Training_Plan__c> results = new List<Training_Plan__c>();
+
+        //Create local scope vars for Dynamic SOQL binding
+        Set<Id> tpIds = trainingPlanIds;
+
         String registrationAccess = LMSConstants.TPLAN_PUBLIC_EXTERNAL;
-        String soqlQuery = 'select '+String.join(listSOQLFields,',')+' from Training_Plan__c where Id in :tpIds';
+        String soqlQuery = 'select '+String.join(baseFields,',')+' from Training_Plan__c where Id in :tpIds';
         soqlQuery += ' and Enable_Self_Registration__c = true';
 
         if(isPortalUser){
@@ -871,20 +820,23 @@ public with sharing class LMSService{
     }
 
     //Return additional user information for the specified set of user ids
-    public static Map<Id,User> getAdditionalUserInfo(Set<Id> userIds){
-
+    public static Map<Id,User> getUserMap(Set<Id> userIds, Boolean onlyActiveUsers){
         //No need to enforce CRUD/FLS on User + standard fields
-
         Map<Id,User> results = new Map<Id,User>();
+        List<String> listSOQLFields = new List<String>{
+            'Id'
+            ,'Email'
+            ,'ContactId'
+            ,'IsActive'
+            ,'ProfileId'
+            ,'UserType'
+        };
 
-        for(User u : [select Id
-                            ,ContactId
-                            ,Email
-                            ,isActive
-                            ,ProfileId
-                            ,UserType
-                            from User
-                            where Id in :userIds]){
+        String soqlQuery = 'select '+String.join(listSOQLFields,',')+' from User where Id in :userIds';
+        if(onlyActiveUsers){
+            soqlQuery += ' and IsActive = true';
+        }
+        for(User u : (List<User>)Database.query(soqlQuery)){
             results.put(u.Id,u);
         }
         return results;
@@ -933,10 +885,7 @@ public with sharing class LMSService{
     public static Map<Id,List<Learning_Assignment__c>> upsertAssignments(Set<Id> userIds, Id trainingPlanId, Id communityId){
 
         //Ignore inactive users
-        Set<Id> activeUserIds = new Set<Id>();
-        for(User u : [select id from User where id in :userIds and IsActive = true]){
-            activeUserIds.add(u.Id);
-        }
+        Map<Id,User> activeUsers = getUserMap(userIds, true);
 
         //Auxiliary collections
         Map<Id,List<Learning_Assignment__c>> results = new Map<Id,List<Learning_Assignment__c>>();
@@ -975,7 +924,7 @@ public with sharing class LMSService{
 
             Set<Id> learnings = trainingPlanLearnings.get(trainingPlanId);
 
-            Map<Id,List<Learning_Assignment__c>> mapLearningAssignments = getAssignmentsForLearnings(learnings,trainingPlanId,activeUserIds);
+            Map<Id,List<Learning_Assignment__c>> mapLearningAssignments = getAssignmentsForLearnings(learnings,trainingPlanId,activeUsers.keySet());
 
             //Look for learnings that already have assignments and add to excluded map
             for(Id learningId : mapLearningAssignments.keySet()){
@@ -1008,19 +957,16 @@ public with sharing class LMSService{
                 }
             }
 
-            //Get additional training plan information
-            Map<Id,User> addUserInfo = getAdditionalUserInfo(activeUserIds);
-
             for(List<Training_Plan_Section_Item__c> sectionItems : tPlanSectionItems.values()){
 
                 for(Training_Plan_Section_Item__c sectionItem : sectionItems){
 
                     if(sectionItem.Learning__c != null){
-                        for(Id userId : activeUserIds){
+                        for(Id userId : activeUsers.keySet()){
 
                             if(!excludedLearnings.containsKey(userId) || (excludedLearnings.containsKey(userId) && !excludedLearnings.get(userId).contains(sectionItem.Learning__c+'_'+sectionItem.Id))){
 
-                                User uInfo = addUserInfo.get(userId);
+                                User uInfo = activeUsers.get(userId);
                                 //Add learning to insert map
                                 Learning_Assignment__c newLA = new Learning_Assignment__c();
                                 newLA.OwnerId = userId;
@@ -1034,9 +980,7 @@ public with sharing class LMSService{
                                 newLA.Training_Plan_Section_Item__c = sectionItem.Id;
                                 newLA.Contact__c = uInfo.ContactId;
                                 newLA.Optional__c = sectionItem.Optional__c;
-                                if(communityId != null){
-                                    newLA.Community_Id__c = communityId;
-                                }
+                                newLA.Community_Id__c = communityId;
                                 if(!results.containsKey(userId)){
                                     results.put(userId,new List<Learning_Assignment__c>());
                                 }
@@ -1081,7 +1025,7 @@ public with sharing class LMSService{
         }
 
         // Create Badge Assignments
-        upsertAchievementAssignments(activeUserIds,trainingPlanId, communityId);
+        upsertAchievementAssignments(activeUsers.keySet(),trainingPlanId, communityId);
 
         return results;
     }
@@ -1090,10 +1034,7 @@ public with sharing class LMSService{
     public static Map<Id,List<Achievement_Assignment__c>> upsertAchievementAssignments(Set<Id> userIds, Id trainingPlanId, Id communityId){
 
         //Ignore inactive users
-        Set<Id> activeUserIds = new Set<Id>();
-        for(User u : [select id from User where id in :userIds and IsActive = true]){
-            activeUserIds.add(u.Id);
-        }
+        Map<Id,User> activeUsers = getUserMap(userIds, true);
 
         Map<Id,List<Achievement_Assignment__c>> results = new Map<Id,List<Achievement_Assignment__c>>();
         List<Achievement_Assignment__c> aasToInsert = new List<Achievement_Assignment__c>();
@@ -1113,7 +1054,7 @@ public with sharing class LMSService{
                                                         ,Training_Plan_Achievement__c
                                                         ,Achievement__c
                                                 from Achievement_Assignment__c
-                                                where User__c in :activeUserIds
+                                                where User__c in :activeUsers.keySet()
                                                 and Training_Plan_Achievement__c in :tpasMap.keySet()]){
                 if(aa.User__c != null){
                     if(!existingAATrainingPlanBadges.containsKey(aa.User__c)){
@@ -1131,7 +1072,10 @@ public with sharing class LMSService{
 
             for(Training_Plan_Achievement__c tpa : tpasMap.values()){
 
-                for(Id uId : activeUserIds){
+                for(Id uId : activeUsers.keySet()){
+
+                    User uInfo = activeUsers.get(uId);
+
                     Set<Id> existingUserAAs = existingAATrainingPlanBadges.get(uId);
 
                     if(existingUserAAs == null || !existingUserAAs.contains(tpa.Id)){
@@ -1139,11 +1083,10 @@ public with sharing class LMSService{
                         aa.User__c = uId;
                         aa.Training_Plan_Achievement__c = tpa.Id;
                         aa.Achievement__c = tpa.Achievement__c;
+                        aa.Contact__c = uInfo.ContactId;
                         aa.Status__c = LMSConstants.AA_ELIGIBLE_STATUS;
                         aa.OwnerId = uId;
-                        if(currentNetworkId != null){
-                            aa.Community_Id__c = currentNetworkId;
-                        }
+                        aa.Community_Id__c = currentNetworkId;
                         aasToInsert.add(aa);
                         if(!results.containsKey(uId)){
                             results.put(uId,new List<Achievement_Assignment__c>());

@@ -20,12 +20,12 @@ NOTE: This can only be done once, for updating the package you must deploy again
 
 #### Deploy using the Deploy to Salesforce Button
 
-<a href="https://githubsfdeploy.herokuapp.com?owner=forcedotcom&repo=almond">
+<a href="https://githubsfdeploy.herokuapp.com?owner=forcedotcom&repo=almond" target="_blank">
   <img alt="Deploy to Salesforce"
        src="https://raw.githubusercontent.com/afawcett/githubsfdeploy/master/src/main/webapp/resources/img/deploy.png">
 </a>
 
-NOTE: Deploying over an existing Almond installation will override any customizations you've done to the package code/components.
+IMPORTANT: Deploying over an existing Almond installation will override any customizations you've done to the package code/components.
 
 #### Deploy using ANT
 
@@ -45,7 +45,7 @@ NOTE: Deploying over an existing Almond installation will override any customiza
 8. Navigate to the build folder using the terminal or command prompt
 9. Run the deploy target by using the following command : `ant deploy -DrunAllTests=false -DcheckOnly=false`
 
-NOTE: Deploying over an existing Almond installation will override any customizations you've done to the package code/components.
+IMPORTANT: Deploying over an existing Almond installation will override any customizations you've done to the package code/components.
 
 ### Configuration & User Guides
 

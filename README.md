@@ -16,7 +16,7 @@ Almond is a Learning Management app for the Salesforce1 platform. It allows user
 
 Go to the [appexchange listing](https://appexchange.salesforce.com/listingDetail?listingId=a0N3000000B5V2gEAF), click the "Get It Now" button and follow the instructions.
 
-NOTE: This can only be done once, for updating the package you must deploy again using one of the methods below.
+*NOTE: This can only be done once, for updating the package you must deploy again using one of the methods below.*
 
 #### Deploy using the Deploy to Salesforce Button
 
@@ -25,7 +25,7 @@ NOTE: This can only be done once, for updating the package you must deploy again
        src="https://raw.githubusercontent.com/afawcett/githubsfdeploy/master/src/main/webapp/resources/img/deploy.png">
 </a>
 
-IMPORTANT: Deploying over an existing Almond installation will override any customizations you've done to the package code/components.
+**IMPORTANT: Deploying over an existing Almond installation will override any customizations you've done to the package code/components.**
 
 #### Deploy using ANT
 
@@ -40,12 +40,16 @@ IMPORTANT: Deploying over an existing Almond installation will override any cust
    `git clone https://github.com/forcedotcom/almond.git`
 
 5. Go into the almond directory
+
 6. Update your credentials by making a copy of the sample-sfdc-build.properties file and rename it to "sfdc-build.properties".
+
 7. Update the sfdc-build.properties with your credentials and login endpoint.
+
 8. Navigate to the build folder using the terminal or command prompt
+
 9. Run the deploy target by using the following command : `ant deploy -DrunAllTests=false -DcheckOnly=false`
 
-IMPORTANT: Deploying over an existing Almond installation will override any customizations you've done to the package code/components.
+**IMPORTANT: Deploying over an existing Almond installation will override any customizations you've done to the package code/components.**
 
 ### Configuration & User Guides
 

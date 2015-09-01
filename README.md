@@ -40,9 +40,13 @@ IMPORTANT: Deploying over an existing Almond installation will override any cust
    `git clone https://github.com/forcedotcom/almond.git`
 
 5. Go into the almond directory
+
 6. Update your credentials by making a copy of the sample-sfdc-build.properties file and rename it to "sfdc-build.properties".
+
 7. Update the sfdc-build.properties with your credentials and login endpoint.
+
 8. Navigate to the build folder using the terminal or command prompt
+
 9. Run the deploy target by using the following command : `ant deploy -DrunAllTests=false -DcheckOnly=false`
 
 IMPORTANT: Deploying over an existing Almond installation will override any customizations you've done to the package code/components.

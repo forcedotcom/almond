@@ -40,7 +40,6 @@ public with sharing class AchievementAssignmentsHelper{
                     completedAchievements.put(aa.Achievement__c,null);
                 }
                 completedWorkAAs.add(aa);
-
             }
         }
 
@@ -74,99 +73,96 @@ public with sharing class AchievementAssignmentsHelper{
 
             for(Achievement_Assignment__c aa : completedWorkAAs){
                 Achievement__c ac = completedAchievements.get(aa.Achievement__c);
-                if(ac != null){
 
-                    if(ac.Work_Badge_Id__c != null && ac.Work_Badge_Giver__c != null){
-                        //Init values map
-                        Map<String,String> workBadge = new Map<String,String>();
+                if(ac == null || ac.Work_Badge_Id__c == null || ac.Work_Badge_Giver__c == null){
+                    continue;
+                }
 
-                        String msg = ac.Work_Badge_Message__c != null ? ac.Work_Badge_Message__c : System.Label.ALMS_Default_Achievement_Message;
-                        workBadge.put('message',msg);
-                        workBadge.put('giverid',ac.Work_Badge_Giver__c);
-                        workBadge.put('recipientid',aa.User__c);
-                        workBadge.put('sourceid',null);
-                        workBadge.put('definitionid',ac.Work_Badge_Id__c);
-                        workBadge.put('feedtype','RypplePost');
-                        workBadge.put('communityid',aa.Community_Id__c);
-                        workBadges.add(workBadge);
+                //Init values map
+                Map<String,String> workBadge = new Map<String,String>();
 
-                        //Create work thanks records
-                        WorkThanks wt = new WorkThanks();
-                        wt.GiverId = workBadge.get('giverid');
-                        wt.Message = workBadge.get('message');
-                        if(aa.Community_Id__c != null){
-                            wt.put('NetworkId',aa.Community_Id__c);
-                        }
-                        workThanksInsert.add(wt);
+                String msg = ac.Work_Badge_Message__c != null ? ac.Work_Badge_Message__c : System.Label.ALMS_Default_Achievement_Message;
+                workBadge.put('message',msg);
+                workBadge.put('giverid',ac.Work_Badge_Giver__c);
+                workBadge.put('recipientid',aa.User__c);
+                workBadge.put('sourceid',null);
+                workBadge.put('definitionid',ac.Work_Badge_Id__c);
+                workBadge.put('feedtype','RypplePost');
+                workBadge.put('communityid',aa.Community_Id__c);
+                workBadges.add(workBadge);
+
+                //Create work thanks records
+                WorkThanks wt = new WorkThanks();
+                wt.GiverId = workBadge.get('giverid');
+                wt.Message = workBadge.get('message');
+                if(aa.Community_Id__c != null){
+                    wt.put('NetworkId',aa.Community_Id__c);
+                }
+                workThanksInsert.add(wt);
+            }
+
+            if(workThanksInsert.size() == 0){
+                return;
+            }
+
+            //Do partial insert of work thanks records
+            Database.SaveResult[] wThanksResults = Database.insert(workThanksInsert,false);
+
+            Boolean setAuditFields = !LMSSettings.getDisableFeedItemAuditFields();
+
+            for(Integer i = 0; i < wThanksResults.size(); i++) {
+                Database.SaveResult sr = wThanksResults[i];
+
+                if(sr.isSuccess()){
+                    workBadges[i].put('sourceid',sr.getId());
+                    Id networkId = workBadges[i].get('communityid');
+                    //Create work badge records
+                    WorkBadge wb = new WorkBadge();
+                    wb.RecipientId = workBadges[i].get('recipientid');
+                    wb.SourceId = workBadges[i].get('sourceid');
+                    wb.DefinitionId = workBadges[i].get('definitionid');
+                    if(networkId != null){
+                        wb.put('NetworkId',networkId);
                     }
+                    workBadgeInsert.add(wb);
+                    //Create feed item records
+                    FeedItem fi = new FeedItem();
+                    fi.Body = workBadges[i].get('message');
+                    fi.RelatedRecordId = workBadges[i].get('sourceid');
+                    fi.ParentId = workBadges[i].get('recipientid');
+                    fi.Type = 'RypplePost';
+                    if(setAuditFields && workBadges[i].get('giverid') != null){
+                        fi.CreatedById = workBadges[i].get('giverid');
+                    }
+                    if(networkId != null){
+                        fi.put('NetworkScope',networkId);
+                    }
+                    feedItemInsert.add(fi);
 
+                }else{
+                    workThanksInsert[i].addError(System.Label.ALMS_Default_Error_Inserting_Thanks +' : '+sr.getErrors().get(0).getMessage());
                 }
             }
 
-            if(workThanksInsert.size() > 0){
+            if(workBadgeInsert.size() == 0){
+                return;
+            }
 
-                //Do partial insert of work thanks records
-                Database.SaveResult[] wThanksResults = Database.insert(workThanksInsert,false);
+            Database.SaveResult[] wBadgeResults = Database.insert(workBadgeInsert,false);
+            Database.SaveResult[] feedItemResults = Database.insert(feedItemInsert,false);
 
-                Boolean setAuditFields = !LMSSettings.getDisableFeedItemAuditFields();
-
-                for(Integer i = 0; i < wThanksResults.size(); i++) {
-                    Database.SaveResult sr = wThanksResults[i];
-
-                    if(sr.isSuccess()){
-                        workBadges[i].put('sourceid',sr.getId());
-                        Id networkId = workBadges[i].get('communityid');
-                        //Create work badge records
-                        WorkBadge wb = new WorkBadge();
-                        wb.RecipientId = workBadges[i].get('recipientid');
-                        wb.SourceId = workBadges[i].get('sourceid');
-                        wb.DefinitionId = workBadges[i].get('definitionid');
-                        if(networkId != null){
-                            wb.put('NetworkId',networkId);
-                        }
-                        workBadgeInsert.add(wb);
-
-                        //Create feed item records
-                        FeedItem fi = new FeedItem();
-                        fi.Body = workBadges[i].get('message');
-                        fi.RelatedRecordId = workBadges[i].get('sourceid');
-                        fi.ParentId = workBadges[i].get('recipientid');
-                        fi.Type = 'RypplePost';
-                        if(setAuditFields && workBadges[i].get('giverid') != null){
-                            fi.CreatedById = workBadges[i].get('giverid');
-                        }
-
-                        if(networkId != null){
-                            fi.put('NetworkScope',networkId);
-                        }
-                        feedItemInsert.add(fi);
-
-                    }else{
-                        workThanksInsert[i].addError(System.Label.ALMS_Default_Error_Inserting_Thanks +' : '+sr.getErrors().get(0).getMessage());
-                    }
+            for(Integer i = 0; i < wBadgeResults.size(); i++) {
+                Database.SaveResult sr = wBadgeResults[i];
+                if(!sr.isSuccess()){
+                    workBadgeInsert[i].addError(System.Label.ALMS_Default_Error_Inserting_Badge +' : '+sr.getErrors().get(0).getMessage());
                 }
+            }
 
-                if(workBadgeInsert.size()>0){
-
-                    Database.SaveResult[] wBadgeResults = Database.insert(workBadgeInsert,false);
-                    Database.SaveResult[] feedItemResults = Database.insert(feedItemInsert,false);
-
-                    for(Integer i = 0; i < wBadgeResults.size(); i++) {
-                        Database.SaveResult sr = wBadgeResults[i];
-                        if(!sr.isSuccess()){
-                            workBadgeInsert[i].addError(System.Label.ALMS_Default_Error_Inserting_Badge +' : '+sr.getErrors().get(0).getMessage());
-                        }
-                    }
-
-                    for(Integer i = 0; i < feedItemResults.size(); i++) {
-                        Database.SaveResult sr = feedItemResults[i];
-                        if(!sr.isSuccess()){
-                            feedItemInsert[i].addError(System.Label.ALMS_Default_Error_Inserting_Feed +': '+sr.getErrors().get(0).getMessage());
-                        }
-                    }
-
+            for(Integer i = 0; i < feedItemResults.size(); i++) {
+                Database.SaveResult sr = feedItemResults[i];
+                if(!sr.isSuccess()){
+                    feedItemInsert[i].addError(System.Label.ALMS_Default_Error_Inserting_Feed +': '+sr.getErrors().get(0).getMessage());
                 }
-
             }
 
         }

@@ -171,6 +171,7 @@ public with sharing class LMSCommunitiesService{
                 if(validAccountTrainingTrackIds.size() != trackIds.size()){
 
                     String soqlQuery = 'select Id from Training_Track__c where Enable_all_external_accounts__c = true';
+                    soqlQuery += ' and Id in :trackIds';
                     if(filterStatus != null){
                         soqlQuery += ' and Status__c = :filterStatus';
                     }

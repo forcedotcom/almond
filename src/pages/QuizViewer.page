@@ -75,12 +75,15 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                                 return false;
                             }
 
-                            function multiset( which,selectresponse, ele ) {
-                                var target = document.getElementsByName(which)[0];
-                                var targetSelectResponse = document.getElementsByName(selectresponse)[0];
-                                var source = document.getElementsByName(ele.name); // list of checkboxes
-                                var sourceLabels = document.getElementsByName(ele.name+'label'); // list of labels
+                            function getByName(name){
+                                return jQuery('[name="'+name+'"]');
+                            }
 
+                            function multiset( which,selectresponse, ele ) {
+                                var target = getByName(which)[0];
+                                var targetSelectResponse = getByName(selectresponse)[0];
+                                var source = getByName(ele.name); // list of checkboxes
+                                var sourceLabels = getByName(ele.name+'label'); // list of labels
                                 var st ='';
                                 var stLabel = '';
                                 for (var i =0; i < source.length; i++) {

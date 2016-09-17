@@ -47,9 +47,12 @@
     <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
     <deploymentStatus>Deployed</deploymentStatus>
     <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
     <enableFeeds>true</enableFeeds>
     <enableHistory>true</enableHistory>
     <enableReports>true</enableReports>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
     <fields>
         <fullName>Current_Published_Version_Formula__c</fullName>
         <externalId>false</externalId>
@@ -148,9 +151,9 @@ TEXT(FLOOR((Duration__c)/60))&amp;&quot; hr(s) &quot;&amp;TEXT(FLOOR(MOD((Durati
     </fields>
     <fields>
         <fullName>Sync_progress__c</fullName>
-        <inlineHelpText>Enable this checkbox if you plan to add this learning to multiple training plans and you would like to keep progress in sync between plans</inlineHelpText>
         <defaultValue>false</defaultValue>
         <externalId>false</externalId>
+        <inlineHelpText>Enable this checkbox if you plan to add this learning to multiple training plans and you would like to keep progress in sync between plans</inlineHelpText>
         <label>Sync progress across assignments</label>
         <trackFeedHistory>true</trackFeedHistory>
         <trackHistory>true</trackHistory>
@@ -246,18 +249,6 @@ TEXT(FLOOR((Duration__c)/60))&amp;&quot; hr(s) &quot;&amp;TEXT(FLOOR(MOD((Durati
         <trackHistory>true</trackHistory>
         <type>Text</type>
     </nameField>
-    <namedFilters>
-        <fullName>nf_01Ii0000000lMqqEAE_00Ni0000007LcuQEAS</fullName>
-        <active>true</active>
-        <field>Training_Plan_Section_Item__c.Learning__c</field>
-        <filterItems>
-            <field>Learning__c.Published__c</field>
-            <operation>equals</operation>
-            <value>True</value>
-        </filterItems>
-        <isOptional>false</isOptional>
-        <name>Training Plan Section Item_Learning</name>
-    </namedFilters>
     <pluralLabel>Learnings</pluralLabel>
     <recordTypeTrackFeedHistory>false</recordTypeTrackFeedHistory>
     <recordTypeTrackHistory>true</recordTypeTrackHistory>
@@ -294,13 +285,25 @@ TEXT(FLOOR((Duration__c)/60))&amp;&quot; hr(s) &quot;&amp;TEXT(FLOOR(MOD((Durati
     </searchLayouts>
     <sharingModel>Private</sharingModel>
     <sharingReasons>
-        <fullName>LMS_Sharing__c</fullName>
-        <label>LMS Sharing</label>
-    </sharingReasons>
-    <sharingReasons>
         <fullName>LMS_Approval_Sharing__c</fullName>
         <label>LMS Approval Sharing</label>
     </sharingReasons>
+    <sharingReasons>
+        <fullName>LMS_Sharing__c</fullName>
+        <label>LMS Sharing</label>
+    </sharingReasons>
+    <webLinks>
+        <fullName>Delete_Shared_Assignments</fullName>
+        <availability>online</availability>
+        <description>Button used for deleting unused sharind assignments for a Learning</description>
+        <displayType>button</displayType>
+        <height>600</height>
+        <linkType>page</linkType>
+        <masterLabel>Delete Shared Assignments</masterLabel>
+        <openType>noSidebar</openType>
+        <page>LearningDeleteSharedAssignments</page>
+        <protected>false</protected>
+    </webLinks>
     <webLinks>
         <fullName>Preview</fullName>
         <availability>online</availability>
@@ -323,17 +326,4 @@ TEXT(FLOOR((Duration__c)/60))&amp;&quot; hr(s) &quot;&amp;TEXT(FLOOR(MOD((Durati
         <page>Learning_Publish</page>
         <protected>false</protected>
     </webLinks>
-    <webLinks>
-        <fullName>Delete_Shared_Assignments</fullName>
-        <availability>online</availability>
-        <description>Button used for deleting unused sharind assignments for a Learning</description>
-        <displayType>button</displayType>
-        <height>600</height>
-        <linkType>page</linkType>
-        <masterLabel>Delete Shared Assignments</masterLabel>
-        <openType>noSidebar</openType>
-        <page>LearningDeleteSharedAssignments</page>
-        <protected>false</protected>
-    </webLinks>
-
 </CustomObject>

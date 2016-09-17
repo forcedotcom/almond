@@ -13,7 +13,7 @@
     <!-- Set default value in property if not present -->
     <property name="checkOnly" value="true" />
     <property name="runAllTests" value="true" />
-    <property name="sf.package.apiVersion" value="33.0" />
+    <property name="sf.package.apiVersion" value="37.0" />
 
     <!-- Ant doesn't like < in replace tokens or values so set a property with < via cdata for reuse later -->
     <property name="lt"><![CDATA[<]]></property>
@@ -102,7 +102,7 @@
     </target>
 
     <!-- Deploy the unpackaged set of metadata retrieved with retrieveUnpackaged -->
-    <target name="deploy" depends="runTargetValidations,updateMetadata,create-static-res,resolvePasswordForTargetEnv">
+    <target name="deploy" depends="runTargetValidations,updateMetadata,create-static-res,resolvePasswordForTargetEnv,proxy">
         <sf:deploy username="${sf.target.username}" password="${sf.target.password}" serverurl="${sf.target.serverurl}"
         deployRoot="${src.dir}" checkOnly="${checkOnly}" logType="Debugonly" pollWaitMillis="20000"  maxPoll="50" runAllTests="false">
         </sf:deploy>
@@ -117,13 +117,13 @@
     </target>
 
     <!-- Deploy with destructive changes -->
-    <target name="deploy-with-destructive-changes">
+    <target name="deploy-with-destructive-changes" depends="proxy">
         <antcall target="deploy"/>
         <antcall target="deploy-destructive"/>
     </target>
 
     <!-- Deploy Static Resources Only-->
-    <target name="deploy-static-res" depends="create-static-res">
+    <target name="deploy-static-res" depends="create-static-res,proxy">
         <deploy-subset-package>
             <ss-elements>
                 <copy todir="${app.deploy.tmp.dir}/staticresources">
@@ -135,7 +135,7 @@
     </target>
 
     <!-- Deploy Apex Only-->
-    <target name="deploy-apex">
+    <target name="deploy-apex" depends="proxy">
         <deploy-subset-package>
             <ss-elements>
                 <copy todir="${app.deploy.tmp.dir}/classes">
@@ -151,7 +151,7 @@
     </target>
 
     <!-- Deploy Visualforce Only-->
-    <target name="deploy-visualforce">
+    <target name="deploy-visualforce" depends="proxy">
         <deploy-subset-package>
             <ss-elements>
                 <copy todir="${app.deploy.tmp.dir}/pages">
@@ -163,7 +163,7 @@
     </target>
 
     <!-- Deploy Single File -->
-    <target name="deploy-single-file">
+    <target name="deploy-single-file" depends="proxy">
         <deploy-subset-package>
             <ss-elements>
                 <echo message="${deploy.single.folderName} / ${deploy.single.subFolderName} / ${deploy.single.fileName} / ${deploy.single.metadataType}" />
@@ -206,7 +206,7 @@
     </target>
 
     <!-- Retrieve Single File -->
-    <target name="retrieve-single-file">
+    <target name="retrieve-single-file" depends="proxy">
         <retrieve-unpackaged-subset-package>
             <ss-elements>
                 <echo message="${retrieve.single.folderName} / ${retrieve.single.subFolderName} / ${retrieve.single.fileName} / ${retrieve.single.metadataType}" />
@@ -234,7 +234,7 @@
     </target>
 
     <!-- Deploy metadata from the tmp directory -->
-    <target name="deploy-subset" depends="runTargetValidations,checkMetaHasPackageVersions">
+    <target name="deploy-subset" depends="runTargetValidations,checkMetaHasPackageVersions,proxy">
         <sf:deploy username="${sf.target.username}" password="${sf.target.password}" serverurl="${sf.target.serverurl}"
                 deployRoot="${app.deploy.tmp.dir}" logType="Debugonly" pollWaitMillis="20000"  maxPoll="50" runAllTests="${runAllTests}">
         </sf:deploy>
@@ -346,13 +346,24 @@
     </target>
 
     <!-- Retrieve the contents listed in the file src/package.xml into the app directory -->
-    <target name="retrieve-unpackaged">
+    <target name="retrieve-unpackaged" depends="proxy">
        <sf:retrieve username="${sf.target.username}" password="${sf.target.password}" serverurl="${sf.target.serverurl}" retrieveTarget="${src.dir}" unpackaged="${src.dir}/package.xml"/>
     </target>
 
     <!-- Retrieve metadata from the tmp directory -->
-    <target name="retrieve-unpackaged-subset">
+    <target name="retrieve-unpackaged-subset" depends="proxy">
         <sf:retrieve username="${sf.target.username}" password="${sf.target.password}" serverurl="${sf.target.serverurl}" retrieveTarget="${src.dir}" unpackaged="${app.deploy.tmp.dir}/package.xml" />
     </target>
+
+    <!-- Proxy (if set in properties) -->
+    <target name="proxy">
+        <if>
+            <isset property="proxy.host" />
+            <then>
+                <setproxy proxyhost="${proxy.host}" proxyport="${proxy.port}" proxyuser="${proxy.user}" proxypassword="${proxy.pass}"/>
+            </then>
+        </if>
+    </target>
+
 
 </project>

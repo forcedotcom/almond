@@ -72,9 +72,6 @@
 
     <script>
         jQuery(document).ready(function($){
-            if(almond.isSF1()){
-                $('#lms-nav-header').hide();
-            }
             var almondtooltipElements = $('[data-toggle="almond-tooltip"]');
             if(almondtooltipElements.length > 0){
                 almondtooltipElements.tooltip();

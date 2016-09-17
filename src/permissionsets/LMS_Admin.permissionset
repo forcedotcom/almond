@@ -244,6 +244,14 @@
         <apexClass>TrainingTrackExportController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
+    <classAccesses>
+        <apexClass>LearningPreviewRedirectController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>LearningPreviewService</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
     <fieldPermissions>
         <editable>true</editable>
         <field>Achievement_Assignment__c.Achievement__c</field>
@@ -1838,6 +1846,10 @@
     </pageAccesses>
     <pageAccesses>
         <apexPage>TrainingTrackExport</apexPage>
+        <enabled>true</enabled>
+    </pageAccesses>
+    <pageAccesses>
+        <apexPage>LearningPreviewRedirect</apexPage>
         <enabled>true</enabled>
     </pageAccesses>
     <recordTypeVisibilities>

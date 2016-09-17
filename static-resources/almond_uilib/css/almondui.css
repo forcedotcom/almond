@@ -42,7 +42,6 @@
 */
 
 html body.sfdcBody{
-    margin:0;
     padding:0;
 }
 
@@ -163,7 +162,7 @@ td.noSidebarCell{
 
 .almond .lms-nav {
     /* This background value is overwritten by LMS Settings */
-    background: #2A94D6;
+    background: #16325C;
     box-shadow: 0 2px 2px rgba(0, 0, 0, 0.35);
 }
 

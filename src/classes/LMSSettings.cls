@@ -35,7 +35,7 @@ global with sharing class LMSSettings {
     }
 
     global static String getHeaderBackgroundColor(){
-        return (String)getValue('Header_Background_Color__c','#2A94D6');
+        return (String)getValue('Header_Background_Color__c','#16325C');
     }
 
     global static String getHeaderTextColor(){

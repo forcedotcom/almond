@@ -60,13 +60,10 @@ public class TestLearning {
             Test.setCurrentPage(pageRef);
             ApexPages.Standardcontroller stdcontroller = New ApexPages.StandardController(learning.get(0));
             Learning_Preview_Ext extension = new Learning_Preview_Ext(stdcontroller);
-            extension.selectedContent = quiz.get(0).Id;
+            System.assert(extension.learning != null, 'Unable to retrieve learning object');
             List<sObject> lsobjects = extension.getContents();
-            System.assert(String.isNotBlank(extension.selectedContent), 'selectedContent is wrong');
-            System.assert(extension.currentRecordType == 'Quiz', 'currentRecordType is wrong');
             System.assert(lsobjects.size() == 1, 'getContents is wrong');
-
-            extension.previewContent();
+            LearningPreviewRedirectController.previewContent(learning.get(0).Id, quiz.get(0).Id);
 
             List<Learning_Version__c> learningversions2 = [select id from Learning_Version__c
                                                                 where Type__c = 'Preview'
@@ -108,14 +105,12 @@ public class TestLearning {
             Test.setCurrentPage(pageRef);
             ApexPages.Standardcontroller stdcontroller = New ApexPages.StandardController(learning.get(0));
             Learning_Preview_Ext extension = new Learning_Preview_Ext(stdcontroller);
-            extension.selectedContent = tresource.get(0).Id;
+
+            System.assert(extension.learning != null, 'Unable to retrieve learning object');
             List<sObject> lsobjects = extension.getContents();
-            System.assert(String.isNotBlank(extension.selectedContent), 'selectedContent is wrong');
-            System.assert(extension.currentRecordType == 'Resource', 'currentRecordType is wrong');
             System.assert(lsobjects.size() == 1, 'getContents is wrong');
-
-            extension.previewContent();
-
+            LearningPreviewRedirectController.previewContent(learning.get(0).Id, tresource.get(0).Id);
+            
             List<Learning_Version__c> learningversions2 = [select id from Learning_Version__c
                                                                 where Type__c = 'Preview'
                                                                 and Learning__c = :learning.get(0).Id];
@@ -155,14 +150,13 @@ public class TestLearning {
             Test.setCurrentPage(pageRef);
             ApexPages.Standardcontroller stdcontroller = New ApexPages.StandardController(learning.get(0));
             Learning_Preview_Ext extension = new Learning_Preview_Ext(stdcontroller);
-            extension.selectedContent = task.get(0).Id;
+
+            System.assert(extension.learning != null, 'Unable to retrieve learning object');
             List<sObject> lsobjects = extension.getContents();
-            System.assert(String.isNotBlank(extension.selectedContent), 'selectedContent is wrong');
-            System.assert(extension.currentRecordType == 'Task', 'currentRecordType is wrong');
             System.assert(lsobjects.size() == 1, 'getContents is wrong');
-
-            extension.previewContent();
-
+            LearningPreviewRedirectController.previewContent(learning.get(0).Id, task.get(0).Id);
+            
+            
             List<Learning_Version__c> learningversions2 = [select id from Learning_Version__c
                                                                 where Type__c = 'Preview'
                                                                 and Learning__c = :learning.get(0).Id];
@@ -206,13 +200,11 @@ public class TestLearning {
             Test.setCurrentPage(pageRef);
             ApexPages.Standardcontroller stdcontroller = New ApexPages.StandardController(learning.get(0));
             Learning_Preview_Ext extension = new Learning_Preview_Ext(stdcontroller);
-            extension.selectedContent = task.get(0).Id;
-            List<sObject> lsobjects = extension.getContents();
-            System.assert(String.isNotBlank(extension.selectedContent), 'selectedContent is wrong');
-            System.assert(extension.currentRecordType == 'Task', 'currentRecordType is wrong');
-            System.assert(lsobjects.size() == 1, 'getContents is wrong');
 
-            extension.previewContent();
+            System.assert(extension.learning != null, 'Unable to retrieve learning object');
+            List<sObject> lsobjects = extension.getContents();
+            System.assert(lsobjects.size() == 1, 'getContents is wrong');
+            LearningPreviewRedirectController.previewContent(learning.get(0).Id, task.get(0).Id);
 
             List<Learning_Version__c> learningversions2 = [select id from Learning_Version__c
                                                                 where Type__c = 'Preview'
@@ -238,11 +230,11 @@ public class TestLearning {
             Test.setCurrentPage(pageRef);
             ApexPages.Standardcontroller stdcontroller = New ApexPages.StandardController(learning.get(0));
             Learning_Preview_Ext extension = new Learning_Preview_Ext(stdcontroller);
-            extension.selectedContent = task.get(0).Id;
-            System.assert(String.isNotBlank(extension.selectedContent), 'selectedContent is wrong');
-            System.assert(extension.currentRecordType == 'Task', 'currentRecordType is wrong');
 
-            extension.previewContent();
+            System.assert(extension.learning != null, 'Unable to retrieve learning object');
+            List<sObject> lsobjects = extension.getContents();
+            System.assert(lsobjects.size() == 1, 'getContents is wrong');
+            LearningPreviewRedirectController.previewContent(learning.get(0).Id, task.get(0).Id);
 
             List<Learning_Version__c> learningversions2 = [select id from Learning_Version__c
                                                                 where Type__c = 'Preview'
@@ -280,15 +272,11 @@ public class TestLearning {
             Test.setCurrentPage(pageRef);
             ApexPages.Standardcontroller stdcontroller = New ApexPages.StandardController(learning.get(0));
             Learning_Preview_Ext extension = new Learning_Preview_Ext(stdcontroller);
-            //extension.selectedContent = task.get(0).Id;
+
+            System.assert(extension.learning != null, 'Unable to retrieve learning object');
             List<sObject> lsobjects = extension.getContents();
-            System.assert(String.isBlank(extension.selectedContent), 'selectedContent is wrong');
-            System.assert(extension.currentRecordType == 'Task', 'currentRecordType is wrong');
             System.assert(lsobjects.size() == 1, 'getContents is wrong');
-
-            extension.previewContent();
-
-            System.assert(ApexPages.getMessages().size() == 1, 'Page error messages is wrong');
+            LearningPreviewRedirectController.previewContent(learning.get(0).Id, null);
 
             List<Learning_Version__c> learningversions2 = [select id from Learning_Version__c
                                                                 where Type__c = 'Preview'

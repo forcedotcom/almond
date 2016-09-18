@@ -33,23 +33,23 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
             color : {!JSINHTMLENCODE(learningcategory.Text_Color__c)};
         }
     </style>
-    <apex:composition template="LMS_HeroTemplate">
+    <apex:composition template="LMS_LXHeroTemplate">
 
         <apex:define name="head">
             <title>{!$Label.ALMS_Training_Catalog}</title>
         </apex:define>
 
         <apex:define name="hero-banner-badge">
-            <div id="hb-right" class="col-xs-12 col-sm-12 col-md-12">
+            <div id="hb-right" class="slds-p-horizontal--small slds-size--1-of-1">
                 <div class="banner-title-left" style="color:{!JSINHTMLENCODE(learningcategory.Text_Color__c)}">
                     <span>{!$Label.ALMS_Category}</span>
-                    <h1>{!learningcategory.Name}</h1>
+                    <div class="slds-text-heading--large">{!learningcategory.Name}</div>
                 </div>
            </div>
         </apex:define>
 
         <apex:define name="hero-banner-footer">
-            <span>{!$Label.ALMS_Total_Plans} : {!IF(tPlans != null, tPlans.size, '0')}</span>
+            <span style="padding:0 1rem;">{!$Label.ALMS_Total_Plans} : {!IF(tPlans != null, tPlans.size, '0')}</span>
         </apex:define>
 
         <apex:define name="body">
@@ -61,13 +61,13 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
             </apex:actionStatus>
 
             <apex:outputPanel layout="none" rendered="{!tPlans != null && tPlans.size > 0}">
-                <div class="trainingplan-container row">
+                <div class="trainingplan-container slds-grid slds-wrap slds-grid--pull-padded" style="padding:0 1rem;">
                     <apex:repeat value="{!tPlans}" var="o" id="theRepeat">
 
                         <apex:variable var="hasBadge" value="{!o.mainAchievement.Acquired_Image__c != null || o.mainAchievement.Work_Badge_Image_URL__c != null}" />
                         <apex:variable var="validAssignment" value="{!o.hasAssignment || o.selfRegistrationEnabled}"/>
 
-                        <div class="col-xs-12 col-sm-6 col-md-4 catalog-plan-item" item-url="{!IF(o.hasAssignment,$Page.TrainingPlanDetail,$Page.TrainingPlanPreview)}?id={!o.planId}" valid-item="{!validAssignment}">
+                        <div class="tplan_box_container slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--3-of-6 slds-large-size--4-of-12 catalog-plan-item" item-url="{!IF(o.hasAssignment,$Page.TrainingPlanDetail,$Page.TrainingPlanPreview)}?id={!o.planId}" valid-item="{!validAssignment}">
                             <div class="tplan_box {!IF(validAssignment,'','tplan_box_disabled')}">
                                 <apex:outputPanel layout="none" rendered="{!hasBadge}">
                                     <div class="tplan_img">
@@ -76,17 +76,17 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                                     </div>
                                 </apex:outputPanel>
                                 <div class="{!IF(hasBadge,'tplan_details','tplan_details_no_image')}" >
-                                    <h4>{!o.planName}</h4>
+                                    <div class="slds-text-heading--small tplan_box_title">{!o.planName}</div>
                                     <apex:outputPanel layout="block" rendered="{!o.assignmentStatus != null}">
-                                        <label class="label {!IF(o.assignmentStatus=='Completed','label-success',IF(o.assignmentStatus=='In Progress','label-primary','label-default'))}">
+                                        <span class="slds-badge slds-badge-{!IF(o.assignmentStatus=='Completed','success',IF(o.assignmentStatus=='In Progress','primary','default'))}">
                                             {!IF(o.assignmentStatus == 'Completed',$Label.ALMS_Training_Status_Completed, IF(o.assignmentStatus == 'In Progress', $Label.ALMS_Training_Status_In_Progress, $Label.ALMS_Training_Status_Not_Started))}
-                                        </label>
+                                        </span>
                                     </apex:outputPanel>
                                     <apex:outputPanel layout="block" rendered="{!validAssignment && !o.hasAssignment}">
-                                        <label class="label label-info">{!$Label.ALMS_TPlan_Not_Registered}</label>
+                                        <span class="slds-badge slds-badge-info">{!$Label.ALMS_TPlan_Not_Registered}</span>
                                     </apex:outputPanel>
                                     <apex:outputPanel layout="block" rendered="{!!validAssignment}">
-                                        <label class="label label-default">{!$Label.ALMS_TPlan_Requires_Assignment}</label>
+                                        <span class="slds-badge slds-badge-default">{!$Label.ALMS_TPlan_Requires_Assignment}</span>
                                     </apex:outputPanel>
                                     <apex:outputPanel layout="none" rendered="{!o.hideAfterEndDate && o.planEndDate != null}">
                                         <span class="plan-due-date">{!$Label.ALMS_Training_Plan_Due} : {!o.planEndDate}</span>
@@ -103,7 +103,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 
             <apex:outputPanel layout="none" rendered="{!tPlans == null || tPlans.size == 0}">
                 <div style="width:100%;text-align:center;padding:20px;0;">
-                    <h2>{!$Label.ALMS_Nothing_to_see}</h2>
+                    <div class="slds-text-heading--medium">{!$Label.ALMS_Nothing_to_see}</div>
                 </div>
             </apex:outputPanel>
 

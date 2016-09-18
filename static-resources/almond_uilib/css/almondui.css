@@ -1160,11 +1160,6 @@ td.noSidebarCell{
     margin-bottom: 27px;
 }
 
-.almond .categoryItemWrap {
-    display: block;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-}
-
 .almond .categoryItem {
     display: table;
     margin-bottom: 15px;

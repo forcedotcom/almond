@@ -37,21 +37,19 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 
             <c:trainingPlansSearchBar retainInHistory="true"/>
 
-            <div class="row">
+            <div class="slds-grid slds-wrap slds-grid--pull-padded" style="padding:0 1rem;">
                 <apex:outputPanel layout="none" rendered="{!lcategories != null && lcategories.size > 0}">
                     <apex:repeat value="{!lcategories}" var="o" id="theRepeat">
-                        <div class="categoryItemWrap">
-                          <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 categoryItem" item-url="{!$Page.TrainingCatalogDetail}?id={!o.Id}">
-                            <div class="categoryImage" style="background:url({!JSENCODE(o.Background_Image_URL__c)})">
-                                <apex:outputPanel rendered="{!o.Logo__c != null}" layout="none">
-                                    <apex:image value="{!o.Logo__c}"  />
-                                </apex:outputPanel>
-                                <div class="categoryName" style="color:{!JSINHTMLENCODE(o.Text_Color__c)}">
-                                    <span>{!o.Name}</span>
-                                </div>
+                      <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--3-of-12 slds-large-size--3-of-12 categoryItem" item-url="{!$Page.TrainingCatalogDetail}?id={!o.Id}">
+                        <div class="categoryImage" style="background:url({!JSENCODE(o.Background_Image_URL__c)})">
+                            <apex:outputPanel rendered="{!o.Logo__c != null}" layout="none">
+                                <apex:image value="{!o.Logo__c}"  />
+                            </apex:outputPanel>
+                            <div class="categoryName" style="color:{!JSINHTMLENCODE(o.Text_Color__c)}">
+                                <span>{!o.Name}</span>
                             </div>
-                          </div>
                         </div>
+                      </div>
                     </apex:repeat>
                 </apex:outputPanel>
                 <apex:outputPanel layout="none" rendered="{!lcategories == null || lcategories.size == 0}">

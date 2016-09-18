@@ -27,7 +27,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 <apex:page controller="QuizResultsController" docType="html-5.0" sidebar="false" showHeader="{!showSFHeader}" standardStylesheets="false" cache="false">
 
-    <apex:composition template="LMS_Template">
+    <apex:composition template="LMS_LXTemplate">
 
         <apex:define name="head">
             <title>{!$Label.ALMS_Quiz_Results}</title>
@@ -35,51 +35,67 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 
         <apex:define name="body">
 
-            <apex:form>
+            <div style="padding:0 1rem;">
+                <apex:form>
 
-                <apex:pageMessages id="pMessages"/>
+                    <apex:pageMessages id="pMessages"/>
 
-                <apex:outputPanel layout="none" id="resultsPanel">
-                    <apex:inputHidden id="redirectURL" value="{!redirectURL}"/>
-                </apex:outputPanel>
+                    <apex:outputPanel layout="none" id="resultsPanel">
+                        <apex:inputHidden id="redirectURL" value="{!redirectURL}"/>
+                    </apex:outputPanel>
 
-                <apex:actionStatus id="status">
-                    <apex:facet name="start">
-                        <c:LMSStatus statusComponentId="{!$Component.status}"/>
-                    </apex:facet>
-                </apex:actionStatus>
+                    <apex:actionStatus id="status">
+                        <apex:facet name="start">
+                            <c:LMSStatus statusComponentId="{!$Component.status}"/>
+                        </apex:facet>
+                    </apex:actionStatus>
 
-                <div class="alert {!messageStyle}">
-                    <h3>{!resultPreMessage} {!$Label.ALMS_Quiz_Results_Eval_Message} : <b>{!evalResultLabel}</b></h3>
-                </div>
-
-                <apex:outputPanel layout="none" rendered="{!maxAttemptsReached}">
-                    <div class="alert info">
-                        <h3>{!$Label.ALMS_Quiz_Max_Attempts_Reached}</h3>
+                    <div class="slds-notify slds-notify--toast slds-theme--{!messageStyle}" style="width: 100%;" role="alert">
+                        <span class="slds-assistive-text">{!evalResultLabel}</span>
+                        <div class="slds-notify__content slds-grid">
+                            <div class="slds-col slds-align-middle">
+                              <h2 class="slds-text-heading--small">{!resultPreMessage} {!$Label.ALMS_Quiz_Results_Eval_Message} : <b>{!evalResultLabel}</b></h2>
+                            </div>
+                        </div>
                     </div>
-                </apex:outputPanel>
 
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                      <h2 class="panel-title">{!$Label.ALMS_Additional_Information}</h2>
-                    </div>
-                    <div class="panel-body">
-                      <h3>{!$Label.ALMS_Quiz_Score} : {!evalScore}%</h3>
-                    </div>
-                </div>
+                    <apex:outputPanel layout="none" rendered="{!maxAttemptsReached}">
+                        <div class="slds-notify slds-notify--toast slds-theme--info slds-m-bottom--large" style="width: 100%;" role="alert">
+                            <span class="slds-assistive-text">{!$Label.ALMS_Quiz_Max_Attempts_Reached}</span>
+                            <div class="slds-notify__content slds-grid">
+                                <div class="slds-col slds-align-middle">
+                                  <h2 class="slds-text-heading--small">{!$Label.ALMS_Quiz_Max_Attempts_Reached}</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </apex:outputPanel>
 
-                <apex:commandbutton value="{!$Label.ALMS_Continue}" action="{!quizContinue}" styleClass="almond-default-btn large-btn" status="status" rerender="resultsPanel,pMessages" oncomplete="doRedirection()"/>
+                    <article class="slds-card slds-m-top--large slds-m-bottom--large">
+                        <div class="slds-card__header slds-grid">
+                            <header class="slds-media slds-media--center slds-has-flexi-truncate">
+                                <div class="slds-media__body slds-truncate">
+                                    <h2><span class="slds-text-heading--small">{!$Label.ALMS_Additional_Information}</span></h2>
+                                </div>
+                            </header>
+                        </div>
+                        <div class="slds-card__body slds-text-align--left slds-p-around--large">
+                            <h3 class="slds-text-heading--medium">{!$Label.ALMS_Quiz_Score} : {!evalScore}%</h3>
+                        </div>
+                    </article>
 
-                <script>
-                    function doRedirection(){
-                        var retUrl = document.getElementById('{!$Component.redirectURL}').value;
-                        if(retUrl && retUrl.length > 0){
-                            almond.redirectHandlerWithStatus(retUrl,false);
+                    <apex:commandbutton value="{!$Label.ALMS_Continue}" action="{!quizContinue}" styleClass="almond-default-btn large-btn" status="status" rerender="resultsPanel,pMessages" oncomplete="doRedirection()"/>
+
+                    <script>
+                        function doRedirection(){
+                            var retUrl = document.getElementById('{!$Component.redirectURL}').value;
+                            if(retUrl && retUrl.length > 0){
+                                almond.redirectHandlerWithStatus(retUrl,false);
+                            }
                         }
-                    }
-                </script>
+                    </script>
 
-            </apex:form>
+                </apex:form>
+            </div>
         </apex:define>
 
     </apex:composition>

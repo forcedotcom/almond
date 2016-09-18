@@ -51,7 +51,7 @@ public with sharing class QuizResultsController extends LMSBaseController{
             maxAttemptsReached = false;
             isPreview = false;
             showErrorButtons = false;
-            messageStyle = 'alert-danger';
+            messageStyle = 'error';
             resultPreMessage = '';
             evalResultLabel = '';
 
@@ -80,7 +80,7 @@ public with sharing class QuizResultsController extends LMSBaseController{
                 evalScore = score.setScale(2).format();
 
                 if(evalResult == LMSConstants.ASSIGNMENT_EVAL_PASSED){
-                    messageStyle = 'alert-success';
+                    messageStyle = 'success';
                     resultPreMessage = System.Label.ALMS_Quiz_Success_Pre_Message;
                     evalResultLabel = System.Label.ALMS_Quiz_Passed;
                 }else{

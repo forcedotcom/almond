@@ -7,10 +7,10 @@
     <apex:repeat value="{!achievements}" var="c">
 
         <div class="achievements-wrapper">
-            <div class="row">
+            <div class="slds-grid slds-wrap slds-grid--pull-padded">
 
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <h3>{!c.name}</h3>
+            <div class="slds-p-horizontal--small slds-size--1-of-1">
+                <div class="slds-text-heading--small">{!c.name}</div>
                 <hr />
             </div>
 

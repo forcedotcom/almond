@@ -5,15 +5,13 @@
     <apex:attribute name="searchBarSize" type="String" description="size of the search bar" required="false" default="lg"/>
     <apex:attribute name="searchBarColLengthClass" type="String" description="css class for the search bar length" required="false" default="col-xs-12 col-sm-12 col-md-12 col-lg-offset-3 col-lg-6"/>
 
-    <div class="row">
-        <div class="{!searchBarColLengthClass} lms-user-search-group">
-            <div class="input-group input-group-{!searchBarSize}">
-                <input type="text" class="form-control" id="lms-search-input" autocomplete="off" maxlength="100" placeholder="{!$Label.ALMS_Search_Users}"/>
-                <span class="input-group-btn">
-                    <button class="btn btn-default" type="button" id="lms-search-button"><span class="glyphicon glyphicon-search"></span></button>
-                </span>
-            </div>
-         </div>
+    <div class="slds-form-element">
+        <div class="slds-form-element__control slds-input-has-fixed-addon">
+            <input id="lms-search-input" class="slds-input" type="text" autocomplete="off" maxlength="100" placeholder="{!$Label.ALMS_Search_Users}"/>
+            <span class="slds-form-element__addon">
+                <button class="slds-button slds-button--brand" type="button" id="lms-search-button">{!$Label.ALMS_Search}</button>
+            </span>
+        </div>
     </div>
 
     <script>

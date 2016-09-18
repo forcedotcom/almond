@@ -1,0 +1,58 @@
+<apex:component controller="LMSHeaderController">
+
+    <apex:attribute name="hideSFLink" type="Boolean" description="Show a link to go back to the Salesforce UI"  default="false"/>
+
+    <div class="lx-lms-header slds-container--center slds-container--x-large">
+        <div class="slds-tabs--default">
+            <ul class="slds-tabs--default__nav" role="tablist">
+                
+                <li class="slds-tabs--default__item slds-text-title--caps" title="{!$Label.ALMS_MyProfile}" role="presentation">
+                    <a class="slds-tabs--default__link navbar-brand" href="{!$Page.MyTraining}" role="tab" tabindex="0">
+                        <apex:image value="{!IF(customLogo == null,URLFOR($Resource.almond_uilib, '/img/almond_logo.png'),customLogo)}" />
+                    </a>
+                </li>
+                <apex:outputPanel layout="none" rendered="{!customSectionURL != null && customSectionName != null}">
+                    <li class="slds-tabs--default__item slds-text-title--caps {!IF(section == 'custom','slds-active','')}" title="{!customSectionName}" role="presentation">
+                        <a class="slds-tabs--default__link" href="{!JSENCODE(customSectionURL)}" role="tab" tabindex="0" aria-selected="{!IF(section == 'custom','true','false')}" aria-controls="tab-default-0">
+                            {!customSectionName}
+                        </a>
+                    </li>
+                </apex:outputPanel>
+                <li class="slds-tabs--default__item slds-text-title--caps {!IF(section == 'tracks','slds-active','')}" title="{!$Label.ALMS_TrainingTracks}" role="presentation">
+                    <a class="slds-tabs--default__link" href="{!$Page.TrainingTracks}" role="tab" tabindex="0" aria-selected="{!IF(section == 'tracks','true','false')}" aria-controls="tab-default-1">
+                        {!$Label.ALMS_TrainingTracks}
+                    </a>
+                </li>
+                <li class="slds-tabs--default__item slds-text-title--caps {!IF(section == 'catalog','slds-active','')}" title="{!$Label.ALMS_PublicCatalog}" role="presentation">
+                    <a class="slds-tabs--default__link" href="{!$Page.TrainingCatalogHome}" role="tab" tabindex="-1" aria-selected="{!IF(section == 'catalog','true','false')}" aria-controls="tab-default-2">
+                        {!$Label.ALMS_PublicCatalog}
+                    </a>
+                </li>
+                <li class="slds-tabs--default__item slds-text-title--caps {!IF(section == 'mytraining','slds-active','')}" title="{!$Label.ALMS_My_Training}" role="presentation">
+                    <a class="slds-tabs--default__link" href="{!$Page.MyTraining}" role="tab" tabindex="-1" aria-selected="{!IF(section == 'mytraining','true','false')}" aria-controls="tab-default-3">
+                        {!$Label.ALMS_My_Training}
+                    </a>
+                </li>
+                <li class="slds-tabs--default__item slds-text-title--caps {!IF(section == 'myprofile','slds-active','')}" title="{!$Label.ALMS_MyProfile}" role="presentation">
+                    <a class="slds-tabs--default__link" href="{!$Page.MyProfile}" role="tab" tabindex="-1" aria-selected="{!IF(section == 'myprofile','true','false')}" aria-controls="tab-default-4">
+                        {!$Label.ALMS_MyProfile}
+                    </a>
+                </li>
+                <apex:outputPanel layout="none" rendered="{!!hideSFLink && !hideBackToSFButton}">
+                    <li class="slds-tabs--default__item slds-text-title--caps" title="{!$Label.ALMS_MyProfile}" role="presentation">
+                        <a class="slds-tabs--default__link" href="{!backToSFURL}" role="tab" tabindex="-1" aria-selected="false" aria-controls="tab-default-5" id="almond-header-logo">
+                            Salesforce
+                        </a>
+                    </li>
+                </apex:outputPanel>
+            </ul>
+        </div>
+    </div>
+    
+    <script>
+        jQuery(document).ready(function($){
+            FastClick.attach(document.body);
+        });
+    </script>
+
+</apex:component>

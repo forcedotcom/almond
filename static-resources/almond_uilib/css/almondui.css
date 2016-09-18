@@ -81,23 +81,23 @@ td.noSidebarCell{
     border:none;
 }
 
-.almond h1,
-.almond h2,
-.almond h3,
-.almond h4,
-.almond h5,
-.almond h6,
-.almond .h1,
-.almond .h2,
-.almond .h3,
-.almond .h4,
-.almond .h5,
-.almond .h6 {
-    color: inherit;
-    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-    font-weight: 300;
-    line-height: 1.1;
-    display: block;
+.almond .slds-badge-info{
+    color: #fff;
+    background-color: #5bc0de;
+}
+
+.almond .slds-badge-success{
+    color: #fff;
+    background-color: #5cb85c;
+}
+
+.almond .slds-badge-primary{
+    color: #fff;
+    background-color: #337ab7;
+}
+
+.almond .slds-badge-default{
+    background-color: rgb(224, 229, 238);
 }
 
 .almond ul li,
@@ -109,18 +109,6 @@ td.noSidebarCell{
     display: inline-block;
     margin-bottom: 5px;
     margin-left: 2px;
-}
-
-.almond input[type="text"],
-.almond textarea {
-    -moz-appearance: caret;
-    border: 1px solid #D2D3D5;
-    border-radius: 3px;
-    box-shadow: none;
-    font-size: 12px;
-    margin-bottom: 10px;
-    min-height: 25px;
-    padding: 7px;
 }
 
 .almond .requiredItem{
@@ -232,15 +220,6 @@ td.noSidebarCell{
     text-shadow: none;
 }
 
-.almond #almond-header-logo{
-    padding-top: 10px;
-    padding-bottom: 0;
-}
-
-.almond #almond-header-logo span{
-    font-size:30px;
-}
-
 .almond .profilePic-header{
     border: 2px solid #FFFFFF;
     border-radius: 50%;
@@ -268,7 +247,7 @@ td.noSidebarCell{
     vertical-align: middle;
 }
 
-.almond .navbar-inverse .navbar-brand img {
+.navbar-brand img {
     height: 32px;
     width: auto;
 }
@@ -534,7 +513,7 @@ td.noSidebarCell{
     margin:0;
 }
 .almond .almond-nav-active{
-    background-color: #ECEEF0;
+    background-color: #f4f6f9;
 }
 
 
@@ -657,6 +636,10 @@ td.noSidebarCell{
     max-width: 170px;
 }
 
+.almond .profile-data{
+    margin-top: 15px;
+}
+
 .almond .profile-data ul{
     font-size: 16px;
     list-style: none outside none;
@@ -678,16 +661,16 @@ td.noSidebarCell{
     border-radius: 50% 50% 50% 50%;
     box-shadow: 0 1px 1px #818181;
     display: block;
-    height: 150px;
-    margin: 15px auto 0;
+    height: 120px;
+    margin: 20px auto 0;
     overflow: hidden;
     padding: 0;
     vertical-align: middle;
-    width: 150px;
+    width: 120px;
 }
 
 .almond .thumb img {
-    height: 170px;
+    height: 150px;
     margin: 0 auto !important;
     width: auto;
 }
@@ -751,8 +734,8 @@ td.noSidebarCell{
   -o-transform:      rotate(-35deg);
   position: relative;
   padding: 3px 0;
-  left: -13px;
-  top: 10px;
+  left: -16px;
+  top: 9px;
   width: 90px;
   background-color: #BFDC7A;
   background-image: -webkit-gradient(linear, left top, left bottom, from(#BFDC7A), to(#8EBF45));
@@ -910,9 +893,6 @@ td.noSidebarCell{
 }
 
 /* LMS Search styles */
-.almond #lms-search-button{
-    background-color:#eee;
-}
 
 .almond .lms-search-group{
     margin-bottom:20px;
@@ -970,6 +950,10 @@ td.noSidebarCell{
     margin-top: 20px;
 }
 
+.almond .lx-lms-header{
+    margin-top:10px;
+}
+
 /*!
 * LMS Template Training Plan Box styles
 * ------------------------------------------------------
@@ -977,6 +961,10 @@ td.noSidebarCell{
 
 .almond .trainingplan-container{
     margin-top:10px;
+}
+
+.almond .tplan_box_container{
+    position:relative;
 }
 
 .almond .tplan_box {
@@ -991,8 +979,11 @@ td.noSidebarCell{
     top: 0 !important;
     vertical-align: top;
     background-color: #fff;
-    color: #333;
     width: 100%;
+}
+
+.almond .tplan_box_title{
+    margin-top:10px;
 }
 
 .almond .tplan_box_disabled{
@@ -1095,7 +1086,7 @@ td.noSidebarCell{
     text-overflow: ellipsis;
 }
 
-.almond .tplan_details span, .almond .tplan_details_no_image span.plan-due-date{
+.almond .tplan_details span.plan-due-date, .almond .tplan_details_no_image span.plan-due-date{
     display: block;
     font-size: 12px;
     height: 35px;
@@ -1224,10 +1215,6 @@ td.noSidebarCell{
         margin-left: -5vw;
         margin-top: -8vw;
     }
-
-    .almond .achievements-avatar{
-        margin-bottom: 20px;
-    }
 }
 
 @media (min-width: 992px) {
@@ -1238,9 +1225,6 @@ td.noSidebarCell{
         height: 8vw;
         margin-left: -4vw;
         margin-top: -7vw;
-    }
-    .almond .achievements-avatar{
-        margin-bottom: 20px;
     }
 }
 
@@ -1253,10 +1237,6 @@ td.noSidebarCell{
         height: 5vw;
         margin-left: -2.5vw;
         margin-top: -4vw;
-    }
-
-    .almond .achievements-avatar{
-        margin-top:-23px;
     }
 }
 
@@ -1297,6 +1277,9 @@ td.noSidebarCell{
 /* Smartphones (portrait and landscape) ----------- */
 @media (max-width : 480px) {
     /* Header */
+    .almond .navbar-brand, .almond #almond-header-logo{
+        display:none;
+    }
     .almond #lms-nav-header{
         display:none !important;
     }

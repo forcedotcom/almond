@@ -3,15 +3,13 @@
     <apex:attribute name="currentSearchTerm" type="String" description="current page search term" required="false" default=""/>
     <apex:attribute name="retainInHistory" type="String" description="retain the current page in search history" required="false" default="false"/>
 
-    <div class="row">
-        <div class="col-lg-12 lms-search-group">
-            <div class="input-group input-group-lg">
-                <input type="text" class="form-control" id="lms-search-input" autocomplete="off" maxlength="100" placeholder="{!$Label.ALMS_Search_Catalog}"/>
-                <span class="input-group-btn">
-                    <button class="btn btn-default" type="button" id="lms-search-button"><span class="glyphicon glyphicon-search"></span></button>
-                </span>
-            </div>
-         </div>
+    <div class="slds-form-element lms-search-group" style="padding: 0 1rem;">
+        <div class="slds-form-element__control slds-input-has-fixed-addon">
+            <input id="lms-search-input" class="slds-input" type="text" autocomplete="off" maxlength="100" placeholder="{!$Label.ALMS_Search_Catalog}"/>
+            <span class="slds-form-element__addon">
+                <button class="slds-button slds-button--brand" type="button" id="lms-search-button">{!$Label.ALMS_Search}</button>
+            </span>
+        </div>
     </div>
 
     <script>

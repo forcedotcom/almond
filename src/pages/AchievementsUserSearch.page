@@ -27,7 +27,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 <apex:page controller="AchievementsUserSearchController" readOnly="true" docType="html-5.0" sidebar="false" showHeader="{!showSFHeader}" standardStylesheets="false" cache="false">
 
-    <apex:composition template="LMS_Template">
+    <apex:composition template="LMS_LXTemplate">
 
         <apex:define name="head">
             <title>{!$Label.ALMS_Search}</title>

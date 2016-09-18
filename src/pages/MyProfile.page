@@ -27,7 +27,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 <apex:page controller="MyProfileController" docType="html-5.0" sidebar="false" showHeader="{!showSFHeader}" standardStylesheets="false">
 
-    <apex:composition template="LMS_HeroTemplate">
+    <apex:composition template="LMS_LXHeroTemplate">
 
         <apex:define name="head">
             <title>{!$Label.ALMS_Achievements}</title>
@@ -36,7 +36,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
         <apex:define name="hero-banner">
 
             <div class="profile-data">
-                <h2>{!oUser.Name}</h2>
+                <div class="slds-text-heading--large">{!oUser.Name}</div>
                 <ul>
                     <li class="profile-title">{!oUser.Title}</li>
                     <apex:outputPanel layout="none" rendered="{!oManager != null}">
@@ -54,14 +54,14 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
         </apex:define>
 
         <apex:define name="hero-banner-badge">
-            <div id="hb-right" class="col-xs-12 col-sm-4 col-md-3">
+            <div id="hb-right" class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--4-of-12 slds-large-size--3-of-12">
                 <div class="thumb achievements-avatar" style="background:url({!JSENCODE(oUser.FullPhotoUrl)});background-size: cover;">
                 </div>
             </div>
         </apex:define>
 
         <apex:define name="hero-banner-footer">
-            <span>{!$Label.ALMS_Total_Acquired_Achievements} : {!totalAchievements}</span>
+            <span style="padding:0 1rem;">{!$Label.ALMS_Total_Acquired_Achievements} : {!totalAchievements}</span>
         </apex:define>
 
         <apex:define name="body">
@@ -74,26 +74,30 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                     </apex:facet>
                 </apex:actionStatus>
 
-                <div class="row almond-nav" >
-                    <div class="btn-group col-xs-12 col-sm-12 col-md-12">
-                        <apex:repeat value="{!achievementTypes}" var="at">
-                            <apex:commandLink value="{!at.label}" action="{!changeAchievementType}" status="status" rerender="theForm" styleClass="btn btn-default col-xs-5 col-sm-3 col-md-3 {!IF(achievementType == at.name,'almond-nav-active','')}">
-                                <apex:param value="{!at.name}" name="type"/>
-                            </apex:commandLink>
-                        </apex:repeat>
-                    </div>
+                <div class="slds-tabs--scoped">
+                  <ul class="slds-tabs--scoped__nav" role="tablist">
+                      <apex:repeat value="{!achievementTypes}" var="at">
+                          <li class="slds-tabs--scoped__item slds-text-title--caps {!IF(achievementType == at.name,'slds-active','')}" title="{!at.name}" role="presentation">
+                              <apex:commandLink value="{!at.label}" action="{!changeAchievementType}" status="status" rerender="theForm" styleClass="slds-tabs--scoped__link" html-role="tab" tabindex="0" html-aria-selected="true" html-aria-controls="tab-scoped-1">
+                                  <apex:param value="{!at.name}" name="type"/>
+                              </apex:commandLink>
+                          </li>
+                      </apex:repeat>
+                  </ul>
+                  <div id="tab-scoped-1" class="slds-tabs--scoped__content slds-show" role="tabpanel" aria-labelledby="tab-scoped-1__item">
+                      <apex:outputPanel layout="none" rendered="{!lcategories != null && lcategories.size > 0}">
+                          <c:AchievementsList achievements="{!lcategories}" badgeContainerClass="slds-p-horizontal--small slds-size--1-of-2 slds-medium-size--3-of-12 slds-large-size--3-of-12"/>
+                      </apex:outputPanel>
+                      <apex:outputPanel layout="none" rendered="{!lcategories == null || lcategories.size == 0}">
+                          <div style="width:100%;text-align:center;padding:20px;0;">
+                              <div class="slds-text-heading--medium">{!$Label.ALMS_Nothing_to_see}</div>
+                          </div>
+                      </apex:outputPanel>
+                  </div>
                 </div>
 
             </apex:form>
 
-            <apex:outputPanel layout="none" rendered="{!lcategories != null && lcategories.size > 0}">
-                <c:AchievementsList achievements="{!lcategories}" badgeContainerClass="col-xs-6 col-sm-6 col-md-3"/>
-            </apex:outputPanel>
-            <apex:outputPanel layout="none" rendered="{!lcategories == null || lcategories.size == 0}">
-                <div style="width:100%;text-align:center;padding:20px;0;">
-                    <h2>{!$Label.ALMS_Nothing_to_see}</h2>
-                </div>
-            </apex:outputPanel>
         </apex:define>
 
     </apex:composition>

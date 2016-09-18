@@ -27,7 +27,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 <apex:page controller="TrainingCatalogHomeController" readOnly="true" docType="html-5.0" sidebar="false" showHeader="{!showSFHeader}" standardStylesheets="false" cache="false">
 
-<apex:composition template="LMS_Template">
+<apex:composition template="LMS_LXTemplate">
 
         <apex:define name="head">
             <title>{!$Label.ALMS_Training_Catalog}</title>
@@ -56,7 +56,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                 </apex:outputPanel>
                 <apex:outputPanel layout="none" rendered="{!lcategories == null || lcategories.size == 0}">
                     <div style="width:100%;text-align:center;padding:20px;0;">
-                        <h2>{!$Label.ALMS_Nothing_to_see}</h2>
+                        <div class="slds-text-heading--medium">{!$Label.ALMS_Nothing_to_see}</div>
                     </div>
                 </apex:outputPanel>
             </div>

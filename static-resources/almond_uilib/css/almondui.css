@@ -63,16 +63,8 @@ td.noSidebarCell{
     display: none;
 }
 
-.almond {
-    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-    font-size: 14px;
-    font-weight: 300;
-    line-height: 1.42857;
-    background-color:#fff;
-}
-
 .almond .sfdc_richtext{
-    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-family: "Salesforce Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
     font-size: 14px;
 }
 
@@ -571,10 +563,10 @@ td.noSidebarCell{
     padding: 3px 0 0 0;
     bottom: 0;
     overflow: auto;
+    color:#16325c;
 }
 
 .almond .hb-footer .container{
-    color:#000;
     font-size:13px;
 }
 
@@ -708,10 +700,6 @@ td.noSidebarCell{
     font-weight: 900;
     line-height: 0;
     padding-left: 0px;
-}
-
-.almond .image-upload-control{
-    width:90%; /* prevent width overflow in task viewer */
 }
 
 .ribbon-wrapper-green {
@@ -1030,8 +1018,12 @@ td.noSidebarCell{
 }
 
 .almond .ttrack_img table{
-    text-align:center;
+    text-align:center !important;
     width: 100%;
+}
+
+.almond .ttrack_img table .sfdc_richtext{
+    text-align: center;
 }
 
 .almond .ttrack_img img{

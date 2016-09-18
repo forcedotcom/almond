@@ -94,25 +94,25 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                 </apex:outputPanel>
 
                 <apex:outputPanel layout="none" rendered="{!searchResults.size > 0 && totalPages > 1}">
-                  <div class="row">
-                      <div class="col-md-6 col-md-offset-3">
-                        <ul class="pager">
-                          <apex:outputPanel layout="none" rendered="{!hasPrevious}">
-                            <li><apex:commandLink action="{!doPrevious}" value="<<" rerender="theForm" status="status"/></li>
-                          </apex:outputPanel>
-                          <apex:outputPanel layout="none" rendered="{!!hasPrevious}">
-                            <li><span>&lt;&lt;</span></li>
-                          </apex:outputPanel>
-                          <li><label style="padding:0 10px;">{!$Label.ALMS_Search_Page} {!pageNumber} {!$Label.ALMS_Search_Page_Separator} {!totalPages}</label></li>
-                          <apex:outputPanel layout="none" rendered="{!hasNext}">
-                            <li><apex:commandLink action="{!doNext}" rendered="{!hasNext}" value=">>" rerender="theForm" status="status"/></li>
-                          </apex:outputPanel>
-                          <apex:outputPanel layout="none" rendered="{!!hasNext}">
-                            <li><span>&gt;&gt;</span></li>
-                          </apex:outputPanel>
-                        </ul>
-                      </div>
-                  </div>
+                    <div class="slds-grid slds-grid--align-center">
+                        <div class="slds-button-group" role="group">
+                            <apex:outputPanel layout="none" rendered="{!hasPrevious}">
+                              <apex:commandLink styleClass="slds-button slds-button--neutral" action="{!doPrevious}" value="<<" rerender="theForm" status="status"/>
+                            </apex:outputPanel>
+                            <apex:outputPanel layout="none" rendered="{!!hasPrevious}">
+                              <span class="slds-button slds-button--neutral">&lt;&lt;</span>
+                            </apex:outputPanel>
+                            <div class="slds-align--absolute-center">
+                                <span class="slds-badge slds-badge-default" style="margin: 0px 15px;">{!$Label.ALMS_Search_Page} {!pageNumber} {!$Label.ALMS_Search_Page_Separator} {!totalPages}</span>
+                            </div>
+                            <apex:outputPanel layout="none" rendered="{!hasNext}">
+                              <apex:commandLink styleClass="slds-button slds-button--neutral" action="{!doNext}" rendered="{!hasNext}" value=">>" rerender="theForm" status="status"/>
+                            </apex:outputPanel>
+                            <apex:outputPanel layout="none" rendered="{!!hasNext}">
+                              <span class="slds-button slds-button--neutral">&gt;&gt;</span>
+                            </apex:outputPanel>
+                        </div>
+                    </div>
                 </apex:outputPanel>
 
                 <apex:actionStatus id="status">

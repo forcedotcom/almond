@@ -35,7 +35,9 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 
         <apex:define name="body">
 
-            <c:achievementsUserSearchBar currentSearchTerm="{!currentSearchTerm}" searchBarColLengthClass="col-xs-12 col-sm-12 col-md-12 col-lg-12 lms-user-search-group-sonly"/>
+            <div style="padding: 0 1rem;">
+                <c:achievementsUserSearchBar currentSearchTerm="{!currentSearchTerm}" searchBarColLengthClass="lms-user-search-group-sonly"/>
+            </div>
 
             <apex:form id="theForm">
                 <apex:outputPanel layout="block" styleClass="alert alert-danger" rendered="{!hasMessages}">
@@ -43,42 +45,50 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                 </apex:outputPanel>
 
                 <apex:outputPanel layout="none" rendered="{!searchResults != null && searchResults.size > 0}">
-                    <div class="list-group">
-                        <apex:repeat value="{!searchResults}" var="u" id="theRepeat">
-                            <a class="lms-user-search-item list-group-item" item-url="{!$Page.MyProfile}?id={!u.Id}">
-                                <img src="{!u.SmallPhotoUrl}" class="profilePic-header-45"/>
-                                <span class="list-group-item-text" style="padding: 0 0 0 10px;">{!u.Name}</span>
-                            </a>
-                        </apex:repeat>
+                    <div style="padding: 0 1rem;">
+                        <table class="slds-table slds-table--bordered slds-table--cell-buffer" style="margin-top:20px;">
+                            <tbody>
+                                <apex:repeat value="{!searchResults}" var="u" id="theRepeat">
+                                    <tr>
+                                        <td data-label="{!u.Name}">
+                                            <a class="lms-user-search-item" item-url="{!$Page.MyProfile}?id={!u.Id}">
+                                                <img src="{!u.SmallPhotoUrl}" class="profilePic-header-45"/>
+                                                <span style="padding: 0 0 0 10px;">{!u.Name}</span>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </apex:repeat>
+                            </tbody>
+                        </table>
                     </div>
                 </apex:outputPanel>
 
                 <apex:outputPanel layout="none" rendered="{!searchResults == null || searchResults.size == 0}">
                     <div style="width:100%;text-align:center;padding:20px;0;">
-                        <h2>{!$Label.ALMS_Search_No_Results_Found}</h2>
+                        <div class="slds-text-heading--medium">{!$Label.ALMS_Search_No_Results_Found}</div>
                     </div>
                 </apex:outputPanel>
 
                 <apex:outputPanel layout="none" rendered="{!searchResults.size > 0 && totalPages > 1}">
-                  <div class="row">
-                      <div class="col-md-6 col-md-offset-3">
-                        <ul class="pager">
-                          <apex:outputPanel layout="none" rendered="{!hasPrevious}">
-                            <li><apex:commandLink action="{!doPrevious}" value="<<" rerender="theForm" status="status"/></li>
-                          </apex:outputPanel>
-                          <apex:outputPanel layout="none" rendered="{!!hasPrevious}">
-                            <li><span>&lt;&lt;</span></li>
-                          </apex:outputPanel>
-                          <li><label style="padding:0 10px;">{!$Label.ALMS_Search_Page} {!pageNumber} {!$Label.ALMS_Search_Page_Separator} {!totalPages}</label></li>
-                          <apex:outputPanel layout="none" rendered="{!hasNext}">
-                            <li><apex:commandLink action="{!doNext}" rendered="{!hasNext}" value=">>" rerender="theForm" status="status"/></li>
-                          </apex:outputPanel>
-                          <apex:outputPanel layout="none" rendered="{!!hasNext}">
-                            <li><span>&gt;&gt;</span></li>
-                          </apex:outputPanel>
-                        </ul>
-                      </div>
-                  </div>
+                    <div class="slds-grid slds-grid--align-center">
+                        <div class="slds-button-group" role="group">
+                            <apex:outputPanel layout="none" rendered="{!hasPrevious}">
+                              <apex:commandLink styleClass="slds-button slds-button--neutral" action="{!doPrevious}" value="<<" rerender="theForm" status="status"/>
+                            </apex:outputPanel>
+                            <apex:outputPanel layout="none" rendered="{!!hasPrevious}">
+                              <span class="slds-button slds-button--neutral">&lt;&lt;</span>
+                            </apex:outputPanel>
+                            <div class="slds-align--absolute-center">
+                                <span class="slds-badge slds-badge-default" style="margin: 0px 15px;">{!$Label.ALMS_Search_Page} {!pageNumber} {!$Label.ALMS_Search_Page_Separator} {!totalPages}</span>
+                            </div>
+                            <apex:outputPanel layout="none" rendered="{!hasNext}">
+                              <apex:commandLink styleClass="slds-button slds-button--neutral" action="{!doNext}" rendered="{!hasNext}" value=">>" rerender="theForm" status="status"/>
+                            </apex:outputPanel>
+                            <apex:outputPanel layout="none" rendered="{!!hasNext}">
+                              <span class="slds-button slds-button--neutral">&gt;&gt;</span>
+                            </apex:outputPanel>
+                        </div>
+                    </div>
                 </apex:outputPanel>
 
                 <apex:actionStatus id="status">

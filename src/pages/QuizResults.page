@@ -50,7 +50,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                         </apex:facet>
                     </apex:actionStatus>
 
-                    <div class="slds-notify slds-notify--toast slds-theme--{!messageStyle}" style="width: 100%;" role="alert">
+                    <div class="slds-notify slds-notify--toast slds-theme--{!messageStyle}" style="width: 100%;margin: 0;" role="alert">
                         <span class="slds-assistive-text">{!evalResultLabel}</span>
                         <div class="slds-notify__content slds-grid">
                             <div class="slds-col slds-align-middle">

@@ -29,7 +29,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 
     <apex:form >
 
-        <apex:composition template="LMS_Template">
+        <apex:composition template="LMS_LXTemplate">
 
             <apex:define name="head">
                 <title>{!questionLine.Quiz__r.Name}</title>
@@ -45,12 +45,24 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                         </apex:facet>
                     </apex:actionStatus>
 
-                    <apex:outputPanel layout="block" styleClass="alert alert-danger" rendered="{!hasMessages}">
-                        <apex:pageMessages />
+                    <apex:outputPanel layout="none" rendered="{!hasMessages}">
+                        <div class="slds-notify slds-notify--toast slds-theme--error" style="width: 100%;margin: 0;" role="alert">
+                            <div class="slds-notify__content slds-grid">
+                                <div class="slds-col slds-align-middle">
+                                  <apex:pageMessages />
+                                </div>
+                            </div>
+                        </div>
                     </apex:outputPanel>
 
                     <apex:outputPanel layout="block" styleClass="alert alert-info" rendered="{!showBackNoSaveMessage}">
-                        {!$Label.ALMS_Click} <apex:commandLink value="{!$Label.ALMS_here}" action="{!previousNoSave}" styleClass="alert-link" rendered="{!showPreviousButton}" onclick="if(!confirm('{!JSINHTMLENCODE($Label.ALMS_Quiz_Back_Warning)}')){return false};"/> {!$Label.ALMS_Quiz_Back_Warning_Message}
+                        <div class="slds-notify slds-notify--toast slds-theme--alert" style="width: 100%;margin: 0;" role="alert">
+                            <div class="slds-notify__content slds-grid">
+                                <div class="slds-col slds-align-middle">
+                                  {!$Label.ALMS_Click} <apex:commandLink value="{!$Label.ALMS_here}" action="{!previousNoSave}" styleClass="alert-link" rendered="{!showPreviousButton}" onclick="if(!confirm('{!JSINHTMLENCODE($Label.ALMS_Quiz_Back_Warning)}')){return false};"/> {!$Label.ALMS_Quiz_Back_Warning_Message}
+                                </div>
+                            </div>
+                        </div>
                     </apex:outputPanel>
 
                     <style>
@@ -99,13 +111,16 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 
                         </script>
 
-                        <h3>{!questionLine.Quiz__r.Name} - {!questionLine.Name}</h3>
-                        <apex:outputPanel layout="none" rendered="{!questionLine.Description__c != null}">
-                            <blockquote>
-                                 {!questionLine.Description__c}
-                            </blockquote>
-                        </apex:outputPanel>
-
+                        <div class="slds-grid slds-wrap slds-grid--pull-padded">
+                            <div class="slds-p-horizontal--small slds-size--1-of-1">
+                                <div class="slds-text-heading--large slds-m-bottom--large">{!questionLine.Quiz__r.Name} - {!questionLine.Name}</div>
+                            </div>
+                            <div class="slds-p-horizontal--small slds-size--1-of-1">
+                                <div class="slds-text-longform slds-m-bottom--medium">
+                                    <p>{!questionLine.Description__c}</p>
+                                </div>
+                            </div>
+                        </div>
 
                         <apex:repeat value="{!quizItemList}" var="qi">
                             <div class="quiz-question-wrapper">
@@ -129,7 +144,6 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                                 </div>
                             </div>
                         </apex:repeat>
-
 
 
                         <apex:outputPanel styleClass="almond-button-wrap">

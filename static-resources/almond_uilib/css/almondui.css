@@ -1232,6 +1232,10 @@ td.noSidebarCell{
 * ------------------------------------------------------
 */
 
+.almond #quizBody{
+    padding: 0 1rem;
+}
+
 .almond .quiz-question-wrapper{
     border: 1px solid #cfd4d9;
     border-radius: 5px;

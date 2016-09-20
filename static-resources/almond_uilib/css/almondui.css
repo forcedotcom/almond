@@ -108,7 +108,7 @@ td.noSidebarCell{
     font-size: 14px;
     font-weight: bold;
     position: absolute;
-    left: 6px;
+    left: 3px;
     top: 1px;
     bottom: 1px;
 }
@@ -762,23 +762,15 @@ td.noSidebarCell{
     background-color: #fff;
     border-bottom: 1px solid #D2D3D5;
     color: #333333;
-    display: table;
-    font-size: 18px;
-    line-height: 19px;
-    margin: 0px 0 7px;
-    min-height: 37px;
-    padding: 6px 3px 9px;
-    width: 100%;
 }
 
-.almond .activity-section-learning {
-    display: table;
-    height: 30px;
-    padding: 4px 0 0;
-    width: 100%;
+.almond .activity-section-head .learn-icon,
+.almond .activity-section-head .learn-icon .htmlDetailElementTable .sfdc_richtext{
+    text-align: center;
 }
-
 .almond .activity-section-head .learn-icon img{
+    margin-top: -5px;
+    margin-bottom: 5px;
     height: 30px !important;
     width: auto !important;
     max-width:30px;
@@ -786,12 +778,6 @@ td.noSidebarCell{
 
 .almond .activity-section-head .learn-icon-offset{
     display:none;
-}
-
-.almond .activity-section-head .title,
-.almond .activity-section-head .prog-status {
-    margin-top: 4px;
-    text-align: left;
 }
 
 .almond .activity-section-head .learn-action {
@@ -816,12 +802,6 @@ td.noSidebarCell{
 
 .almond .activity-section-learning {
     padding: 0;
-}
-
-.almond .activity-section-learning .progresshours,
-.almond .activity-section-learning .progress,
-.almond .activity-section-learning .title {
-    margin-top: 9px;
 }
 
 .almond .activity-section-learning .learn-icon span.glyphicon{
@@ -852,11 +832,6 @@ td.noSidebarCell{
 .almond .activity-section-learning .learn-icon,
 .almond .prog-status{
     display: none;
-}
-
-
-.almond .activity-section-learning{
-    padding: 10px 0 10px 0;
 }
 
 .almond .activity-section-learning .learn-action {
@@ -905,11 +880,11 @@ td.noSidebarCell{
 
     .almond .activity-section-learning .learn-icon,
     .almond .prog-status{
-        display: inline;
+        display: block;
     }
 
     .almond .activity-section-learning{
-        margin: 0 0 5px 0;
+        /*margin: 0 0 5px 0;*/
     }
 
     .almond .activity-section-learning .learn-action {
@@ -1362,11 +1337,16 @@ td.noSidebarCell{
         background-color: #ffffff;
         margin:0px;
     }
-
+    .almond .activity-section-head .learn-icon img{
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
+    
     .almond .activity-section-learning{
         background-color:#ffffff;
         margin: 0px;
     }
+
 
     /* Feedback style overrides*/
     .almond .tplan-feedback-photo{

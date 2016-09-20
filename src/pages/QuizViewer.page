@@ -55,7 +55,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                         </div>
                     </apex:outputPanel>
 
-                    <apex:outputPanel layout="block" styleClass="alert alert-info" rendered="{!showBackNoSaveMessage}">
+                    <apex:outputPanel layout="block" styleClass="slds-m-top--medium slds-m-bottom--medium" rendered="{!showBackNoSaveMessage}" >
                         <div class="slds-notify slds-notify--toast slds-theme--alert" style="width: 100%;margin: 0;" role="alert">
                             <div class="slds-notify__content slds-grid">
                                 <div class="slds-col slds-align-middle">
@@ -101,7 +101,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                                 for (var i =0; i < source.length; i++) {
                                     if (source[i].checked){
                                         st = st+source[i].value+';';
-                                        stLabel = stLabel+sourceLabels[i].innerHTML+';';
+                                        stLabel = stLabel+sourceLabels[i].childNodes[3].innerHTML+';';
                                     }
                                 }
 
@@ -124,21 +124,27 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 
                         <apex:repeat value="{!quizItemList}" var="qi">
                             <div class="quiz-question-wrapper">
-                                <div class="row">
-                                    <div class="col-xs-12 col-sm-12 col-md-12 quiz-question-panel">
-                                        <apex:outputField value="{!qi.question.Description__c}" rendered="{!qi.question.Description__c != null}"/>
-                                        <apex:outputPanel layout="block" rendered="{!qi.question.Description_RTA__c != null}" style="padding: 10px 0;">
-                                            <apex:outputField value="{!qi.question.Description_RTA__c}" />
-                                        </apex:outputPanel>
+                                <div class="slds-grid slds-wrap slds-grid--pull-padded">
+                                    <div class="slds-p-horizontal--small slds-size--1-of-1 slds-m-bottom--medium">
+                                        <div class="slds-text-body--regular">
+                                            <apex:outputField value="{!qi.question.Description__c}" rendered="{!qi.question.Description__c != null}"/>
+                                            <apex:outputPanel layout="block" rendered="{!qi.question.Description_RTA__c != null}" style="padding: 10px 0;">
+                                                <apex:outputField value="{!qi.question.Description_RTA__c}" />
+                                            </apex:outputPanel>
+                                        </div>
                                     </div>
-                                    <div class="col-xs-12 col-sm-12 col-md-12 quiz-response-panel">
+                                    <div class="slds-p-horizontal--small slds-size--1-of-1 quiz-response-panel">
                                         <c:SelectOneQuestion QuizItem="{!qi}" rendered="{!qi.question.Type__c == 'SelectOneQuestion'}"/>
                                         <c:SelectMultipleQuestion QuizItem="{!qi}" rendered="{!qi.question.Type__c == 'SelectMultipleQuestion'}"/>
                                         <c:SelectBooleanQuestion QuizItem="{!qi}" rendered="{!qi.question.Type__c == 'Boolean'}"/>
 
                                         <apex:outputPanel layout="block" rendered="{!qi.question.Type__c == 'Number' || qi.question.Type__c == 'Text'}" style="padding: 10px 0 0 0;">
-                                            <apex:inputField value="{!qi.response.Number_Response__c}" rendered="{!qi.question.Type__c == 'Number'}" style="width:100%;"/>
-                                            <apex:inputField value="{!qi.response.Response_Text_Long__c}" rendered="{!qi.question.Type__c == 'Text'}" style="width:100%;"/>
+                                            <div class="slds-form-element">
+                                                <div class="slds-form-element__control">
+                                                    <apex:inputField value="{!qi.response.Number_Response__c}" rendered="{!qi.question.Type__c == 'Number'}" style="width:100%;" styleClass="slds-input"/>
+                                                    <apex:inputField value="{!qi.response.Response_Text_Long__c}" rendered="{!qi.question.Type__c == 'Text'}" style="width:100%;" styleClass="slds-input"/>
+                                                </div>
+                                            </div>
                                         </apex:outputPanel>
                                     </div>
                                 </div>

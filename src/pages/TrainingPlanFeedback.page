@@ -104,27 +104,28 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                             <apex:form id="feedbackForm">
 
                                 <apex:outputPanel layout="none" rendered="{!isAssignedToTrainingPlan}">
-                                <div class="row">
-                                    <div class="col-md-2 col-md-offset-2 tplan-feedback-photo" style="text-align:center;padding:0 0 10px 0;">
+                                <div class="slds-grid slds-wrap slds-grid--pull-padded">
+                                    <div class="slds-p-horizontal--small slds-size--4-of-12 tplan-feedback-photo" style="text-align:center;padding:0 0 10px 0;">
                                         <div><img src="{!currentUser.SmallPhotoUrl}" class="profilePic-header-45"/></div>
                                         <div><span class="feedback-username">{!currentUser.Name}</span></div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <div class="panel panel-default">
-                                            <div class="panel-body">
-
-                                                <div class="form-group">
-                                                    <label>{!$Label.ALMS_Feedback_Rating} : </label>
-                                                    <div id="feedback-rating" class="rateit bigstars" data-rateit-step="1" data-rateit-starwidth="32" data-rateit-starheight="32"></div>
-                                                    <apex:inputHidden id="feedbackRating" value="{!feedback.Rating__c}" />
-                                                </div>
+                                    <div class="slds-p-horizontal--small slds-size--6-of-12">
+                                        <article class="slds-card slds-m-top--large slds-m-bottom--large">
+                                            <div class="slds-card__header slds-grid">
+                                            </div>
+                                            <div class="slds-card__body slds-text-align--left slds-p-around--large">
+                                            <div class="form-group">
+                                                <label>{!$Label.ALMS_Feedback_Rating} : </label>
+                                                <div id="feedback-rating" class="rateit bigstars" data-rateit-step="1" data-rateit-starwidth="32" data-rateit-starheight="32"></div>
+                                                <apex:inputHidden id="feedbackRating" value="{!feedback.Rating__c}" />
+                                            </div>
                                                 <div class="form-group">
                                                     <label>{!$Label.ALMS_Feedback_Comments} : </label>
                                                     <apex:inputField value="{!feedback.Comments__c}" styleClass="form-control" />
                                                 </div>
                                                 <apex:commandButton value="{!$Label.ALMS_Feedback_Submit}" action="{!submitFeedback}" styleClass="btn btn-success btn-plan-feedback" status="status" rerender="feedbackContent" />
                                             </div>
-                                        </div>
+                                        </article>
                                     </div>
                                 </div>
                                 </apex:outputPanel>
@@ -140,7 +141,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                                     <apex:outputPanel layout="none" rendered="{!comments != null && comments.size > 0}">
                                         <apex:repeat value="{!comments}" var="c">
                                             <div class="row">
-                                                <div class="col-md-2 col-md-offset-2" style="text-align:center;padding:0 0 10px 0;margin-bottom:10px;">
+                                                <div class="slds-p-horizontal--small slds-size--4-of-12" style="text-align:center;padding:0 0 10px 0;margin-bottom:10px;">
                                                     <a href="javascript:almond.redirectHandlerWithStatus('{!$Page.MyProfile}?id={!c.User__c}',true)">
                                                       <img src="{!c.User__r.SmallPhotoUrl}" class="profilePic-header-45"/>
                                                     </a>
@@ -149,7 +150,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                                                         <div><span class="feedback-rating">{!$Label.ALMS_Feedback_Rating} : {!c.Rating__c}</span></div>
                                                     </apex:outputPanel>
                                                 </div>
-                                                <div class="col-md-6">
+                                                <div class="slds-p-horizontal--small slds-size--6-of-12">
                                                         <div class="well">
                                                           <apex:outputPanel layout="none" rendered="{!c.Rating__c != null && c.Rating__c > 0}">
                                                             <div class="rating_bar">

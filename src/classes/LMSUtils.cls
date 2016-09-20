@@ -260,5 +260,35 @@ public with sharing class LMSUtils{
         }
         return nsPrefix;
     }
+    
+    public static Boolean inSF1Context(ApexPages.PageReference pr){
+        if(pr == null){
+            return false;
+        }
+        Map<String, String> prParams = pr.getParameters();
+        return prParams.get('isdtp') == 'p1';
+    }
+    
+    
+    public static Id getLKID(ApexPages.PageReference ref, SObjectType expectedType){
+        if(ref == null){
+            return null;
+        }
+        String expectedPrefix = expectedType != null ? expectedType.getDescribe().getKeyPrefix() : null;
+        Map<String,String> refParams = ref.getParameters();
+        for(String key : refParams.keySet()){
+            if(key.endsWith('_lkid')){
+                String recordId = refParams.get(key);
+                if(expectedPrefix != null){
+                    if(recordId.startsWith(expectedPrefix)){
+                        return (Id)recordId;
+                    }
+                }else{
+                    return (Id)recordId;
+                }
+            }
+        }
+        return null;
+    }
 
 }

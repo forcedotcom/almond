@@ -37,7 +37,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 
             <apex:define name="hero-banner">
                 <div id="hb-wrap">
-                    <div class="slds-text-heading--large">{!tPlan.trainingPlan.Name}</div>
+                    <div class="slds-text-heading--large slds-m-top--smal">{!tPlan.trainingPlan.Name}</div>
                     <p><apex:outputField value="{!tPlan.trainingPlan.Description__c}"/></p>
 
                     <apex:outputPanel layout="none" rendered="{!!tPlan.trainingPlan.Hide_Chatter_Photos__c}">

@@ -511,7 +511,7 @@ td.noSidebarCell{
 }
 
 .almond #hero-banner {
-    background-color: #F2F2F2;
+    background-color: #F4F6F9;
     background-size: cover;
     border-bottom: 1px solid #DDDDDD;
     min-height: 200px;
@@ -945,7 +945,7 @@ td.noSidebarCell{
 }
 
 .almond .tplan_box:hover{
-    background-color:#eee;
+    background-color:#f4f6f9;
     color:#333;
 }
 

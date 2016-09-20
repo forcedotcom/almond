@@ -104,92 +104,101 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                             <apex:form id="feedbackForm">
 
                                 <apex:outputPanel layout="none" rendered="{!isAssignedToTrainingPlan}">
-                                <div class="slds-grid slds-wrap slds-grid--pull-padded">
-                                    <div class="slds-p-horizontal--small slds-size--4-of-12 tplan-feedback-photo" style="text-align:center;padding:0 0 10px 0;">
-                                        <div><img src="{!currentUser.SmallPhotoUrl}" class="profilePic-header-45"/></div>
-                                        <div><span class="feedback-username">{!currentUser.Name}</span></div>
-                                    </div>
-                                    <div class="slds-p-horizontal--small slds-size--6-of-12">
-                                        <article class="slds-card slds-m-top--large slds-m-bottom--large">
-                                            <div class="slds-card__header slds-grid">
-                                            </div>
-                                            <div class="slds-card__body slds-text-align--left slds-p-around--large">
-                                            <div class="form-group">
-                                                <label>{!$Label.ALMS_Feedback_Rating} : </label>
-                                                <div id="feedback-rating" class="rateit bigstars" data-rateit-step="1" data-rateit-starwidth="32" data-rateit-starheight="32"></div>
-                                                <apex:inputHidden id="feedbackRating" value="{!feedback.Rating__c}" />
-                                            </div>
-                                                <div class="form-group">
-                                                    <label>{!$Label.ALMS_Feedback_Comments} : </label>
-                                                    <apex:inputField value="{!feedback.Comments__c}" styleClass="form-control" />
+                                    <div class="slds-grid slds-wrap slds-grid--pull-padded slds-grid--vertical-align-center slds-grid--align-center">
+                                        <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-1 slds-large-size--6-of-12">
+                                            <article class="slds-card slds-m-top--large slds-m-bottom--large">
+                                                <div class="slds-card__body slds-text-align--left slds-p-around--large">
+                                                    <div class="slds-form-element">
+                                                        <div id="feedback-rating" class="rateit bigstars" data-rateit-step="1" data-rateit-starwidth="32" data-rateit-starheight="32"></div>
+                                                        <apex:inputHidden id="feedbackRating" value="{!feedback.Rating__c}" />
+                                                    </div>
+                                                    <div class="slds-form-element">
+                                                        <label class="slds-form-element__label">{!$Label.ALMS_Feedback_Comments} : </label>
+                                                        <apex:inputField value="{!feedback.Comments__c}" styleClass="slds-textarea" />
+                                                    </div>
+                                                    <apex:commandButton value="{!$Label.ALMS_Feedback_Submit}" action="{!submitFeedback}" styleClass="slds-button slds-button--brand btn-plan-feedback" status="status" rerender="feedbackContent" />
                                                 </div>
-                                                <apex:commandButton value="{!$Label.ALMS_Feedback_Submit}" action="{!submitFeedback}" styleClass="btn btn-success btn-plan-feedback" status="status" rerender="feedbackContent" />
-                                            </div>
-                                        </article>
+                                            </article>
+                                        </div>
                                     </div>
-                                </div>
                                 </apex:outputPanel>
 
                                 <apex:outputPanel id="feedbackContent" layout="block">
 
-                                    <apex:outputPanel layout="none" id="pageMessages">
-                                        <apex:outputPanel layout="block" styleClass="col-md-6 col-md-offset-4 alert alert-{!IF(feedbackSuccess,'success','danger')}" rendered="{!hasMessages}">
-                                            <apex:pageMessages />
-                                        </apex:outputPanel>
-                                    </apex:outputPanel>
-
-                                    <apex:outputPanel layout="none" rendered="{!comments != null && comments.size > 0}">
-                                        <apex:repeat value="{!comments}" var="c">
-                                            <div class="row">
-                                                <div class="slds-p-horizontal--small slds-size--4-of-12" style="text-align:center;padding:0 0 10px 0;margin-bottom:10px;">
-                                                    <a href="javascript:almond.redirectHandlerWithStatus('{!$Page.MyProfile}?id={!c.User__c}',true)">
-                                                      <img src="{!c.User__r.SmallPhotoUrl}" class="profilePic-header-45"/>
-                                                    </a>
-                                                    <div><span class="feedback-username">{!c.User__r.Name}</span></div>
-                                                    <apex:outputPanel layout="none" rendered="{!c.Rating__c != null && c.Rating__c > 0 }">
-                                                        <div><span class="feedback-rating">{!$Label.ALMS_Feedback_Rating} : {!c.Rating__c}</span></div>
-                                                    </apex:outputPanel>
-                                                </div>
-                                                <div class="slds-p-horizontal--small slds-size--6-of-12">
-                                                        <div class="well">
-                                                          <apex:outputPanel layout="none" rendered="{!c.Rating__c != null && c.Rating__c > 0}">
-                                                            <div class="rating_bar">
-                                                              <div  class="rating" style="width:{!c.Rating__c*20}%;"></div>
-                                                            </div>
-                                                          </apex:outputPanel>
-                                                        <apex:outputField value="{!c.Comments__c}"/>
+                                    <div class="slds-grid slds-wrap slds-grid--pull-padded slds-grid--vertical-align-center slds-grid--align-center">
+                                        <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-1 slds-large-size--6-of-12">
+                                    
+                                            <apex:outputPanel layout="none" id="pageMessages">
+                                                <apex:outputPanel layout="block" styleClass="slds-notify slds-notify--toast slds-theme--{!IF(feedbackSuccess,'success','error')}" rendered="{!hasMessages}">
+                                                    <div class="slds-notify__content slds-grid">
+                                                        <div class="slds-col slds-align-middle">
+                                                          <apex:pageMessages />
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </div>
-                                        </apex:repeat>
+                                                </apex:outputPanel>
+                                            </apex:outputPanel>
 
-                                        <apex:outputPanel layout="none" rendered="{!comments.size > 0 && totalPages > 1}">
-                                          <div class="row">
-                                              <div class="col-md-6 col-md-offset-4">
-                                                <ul class="pager">
-                                                  <apex:outputPanel layout="none" rendered="{!hasPrevious}">
-                                                    <li><apex:commandLink action="{!doPrevious}" value="<<" rerender="feedbackContent" status="status"/></li>
-                                                  </apex:outputPanel>
-                                                  <apex:outputPanel layout="none" rendered="{!!hasPrevious}">
-                                                    <li><span>&lt;&lt;</span></li>
-                                                  </apex:outputPanel>
-                                                  <li><label style="padding:0 10px;">{!$Label.ALMS_Search_Page} {!pageNumber} {!$Label.ALMS_Search_Page_Separator} {!totalPages}</label></li>
-                                                  <apex:outputPanel layout="none" rendered="{!hasNext}">
-                                                    <li><apex:commandLink action="{!doNext}" rendered="{!hasNext}" value=">>" rerender="feedbackContent" status="status"/></li>
-                                                  </apex:outputPanel>
-                                                  <apex:outputPanel layout="none" rendered="{!!hasNext}">
-                                                    <li><span>&gt;&gt;</span></li>
-                                                  </apex:outputPanel>
-                                                </ul>
-                                              </div>
-                                          </div>
-                                        </apex:outputPanel>
-                                    </apex:outputPanel>
-                                    <apex:outputPanel layout="none" rendered="{!!isAssignedToTrainingPlan && (comments == null || comments.size == 0)}">
-                                        <div style="width:100%;text-align:center;padding:20px;0;">
-                                            <h2>{!$Label.ALMS_Nothing_to_see}</h2>
-                                        </div>
-                                    </apex:outputPanel>
+                                            <apex:outputPanel layout="none" rendered="{!comments != null && comments.size > 0}">
+                                                <apex:repeat value="{!comments}" var="c">
+                                                
+                                                  <article class="slds-card slds-m-top--large slds-m-bottom--large">
+                                                      <div class="slds-card__body slds-text-align--left slds-p-around--large">
+                                                        
+                                                        <div class="slds-grid slds-wrap slds-grid--pull-padded slds-grid--vertical-align-center slds-grid--align-center" >
+                                                            <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-1 slds-large-size--3-of-12" style="text-align:center;">
+                                                                <a href="javascript:almond.redirectHandlerWithStatus('{!$Page.MyProfile}?id={!c.User__c}',true)">
+                                                                  <img src="{!c.User__r.SmallPhotoUrl}" class="profilePic-header-45"/>
+                                                                </a>
+                                                                <div><span class="feedback-username">{!c.User__r.Name}</span></div>
+                                                                <apex:outputPanel layout="none" rendered="{!c.Rating__c != null && c.Rating__c > 0 }">
+                                                                    <div><span class="feedback-rating">{!$Label.ALMS_Feedback_Rating} : {!c.Rating__c}</span></div>
+                                                                </apex:outputPanel>
+                                                            </div>
+                                                            <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-1 slds-large-size--9-of-12">
+                                                                  <apex:outputPanel layout="none" rendered="{!c.Rating__c != null && c.Rating__c > 0}">
+                                                                      <div class="rating_bar">
+                                                                        <div  class="rating" style="width:{!c.Rating__c*20}%;"></div>
+                                                                      </div>
+                                                                    </apex:outputPanel>
+                                                                  <apex:outputField value="{!c.Comments__c}"/>
+                                                            </div>
+                                                        </div>
+                                                      </div>
+                                                  </article>
+                                                
+                                                </apex:repeat>
+
+                                                <apex:outputPanel layout="none" rendered="{!comments.size > 0 && totalPages > 1}">
+                                                    <div class="slds-grid slds-grid--align-center">
+                                                        <div class="slds-button-group" role="group">
+                                                            <apex:outputPanel layout="none" rendered="{!hasPrevious}">
+                                                              <apex:commandLink styleClass="slds-button slds-button--neutral" action="{!doPrevious}" value="<<" rerender="feedbackContent" status="status"/>
+                                                            </apex:outputPanel>
+                                                            <apex:outputPanel layout="none" rendered="{!!hasPrevious}">
+                                                              <span class="slds-button slds-button--neutral">&lt;&lt;</span>
+                                                            </apex:outputPanel>
+                                                            <div class="slds-align--absolute-center">
+                                                                <span class="slds-badge slds-badge-default" style="margin: 0px 15px;">{!$Label.ALMS_Search_Page} {!pageNumber} {!$Label.ALMS_Search_Page_Separator} {!totalPages}</span>
+                                                            </div>
+                                                            <apex:outputPanel layout="none" rendered="{!hasNext}">
+                                                              <apex:commandLink styleClass="slds-button slds-button--neutral" action="{!doNext}" rendered="{!hasNext}" value=">>" rerender="feedbackContent" status="status"/>
+                                                            </apex:outputPanel>
+                                                            <apex:outputPanel layout="none" rendered="{!!hasNext}">
+                                                              <span class="slds-button slds-button--neutral">&gt;&gt;</span>
+                                                            </apex:outputPanel>
+                                                        </div>
+                                                    </div>
+                                                </apex:outputPanel>
+                                            </apex:outputPanel>
+                                            
+                                            
+                                            <apex:outputPanel layout="none" rendered="{!!isAssignedToTrainingPlan && (comments == null || comments.size == 0)}">
+                                                <div style="width:100%;text-align:center;padding:20px;0;">
+                                                    <div class="slds-text-heading--medium">{!$Label.ALMS_Nothing_to_see}</div>
+                                                </div>
+                                            </apex:outputPanel>
+                                      </div>
+                                    </div>
 
                                 </apex:outputPanel>
 

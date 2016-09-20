@@ -838,7 +838,7 @@ td.noSidebarCell{
     margin-top: 5px;
 }
 
-.almond .activity-section-learning .learn-action .almond-primary-btn {
+.almond .activity-section-learning .learn-action .slds-button--brand {
     display: none;
 }
 
@@ -891,7 +891,7 @@ td.noSidebarCell{
         margin-top: 1px;
     }
 
-    .almond .activity-section-learning .learn-action .almond-primary-btn {
+    .almond .activity-section-learning .learn-action .slds-button--brand {
         display: block;
     }
 

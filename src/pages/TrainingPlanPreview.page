@@ -72,8 +72,8 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 
             <apex:define name="hero-info-link">
                 <apex:outputPanel layout="none" rendered="{!tPlan != null}">
-                    <div class="col-xs-12 col-sm-12 col-md-12" style="text-align:center;padding:10px 0;">
-                        <button type="button" class="btn btn-success btn-lg" onclick="doRegistration()">{!$Label.ALMS_Register_Button}</button>
+                    <div class="slds-p-horizontal--small slds-size--1-of-1" style="text-align:center;padding:10px 0;">
+                        <button type="button" class="slds-button slds-button--brand btn-lg" onclick="doRegistration()">{!$Label.ALMS_Register_Button}</button>
                     </div>
                 </apex:outputPanel>
             </apex:define>
@@ -229,16 +229,20 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                                     </div>
                                     <div class="slds-modal__content slds-p-around--medium">
                                         <apex:outputPanel layout="none" rendered="{!existingRequest == null}">
-                                            <p>{!tPlan.trainingPlan.Description__c}</p>
-
-                                            <div class="form-group">
-                                                <label for="commentsField">{!$Label.ALMS_TPlan_Request_Comments}</label>
-                                                <apex:inputField value="{!dummyRequest.Comments__c}" styleClass="form-control"/>
+                                            <div class="slds-p-around--medium">
+                                                <p>{!tPlan.trainingPlan.Description__c}</p>
                                             </div>
 
-                                            <div class="well">
-                                                 <apex:commandLink value="{!$Label.ALMS_TPlan_Request_Access_Button}" action="{!requestAccessForTrainingPlan}" styleClass="btn btn-success btn-lg btn-block" status="status" rerender="pageMessages" oncomplete="hideModal()"/>
+                                            <div class="slds-form-element">
+                                                <label class="slds-form-element__label" for="commentsField">{!$Label.ALMS_TPlan_Request_Comments}</label>
+                                                <apex:inputField value="{!dummyRequest.Comments__c}" styleClass="slds-textarea"/>
                                             </div>
+
+                                            <article class="slds-card slds-m-top--large">
+                                                <div class="slds-card__body slds-text-align--left slds-p-around--large" style="text-align:center;">
+                                                    <apex:commandLink value="{!$Label.ALMS_TPlan_Request_Access_Button}" action="{!requestAccessForTrainingPlan}" styleClass="slds-button slds-button--brand btn-lg btn-block" status="status" rerender="pageMessages" oncomplete="hideModal()"/>
+                                                </div>
+                                            </article>
 
                                         </apex:outputPanel>
 

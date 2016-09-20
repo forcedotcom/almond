@@ -36,7 +36,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
         <apex:define name="body">
 
             <div style="padding: 0 1rem;">
-                <c:achievementsUserSearchBar currentSearchTerm="{!currentSearchTerm}" searchBarColLengthClass="lms-user-search-group-sonly"/>
+                <c:achievementsUserSearchBar currentSearchTerm="{!currentSearchTerm}" />
             </div>
 
             <apex:form id="theForm">

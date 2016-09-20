@@ -50,7 +50,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
         </apex:define>
 
         <apex:define name="hero-search">
-            <c:achievementsUserSearchBar searchBarSize="md"/>
+            <c:achievementsUserSearchBar />
         </apex:define>
 
         <apex:define name="hero-banner-badge">

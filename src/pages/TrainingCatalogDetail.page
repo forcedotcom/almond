@@ -77,15 +77,15 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                                 </apex:outputPanel>
                                 <div class="{!IF(hasBadge,'tplan_details','tplan_details_no_image')}" >
                                     <div class="slds-text-heading--small tplan_box_title">{!o.planName}</div>
-                                    <apex:outputPanel layout="block" rendered="{!o.assignmentStatus != null}">
+                                    <apex:outputPanel layout="block" rendered="{!o.assignmentStatus != null}" styleClass="slds-m-top--x-small">
                                         <span class="slds-badge slds-badge-{!IF(o.assignmentStatus=='Completed','success',IF(o.assignmentStatus=='In Progress','primary','default'))}">
                                             {!IF(o.assignmentStatus == 'Completed',$Label.ALMS_Training_Status_Completed, IF(o.assignmentStatus == 'In Progress', $Label.ALMS_Training_Status_In_Progress, $Label.ALMS_Training_Status_Not_Started))}
                                         </span>
                                     </apex:outputPanel>
-                                    <apex:outputPanel layout="block" rendered="{!validAssignment && !o.hasAssignment}">
+                                    <apex:outputPanel layout="block" rendered="{!validAssignment && !o.hasAssignment}" styleClass="slds-m-top--x-small">
                                         <span class="slds-badge slds-badge-info">{!$Label.ALMS_TPlan_Not_Registered}</span>
                                     </apex:outputPanel>
-                                    <apex:outputPanel layout="block" rendered="{!!validAssignment}">
+                                    <apex:outputPanel layout="block" rendered="{!!validAssignment}" styleClass="slds-m-top--x-small">
                                         <span class="slds-badge slds-badge-default">{!$Label.ALMS_TPlan_Requires_Assignment}</span>
                                     </apex:outputPanel>
                                     <apex:outputPanel layout="none" rendered="{!o.hideAfterEndDate && o.planEndDate != null}">

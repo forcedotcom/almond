@@ -27,24 +27,19 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 <apex:page controller="MyProfileController" docType="html-5.0" sidebar="false" showHeader="false" standardStylesheets="false">
     <head>
-        <link href="{!URLFOR($Resource.almond_uilib, '/css/bootstrap-namespaced.min.css')}" rel="stylesheet" media="screen" />
+        <link href="{!URLFOR($Resource.almond_uilib, '/slds/styles/salesforce-lightning-design-system-vf.min.css')}" rel="stylesheet" media="screen" />
         <link href="{!URLFOR($Resource.almond_uilib, '/css/almondui.min.css')}" rel="stylesheet" media="screen" />
     </head>
     <body>
 
         <style>
-            /* CSS fixes for subtab page */
-            .almond .container,.almond .row{
-                margin-left:0;
-                margin-right:0;
-            }
-            body,.almond,.almond .wrap,.almond .almond-nav,.oneContent,.oneAlohaPage{
+            body,.almond,.almond .wrap,.oneContent,.oneAlohaPage{
                 background-color: #fff !important;
             }
         </style>
 
-        <div class="almond almond-bs">
-            <div class="container" style="padding:0;">
+        <div class="almond almond-bs almond-slds">
+            <div class="slds-container--center slds-container--x-large" style="padding:0;">
 
                 <apex:form>
 
@@ -53,37 +48,35 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                             <c:LMSStatus statusComponentId="{!$Component.status}"/>
                         </apex:facet>
                     </apex:actionStatus>
-
-                    <div class="col-md-12" style="padding:20px 0 0 0;">
-                        <div class="row almond-nav" >
-                            <div class="btn-group col-xs-12 col-sm-12 col-md-12">
-                                <apex:repeat value="{!achievementTypes}" var="at">
-                                    <apex:commandLink value="{!at.label}" action="{!changeAchievementType}" status="status" rerender="theForm" styleClass="btn btn-default col-xs-3 col-sm-3 col-md-3 {!IF(achievementType == at.name,'almond-nav-active','')}">
-                                        <apex:param value="{!at.name}" name="type"/>
-                                        <apex:param value="true" name="subtab"/>
-                                    </apex:commandLink>
-                                </apex:repeat>
-                            </div>
-                        </div>
+                    
+                    <div class="slds-tabs--scoped" style="margin-top:10px;">
+                      <ul class="slds-tabs--scoped__nav" role="tablist">
+                          <apex:repeat value="{!achievementTypes}" var="at">
+                              <li class="slds-tabs--scoped__item slds-text-title--caps {!IF(achievementType == at.name,'slds-active','')}" title="{!at.name}" role="presentation">
+                                  <apex:commandLink value="{!at.label}" action="{!changeAchievementType}" status="status" rerender="theForm" styleClass="slds-tabs--scoped__link" html-role="tab" tabindex="0" html-aria-selected="true" html-aria-controls="tab-scoped-1">
+                                      <apex:param value="{!at.name}" name="type"/>
+                                      <apex:param value="true" name="subtab"/>
+                                  </apex:commandLink>
+                              </li>
+                          </apex:repeat>
+                      </ul>
+                      <div id="tab-scoped-1" class="slds-tabs--scoped__content slds-show" role="tabpanel" aria-labelledby="tab-scoped-1__item">
+                          <apex:outputPanel layout="none" rendered="{!lcategories != null && lcategories.size > 0}">
+                              <c:AchievementsList achievements="{!lcategories}" badgeContainerClass="slds-p-horizontal--small slds-size--1-of-2 slds-medium-size--3-of-12 slds-large-size--3-of-12"/>
+                          </apex:outputPanel>
+                          <apex:outputPanel layout="none" rendered="{!lcategories == null || lcategories.size == 0}">
+                              <div style="width:100%;text-align:center;padding:20px;0;">
+                                  <div class="slds-text-heading--medium">{!$Label.ALMS_Nothing_to_see}</div>
+                              </div>
+                          </apex:outputPanel>
+                      </div>
                     </div>
-
                 </apex:form>
 
-                <div class="row">
-                    <apex:outputPanel layout="none" rendered="{!lcategories != null && lcategories.size > 0}">
-                        <c:AchievementsList achievements="{!lcategories}" badgeContainerClass="col-xs-4 col-sm-4 col-md-4"/>
-                    </apex:outputPanel>
-                    <apex:outputPanel layout="none" rendered="{!lcategories == null || lcategories.size == 0}">
-                        <div style="width:100%;text-align:center;padding:20px;0;">
-                            <h2>{!$Label.ALMS_Nothing_to_see}</h2>
-                        </div>
-                    </apex:outputPanel>
-                </div>
             </div>
         </div>
 
         <apex:includeScript value="{!URLFOR($Resource.almond_uilib, '/js/jquery.min.js')}"/>
-        <apex:includeScript value="{!URLFOR($Resource.almond_uilib, '/js/bootstrap.min.js')}"/>
 
     </body>
 

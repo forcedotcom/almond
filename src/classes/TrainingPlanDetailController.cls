@@ -45,14 +45,14 @@ public with sharing class TrainingPlanDetailController extends LMSBaseController
     public String selectedItemStatusLabel{get{
         if(selectedItem != null && selectedItem.latestAssignment != null && selectedItem.latestAssignment.Progress__c != null){
             if(selectedItem.latestAssignment.Progress__c == LMSConstants.ASSIGNMENT_STATUS_COMPLETED){
-                return 'label-success';
+                return 'success';
             }else if(selectedItem.latestAssignment.Progress__c == LMSConstants.ASSIGNMENT_STATUS_IN_PROGRESS){
-                return 'label-warning';
+                return 'warning';
             }else{
-                return 'label-default';
+                return 'default';
             }
         }else{
-            return 'label-default';
+            return 'default';
         }
     }}
 

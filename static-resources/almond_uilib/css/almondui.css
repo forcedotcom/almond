@@ -63,16 +63,8 @@ td.noSidebarCell{
     display: none;
 }
 
-.almond {
-    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-    font-size: 14px;
-    font-weight: 300;
-    line-height: 1.42857;
-    background-color:#fff;
-}
-
 .almond .sfdc_richtext{
-    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-family: "Salesforce Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
     font-size: 14px;
 }
 
@@ -81,46 +73,27 @@ td.noSidebarCell{
     border:none;
 }
 
-.almond h1,
-.almond h2,
-.almond h3,
-.almond h4,
-.almond h5,
-.almond h6,
-.almond .h1,
-.almond .h2,
-.almond .h3,
-.almond .h4,
-.almond .h5,
-.almond .h6 {
-    color: inherit;
-    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-    font-weight: 300;
-    line-height: 1.1;
-    display: block;
+.almond-slds .slds-notify--toast{
+    min-width: 0;
 }
 
-.almond ul li,
-.almond ol li{
-    margin-left:0;
-}
-.almond label {
-    font-weight: 300 !important;
-    display: inline-block;
-    margin-bottom: 5px;
-    margin-left: 2px;
+.almond .slds-badge-info{
+    color: #fff;
+    background-color: #5bc0de;
 }
 
-.almond input[type="text"],
-.almond textarea {
-    -moz-appearance: caret;
-    border: 1px solid #D2D3D5;
-    border-radius: 3px;
-    box-shadow: none;
-    font-size: 12px;
-    margin-bottom: 10px;
-    min-height: 25px;
-    padding: 7px;
+.almond .slds-badge-success{
+    color: #fff;
+    background-color: #5cb85c;
+}
+
+.almond .slds-badge-primary{
+    color: #fff;
+    background-color: #337ab7;
+}
+
+.almond .slds-badge-default{
+    background-color: rgb(224, 229, 238);
 }
 
 .almond .requiredItem{
@@ -128,13 +101,45 @@ td.noSidebarCell{
     font-size: 14px;
     font-weight: bold;
     position: absolute;
-    left: 6px;
+    left: 3px;
     top: 1px;
     bottom: 1px;
 }
-/* reformat padding on modal screens*/
-.almond .modal-footer {
-    padding: 10px 20px;
+
+.almond .progress-bar{
+    width: 100px; /* width and height are arbitrary, just make sure the #bar styles are changed accordingly */
+    height: 20px;
+    border: 1px solid #d8dde6; 
+    background-color: #f4f6f9;
+    position: relative;
+    border-radius: 40px;
+}
+
+.almond .progress-bar-value p{
+    position: absolute;
+    text-align: center;
+    width: 100%;
+    margin: 0;
+    line-height: 20px;
+}
+
+.almond .progress-bar-value{
+    height: 19px;
+    border-radius: 40px;
+}
+.almond .progress-bar-value-default{
+    background-color: #0070d2;
+    color:#000;
+}
+
+.almond .progress-bar-value-error{
+    background-color: #c00;
+    color:#fff;
+}
+
+.almond .progress-bar-value-success{
+    background-color: #5cb85c;
+    color:#fff;
 }
 
 .almond.almond-template .tmpl-body-container{
@@ -149,105 +154,8 @@ td.noSidebarCell{
 * Header/Nav styles
 * ------------------------------------------------------
 */
-
-.almond .navbar {
-    border: medium none;
-    border-radius: 0 0 0 0;
-    margin-bottom: 0px !important;
-}
-
 .almond .container {
     max-width: 1170px;
-}
-
-.almond .lms-nav {
-    /* This background value is overwritten by LMS Settings */
-    background: #16325C;
-    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.35);
-}
-
-.almond .lms-nav nav{
-    /* Reset the nav position, sometimes communities css overrides this */
-    float: initial;
-    position: initial;
-    top: initial;
-}
-
-.almond .navbar-inverse .navbar-brand {
-    float: left;
-    font-size: 20px;
-    font-weight: 400;
-    letter-spacing: 0.5px;
-    line-height: 20px;
-    padding: 8px 15px 0 15px;
-    text-shadow: 0 1px 0 #005B95;
-    color: #FFFFFF;
-}
-
-.almond .navbar-inverse .navbar-nav > li > a {
-    color: #DBE5F2;
-    font-weight: 400;
-    letter-spacing: 0.5px;
-    line-height: 145%;
-    text-shadow: none;
-    white-space: nowrap;
-}
-
-.almond .navbar-inverse .navbar-text {
-    color: #7A4E00;
-}
-
-.almond .navbar-inverse .navbar-link {
-    color: #DBE5F2;
-    font-weight: 400;
-    letter-spacing: 0.5px;
-    text-shadow: none;
-}
-
-.almond .navbar-inverse .navbar-link:focus,
-.almond .navbar-inverse .navbar-link:hover {
-    color: #FFFFFF;
-    text-decoration: none;
-}
-
-.navbar-inverse .navbar-toggle {
-    border: 1px solid rgba(0, 0, 0, 0.27);
-    background: none repeat scroll 0 0 rgba(0, 0, 0, 0.12);
-}
-
-.almond .navbar-inverse .navbar-toggle:hover,
-.almond .navbar-inverse .navbar-toggle:focus {
-    background-color: #1E5A81;
-}
-
-.almond .navbar-toggle span.icon-bar{
-    background-color: #DBE5F2 !important;
-}
-
-.almond .navbar-inverse .navbar-nav > .active > a,
-.almond .navbar-inverse .navbar-nav > .active > a:hover,
-.almond .navbar-inverse .navbar-nav > .active > a:focus {
-    background: none repeat scroll 0 0 rgba(0, 0, 0, 0.12);
-    color: #FFFFFF;
-    text-shadow: none;
-}
-
-.almond #almond-header-logo{
-    padding-top: 10px;
-    padding-bottom: 0;
-}
-
-.almond #almond-header-logo span{
-    font-size:30px;
-}
-
-.almond .profilePic-header{
-    border: 2px solid #FFFFFF;
-    border-radius: 50%;
-    box-shadow: 0 1px 1px #818181;
-    height: 20px;
-    margin-top: -2px;
-    width: 20px;
 }
 
 .almond .profilePic-header-45{
@@ -268,12 +176,10 @@ td.noSidebarCell{
     vertical-align: middle;
 }
 
-.almond .navbar-inverse .navbar-brand img {
+.navbar-brand img {
     height: 32px;
     width: auto;
 }
-
-.almond .center-pills { display: inline-block; }
 
 .almond .btn-plan-feedback{
     width:100%;
@@ -283,31 +189,6 @@ td.noSidebarCell{
 * LMS Form styles
 * ------------------------------------------------------
 */
-
-.almond .form-item{
-    display: block;
-    margin-bottom: 5px;
-    padding: 3px;
-    width: 100%;
-}
-
-.almond .form-item label{
-    width: 100%;
-}
-
-.almond .form-item input[type="text"] {
-    width: 10%;
-}
-
-.almond .form-item textarea {
-    width: 50%;
-}
-
-.almond fieldset.form-buttons {
-    margin: 10px 0;
-    padding: 10px 0;
-}
-
 .almond .plan-due-date{
     padding:10px 0 0 0;
 }
@@ -329,7 +210,6 @@ td.noSidebarCell{
     width: 100%;
     padding: 10px !important;
 }
-
 
 .almond input[type="submit"] {
     cursor: pointer;
@@ -509,35 +389,6 @@ td.noSidebarCell{
     margin-top: 30px;
 }
 
-.almond .almond-nav {
-    background-color: #FFFFFF;
-    border: 0;
-    color: #404040;
-    margin-top: 0px;
-    text-align: center;
-}
-
-.almond .almond-nav a,
-.almond .almond-nav a:hover {
-    display:block;
-    padding: 6px 12px;
-    color: #404040;
-    text-decoration: none;
-}
-
-.almond .almond-nav .btn-group{
-    font-size: 0; /* remove spaces between inline block elements*/
-}
-.almond .almond-nav .btn{
-    float:none !important;
-    display: inline-block !important;
-    margin:0;
-}
-.almond .almond-nav-active{
-    background-color: #ECEEF0;
-}
-
-
 /*!
 * Hero Template styles
 * ------------------------------------------------------
@@ -555,7 +406,7 @@ td.noSidebarCell{
 }
 
 .almond #hero-banner {
-    background-color: #F2F2F2;
+    background-color: #F4F6F9;
     background-size: cover;
     border-bottom: 1px solid #DDDDDD;
     min-height: 200px;
@@ -592,10 +443,10 @@ td.noSidebarCell{
     padding: 3px 0 0 0;
     bottom: 0;
     overflow: auto;
+    color:#16325c;
 }
 
 .almond .hb-footer .container{
-    color:#000;
     font-size:13px;
 }
 
@@ -657,6 +508,10 @@ td.noSidebarCell{
     max-width: 170px;
 }
 
+.almond .profile-data{
+    margin-top: 15px;
+}
+
 .almond .profile-data ul{
     font-size: 16px;
     list-style: none outside none;
@@ -678,16 +533,16 @@ td.noSidebarCell{
     border-radius: 50% 50% 50% 50%;
     box-shadow: 0 1px 1px #818181;
     display: block;
-    height: 150px;
-    margin: 15px auto 0;
+    height: 120px;
+    margin: 20px auto 0;
     overflow: hidden;
     padding: 0;
     vertical-align: middle;
-    width: 150px;
+    width: 120px;
 }
 
 .almond .thumb img {
-    height: 170px;
+    height: 150px;
     margin: 0 auto !important;
     width: auto;
 }
@@ -727,10 +582,6 @@ td.noSidebarCell{
     padding-left: 0px;
 }
 
-.almond .image-upload-control{
-    width:90%; /* prevent width overflow in task viewer */
-}
-
 .ribbon-wrapper-green {
   width: 85px;
   height: 88px;
@@ -751,8 +602,8 @@ td.noSidebarCell{
   -o-transform:      rotate(-35deg);
   position: relative;
   padding: 3px 0;
-  left: -13px;
-  top: 10px;
+  left: -16px;
+  top: 9px;
   width: 90px;
   background-color: #BFDC7A;
   background-image: -webkit-gradient(linear, left top, left bottom, from(#BFDC7A), to(#8EBF45));
@@ -790,24 +641,16 @@ td.noSidebarCell{
 .almond .activity-section-head {
     background-color: #fff;
     border-bottom: 1px solid #D2D3D5;
-    color: #333333;
-    display: table;
-    font-size: 18px;
-    line-height: 19px;
-    margin: 0px 0 7px;
-    min-height: 37px;
-    padding: 6px 3px 9px;
-    width: 100%;
+    padding: 0 0 10px 0;
 }
 
-.almond .activity-section-learning {
-    display: table;
-    height: 30px;
-    padding: 4px 0 0;
-    width: 100%;
+.almond .activity-section-head .learn-icon,
+.almond .activity-section-head .learn-icon .htmlDetailElementTable .sfdc_richtext{
+    text-align: center;
 }
-
 .almond .activity-section-head .learn-icon img{
+    margin-top: -5px;
+    margin-bottom: 5px;
     height: 30px !important;
     width: auto !important;
     max-width:30px;
@@ -815,12 +658,6 @@ td.noSidebarCell{
 
 .almond .activity-section-head .learn-icon-offset{
     display:none;
-}
-
-.almond .activity-section-head .title,
-.almond .activity-section-head .prog-status {
-    margin-top: 4px;
-    text-align: left;
 }
 
 .almond .activity-section-head .learn-action {
@@ -832,40 +669,12 @@ td.noSidebarCell{
     width: auto;
 }
 
-.almond .activity-section-head .progress {
-    margin-top: 1px;
-}
-
-.almond .activity-section-head .progress,
-.almond .activity-section-learning .progress {
-    margin-bottom: 0px !important;
-    display: inline-block;
-    width:40%;
-}
-
 .almond .activity-section-learning {
     padding: 0;
 }
 
-.almond .activity-section-learning .progresshours,
-.almond .activity-section-learning .progress,
-.almond .activity-section-learning .title {
-    margin-top: 9px;
-}
-
-.almond .activity-section-learning .learn-icon span.glyphicon{
-    margin-left: 10px;
-    margin-top: 12px;
-}
-
 .almond .activity-section-learning .learn-action {
     text-align: center;
-}
-
-.almond .progresshours {
-    float:right;
-    display: inline-block;
-    width:40%;
 }
 
 .almond .tplan-pills>li>a{
@@ -883,16 +692,11 @@ td.noSidebarCell{
     display: none;
 }
 
-
-.almond .activity-section-learning{
-    padding: 10px 0 10px 0;
-}
-
 .almond .activity-section-learning .learn-action {
     margin-top: 5px;
 }
 
-.almond .activity-section-learning .learn-action .almond-primary-btn {
+.almond .activity-section-learning .learn-action .slds-button--brand {
     display: none;
 }
 
@@ -903,16 +707,12 @@ td.noSidebarCell{
     margin-top: 1px;
 }
 
-.almond .launch-btn-mobile .glyphicon{
+.almond .launch-btn-mobile .sldsicon{
     text-decoration:none;
-    color: #000;
-    opacity: 0.5;
+    margin-top:13px;
 }
 
 /* LMS Search styles */
-.almond #lms-search-button{
-    background-color:#eee;
-}
 
 .almond .lms-search-group{
     margin-bottom:20px;
@@ -937,18 +737,18 @@ td.noSidebarCell{
 
     .almond .activity-section-learning .learn-icon,
     .almond .prog-status{
-        display: inline;
+        display: block;
     }
 
     .almond .activity-section-learning{
-        margin: 0 0 5px 0;
+        /*margin: 0 0 5px 0;*/
     }
 
     .almond .activity-section-learning .learn-action {
         margin-top: 1px;
     }
 
-    .almond .activity-section-learning .learn-action .almond-primary-btn {
+    .almond .activity-section-learning .learn-action .slds-button--brand {
         display: block;
     }
 
@@ -970,6 +770,10 @@ td.noSidebarCell{
     margin-top: 20px;
 }
 
+.almond .lx-lms-header{
+    margin-top:10px;
+}
+
 /*!
 * LMS Template Training Plan Box styles
 * ------------------------------------------------------
@@ -977,6 +781,10 @@ td.noSidebarCell{
 
 .almond .trainingplan-container{
     margin-top:10px;
+}
+
+.almond .tplan_box_container{
+    position:relative;
 }
 
 .almond .tplan_box {
@@ -991,8 +799,11 @@ td.noSidebarCell{
     top: 0 !important;
     vertical-align: top;
     background-color: #fff;
-    color: #333;
     width: 100%;
+}
+
+.almond .tplan_box_title{
+    margin-top:10px;
 }
 
 .almond .tplan_box_disabled{
@@ -1006,7 +817,7 @@ td.noSidebarCell{
 }
 
 .almond .tplan_box:hover{
-    background-color:#eee;
+    background-color:#f4f6f9;
     color:#333;
 }
 
@@ -1039,8 +850,12 @@ td.noSidebarCell{
 }
 
 .almond .ttrack_img table{
-    text-align:center;
+    text-align:center !important;
     width: 100%;
+}
+
+.almond .ttrack_img table .sfdc_richtext{
+    text-align: center;
 }
 
 .almond .ttrack_img img{
@@ -1095,7 +910,7 @@ td.noSidebarCell{
     text-overflow: ellipsis;
 }
 
-.almond .tplan_details span, .almond .tplan_details_no_image span.plan-due-date{
+.almond .tplan_details span.plan-due-date, .almond .tplan_details_no_image span.plan-due-date{
     display: block;
     font-size: 12px;
     height: 35px;
@@ -1169,11 +984,6 @@ td.noSidebarCell{
     margin-bottom: 27px;
 }
 
-.almond .categoryItemWrap {
-    display: block;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-}
-
 .almond .categoryItem {
     display: table;
     margin-bottom: 15px;
@@ -1224,10 +1034,6 @@ td.noSidebarCell{
         margin-left: -5vw;
         margin-top: -8vw;
     }
-
-    .almond .achievements-avatar{
-        margin-bottom: 20px;
-    }
 }
 
 @media (min-width: 992px) {
@@ -1238,9 +1044,6 @@ td.noSidebarCell{
         height: 8vw;
         margin-left: -4vw;
         margin-top: -7vw;
-    }
-    .almond .achievements-avatar{
-        margin-bottom: 20px;
     }
 }
 
@@ -1254,16 +1057,16 @@ td.noSidebarCell{
         margin-left: -2.5vw;
         margin-top: -4vw;
     }
-
-    .almond .achievements-avatar{
-        margin-top:-23px;
-    }
 }
 
 /*
 * Quiz styles
 * ------------------------------------------------------
 */
+
+.almond #quizBody{
+    padding: 0 1rem;
+}
 
 .almond .quiz-question-wrapper{
     border: 1px solid #cfd4d9;
@@ -1297,12 +1100,19 @@ td.noSidebarCell{
 /* Smartphones (portrait and landscape) ----------- */
 @media (max-width : 480px) {
     /* Header */
+    .almond .navbar-brand, .almond #almond-header-logo{
+        display:none;
+    }
     .almond #lms-nav-header{
         display:none !important;
     }
 }
 
 @media (max-width : 768px) {
+    
+    .almond .navbar-brand{
+        display:none;
+    }
     .almond .categoryImage{
         min-height:120px;
     }
@@ -1310,7 +1120,6 @@ td.noSidebarCell{
     body,
     .almond,
     .almond .wrap,
-    .almond .almond-nav,
     .oneContent,
     .oneAlohaPage{
         background:none;
@@ -1344,9 +1153,19 @@ td.noSidebarCell{
         width: 320px;
     }
 
+    .almond .activity-section-head{
+      background-color: #f4f6f9;
+      padding: 10px;
+      margin: 0px;
+    }
+    
     .almond .activity-section-head .title{
       width: 80%;
       margin-left: 10px;
+    }
+    
+    .almond .activity-section-learning .title{
+      margin-left: 18px;
     }
 
     .almond .mobile-learning-wrapper{
@@ -1384,15 +1203,16 @@ td.noSidebarCell{
     }
 
     /* Plan detail style overrides */
-    .almond .activity-section-head {
-        background-color: #ffffff;
-        margin:0px;
+    .almond .activity-section-head .learn-icon img{
+        margin-top: 0px;
+        margin-bottom: 0px;
     }
-
+    
     .almond .activity-section-learning{
         background-color:#ffffff;
         margin: 0px;
     }
+
 
     /* Feedback style overrides*/
     .almond .tplan-feedback-photo{

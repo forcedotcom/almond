@@ -3,12 +3,12 @@
     <apex:attribute name="tplanObj" description="TrainingPlanWithAchievement object rendered by component" type="TrainingPlanWithAchievement[]" required="true"/>
 
     <apex:outputPanel layout="none" rendered="{!tplanObj != null && tplanObj.size > 0}">
-        <div class="trainingplan-container row">
+        <div class="slds-grid slds-wrap slds-grid--pull-padded">
             <apex:repeat value="{!tplanObj}" var="o" id="theRepeat">
 
                 <apex:variable var="hasBadge" value="{!o.mainAchievement.Acquired_Image__c != null || o.mainAchievement.Work_Badge_Image_URL__c != null}" />
 
-                <div class="col-xs-12 col-sm-6 col-md-4" onclick="almond.redirectHandlerWithStatus('{!JSENCODE(o.planDetailURL)}',true)">
+                <div class="tplan_box_container slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--3-of-6 slds-large-size--4-of-12" onclick="almond.redirectHandlerWithStatus('{!JSENCODE(o.planDetailURL)}',true)">
                     <div class="tplan_box">
                         <apex:outputPanel layout="none" rendered="{!hasBadge}">
                             <div class="tplan_img">
@@ -17,7 +17,7 @@
                             </div>
                         </apex:outputPanel>
                         <div class="{!IF(hasBadge,'tplan_details','tplan_details_no_image')}" >
-                            <h4>{!o.planName}</h4>
+                            <div class="slds-text-heading--small tplan_box_title">{!o.planName}</div>
                             <apex:outputPanel layout="none" rendered="{!o.planEndDate != null && o.hideAfterEndDate && o.assignmentStatus != 'Completed'}">
                                 <span class="plan-due-date">{!$Label.ALMS_Training_Plan_Due} : {!o.planEndDate}</span>
                             </apex:outputPanel>
@@ -37,7 +37,7 @@
     </apex:outputPanel>
     <apex:outputPanel layout="none" rendered="{!tplanObj == null || tplanObj.size == 0}">
         <div style="width:100%;text-align:center;padding:20px;0;">
-            <h2>{!$Label.ALMS_Nothing_to_see}</h2>
+            <div class="slds-text-heading--medium">{!$Label.ALMS_Nothing_to_see}</div>
         </div>
     </apex:outputPanel>
 

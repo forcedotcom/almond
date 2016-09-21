@@ -5,15 +5,20 @@
 
     <apex:repeat value="{!qi.answers.Answer_Sequence_Items__r}" var="l" >
 
-        <div class="checkbox">
-            <label>
-                <input onClick="multiset('{!$Component.mresource}','{!$Component.mselectresponse}',this);"
-                    type="checkbox"
-                    name="{!qi.question.id}"
-                    id="{!qi.question.id}{!l.Item_Id__c}"
-                    value="{!l.Item_Id__c}" ></input>
-                    <label name="{!qi.question.id}label">{!l.Answer_Text__c}</label>
-            </label>
+        <div class="slds-form-element">
+            <div class="slds-form-element__control">
+                <span class="slds-checkbox">
+                  <input onClick="multiset('{!$Component.mresource}','{!$Component.mselectresponse}',this);"
+                      type="checkbox"
+                      name="{!qi.question.id}"
+                      id="{!qi.question.id}{!l.Item_Id__c}"
+                      value="{!l.Item_Id__c}" ></input>
+                    <label name="{!qi.question.id}label" class="slds-checkbox__label" for="{!qi.question.id}{!l.Item_Id__c}">
+                        <span class="slds-checkbox--faux"></span>
+                        <span class="slds-form-element__label">{!l.Answer_Text__c}</span>
+                    </label>
+                </span>
+            </div>
         </div>
 
         <script>

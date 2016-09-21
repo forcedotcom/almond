@@ -27,7 +27,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 <apex:page controller="TrainingPlanDetailController" docType="html-5.0" sidebar="false" showHeader="{!showSFHeader}" standardStylesheets="false">
 
-    <apex:composition template="LMS_HeroTemplate">
+    <apex:composition template="LMS_LXHeroTemplate">
 
         <apex:define name="head">
             <title>{!tPlan.trainingPlan.Name}</title>
@@ -35,7 +35,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 
         <apex:define name="hero-banner">
             <div id="hb-wrap">
-                <h2>{!tPlan.trainingPlan.Name}</h2>
+                <div class="slds-text-heading--large slds-m-top--small">{!tPlan.trainingPlan.Name}</div>
                 <p><apex:outputField value="{!tPlan.trainingPlan.Description__c}"/></p>
 
                 <apex:outputPanel layout="none" rendered="{!!tPlan.trainingPlan.Hide_Chatter_Photos__c}">
@@ -51,7 +51,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
         </apex:define>
 
         <apex:define name="hero-banner-badge">
-            <div id="hb-right" class="col-xs-12 col-sm-4 col-md-3">
+            <div id="hb-right" class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--4-of-12 slds-large-size--3-of-12">
                 <div class="badge-container">
                     <apex:outputfield value="{!tPlan.mainAchievement.Acquired_Image__c}" rendered="{!tPlan.mainAchievement.Work_Badge_Image_URL__c == null}"/>
                     <apex:image url="{!tPlan.mainAchievement.Work_Badge_Image_URL__c}" rendered="{!tPlan.mainAchievement.Work_Badge_Image_URL__c != null}"/>
@@ -60,340 +60,363 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
         </apex:define>
 
         <apex:define name="hero-banner-footer">
-            <apex:outputPanel layout="none" rendered="{!tPlan.trainingPlan != null && tplan.trainingPlan.Hide_After_End_Date__c && tplan.trainingPlan.End_Date__c != null}">
-                <span><b>{!$Label.ALMS_Training_Plan_Due}</b> :&nbsp;<apex:outputField value="{!tPlan.trainingPlan.End_Date__c}" /> /</span>
-            </apex:outputPanel>
-            <apex:outputPanel layout="none" rendered="{!tPlan.totalMins != null && tPlan.totalMins > 0}">
-                <span><b>{!$Label.ALMS_Duration}</b> : {!tPlan.TotalDuration} /</span>
-            </apex:outputPanel>
-            <apex:outputPanel layout="none" rendered="{!tPlanAssignmentStatus != null}">
-                <span><b>{!$Label.ALMS_Training_Plan_Assignment_Status}</b> : {!IF(tPlanAssignmentStatus == 'Completed',$Label.ALMS_Training_Status_Completed, IF(tPlanAssignmentStatus == 'In Progress', $Label.ALMS_Training_Status_In_Progress, $Label.ALMS_Training_Status_Not_Started))}</span>
-            </apex:outputPanel>
-        </apex:define>
-
-        <apex:define name="container-header">
-
-            <div class="row almond-nav" >
-                <div class="btn-group col-xs-12 col-sm-12 col-md-12">
-                    <a href="javascript:void()" class="btn btn-default col-xs-4 col-sm-3 col-md-3 almond-nav-active">{!$Label.ALMS_Detail}</a>
-                    <apex:outputPanel layout="none" rendered="{!tPlan.trainingPlan.Intro_Video_URL__c != null}">
-                        <a href="javascript:launchLearning('{!tPlan.trainingPlan.Intro_Video_URL__c}','iframe')" class="btn btn-default col-xs-4 col-sm-3 col-md-3">{!$Label.ALMS_Intro_Video}</a>
-                    </apex:outputPanel>
-                    <a href="javascript:almond.redirectHandlerWithStatus('{!$Page.TrainingPlanFeedback}?id={!tplan.trainingPlan.Id}')" class="btn btn-default col-xs-4 col-sm-3 col-md-3">{!$Label.ALMS_Feedback}</a>
-                </div>
-            </div>
-
+            <span style="padding:0 1rem;">
+                <apex:outputPanel layout="none" rendered="{!tPlan.trainingPlan != null && tplan.trainingPlan.Hide_After_End_Date__c && tplan.trainingPlan.End_Date__c != null}">
+                    <span><b>{!$Label.ALMS_Training_Plan_Due}</b> :&nbsp;<apex:outputField value="{!tPlan.trainingPlan.End_Date__c}" /> /</span>
+                </apex:outputPanel>
+                <apex:outputPanel layout="none" rendered="{!tPlan.totalMins != null && tPlan.totalMins > 0}">
+                    <span><b>{!$Label.ALMS_Duration}</b> : {!tPlan.TotalDuration} /</span>
+                </apex:outputPanel>
+                <apex:outputPanel layout="none" rendered="{!tPlanAssignmentStatus != null}">
+                    <span><b>{!$Label.ALMS_Training_Plan_Assignment_Status}</b> : {!IF(tPlanAssignmentStatus == 'Completed',$Label.ALMS_Training_Status_Completed, IF(tPlanAssignmentStatus == 'In Progress', $Label.ALMS_Training_Status_In_Progress, $Label.ALMS_Training_Status_Not_Started))}</span>
+                </apex:outputPanel>
+            </span>
         </apex:define>
 
         <apex:define name="body">
 
-            <apex:form styleClass="tplan-form">
+            <div class="slds-tabs--scoped">
+                <ul class="slds-tabs--scoped__nav" role="tablist">
+                    <li class="slds-tabs--scoped__item slds-text-title--caps slds-active" title="{!$Label.ALMS_Detail}" role="presentation">
+                        <a class="slds-tabs--scoped__link" href="javascript:void()" role="tab" tabindex="0" aria-selected="true" aria-controls="tab-scoped-1">
+                            {!$Label.ALMS_Detail}
+                        </a>
+                    </li>
+                    <apex:outputPanel layout="none" rendered="{!tPlan.trainingPlan.Intro_Video_URL__c != null}">
+                        <li class="slds-tabs--scoped__item slds-text-title--caps" title="{!$Label.ALMS_Intro_Video}" role="presentation">
+                            <a class="slds-tabs--scoped__link" href="javascript:launchLearning('{!tPlan.trainingPlan.Intro_Video_URL__c}','iframe')" role="tab" tabindex="0" aria-selected="true" aria-controls="tab-scoped-1">
+                                {!$Label.ALMS_Intro_Video}
+                            </a>
+                        </li>
+                    </apex:outputPanel>
+                    <li class="slds-tabs--scoped__item slds-text-title--caps" title="{!$Label.ALMS_Feedback}" role="presentation">
+                        <a class="slds-tabs--scoped__link" href="javascript:almond.redirectHandlerWithStatus('{!$Page.TrainingPlanFeedback}?id={!tplan.trainingPlan.Id}')" role="tab" tabindex="0" aria-selected="true" aria-controls="tab-scoped-1">
+                            {!$Label.ALMS_Feedback}
+                        </a>
+                    </li>
+                </ul>
+                <div id="tab-scoped-1" class="slds-tabs--scoped__content slds-show" role="tabpanel" aria-labelledby="tab-scoped-1__item">
+                    <apex:form styleClass="tplan-form">
 
-                <apex:actionFunction action="{!retrieveItemDetails}" name="retrieveItemDetails" rerender="itemModalPanel,resultsPanel"  status="status" oncomplete="processSelectedItem()">
-                    <apex:param name="sectionId" assignTo="{!selectedSectionId}" value="" />
-                    <apex:param name="itemId" assignTo="{!selectedItemId}" value="" />
-                </apex:actionFunction>
+                        <apex:actionFunction action="{!retrieveItemDetails}" name="retrieveItemDetails" rerender="itemModalPanel,resultsPanel"  status="status" oncomplete="processSelectedItem()">
+                            <apex:param name="sectionId" assignTo="{!selectedSectionId}" value="" />
+                            <apex:param name="itemId" assignTo="{!selectedItemId}" value="" />
+                        </apex:actionFunction>
 
-                <apex:outputPanel layout="none" id="resultsPanel">
-
-                    <apex:inputHidden id="learningURL" value="{!learningLaunchURL}"/>
-                    <apex:inputHidden id="byPassModal" value="{!byPassLaunchModal}"/>
-                    <apex:inputHidden id="learningTarget" value="{!learningTarget}"/>
-
-                </apex:outputPanel>
-
-                <h3>{!$Label.ALMS_Activities}</h3>
-
-                <div class="required-asterisk-panel"><span class="required_asterisk">*</span> = {!$Label.ALMS_Required}</div>
-
-                <apex:repeat value="{!tPlan.sections}" var="o" >
-                    <div class="activity-section-wrap" >
-                    <div class="activity-section-head row" >
-
-                        <apex:outputPanel layout="none" rendered="{!o.mainAchievement.Work_Badge_Image_URL__c == null && o.mainAchievement.Acquired_Image__c == null}">
-                            <div class="col-xs-1 col-sm-1 col-md-1 learn-icon-offset">
-                            </div>
-                        </apex:outputPanel>
-                        <apex:outputPanel layout="none" rendered="{!o.mainAchievement.Work_Badge_Image_URL__c != null || o.mainAchievement.Acquired_Image__c != null}">
-                            <div class="col-xs-1 col-sm-1 col-md-1 learn-icon">
-                                <apex:outputPanel layout="none" rendered="{!o.mainAchievement.Work_Badge_Image_URL__c == null}">
-                                    <apex:outputField value="{!o.mainAchievement.Acquired_Image__c}" rendered="{!o.sectionAssignment.Status__c == 'Completed'}" />
-                                    <apex:outputField value="{!o.mainAchievement.Eligible_Image__c}" rendered="{!o.sectionAssignment.Status__c != 'Completed'}" />
-                                </apex:outputPanel>
-                                <apex:outputPanel layout="none" rendered="{!o.mainAchievement.Work_Badge_Image_URL__c != null}">
-                                    <apex:image url="{!o.mainAchievement.Work_Badge_Image_URL__c}" styleClass="{!IF(o.sectionAssignment.Status__c != 'Completed','badge-disabled','')}"/>
-                                </apex:outputPanel>
-                            </div>
+                        <apex:outputPanel layout="none" id="resultsPanel">
+                            <apex:inputHidden id="learningURL" value="{!learningLaunchURL}"/>
+                            <apex:inputHidden id="byPassModal" value="{!byPassLaunchModal}"/>
+                            <apex:inputHidden id="learningTarget" value="{!learningTarget}"/>
                         </apex:outputPanel>
 
-                        <div class="col-xs-4 col-sm-4 col-md-4 title">
-                            <apex:outputField value="{!o.trainingPlanSection.Name}"  />
-                        </div>
+                        <div class="slds-text-heading--medium">{!$Label.ALMS_Activities}</div>
 
-                        <div class="col-xs-5 col-sm-5 col-md-5 prog-status">
-                            <div class="progress">
-                              <div class="progress-bar {!IF(o.totalProgress == 100, 'progress-bar-success', '')}" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width:{!o.totalProgress}%">
-                                <span class="sr-only"><apex:outputText value="{!o.totalProgress}"  />% {!$Label.ALMS_Complete_Success}</span>
-                              </div>
-                            </div>
+                        <div class="required-asterisk-panel"><span class="required_asterisk">*</span> = {!$Label.ALMS_Required}</div>
 
-                            <div class="progresshours">
-                                <apex:outputText value="{!o.totalDuration}" rendered="{!o.totalMins != null && o.totalMins > 0}"/>
-                            </div>
-                        </div>
+                        <apex:repeat value="{!tPlan.sections}" var="o" >
+                            <div class="activity-section-wrap" >
+                            <div class="activity-section-head slds-grid slds-wrap slds-grid--pull-padded" >
 
-                    </div>
-
-                    <apex:repeat value="{!o.items}" var="i">
-                        <div class="activity-section-learning row" >
-
-                            <div class="col-xs-1 col-sm-1 col-md-1 learn-icon">
-                                <apex:outputPanel layout="none" rendered="{!i.learning.RecordType.DeveloperName == 'Task'}"><span class="glyphicon glyphicon-pushpin"></span></apex:outputPanel>
-                                <apex:outputPanel layout="none" rendered="{!i.learning.RecordType.DeveloperName == 'Quiz'}"><span class="glyphicon glyphicon-question-sign"></span></apex:outputPanel>
-                                <apex:outputPanel layout="none" rendered="{!i.learning.RecordType.DeveloperName == 'Resource'}"><span class="glyphicon glyphicon-globe"></span></apex:outputPanel>
-                                <apex:outputPanel layout="none" rendered="{!i.learning.RecordType.DeveloperName != 'Task' && i.learning.RecordType.DeveloperName != 'Quiz' && i.learning.RecordType.DeveloperName != 'Resource'}"><span class="glyphicon glyphicon-play-circle"></span></apex:outputPanel>
-                            </div>
-
-                            <div class="col-xs-10 col-sm-4 col-md-4 title ls-learning-wrapper">
-                            <apex:outputPanel layout="none" rendered="{!!i.trainingPlanSectionItem.Optional__c}">
-                                <div class="requiredItem">*</div>
-                            </apex:outputPanel>
-                                <apex:outputField value="{!i.learning.Name}"  />
-                            </div>
-
-                            <apex:outputPanel rendered="{!i.assignments != null}" layout="none">
-                                <a href="javascript:void(0)" class="mobile-learning-wrapper launch-learning-btn" lms-data-sectionId="{!o.trainingPlanSection.Id}" lms-data-itemId="{!i.trainingPlanSectionItem.Id}">
-                                    <div class="col-xs-9 col-xs-offset-1 col-sm-9 col-md-9 title">
-                                        <apex:outputPanel layout="none" rendered="{!!i.trainingPlanSectionItem.Optional__c}">
-                                            <div class="requiredItem">*</div>
-                                        </apex:outputPanel>
-                                        <apex:outputField value="{!i.learning.Name}"  />
+                                <apex:outputPanel layout="none" rendered="{!o.mainAchievement.Work_Badge_Image_URL__c == null && o.mainAchievement.Acquired_Image__c == null}">
+                                    <div class="slds-p-horizontal--small slds-size--1-of-12 learn-icon-offset">
                                     </div>
-                                </a>
-                            </apex:outputPanel>
+                                </apex:outputPanel>
+                                <apex:outputPanel layout="none" rendered="{!o.mainAchievement.Work_Badge_Image_URL__c != null || o.mainAchievement.Acquired_Image__c != null}">
+                                    <div class="slds-p-horizontal--small slds-size--1-of-12 learn-icon">
+                                        <apex:outputPanel layout="none" rendered="{!o.mainAchievement.Work_Badge_Image_URL__c == null}">
+                                            <apex:outputField value="{!o.mainAchievement.Acquired_Image__c}" rendered="{!o.sectionAssignment.Status__c == 'Completed'}" />
+                                            <apex:outputField value="{!o.mainAchievement.Eligible_Image__c}" rendered="{!o.sectionAssignment.Status__c != 'Completed'}" />
+                                        </apex:outputPanel>
+                                        <apex:outputPanel layout="none" rendered="{!o.mainAchievement.Work_Badge_Image_URL__c != null}">
+                                            <apex:image url="{!o.mainAchievement.Work_Badge_Image_URL__c}" styleClass="{!IF(o.sectionAssignment.Status__c != 'Completed','badge-disabled','')}"/>
+                                        </apex:outputPanel>
+                                    </div>
+                                </apex:outputPanel>
 
-                            <apex:outputPanel rendered="{!i.assignments == null}" layout="none">
-                                <div class="mobile-learning-wrapper col-xs-9 col-xs-offset-1 col-sm-9 col-md-9 title">
+                                <div class="slds-p-horizontal--small slds-size--4-of-12 title">
+                                    <div class="slds-text-heading--small"><apex:outputField value="{!o.trainingPlanSection.Name}"  /></div>
+                                </div>
+
+                                <div class="slds-p-horizontal--small slds-size--3-of-12 prog-status">
+                                    <div class="progress-bar" title="{!o.totalProgress}%" style="width:140px;">
+                                        <div class="progress-bar-value progress-bar-value-{!IF(o.totalProgress == 100, 'success', 'default')}" style="width:{!o.totalProgress}%">
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="slds-p-horizontal--small slds-size--2-of-12 prog-status">
+                                    <div class="progresshours">
+                                        <apex:outputText value="{!o.totalDuration}" rendered="{!o.totalMins != null && o.totalMins > 0}"/>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <apex:repeat value="{!o.items}" var="i">
+                                <div class="activity-section-learning slds-grid slds-wrap slds-grid--pull-padded slds-m-bottom--large slds-m-top--large" >
+
+                                    <div class="slds-p-horizontal--small slds-size--1-of-12 learn-icon" style="text-align:center;">
+                                        <div xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                            <svg aria-hidden="true" class="slds-button__icon slds-button__icon--medium sldsicon">
+                                                <apex:outputPanel layout="none" rendered="{!i.learning.RecordType.DeveloperName == 'Task'}"><use xlink:href="{!URLFOR($Resource.almond_uilib, '/slds/icons/utility-sprite/svg/symbols.svg')}#task"></use></apex:outputPanel>
+                                                <apex:outputPanel layout="none" rendered="{!i.learning.RecordType.DeveloperName == 'Quiz'}"><use xlink:href="{!URLFOR($Resource.almond_uilib, '/slds/icons/utility-sprite/svg/symbols.svg')}#help"></use></apex:outputPanel>
+                                                <apex:outputPanel layout="none" rendered="{!i.learning.RecordType.DeveloperName == 'Resource'}"><use xlink:href="{!URLFOR($Resource.almond_uilib, '/slds/icons/utility-sprite/svg/symbols.svg')}#world"></use></apex:outputPanel>
+                                                <apex:outputPanel layout="none" rendered="{!i.learning.RecordType.DeveloperName != 'Task' && i.learning.RecordType.DeveloperName != 'Quiz' && i.learning.RecordType.DeveloperName != 'Resource'}"><use xlink:href="{!URLFOR($Resource.almond_uilib, '/slds/icons/utility-sprite/svg/symbols.svg')}#right"></use></apex:outputPanel>
+                                            </svg>
+                                        </div>
+                                    </div>
+
+                                    <div class="slds-p-horizontal--small slds-size--10-of-12 slds-medium-size--4-of-12 slds-large-size--4-of-12 title ls-learning-wrapper" style="position: relative;">
                                     <apex:outputPanel layout="none" rendered="{!!i.trainingPlanSectionItem.Optional__c}">
                                         <div class="requiredItem">*</div>
                                     </apex:outputPanel>
-                                    <apex:outputField value="{!i.learning.Name}"  />
-                                </div>
-                            </apex:outputPanel>
-
-                            <div class="col-xs-5 col-sm-5 col-md-5 prog-status">
-                                <div class="progress">
-                                  <div class="progress-bar {!IF(i.learning.RecordType.DeveloperName == 'Quiz' && i.latestAssignment.Evaluation_Result__c == 'Failed','progress-bar-danger','')}" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width:{!i.latestAssignment.Progress_Percentage__c}%">
-                                    <span class="sr-only"><apex:outputText value="{!i.latestAssignment.Progress_Percentage__c}"  /> {!$Label.ALMS_Complete_Success}</span>
-                                  </div>
-                                </div>
-                                <div class="progresshours">
-                                    <apex:outputField value="{!i.trainingPlanSectionItem.Duration_hours__c}"  />
-                                </div>
-                            </div>
-
-                            <div class="col-xs-2 col-sm-2 col-md-2 learn-action">
-                                <!-- Button trigger modal -->
-                                <apex:outputPanel rendered="{!i.assignments != null}" layout="none">
-                                    <a href="javascript:void(0)" lms-data-sectionId="{!o.trainingPlanSection.Id}" lms-data-itemId="{!i.trainingPlanSectionItem.Id}" class="launch-learning-btn almond-primary-btn small-btn" >{!$Label.ALMS_Launch}</a>
-
-                                    <div class="launch-btn-mobile">
-                                        <span class="glyphicon glyphicon-{!IF(i.latestAssignment.Progress__c != 'Completed',IF(i.latestAssignment.Progress__c == 'In Review','time','unchecked'),'check')}"></span>
+                                        <apex:outputField value="{!i.learning.Name}"  />
                                     </div>
-                                </apex:outputPanel>
 
-                            </div>
-
-                        </div><!-- activity-section-learning -->
-                    <!-- end repeat for section itmes html -->
-                    </apex:repeat>
-                    </div><!-- activity-section-wrap -->
-                <!-- end repeat for section html -->
-                </apex:repeat>
-
-
-                <!-- Modal -->
-                <apex:outputPanel id="itemModalPanel">
-
-                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-
-                                <div style="display: inline-block; margin-right: 10px;">
-                                    <span class="label {!selectedItemStatusLabel}">{!selectedItem.latestAssignment.Progress__c}</span>
-
-                                    <apex:outputPanel layout="none" rendered="{!selectedItem.outdatedAssignment}">
-                                        <span class="label label-info">{!$Label.ALMS_New_Version_available}</span>
+                                    <apex:outputPanel rendered="{!i.assignments != null}" layout="none">
+                                        <a href="javascript:void(0)" class="mobile-learning-wrapper launch-learning-btn slds-p-horizontal--small slds-size--10-of-12" lms-data-sectionId="{!o.trainingPlanSection.Id}" lms-data-itemId="{!i.trainingPlanSectionItem.Id}">
+                                            <div class="slds-p-horizontal--small slds-size--1-of-1 slds-m-top--medium slds-m-bottom--medium title" style="position:relative;">
+                                                <apex:outputPanel layout="none" rendered="{!!i.trainingPlanSectionItem.Optional__c}">
+                                                    <div class="requiredItem">*</div>
+                                                </apex:outputPanel>
+                                                <apex:outputField value="{!i.learning.Name}"  />
+                                            </div>
+                                        </a>
                                     </apex:outputPanel>
+
+                                    <apex:outputPanel rendered="{!i.assignments == null}" layout="none">
+                                        <div class="mobile-learning-wrapper slds-p-horizontal--small slds-size--1-of-1 slds-m-top--medium slds-m-bottom--medium title" style="position:relative;">
+                                            <apex:outputPanel layout="none" rendered="{!!i.trainingPlanSectionItem.Optional__c}">
+                                                <div class="requiredItem">*</div>
+                                            </apex:outputPanel>
+                                            <apex:outputField value="{!i.learning.Name}"  />
+                                        </div>
+                                    </apex:outputPanel>
+
+                                    <div class="slds-p-horizontal--small slds-size--3-of-12 prog-status">
+                                        <div class="progress-bar" title="{!i.latestAssignment.Progress_Percentage__c}%">
+                                            <div class="progress-bar-value progress-bar-value-{!IF(i.learning.RecordType.DeveloperName == 'Quiz' && i.latestAssignment.Evaluation_Result__c == 'Failed','error','default')}" style="width:{!i.latestAssignment.Progress_Percentage__c}%">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="slds-p-horizontal--small slds-size--2-of-12 prog-status">
+                                        <div class="progresshours">
+                                            <apex:outputField value="{!i.trainingPlanSectionItem.Duration_hours__c}"  />
+                                        </div>
+                                    </div>
+
+                                    <div class="slds-p-horizontal--small slds-size--2-of-12 learn-action">
+                                        <!-- Button trigger modal -->
+                                        <apex:outputPanel rendered="{!i.assignments != null}" layout="none">
+                                            <a href="javascript:void(0)" lms-data-sectionId="{!o.trainingPlanSection.Id}" lms-data-itemId="{!i.trainingPlanSectionItem.Id}" class="launch-learning-btn slds-button slds-button--brand small-btn" >{!$Label.ALMS_Launch}</a>
+
+                                            <div class="launch-btn-mobile" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                                <svg aria-hidden="true" class="slds-button__icon slds-button__icon--medium sldsicon">
+                                                    <use xlink:href="{!URLFOR($Resource.almond_uilib, '/slds/icons/utility-sprite/svg/symbols.svg')}#{!IF(i.latestAssignment.Progress__c != 'Completed',IF(i.latestAssignment.Progress__c == 'In Review','clock','clear'),'success')}"></use>
+                                                </svg>
+                                            </div>
+                                        </apex:outputPanel>
+
+                                    </div>
+
+                                </div><!-- activity-section-learning -->
+                            <!-- end repeat for section itmes html -->
+                            </apex:repeat>
+                            </div><!-- activity-section-wrap -->
+                        <!-- end repeat for section html -->
+                        </apex:repeat>
+
+
+                        <!-- Modal -->
+                        <apex:outputPanel id="itemModalPanel">
+                            <div id="myLaunchModal" role="dialog" tabindex="-1" aria-labelledby="header43" class="slds-modal">
+                              <div class="slds-modal__container">
+                                <div class="slds-modal__header" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                  <button class="slds-button slds-modal__close slds-button--icon-inverse" onclick="return hideLaunchModal();">
+                                    <svg aria-hidden="true" class="slds-button__icon slds-button__icon--large">
+                                      <use xlink:href="{!URLFOR($Resource.almond_uilib, '/slds/icons/utility-sprite/svg/symbols.svg')}#close"></use>
+                                    </svg>
+                                  </button>
+                                  <div class="slds-m-bottom--small" style="text-align:center;">
+                                      <span class="slds-badge slds-badge-{!selectedItemStatusLabel}">{!selectedItem.latestAssignment.Progress__c}</span>
+
+                                      <apex:outputPanel layout="none" rendered="{!selectedItem.outdatedAssignment}">
+                                          <span class="slds-badge slds-badge-default">{!$Label.ALMS_New_Version_available}</span>
+                                      </apex:outputPanel>
+                                  </div>
+                                  <h3 id="header43" class="slds-text-heading--medium">{!selectedItem.learning.Name}</h3>
                                 </div>
-                                <h4 class="modal-title" style="display:inline-block;">{!selectedItem.learning.Name}</h4>
-                            </div>
+                                <div class="slds-modal__content slds-p-around--medium">
+                                    <div>
 
-                            <div class="modal-body">
+                                        <div class="slds-p-around--medium">
+                                            <p>{!selectedItem.learning.Description__c}</p>
+                                        </div>
 
-                              <apex:outputPanel rendered="{!selectedItem != null}" layout="none">
+                                        <apex:outputPanel layout="none" rendered="{!hasPreRequisite}">
+                                        
+                                          <div class="slds-notify slds-notify--toast slds-theme--error" style="width: 100%;margin: 0;" role="alert">
+                                              <div class="slds-notify__content slds-grid">
+                                                  <div class="slds-col slds-align-middle">
+                                                      {!$Label.ALMS_Complete_Previous}
+                                                  </div>
+                                              </div>
+                                          </div>
+                                        </apex:outputPanel>
 
-                                  <div style="padding:10px 0;">
+                                        <apex:outputPanel layout="none" rendered="{!!hasPreRequisite}">
 
-                                      <p>{!selectedItem.learning.Description__c}</p>
+                                           <apex:outputPanel layout="block" rendered="{!selectedItem.launchBehavior == 'ask_user'}">
+                                              <apex:commandButton value="{!$Label.ALMS_Continue_Old_Version}" action="{!keepOldVersionAndLaunch}" styleClass="almond-warning-btn large-btn" status="status" rerender="resultsPanel" oncomplete="processSelectedItem()"/>
 
-                                      <apex:outputPanel layout="none" rendered="{!hasPreRequisite}">
-                                        <div class="alert alert-danger">{!$Label.ALMS_Complete_Previous}</div>
+                                              <apex:commandButton value="{!$Label.ALMS_Take_New_Version}" action="{!updateToNewVersionAndLaunch}" styleClass="almond-default-btn large-btn" status="status" rerender="resultsPanel" oncomplete="processSelectedItem()"/>
+                                            </apex:outputPanel>
+
+                                            <apex:outputPanel layout="block" rendered="{!selectedItem.launchBehavior == 'update_version'}">
+                                                {!$Label.ALMS_Launch_New_Version}
+                                                <apex:commandButton value="{!$Label.ALMS_Continue}" action="{!updateToNewVersionAndLaunch}" styleClass="almond-default-btn large-btn" status="status" rerender="resultsPanel" oncomplete="processSelectedItem()"/>
+                                            </apex:outputPanel>
+
+                                            <apex:outputPanel layout="block" rendered="{!selectedItem.launchBehavior == null}">
+                                                <apex:commandButton value="{!$Label.ALMS_Continue}" action="{!launchLearning}" styleClass="almond-default-btn large-btn" status="status" rerender="resultsPanel" oncomplete="processSelectedItem()"/>
+                                            </apex:outputPanel>
+
                                       </apex:outputPanel>
 
-                                      <apex:outputPanel layout="none" rendered="{!!hasPreRequisite}">
-
-                                         <apex:outputPanel layout="block" rendered="{!selectedItem.launchBehavior == 'ask_user'}">
-                                            <apex:commandButton value="{!$Label.ALMS_Continue_Old_Version}" action="{!keepOldVersionAndLaunch}" styleClass="almond-warning-btn large-btn" status="status" rerender="resultsPanel" oncomplete="processSelectedItem()"/>
-
-                                            <apex:commandButton value="{!$Label.ALMS_Take_New_Version}" action="{!updateToNewVersionAndLaunch}" styleClass="almond-default-btn large-btn" status="status" rerender="resultsPanel" oncomplete="processSelectedItem()"/>
-                                          </apex:outputPanel>
-
-                                          <apex:outputPanel layout="block" rendered="{!selectedItem.launchBehavior == 'update_version'}">
-                                              {!$Label.ALMS_Launch_New_Version}
-                                              <apex:commandButton value="{!$Label.ALMS_Continue}" action="{!updateToNewVersionAndLaunch}" styleClass="almond-default-btn large-btn" status="status" rerender="resultsPanel" oncomplete="processSelectedItem()"/>
-                                          </apex:outputPanel>
-
-                                          <apex:outputPanel layout="block" rendered="{!selectedItem.launchBehavior == null}">
-                                              <apex:commandButton value="{!$Label.ALMS_Continue}" action="{!launchLearning}" styleClass="almond-default-btn large-btn" status="status" rerender="resultsPanel" oncomplete="processSelectedItem()"/>
-                                          </apex:outputPanel>
-
-                                    </apex:outputPanel>
-
-                                  </div>
-
-                              </apex:outputPanel>
-
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="almond-secondary-btn small-btn" data-dismiss="modal">{!$Label.ALMS_Close}</button>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
-                </apex:outputPanel>
-
-                <!-- Modal Content Preview -->
-                <apex:outputPanel id="contentModalPanel">
-
-                    <div class="modal fade" id="myContentModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
-
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                    <h4 class="modal-title" style="display:inline-block;">{!selectedItem.learning.Name}</h4>
+                                    </div>
                                 </div>
-                                <div class="modal-body" style="text-align:center;">
+                                <div class="slds-modal__footer">
+                                    <button class="slds-button slds-button--neutral" onclick="return hideLaunchModal();">{!$Label.ALMS_Close}</button>
+                                </div>
+                              </div>
+                            </div>
+                            <div id="myLaunchModalBackdrop" class="slds-backdrop"></div>
+                        </apex:outputPanel>
+
+                        <!-- Modal Content Preview -->
+                        <apex:outputPanel id="contentModalPanel">
+                            <div id="myContentModal" role="dialog" tabindex="-1" aria-labelledby="header43" class="slds-modal">
+                              <div class="slds-modal__container">
+                                <div class="slds-modal__header" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                  <button class="slds-button slds-modal__close slds-button--icon-inverse" onclick="return hideContentModal();">
+                                    <svg aria-hidden="true" class="slds-button__icon slds-button__icon--large">
+                                      <use xlink:href="{!URLFOR($Resource.almond_uilib, '/slds/icons/utility-sprite/svg/symbols.svg')}#close"></use>
+                                    </svg>
+                                  </button>
+                                  <h2 id="header43" class="slds-text-heading--medium">{!selectedItem.learning.Name}</h2>
+                                </div>
+                                <div class="slds-modal__content slds-p-around--medium">
                                     <a id="contentLink" href="javascript:void(0)">{!$Label.ALMS_Open_New_Window}</a>
                                     <div id="contentIframeWrapper" style="padding:10px 0;">
                                         <iframe id="contentIframe" style="width:100%;"/>
                                     </div>
                                 </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="almond-secondary-btn small-btn" data-dismiss="modal">{!$Label.ALMS_Close}</button>
+                                <div class="slds-modal__footer">
+                                  <button class="slds-button slds-button--neutral" onclick="return hideContentModal();">{!$Label.ALMS_Close}</button>
                                 </div>
+                              </div>
                             </div>
-
-                        </div>
-
-                    </div>
-
-                </apex:outputPanel>
-
-                <script>
-                    var $jk = jQuery.noConflict();
-
-                    $jk(document).ready(function(){
-                        var bkcolor = "{!JSENCODE(tPlan.trainingPlan.Background_Color__c)}";
-                        var txtcolor = "{!JSENCODE(tPlan.trainingPlan.Text_Color__c)}";
-                        var bkimage = "url('{!JSENCODE(tPlan.trainingPlan.Background_Image_URL__c)}')";
-
-                        $jk('#hero-banner').css('background-color',bkcolor);
-                        $jk('#hero-banner').css('color',txtcolor);
-                        $jk('#hero-banner').css('background-image', bkimage);
-
-                        $jk(document.body).delegate('.launch-learning-btn', 'click', function(){
-                            var sectionId = $jk(this).attr('lms-data-sectionId');
-                            var itemId = $jk(this).attr('lms-data-itemId');
-                            retrieveItemDetails(sectionId,itemId);
-                        });
-
-                    });
-
-                    $jk('#myContentModal').on('hidden.bs.modal', function () {
-                        $jk('#contentIframe').prop('src','');
-                    });
-
-                    function showModal(){
-                        $jk(".modal-backdrop").appendTo("#lms-template-wrapper");
-                        $jk('#myModal').modal('show');
-                    }
-                    function hideModal(){
-                        $jk('#myModal').modal('hide');
-                    }
-
-                    function processSelectedItem(){
-                        var learningURL = document.getElementById('{!$Component.learningURL}').value;
-                        var byPassModal = document.getElementById('{!$Component.byPassModal}').value;
-                        var learningTarget = document.getElementById('{!$Component.learningTarget}').value;
-
-                        if(byPassModal == "true"){
-                            launchLearning(learningURL,learningTarget);
-                        }else{
-                            showModal();
-                        }
-                    }
-
-                    function launchLearning(learningURL,target){
-                        hideModal();
-
-                        if(target == 'iframe'){
-                            $jk('#contentLink').unbind('click');
-                            $jk('#contentLink').click(function() {
-                                //Retain history
-                                almond.redirectHandlerWithTarget(learningURL,'_blank',true);
-                            });
-                            $jk('#contentIframe').prop('src',learningURL);
-                            $jk(".modal-backdrop").appendTo("#lms-template-wrapper");
-                            $jk('#myContentModal').modal('show');
-                        }else{
-                            // Retain history if the target is _blank
-                            var retainHistory = false;
-                            if(target == "_blank" || target == "_internal"){
-                                retainHistory = true;
-                            }
-
-                            if(retainHistory){
-                                if(target == "_internal" || (almond.isSF1() && almond.isMobileDevice())){
-                                    // In mobile, this will open a new browser window and retain history
-                                    almond.redirectHandler(learningURL,retainHistory);
-                                }else{
-                                    // In desktop, this will open a popup so we don't have to retain history
-                                    almond.redirectHandlerWithTargetPopUp(learningURL,false,"{!URLFOR($Resource.almond_uilib, '/img/almond_loading_generic.gif')}");
-                                }
-                            }else{
-                                almond.redirectHandler(learningURL,retainHistory);
-                            }
-                        }
-                    }
-
-                </script>
-
-                <apex:actionStatus id="status">
-                    <apex:facet name="start">
-                        <apex:outputPanel >
-                            <c:LMSStatus statusComponentId="{!$Component.status}"/>
+                            <div id="myContentModalBackdrop" class="slds-backdrop"></div>
                         </apex:outputPanel>
-                    </apex:facet>
-                </apex:actionStatus>
 
-            </apex:form>
+                        <script>
+                            var $jk = jQuery.noConflict();
+
+                            $jk(document).ready(function(){
+                                var bkcolor = "{!JSENCODE(tPlan.trainingPlan.Background_Color__c)}";
+                                var txtcolor = "{!JSENCODE(tPlan.trainingPlan.Text_Color__c)}";
+                                var bkimage = "url('{!JSENCODE(tPlan.trainingPlan.Background_Image_URL__c)}')";
+
+                                $jk('#hero-banner').css('background-color',bkcolor);
+                                $jk('#hero-banner').css('color',txtcolor);
+                                $jk('#hero-banner').css('background-image', bkimage);
+
+                                $jk(document.body).delegate('.launch-learning-btn', 'click', function(){
+                                    var sectionId = $jk(this).attr('lms-data-sectionId');
+                                    var itemId = $jk(this).attr('lms-data-itemId');
+                                    retrieveItemDetails(sectionId,itemId);
+                                });
+                            });
+
+                            function showLaunchModal(){
+                                $jk("#myLaunchModalBackdrop").addClass('slds-backdrop--open');
+                                $jk('#myLaunchModal').addClass('slds-fade-in-open');
+                            }
+                            function hideLaunchModal(){
+                                $jk('#myLaunchModal').removeClass('slds-fade-in-open');
+                                $jk("#myLaunchModalBackdrop").removeClass('slds-backdrop--open');
+                                return false;
+                            }
+                            
+                            function showContentModal(){
+                                $jk("#myContentModalBackdrop").addClass('slds-backdrop--open');
+                                $jk('#myContentModal').addClass('slds-fade-in-open');
+                            }
+                            function hideContentModal(){
+                                $jk('#contentIframe').prop('src','');
+                                $jk('#myContentModal').removeClass('slds-fade-in-open');
+                                $jk("#myContentModalBackdrop").removeClass('slds-backdrop--open');
+                                return false;
+                            }
+
+                            function processSelectedItem(){
+                                var learningURL = document.getElementById('{!$Component.learningURL}').value;
+                                var byPassModal = document.getElementById('{!$Component.byPassModal}').value;
+                                var learningTarget = document.getElementById('{!$Component.learningTarget}').value;
+                                if(byPassModal == "true"){
+                                    launchLearning(learningURL,learningTarget);
+                                }else{
+                                    showLaunchModal();
+                                }
+                            }
+
+                            function launchLearning(learningURL,target){
+                                hideLaunchModal();
+
+                                if(target == 'iframe'){
+                                    $jk('#contentLink').unbind('click');
+                                    $jk('#contentLink').click(function() {
+                                        //Retain history
+                                        almond.redirectHandlerWithTarget(learningURL,'_blank',true);
+                                    });
+                                    $jk('#contentIframe').prop('src',learningURL);
+                                    showContentModal();
+                                }else{
+                                    // Retain history if the target is _blank
+                                    var retainHistory = false;
+                                    if(target == "_blank" || target == "_internal"){
+                                        retainHistory = true;
+                                    }
+
+                                    if(retainHistory){
+                                        if(target == "_internal" || (almond.isSF1() && almond.isMobileDevice())){
+                                            // In mobile, this will open a new browser window and retain history
+                                            almond.redirectHandler(learningURL,retainHistory);
+                                        }else{
+                                            // In desktop, this will open a popup so we don't have to retain history
+                                            almond.redirectHandlerWithTargetPopUp(learningURL,false,"{!URLFOR($Resource.almond_uilib, '/img/almond_loading_generic.gif')}");
+                                        }
+                                    }else{
+                                        almond.redirectHandler(learningURL,retainHistory);
+                                    }
+                                }
+                            }
+
+                        </script>
+
+                        <apex:actionStatus id="status">
+                            <apex:facet name="start">
+                                <apex:outputPanel >
+                                    <c:LMSStatus statusComponentId="{!$Component.status}"/>
+                                </apex:outputPanel>
+                            </apex:facet>
+                        </apex:actionStatus>
+
+                    </apex:form>
+                </div>
+            </div>
+        
         </apex:define>
 
     </apex:composition>

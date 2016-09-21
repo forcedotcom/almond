@@ -29,7 +29,6 @@
         function doTrainingPlanSearch(){
             var searchTerm = jQuery('#lms-search-input').val();
             var searchURL = '{!$Page.TrainingPlansSearch}?q='+encodeURIComponent(searchTerm);
-            console.log(searchURL);
             if(searchURL){
                 //Do not retain navigation history for searches
                 almond.redirectHandlerWithStatus(searchURL,'{!JSENCODE(retainInHistory)}'=='true');

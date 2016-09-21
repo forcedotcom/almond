@@ -33,7 +33,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
             color : {!JSINHTMLENCODE(learningcategory.Text_Color__c)};
         }
     </style>
-    <apex:composition template="LMS_LXHeroTemplate">
+    <apex:composition template="LMS_HeroTemplate">
 
         <apex:define name="head">
             <title>{!$Label.ALMS_Training_Catalog}</title>

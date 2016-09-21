@@ -1271,32 +1271,6 @@ td.noSidebarCell{
         height: 90px;
     }
 
-    /* Filepicker styles */
-
-    .almond .filepicker-ui button,
-    .almond .filepicker-ui input {
-      border: 1px solid lightgray;
-      font-size: 14px;
-      padding: 4px 20px;
-      height: 30px;
-    }
-
-    .almond .filepicker-ui button {
-      border-right: none;
-      border-top-left-radius: 5px;
-      border-bottom-left-radius: 5px;
-    }
-
-    .almond .filepicker-ui input {
-      border-top-right-radius: 5px;
-      border-bottom-right-radius: 5px;
-    }
-
-    .almond .filepicker-preview > div {
-      border: 1px solid lightgray;
-      padding: 5px;
-    }
-
 }
 
 /* CSS Star rating */

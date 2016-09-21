@@ -30,7 +30,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 
     <apex:outputPanel layout="none" rendered="{!isAllowedToView}">
 
-        <apex:composition template="LMS_LXHeroTemplate">
+        <apex:composition template="LMS_HeroTemplate">
 
                 <apex:define name="head">
                     <title>{!tPlan.trainingPlan.Name}</title>

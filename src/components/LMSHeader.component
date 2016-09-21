@@ -2,80 +2,55 @@
 
     <apex:attribute name="hideSFLink" type="Boolean" description="Show a link to go back to the Salesforce UI"  default="false"/>
 
-    <style>
-        .almond .lms-nav{
-            background-color: {!JSENCODE(backgroundColor)} !important;
-        }
-        .almond .navbar-inverse .navbar-nav > li > a,
-        .almond .navbar-inverse .navbar-link {
-            color: {!JSENCODE(textColor)};
-        }
-
-        .almond .navbar-inverse .navbar-nav > li > a:focus,
-        .almond .navbar-inverse .navbar-nav > li > a:hover,
-        .almond .navbar-inverse .navbar-link:focus,
-        .almond .navbar-inverse .navbar-link:hover{
-            color: {!JSENCODE(textHoverColor)} !important;
-        }
-
-    </style>
-
-    <header id="lms-nav-header" class="navbar navbar-inverse bs-docs-nav lms-nav" role="banner">
-        <div class="container">
-            <div class="navbar-header">
-                <button class="navbar-toggle collapsed" data-target=".bs-navbar-collapse" data-toggle="collapse" type="button">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="{!$Page.MyTraining}">
-                    <apex:image value="{!IF(customLogo == null,URLFOR($Resource.almond_uilib, '/img/almond_logo.png'),customLogo)}" />
-                </a>
-            </div>
-
-            <nav class="navbar-collapse bs-navbar-collapse collapse" role="navigation" >
-                <ul class="nav navbar-nav">
-
-                    <apex:outputPanel layout="none" rendered="{!customSectionURL != null && customSectionName != null}">
-                      <li class="{!IF(section == 'custom','active','')}">
-                          <a href="{!JSENCODE(customSectionURL)}">{!customSectionName}</a>
-                      </li>
-                    </apex:outputPanel>
-
-                    <li class="{!IF(section == 'tracks','active','')}">
-                        <a href="{!$Page.TrainingTracks}">{!$Label.ALMS_TrainingTracks}</a>
+    <div class="lx-lms-header slds-container--center slds-container--x-large">
+        <div class="slds-tabs--default">
+            <ul class="slds-tabs--default__nav" role="tablist">
+                
+                <li class="slds-tabs--default__item slds-text-title--caps" title="{!$Label.ALMS_MyProfile}" role="presentation">
+                    <a class="slds-tabs--default__link navbar-brand" href="{!$Page.MyTraining}" role="tab" tabindex="0">
+                        <apex:image value="{!IF(customLogo == null,URLFOR($Resource.almond_uilib, '/img/almond_logo.png'),customLogo)}" />
+                    </a>
+                </li>
+                <apex:outputPanel layout="none" rendered="{!customSectionURL != null && customSectionName != null}">
+                    <li class="slds-tabs--default__item slds-text-title--caps {!IF(section == 'custom','slds-active','')}" title="{!customSectionName}" role="presentation">
+                        <a class="slds-tabs--default__link" href="{!JSENCODE(customSectionURL)}" role="tab" tabindex="0" aria-selected="{!IF(section == 'custom','true','false')}" aria-controls="tab-default-0">
+                            {!customSectionName}
+                        </a>
                     </li>
-                    <li class="{!IF(section == 'catalog','active','')}">
-                        <a href="{!$Page.TrainingCatalogHome}">{!$Label.ALMS_PublicCatalog}</a>
+                </apex:outputPanel>
+                <li class="slds-tabs--default__item slds-text-title--caps {!IF(section == 'tracks','slds-active','')}" title="{!$Label.ALMS_TrainingTracks}" role="presentation">
+                    <a class="slds-tabs--default__link" href="{!$Page.TrainingTracks}" role="tab" tabindex="0" aria-selected="{!IF(section == 'tracks','true','false')}" aria-controls="tab-default-1">
+                        {!$Label.ALMS_TrainingTracks}
+                    </a>
+                </li>
+                <li class="slds-tabs--default__item slds-text-title--caps {!IF(section == 'catalog','slds-active','')}" title="{!$Label.ALMS_PublicCatalog}" role="presentation">
+                    <a class="slds-tabs--default__link" href="{!$Page.TrainingCatalogHome}" role="tab" tabindex="-1" aria-selected="{!IF(section == 'catalog','true','false')}" aria-controls="tab-default-2">
+                        {!$Label.ALMS_PublicCatalog}
+                    </a>
+                </li>
+                <li class="slds-tabs--default__item slds-text-title--caps {!IF(section == 'mytraining','slds-active','')}" title="{!$Label.ALMS_My_Training}" role="presentation">
+                    <a class="slds-tabs--default__link" href="{!$Page.MyTraining}" role="tab" tabindex="-1" aria-selected="{!IF(section == 'mytraining','true','false')}" aria-controls="tab-default-3">
+                        {!$Label.ALMS_My_Training}
+                    </a>
+                </li>
+                <li class="slds-tabs--default__item slds-text-title--caps {!IF(section == 'myprofile','slds-active','')}" title="{!$Label.ALMS_MyProfile}" role="presentation">
+                    <a class="slds-tabs--default__link" href="{!$Page.MyProfile}" role="tab" tabindex="-1" aria-selected="{!IF(section == 'myprofile','true','false')}" aria-controls="tab-default-4">
+                        {!$Label.ALMS_MyProfile}
+                    </a>
+                </li>
+                <apex:outputPanel layout="none" rendered="{!!hideSFLink && !hideBackToSFButton}">
+                    <li class="slds-tabs--default__item slds-text-title--caps" title="{!$Label.ALMS_MyProfile}" role="presentation">
+                        <a class="slds-tabs--default__link" href="{!backToSFURL}" role="tab" tabindex="-1" aria-selected="false" aria-controls="tab-default-5" id="almond-header-logo">
+                            Salesforce
+                        </a>
                     </li>
-                    <li class="{!IF(section == 'mytraining','active','')}">
-                        <a href="{!$Page.MyTraining}">{!$Label.ALMS_My_Training}</a>
-                    </li>
-                    <li class="{!IF(section == 'myprofile','active','')}">
-                        <a href="{!$Page.MyProfile}">{!$Label.ALMS_MyProfile}</a>
-                    </li>
-                    <apex:outputPanel layout="none" rendered="{!!hideSFLink && !hideBackToSFButton}">
-                        <li>
-                            <a id="almond-header-logo" data-toggle="almond-tooltip" data-placement="bottom" title="{!$Label.ALMS_Back_SF}" href="{!backToSFURL}"><span class="glyphicon glyphicon-cloud"></span></a>
-                        </li>
-                    </apex:outputPanel>
-                </ul>
-
-                <p class="navbar-text pull-right">
-                    <apex:image value="{!loggedUsernameImageUrl}" styleClass="profilePic-header"/>
-                    <a href="{!$Page.MyProfile}" class="navbar-link">{!loggedUsername}</a>
-                </p>
-            </nav>
+                </apex:outputPanel>
+            </ul>
         </div>
-    </header>
-
+    </div>
+    
     <script>
         jQuery(document).ready(function($){
-            var almondtooltipElements = $('[data-toggle="almond-tooltip"]');
-            if(almondtooltipElements.length > 0){
-                almondtooltipElements.tooltip();
-            }
             FastClick.attach(document.body);
         });
     </script>

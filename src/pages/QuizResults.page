@@ -27,7 +27,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 <apex:page controller="QuizResultsController" docType="html-5.0" sidebar="false" showHeader="{!showSFHeader}" standardStylesheets="false" cache="false">
 
-    <apex:composition template="LMS_LXTemplate">
+    <apex:composition template="LMS_Template">
 
         <apex:define name="head">
             <title>{!$Label.ALMS_Quiz_Results}</title>

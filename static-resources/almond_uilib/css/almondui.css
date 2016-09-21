@@ -73,6 +73,10 @@ td.noSidebarCell{
     border:none;
 }
 
+.almond-slds .slds-notify--toast{
+    min-width: 0;
+}
+
 .almond .slds-badge-info{
     color: #fff;
     background-color: #5bc0de;
@@ -150,96 +154,8 @@ td.noSidebarCell{
 * Header/Nav styles
 * ------------------------------------------------------
 */
-
-.almond .navbar {
-    border: medium none;
-    border-radius: 0 0 0 0;
-    margin-bottom: 0px !important;
-}
-
 .almond .container {
     max-width: 1170px;
-}
-
-.almond .lms-nav {
-    /* This background value is overwritten by LMS Settings */
-    background: #16325C;
-    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.35);
-}
-
-.almond .lms-nav nav{
-    /* Reset the nav position, sometimes communities css overrides this */
-    float: initial;
-    position: initial;
-    top: initial;
-}
-
-.almond .navbar-inverse .navbar-brand {
-    float: left;
-    font-size: 20px;
-    font-weight: 400;
-    letter-spacing: 0.5px;
-    line-height: 20px;
-    padding: 8px 15px 0 15px;
-    text-shadow: 0 1px 0 #005B95;
-    color: #FFFFFF;
-}
-
-.almond .navbar-inverse .navbar-nav > li > a {
-    color: #DBE5F2;
-    font-weight: 400;
-    letter-spacing: 0.5px;
-    line-height: 145%;
-    text-shadow: none;
-    white-space: nowrap;
-}
-
-.almond .navbar-inverse .navbar-text {
-    color: #7A4E00;
-}
-
-.almond .navbar-inverse .navbar-link {
-    color: #DBE5F2;
-    font-weight: 400;
-    letter-spacing: 0.5px;
-    text-shadow: none;
-}
-
-.almond .navbar-inverse .navbar-link:focus,
-.almond .navbar-inverse .navbar-link:hover {
-    color: #FFFFFF;
-    text-decoration: none;
-}
-
-.navbar-inverse .navbar-toggle {
-    border: 1px solid rgba(0, 0, 0, 0.27);
-    background: none repeat scroll 0 0 rgba(0, 0, 0, 0.12);
-}
-
-.almond .navbar-inverse .navbar-toggle:hover,
-.almond .navbar-inverse .navbar-toggle:focus {
-    background-color: #1E5A81;
-}
-
-.almond .navbar-toggle span.icon-bar{
-    background-color: #DBE5F2 !important;
-}
-
-.almond .navbar-inverse .navbar-nav > .active > a,
-.almond .navbar-inverse .navbar-nav > .active > a:hover,
-.almond .navbar-inverse .navbar-nav > .active > a:focus {
-    background: none repeat scroll 0 0 rgba(0, 0, 0, 0.12);
-    color: #FFFFFF;
-    text-shadow: none;
-}
-
-.almond .profilePic-header{
-    border: 2px solid #FFFFFF;
-    border-radius: 50%;
-    box-shadow: 0 1px 1px #818181;
-    height: 20px;
-    margin-top: -2px;
-    width: 20px;
 }
 
 .almond .profilePic-header-45{
@@ -265,8 +181,6 @@ td.noSidebarCell{
     width: auto;
 }
 
-.almond .center-pills { display: inline-block; }
-
 .almond .btn-plan-feedback{
     width:100%;
 }
@@ -275,31 +189,6 @@ td.noSidebarCell{
 * LMS Form styles
 * ------------------------------------------------------
 */
-
-.almond .form-item{
-    display: block;
-    margin-bottom: 5px;
-    padding: 3px;
-    width: 100%;
-}
-
-.almond .form-item label{
-    width: 100%;
-}
-
-.almond .form-item input[type="text"] {
-    width: 10%;
-}
-
-.almond .form-item textarea {
-    width: 50%;
-}
-
-.almond fieldset.form-buttons {
-    margin: 10px 0;
-    padding: 10px 0;
-}
-
 .almond .plan-due-date{
     padding:10px 0 0 0;
 }
@@ -321,7 +210,6 @@ td.noSidebarCell{
     width: 100%;
     padding: 10px !important;
 }
-
 
 .almond input[type="submit"] {
     cursor: pointer;
@@ -500,35 +388,6 @@ td.noSidebarCell{
     display: block;
     margin-top: 30px;
 }
-
-.almond .almond-nav {
-    background-color: #FFFFFF;
-    border: 0;
-    color: #404040;
-    margin-top: 0px;
-    text-align: center;
-}
-
-.almond .almond-nav a,
-.almond .almond-nav a:hover {
-    display:block;
-    padding: 6px 12px;
-    color: #404040;
-    text-decoration: none;
-}
-
-.almond .almond-nav .btn-group{
-    font-size: 0; /* remove spaces between inline block elements*/
-}
-.almond .almond-nav .btn{
-    float:none !important;
-    display: inline-block !important;
-    margin:0;
-}
-.almond .almond-nav-active{
-    background-color: #f4f6f9;
-}
-
 
 /*!
 * Hero Template styles
@@ -782,7 +641,7 @@ td.noSidebarCell{
 .almond .activity-section-head {
     background-color: #fff;
     border-bottom: 1px solid #D2D3D5;
-    color: #333333;
+    padding: 0 0 10px 0;
 }
 
 .almond .activity-section-head .learn-icon,
@@ -810,29 +669,12 @@ td.noSidebarCell{
     width: auto;
 }
 
-.almond .activity-section-head .progress {
-    margin-top: 1px;
-}
-
-.almond .activity-section-head .progress,
-.almond .activity-section-learning .progress {
-    margin-bottom: 0px !important;
-    display: inline-block;
-    width:40%;
-}
-
 .almond .activity-section-learning {
     padding: 0;
 }
 
 .almond .activity-section-learning .learn-action {
     text-align: center;
-}
-
-.almond .progresshours {
-    float:right;
-    display: inline-block;
-    width:40%;
 }
 
 .almond .tplan-pills>li>a{
@@ -1267,6 +1109,10 @@ td.noSidebarCell{
 }
 
 @media (max-width : 768px) {
+    
+    .almond .navbar-brand{
+        display:none;
+    }
     .almond .categoryImage{
         min-height:120px;
     }
@@ -1274,7 +1120,6 @@ td.noSidebarCell{
     body,
     .almond,
     .almond .wrap,
-    .almond .almond-nav,
     .oneContent,
     .oneAlohaPage{
         background:none;

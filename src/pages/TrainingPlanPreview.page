@@ -151,13 +151,16 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                                         </apex:outputPanel>
 
                                         <div class="slds-p-horizontal--small slds-size--4-of-12 title">
-                                            <apex:outputField value="{!o.trainingPlanSection.Name}"  />
+                                            <div class="slds-text-heading--small"><apex:outputField value="{!o.trainingPlanSection.Name}"  /></div>
                                         </div>
 
-                                        <div class="slds-p-horizontal--small slds-size--5-of-12 prog-status">
+                                        <div class="slds-p-horizontal--small slds-size--3-of-12 prog-status">
                                             <div class="progress-bar" title="0%" style="width:140px;">
                                                 <div class="progress-bar-value progress-bar-value-default" style="width:0%"></div>
                                             </div>
+                                        </div>
+                                        
+                                        <div class="slds-p-horizontal--small slds-size--2-of-12 prog-status">
                                             <div class="progresshours">
                                                 <apex:outputText value="{!o.totalDuration}" rendered="{!o.totalMins != null && o.totalMins > 0}"/>
                                             </div>
@@ -166,15 +169,19 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                                     </div>
 
                                     <apex:repeat value="{!o.items}" var="i">
-                                        <div class="activity-section-learning slds-grid slds-wrap slds-grid--pull-padded slds-m-bottom--large slds-m-top--large" >
+                                        <div class="activity-section-learning slds-grid slds-wrap slds-grid--pull-padded slds-m-bottom--large slds-m-top--large">
 
-                                            <div class="slds-p-horizontal--small slds-size--1-of-12 learn-icon">
-                                                <apex:outputPanel layout="none" rendered="{!i.learning.RecordType.DeveloperName == 'Task'}"><span class="glyphicon glyphicon-pushpin"></span></apex:outputPanel>
-                                                <apex:outputPanel layout="none" rendered="{!i.learning.RecordType.DeveloperName == 'Quiz'}"><span class="glyphicon glyphicon-question-sign"></span></apex:outputPanel>
-                                                <apex:outputPanel layout="none" rendered="{!i.learning.RecordType.DeveloperName == 'Resource'}"><span class="glyphicon glyphicon-globe"></span></apex:outputPanel>
-                                                <apex:outputPanel layout="none" rendered="{!i.learning.RecordType.DeveloperName != 'Task' && i.learning.RecordType.DeveloperName != 'Quiz' && i.learning.RecordType.DeveloperName != 'Resource'}"><span class="glyphicon glyphicon-play-circle"></span></apex:outputPanel>
+                                            <div class="slds-p-horizontal--small slds-size--1-of-12 learn-icon" style="text-align:center;">
+                                                <div xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                                    <svg aria-hidden="true" class="slds-button__icon slds-button__icon--medium sldsicon">
+                                                        <apex:outputPanel layout="none" rendered="{!i.learning.RecordType.DeveloperName == 'Task'}"><use xlink:href="{!URLFOR($Resource.almond_uilib, '/slds/icons/utility-sprite/svg/symbols.svg')}#task"></use></apex:outputPanel>
+                                                        <apex:outputPanel layout="none" rendered="{!i.learning.RecordType.DeveloperName == 'Quiz'}"><use xlink:href="{!URLFOR($Resource.almond_uilib, '/slds/icons/utility-sprite/svg/symbols.svg')}#help"></use></apex:outputPanel>
+                                                        <apex:outputPanel layout="none" rendered="{!i.learning.RecordType.DeveloperName == 'Resource'}"><use xlink:href="{!URLFOR($Resource.almond_uilib, '/slds/icons/utility-sprite/svg/symbols.svg')}#world"></use></apex:outputPanel>
+                                                        <apex:outputPanel layout="none" rendered="{!i.learning.RecordType.DeveloperName != 'Task' && i.learning.RecordType.DeveloperName != 'Quiz' && i.learning.RecordType.DeveloperName != 'Resource'}"><use xlink:href="{!URLFOR($Resource.almond_uilib, '/slds/icons/utility-sprite/svg/symbols.svg')}#right"></use></apex:outputPanel>
+                                                    </svg>
+                                                </div>
                                             </div>
-
+                                            
                                             <div class="slds-p-horizontal--small slds-size--10-of-12 slds-medium-size--4-of-12 slds-large-size--4-of-12 title ls-learning-wrapper" style="position: relative;">
                                             <apex:outputPanel layout="none" rendered="{!!i.trainingPlanSectionItem.Optional__c}">
                                                 <div class="requiredItem">*</div>
@@ -189,9 +196,15 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                                                 <apex:outputField value="{!i.learning.Name}"  />
                                             </div>
 
-                                            <div class="slds-p-horizontal--small slds-size--5-of-12 prog-status">
+                                            <div class="slds-p-horizontal--small slds-size--3-of-12 prog-status">
                                                 <div class="progress-bar" title="0%">
                                                     <div class="progress-bar-value progress-bar-value-default" style="width:0%"></div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="slds-p-horizontal--small slds-size--2-of-12 prog-status">
+                                                <div class="progresshours">
+                                                    <apex:outputField value="{!i.trainingPlanSectionItem.Duration_hours__c}"  />
                                                 </div>
                                             </div>
 

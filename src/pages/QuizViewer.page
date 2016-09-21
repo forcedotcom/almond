@@ -37,7 +37,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 
             <apex:define name="body">
 
-                <apex:outputPanel id="quizBody">
+                <apex:outputPanel id="quizBody" style="padding:0 1rem;" layout="block">
 
                     <apex:actionStatus id="status">
                         <apex:facet name="start">

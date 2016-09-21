@@ -83,7 +83,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                         </div>
                     </article>
 
-                    <apex:commandbutton value="{!$Label.ALMS_Continue}" action="{!quizContinue}" styleClass="almond-default-btn large-btn" status="status" rerender="resultsPanel,pMessages" oncomplete="doRedirection()"/>
+                    <apex:commandbutton value="{!$Label.ALMS_Continue}" action="{!quizContinue}" styleClass="slds-button slds-button--brand large-btn" status="status" rerender="resultsPanel,pMessages" oncomplete="doRedirection()"/>
 
                     <script>
                         function doRedirection(){

@@ -33,7 +33,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
     <body>
 
         <style>
-            body,.almond,.almond .wrap,.almond .almond-nav,.oneContent,.oneAlohaPage{
+            body,.almond,.almond .wrap,.oneContent,.oneAlohaPage{
                 background-color: #fff !important;
             }
         </style>

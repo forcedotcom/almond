@@ -36,26 +36,23 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
     <apex:form >
         <apex:pageBlock title="{!$Label.ALMS_Content_Previewed}">
 
-             <style>
-                a.btnLMSPublish ,a.btnLMSPublish:hover{
-                    text-decoration:none;
-                    color:#fff;
-                }
-            </style>
-
             <apex:pageMessages />
 
             <apex:pageBlockTable value="{!contents}" var="c">
 
                 <apex:column headerValue="{!$Label.ALMS_Action}">
-                    <apex:commandLink value="{!$Label.ALMS_Preview}" action="{!previewContent}" styleClass="btnImportant btnLMSPublish" target="_blank">
-                        <apex:param name="selectedContent" value="{!c.Id}" assignTo="{!selectedContent}" />
-                    </apex:commandLink>
+                    <button type="button" onclick="redirectToPreview('{!JSENCODE(c.Id)}')" class="btnImportant">{!$Label.ALMS_Preview}</button>
                 </apex:column>
                 <apex:column value="{!c['Name']}" />
                 <apex:column value="{!c['CreatedDate']}" />
 
             </apex:pageBlockTable>
+            
+            <script>
+                function redirectToPreview(contentId){
+                    window.open('{!$Page.LearningPreviewRedirect}?lid={!JSENCODE(learning.Id)}&cid='+contentId);
+                }
+            </script>
 
         </apex:pageBlock>
     </apex:form>

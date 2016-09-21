@@ -67,8 +67,14 @@ public with sharing class QuestionNewController{
             }else{
                 answerSequence = new Answer_Sequence__c();
                 question = new Question__c();
-                qlid = ApexPages.CurrentPage().getParameters().get('retURL');
-                question.Question_Line__c = qlid.replace('/', '');
+                ApexPages.PageReference currentRef = ApexPages.CurrentPage();
+                if(LMSUtils.inSF1Context(currentRef)){
+                    qlid = LMSUtils.getLKID(currentRef, Question_Line__c.SObjectType);
+                }else{
+                    qlid = currentRef.getParameters().get('retURL');
+                }
+                question.Question_Line__c = qlid != null ? qlid.replace('/', '') : null;
+                qlid = question.Question_Line__c;
             }
 
         }catch(Exception e){
@@ -230,8 +236,13 @@ public with sharing class QuestionNewController{
 
         PageReference saveRef = c_save();
         if(saveRef != null){
+            ApexPages.PageReference currentRef = ApexPages.CurrentPage();
             PageReference refPage = Page.QuestionNew;
             refPage.getParameters().put('retURL','/'+qlid);
+            if(LMSUtils.inSF1Context(currentRef)){
+                refPage.getParameters().put('isdtp', 'p1');
+                refPage.getParameters().put('_lkid', qlid);
+            }
             refPage.setRedirect(true);
             return refPage;
         }else{
@@ -241,10 +252,17 @@ public with sharing class QuestionNewController{
     }
 
     public PageReference cancel(){
-        String returl = ApexPages.CurrentPage().getParameters().get('retURL');
-        PageReference refPage = new PageReference (returl);
-        refPage.setRedirect(true);
-        return refPage;
+        ApexPages.PageReference currentRef = ApexPages.CurrentPage();
+        if(LMSUtils.inSF1Context(currentRef)){
+            Id parentQLId = LMSUtils.getLKID(currentRef, null);
+            String retId = parentQLId != null ? parentQLId : '';
+            return new PageReference('/'+retId);
+        }else{
+            String returl = ApexPages.CurrentPage().getParameters().get('retURL');
+            PageReference refPage = new PageReference (returl);
+            refPage.setRedirect(true);
+            return refPage;
+        }
     }
 
 }

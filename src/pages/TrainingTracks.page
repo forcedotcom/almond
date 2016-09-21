@@ -27,7 +27,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 <apex:page controller="TrainingTracksController" readOnly="true" docType="html-5.0" sidebar="false" showHeader="{!showSFHeader}" standardStylesheets="false" cache="true" >
 
-    <apex:composition template="LMS_Template">
+    <apex:composition template="LMS_LXTemplate">
 
         <apex:define name="head">
             <title>{!$Label.ALMS_Training_Tracks}</title>
@@ -36,19 +36,19 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
         <apex:define name="body">
 
             <apex:outputPanel layout="none" rendered="{!tTracks != null && tTracks.size > 0}">
-                <div class="trainingplan-container row">
+                <div class="slds-grid slds-wrap slds-grid--pull-padded" style="padding:0 1rem;">
                     <apex:repeat value="{!tTracks}" var="o" id="theRepeat">
 
                         <apex:variable var="hasBadge" value="{!o.Achievement__r.Acquired_Image__c != null || o.Achievement__r.Work_Badge_Image_URL__c != null}" />
 
-                        <div class="col-xs-12 col-sm-6 col-md-4 tplan_box_register" lms-data-trackId="{!JSENCODE(o.id)}">
+                        <div class="tplan_box_container slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--3-of-6 slds-large-size--4-of-12 tplan_box_register" lms-data-trackId="{!JSENCODE(o.id)}">
                             <div class="tplan_box">
                                 <div class="ttrack_img" style="background-color:{!IF(o.Background_Color__c != null, JSENCODE(o.Background_Color__c), 'none')}">
                                     <apex:outputField value="{!o.Achievement__r.Acquired_Image__c}"  rendered="{!o.Achievement__r.Work_Badge_Image_URL__c == null}"/>
                                     <apex:image url="{!o.Achievement__r.Work_Badge_Image_URL__c}" rendered="{!o.Achievement__r.Work_Badge_Image_URL__c != null}"/>
                                 </div>
                                 <div class="ttrack_details">
-                                    <h4>{!o.name}</h4>
+                                    <div class="slds-text-heading--small">{!o.name}</div>
                                     <span>{!o.Description__c}</span>
                                 </div>
                                 <apex:outputPanel rendered="{!o.New_Until__c != null && TODAY() <= o.New_Until__c}">
@@ -63,8 +63,8 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 
             <apex:outputPanel layout="none" rendered="{!tTracks == null || tTracks.size == 0}">
                 <div style="width:100%;text-align:center;padding:20px;0;">
-                    <h2>{!$Label.ALMS_Nothing_to_see}</h2>
-            </div>
+                    <div class="slds-text-heading--medium">{!$Label.ALMS_Nothing_to_see}</div>
+                </div>
             </apex:outputPanel>
 
             <apex:actionStatus id="status">

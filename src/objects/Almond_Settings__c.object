@@ -1,9 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
     <customSettingsType>Hierarchy</customSettingsType>
-    <customSettingsVisibility>Public</customSettingsVisibility>
     <description>Settings used by the almond app</description>
     <enableFeeds>false</enableFeeds>
+    <fields>
+        <fullName>Back_to_SF_URL__c</fullName>
+        <description>URL used by the back to SF button</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Must be a relative url path (e.g. /home/home.jsp)</inlineHelpText>
+        <label>Back to SF URL</label>
+        <length>150</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
     <fields>
         <fullName>Company_Logo__c</fullName>
         <description>URL for your company logo</description>
@@ -15,6 +26,75 @@
         <trackTrending>false</trackTrending>
         <type>Text</type>
         <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Custom_Section_Name__c</fullName>
+        <description>Name of a custom section displayed in the header</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Name of a custom section displayed in the header</inlineHelpText>
+        <label>Custom Section Name</label>
+        <length>100</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Custom_Section_URL__c</fullName>
+        <description>URL path for your custom page</description>
+        <externalId>false</externalId>
+        <inlineHelpText>URL for your custom page (e.g. https://instance.salesforce.com/apex/myhomepage)</inlineHelpText>
+        <label>Custom Section URL</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Disable_Correct_Response_Checkbox__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Enable this option if you&apos;d like to disable setting the correct response checkbox on every response</inlineHelpText>
+        <label>Disable Correct Response Checkbox</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Disable_Feed_Item_Audit_Fields__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Enable this option if you&apos;d like to disable setting the created by id for achievement feed items</inlineHelpText>
+        <label>Disable Audit Fields for Feed Items</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Disable_Future_Progress_Calculation__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Enable this option to force training plan progress calculation in a single transaction</inlineHelpText>
+        <label>Disable Future Progress Calculation</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Disable_Track_Achievements__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Enable this option to prevent automatic achievement assignment for track achievements</inlineHelpText>
+        <label>Disable Track Achievements</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Enable_iOS_Tap_Fix__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Enable this option if you&apos;re experiencing issues with taps in Salesforce1 + iOS8</inlineHelpText>
+        <label>Enable iOS Tap Fix</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
     </fields>
     <fields>
         <fullName>Header_Background_Color__c</fullName>
@@ -53,96 +133,23 @@
         <unique>false</unique>
     </fields>
     <fields>
-        <fullName>Disable_Track_Achievements__c</fullName>
-        <inlineHelpText>Enable this option to prevent automatic achievement assignment for track achievements</inlineHelpText>
+        <fullName>Hide_Back_to_SF_Button__c</fullName>
         <defaultValue>false</defaultValue>
         <externalId>false</externalId>
-        <label>Disable Track Achievements</label>
-        <type>Checkbox</type>
-    </fields>
-    <fields>
-        <fullName>Disable_Future_Progress_Calculation__c</fullName>
-        <inlineHelpText>Enable this option to force training plan progress calculation in a single transaction</inlineHelpText>
-        <defaultValue>false</defaultValue>
-        <externalId>false</externalId>
-        <label>Disable Future Progress Calculation</label>
-        <type>Checkbox</type>
-    </fields>
-    <fields>
-        <fullName>Enable_iOS_Tap_Fix__c</fullName>
-        <inlineHelpText>Enable this option if you're experiencing issues with taps in Salesforce1 + iOS8</inlineHelpText>
-        <defaultValue>false</defaultValue>
-        <externalId>false</externalId>
-        <label>Enable iOS Tap Fix</label>
+        <inlineHelpText>Enable this option if you&apos;d like to hide back to SF button when the SF header is disabled</inlineHelpText>
+        <label>Hide Back to SF Button</label>
+        <trackTrending>false</trackTrending>
         <type>Checkbox</type>
     </fields>
     <fields>
         <fullName>Show_Salesforce_Header__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
         <inlineHelpText>Enable this option to show the Salesforce header for the end-user training pages</inlineHelpText>
-        <defaultValue>false</defaultValue>
-        <externalId>false</externalId>
         <label>Show Salesforce Header</label>
-        <type>Checkbox</type>
-    </fields>
-    <fields>
-        <fullName>Disable_Correct_Response_Checkbox__c</fullName>
-        <inlineHelpText>Enable this option if you'd like to disable setting the correct response checkbox on every response</inlineHelpText>
-        <defaultValue>false</defaultValue>
-        <externalId>false</externalId>
-        <label>Disable Correct Response Checkbox</label>
-        <type>Checkbox</type>
-    </fields>
-    <fields>
-        <fullName>Disable_Feed_Item_Audit_Fields__c</fullName>
-        <inlineHelpText>Enable this option if you'd like to disable setting the created by id for achievement feed items</inlineHelpText>
-        <defaultValue>false</defaultValue>
-        <externalId>false</externalId>
-        <label>Disable Audit Fields for Feed Items</label>
-        <type>Checkbox</type>
-    </fields>
-    <fields>
-        <fullName>Back_to_SF_URL__c</fullName>
-        <description>URL used by the back to SF button</description>
-        <externalId>false</externalId>
-        <inlineHelpText>Must be a relative url path (e.g. /home/home.jsp)</inlineHelpText>
-        <label>Back to SF URL</label>
-        <length>150</length>
-        <required>false</required>
         <trackTrending>false</trackTrending>
-        <type>Text</type>
-        <unique>false</unique>
-    </fields>
-    <fields>
-        <fullName>Custom_Section_Name__c</fullName>
-        <description>Name of a custom section displayed in the header</description>
-        <externalId>false</externalId>
-        <inlineHelpText>Name of a custom section displayed in the header</inlineHelpText>
-        <label>Custom Section Name</label>
-        <length>100</length>
-        <required>false</required>
-        <trackTrending>false</trackTrending>
-        <type>Text</type>
-        <unique>false</unique>
-    </fields>
-    <fields>
-        <fullName>Custom_Section_URL__c</fullName>
-        <description>URL path for your custom page</description>
-        <externalId>false</externalId>
-        <inlineHelpText>URL for your custom page (e.g. https://instance.salesforce.com/apex/myhomepage)</inlineHelpText>
-        <label>Custom Section URL</label>
-        <length>255</length>
-        <required>false</required>
-        <trackTrending>false</trackTrending>
-        <type>Text</type>
-        <unique>false</unique>
-    </fields>
-    <fields>
-        <fullName>Hide_Back_to_SF_Button__c</fullName>
-        <inlineHelpText>Enable this option if you'd like to hide back to SF button when the SF header is disabled</inlineHelpText>
-        <defaultValue>false</defaultValue>
-        <externalId>false</externalId>
-        <label>Hide Back to SF Button</label>
         <type>Checkbox</type>
     </fields>
     <label>Almond Settings</label>
+    <visibility>Public</visibility>
 </CustomObject>

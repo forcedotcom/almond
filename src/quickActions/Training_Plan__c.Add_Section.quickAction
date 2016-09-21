@@ -5,6 +5,7 @@
         <formula>1</formula>
     </fieldOverrides>
     <label>Add Section</label>
+    <optionsCreateFeedItem>true</optionsCreateFeedItem>
     <quickActionLayout>
         <layoutSectionStyle>TwoColumnsLeftToRight</layoutSectionStyle>
         <quickActionLayoutColumns>

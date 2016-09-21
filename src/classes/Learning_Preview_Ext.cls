@@ -29,14 +29,8 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 public with sharing class Learning_Preview_Ext{
 
     public Learning__c learning{get;set;}
-    public String selectedContent{get;set;}
     @TestVisible
-    private String currentRecordType;
     private ApexPages.StandardSetController contentsSSC{get;set;}
-    private Learning_Version__c previewlVersion;
-
-    private Map<String,String> rtObjectMapping;
-    private Map<String,String> rtFieldMapping;
 
     public Learning_Preview_Ext(ApexPages.StandardController cont){
 
@@ -55,14 +49,7 @@ public with sharing class Learning_Preview_Ext{
             //END Access Check
 
             //Fetch current learning information
-            learning = [select id
-                                ,name
-                                ,published__c
-                                ,current_published_version__c
-                                ,recordtype.developerName
-                                ,Custom_Preview_URL__c
-                                from Learning__c
-                                where id = :cont.getId()];
+            learning = LearningPreviewService.getLearningInfo(cont.getId());
 
             init();
 
@@ -76,22 +63,9 @@ public with sharing class Learning_Preview_Ext{
     }
 
     private void init(){
-
-        //Init auxiliary field/object maps
-        rtObjectMapping = new Map<String,String>{
-           'task'=>'Task__c'
-           ,'quiz'=>'Quiz__c'
-           ,'resource'=>'Training_Resource__c'
-        };
-
-        rtFieldMapping = new Map<String,String>{
-           'task'=>'Task__c'
-           ,'quiz'=>'Quiz__c'
-           ,'resource'=>'Training_Resource__c'
-        };
-
+                
         //Get the record type for the current learning
-        currentRecordType = learning.recordType.developerName;
+        String currentRecordType = learning.recordType.developerName;
         currentRecordType = currentRecordType.toLowerCase();
 
         List<String> listSOQLFields = new List<String>{
@@ -109,28 +83,10 @@ public with sharing class Learning_Preview_Ext{
         LMS_ESAPI.isAuthorizedToView(relatedFieldsObjects);
         //END Access Check
 
-        //Update the object names with the package namespace
-        for(String rtKey : rtObjectMapping.keySet()){
-            String objectName = rtObjectMapping.get(rtKey);
-            rtObjectMapping.put(rtKey,LMSUtils.getPackageNamespace()+objectName);
-        }
-
-        //Get additional record types for learning plugins
-        String learningObjectName = LMSUtils.getPackageNamespace()+'Learning__c';
-        Map<String,String> recordTypeNamespaceMap = new Map<String,String>();
-        for(RecordType rt : [select Id,DeveloperName from RecordType where SobjectType = :learningObjectName]){
-            String developerName = (rt.DeveloperName).toLowerCase();
-            //Skip standard learnings
-            if(rtObjectMapping.containsKey(developerName)){
-                recordTypeNamespaceMap.put(developerName,LMSUtils.getPackageNamespace());
-                continue;
-            }
-            LMSPlugins.LearningConfig customLearningConfig = LMSPlugins.getLearningPluginConfig(rt.DeveloperName);
-            String nameSpacePrefix = String.isBlank(customLearningConfig.namespacePrefix)?'':customLearningConfig.namespacePrefix+'__';
-            recordTypeNamespaceMap.put(developerName,nameSpacePrefix);
-            rtObjectMapping.put(developerName, nameSpacePrefix+customLearningConfig.objectName);
-            rtFieldMapping.put(developerName, nameSpacePrefix+customLearningConfig.learningVersionLookupField);
-        }
+        LearningPreviewService.LearningMappings mappings = LearningPreviewService.getLearningMappings();
+        Map<String,String> rtObjectMapping = mappings.rtObjectMapping;
+        Map<String,String> rtFieldMapping = mappings.rtFieldMapping;
+        Map<String,String> recordTypeNamespaceMap = mappings.recordTypeNamespaceMap;
 
         //Init Standard set controller
         Id lid = learning.Id;
@@ -144,142 +100,6 @@ public with sharing class Learning_Preview_Ext{
             return new List<SObject>();
         }
         return contentsSSC.getRecords();
-    }
-
-    //Metho that creates a preview learning version for the selected learning
-    public PageReference previewContent(){
-
-        try{
-
-            //Create or fetch preview learning version
-            if(!String.isBlank(selectedContent)){
-
-                previewlVersion = new Learning_Version__c();
-
-                Id learningId = learning.Id;
-                String selectedContentId = selectedContent;
-
-                //BEGIN Access Check
-                List<String> lvFields =  new List<String>{'Learning__c','Version__c','Type__c'};
-                Map<Schema.sObjectType,List<String>> relatedFieldsObjectsView = new Map<Schema.sObjectType,List<String>>();
-                relatedFieldsObjectsView.put(Learning_Version__c.sObjectType,lvFields);
-                Map<Schema.sObjectType,List<String>> relatedFieldsObjectsCreate = new Map<Schema.sObjectType,List<String>>();
-                relatedFieldsObjectsCreate.put(Learning_Version__c.sObjectType,lvFields);
-
-                LMS_ESAPI.isAuthorizedToView(relatedFieldsObjectsView);
-                LMS_ESAPI.isAuthorizedToCreate(relatedFieldsObjectsCreate);
-                //END Access Check
-
-                //Fetch existing learning version for current content
-                String soql = 'select id from Learning_Version__c where Type__c = \'Preview\' and Learning__c = :learningId';
-                soql+= ' and '+rtFieldMapping.get(currentRecordType)+' = :selectedContentId';
-
-                //Set common attributes
-                previewlVersion.put(rtFieldMapping.get(currentRecordType),selectedContent);
-                previewlVersion.Learning__c = learning.Id;
-                previewlVersion.Version__c = 0;
-                previewlVersion.Type__c = 'Preview';
-
-                //Look for an existing preview version, if there's a match just return that version
-                List<Learning_Version__c> existingPreviewLVs = (List<Learning_Version__c>)Database.query(soql);
-
-                if(existingPreviewLVs.size()>0){
-                    previewlVersion = existingPreviewLVs.get(0);
-                }else{
-                    //Nope, there's no version create a new preview version
-                    upsert previewlVersion;
-                }
-
-                return doRedirection();
-
-            }else{
-                LMSUtils.addErrorMessage(System.Label.ALMS_Preview_Version_Error);
-                return null;
-            }
-
-        }catch(Exception e){
-            LMSUtils.logException(e,'Learning_Preview_Ext');
-            LMSUtils.addGenericUnknownErrorMessage('Learning_Preview_Ext - previewContent (2)');
-            return null;
-        }
-
-    }
-
-    //This method creates an assignment for the preview learning version and redirects to the preview page
-    public PageReference doRedirection(){
-
-        try{
-
-            Learning_Assignment__c previewAssignment = new Learning_Assignment__c();
-
-            //BEGIN Access Check
-            List<String> laFields =  new List<String>{'Learning__c'
-                                                        ,'Learning_Version__c'
-                                                        ,'Is_Test_Assignment__c'
-            };
-            Map<Schema.sObjectType,List<String>> relatedFieldsObjectsView = new Map<Schema.sObjectType,List<String>>();
-            relatedFieldsObjectsView.put(Learning_Assignment__c.sObjectType,laFields);
-            Map<Schema.sObjectType,List<String>> relatedFieldsObjectsCreate = new Map<Schema.sObjectType,List<String>>();
-            relatedFieldsObjectsCreate.put(Learning_Assignment__c.sObjectType,laFields);
-
-            LMS_ESAPI.isAuthorizedToView(relatedFieldsObjectsView);
-            LMS_ESAPI.isAuthorizedToCreate(relatedFieldsObjectsCreate);
-            //END Access Check
-
-            //Fetch existing preview assignments
-            List<Learning_Assignment__c> previewAssignments = [select id
-                                                                    ,name
-                                                                    from Learning_Assignment__c
-                                                                    where Learning__c = :learning.Id
-                                                                    and Learning_Version__c = :previewlVersion.Id
-                                                                    and User__c = :UserInfo.getUserId()
-                                                                    and Is_Test_Assignment__c = true];
-
-            if(previewAssignments.size()>0){
-                //We found an existing test assignment, no need to create a new one, use this one instead
-                previewAssignment = previewAssignments.get(0);
-            }else{
-                //There's no preview assignment, let's create one
-                previewAssignment.Learning__c = learning.Id;
-                previewAssignment.Learning_Version__c = previewlVersion.Id;
-                previewAssignment.Is_Test_Assignment__c = true;
-                previewAssignment.User__c = UserInfo.getUserId();
-                insert previewAssignment;
-            }
-
-            //Redirect to content launcher
-            PageReference ref = null;
-
-            if(learning.Custom_Preview_URL__c != null){
-                ref = new PageReference(learning.Custom_Preview_URL__c);
-            }else{
-
-                if(currentRecordType == LMSConstants.RT_TASK){
-                    ref = Page.TaskViewer;
-                }else if(currentRecordType == LMSConstants.RT_TRAINING_RESOURCE){
-                    ref = Page.ResourceViewer;
-                }else if(currentRecordType == LMSConstants.RT_QUIZ){
-                    ref = Page.QuizViewer;
-                }else{
-                    //Check for plugin launch URL
-                    LMSPlugins.LearningConfig customLearningConfig = LMSPlugins.getLearningPluginConfig(currentRecordType);
-                    ref = new PageReference(customLearningConfig.getLaunchURLWithNamespace());
-                }
-
-            }
-
-            //Add common parameters to content launcher page
-            ref.setRedirect(true);
-            ref.getParameters().put('aid',previewAssignment.Id);
-            ref.getParameters().put('pMode','true');
-
-            return ref;
-        }catch(Exception e){
-            LMSUtils.logException(e,'Learning_Preview_Ext');
-            LMSUtils.addGenericUnknownErrorMessage('Learning_Preview_Ext - doRedirection (3)');
-            return null;
-        }
-
     }
 
 }

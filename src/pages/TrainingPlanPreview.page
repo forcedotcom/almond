@@ -62,12 +62,14 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
             </apex:define>
 
             <apex:define name="hero-banner-footer">
-                <apex:outputPanel layout="none" rendered="{!tPlan.trainingPlan != null && tplan.trainingPlan.Hide_After_End_Date__c && tplan.trainingPlan.End_Date__c != null}">
-                    <span><b>{!$Label.ALMS_Training_Plan_Due}</b> :&nbsp;<apex:outputField value="{!tPlan.trainingPlan.End_Date__c}" /> /</span>
-                </apex:outputPanel>
-                <apex:outputPanel layout="none" rendered="{!tPlan.totalMins != null && tPlan.totalMins > 0}">
-                    <span><b>{!$Label.ALMS_Duration}</b> : {!tPlan.TotalDuration}</span>
-                </apex:outputPanel>
+                <span style="padding:0 1rem;">
+                  <apex:outputPanel layout="none" rendered="{!tPlan.trainingPlan != null && tplan.trainingPlan.Hide_After_End_Date__c && tplan.trainingPlan.End_Date__c != null}">
+                      <span><b>{!$Label.ALMS_Training_Plan_Due}</b> :&nbsp;<apex:outputField value="{!tPlan.trainingPlan.End_Date__c}" /> /</span>
+                  </apex:outputPanel>
+                  <apex:outputPanel layout="none" rendered="{!tPlan.totalMins != null && tPlan.totalMins > 0}">
+                      <span><b>{!$Label.ALMS_Duration}</b> : {!tPlan.TotalDuration}</span>
+                  </apex:outputPanel>
+                </span>
             </apex:define>
 
             <apex:define name="hero-info-link">
@@ -153,11 +155,9 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                                         </div>
 
                                         <div class="slds-p-horizontal--small slds-size--5-of-12 prog-status">
-                                            <!-- <div class="progress">
-                                              <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width:0%">
-                                                  <span class="sr-only"></span>
-                                              </div>
-                                            </div> -->
+                                            <div class="progress-bar" title="0%" style="width:140px;">
+                                                <div class="progress-bar-value progress-bar-value-default" style="width:0%"></div>
+                                            </div>
                                             <div class="progresshours">
                                                 <apex:outputText value="{!o.totalDuration}" rendered="{!o.totalMins != null && o.totalMins > 0}"/>
                                             </div>
@@ -182,7 +182,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                                                 <apex:outputField value="{!i.learning.Name}"  />
                                             </div>
                                             
-                                            <div class="mobile-learning-wrapper slds-p-horizontal--small slds-size--9-of-12 title">
+                                            <div class="mobile-learning-wrapper slds-p-horizontal--small slds-size--1-of-1 slds-m-top--medium slds-m-bottom--medium title" style="position:relative;">
                                                 <apex:outputPanel layout="none" rendered="{!!i.trainingPlanSectionItem.Optional__c}">
                                                     <div class="requiredItem">*</div>
                                                 </apex:outputPanel>
@@ -190,20 +190,16 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                                             </div>
 
                                             <div class="slds-p-horizontal--small slds-size--5-of-12 prog-status">
-                                                <!-- <div class="progress">
-                                                  <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width:0%">
-                                                      <span class="sr-only"></span>
-                                                  </div>
-                                                </div> -->
+                                                <div class="progress-bar" title="0%">
+                                                    <div class="progress-bar-value progress-bar-value-default" style="width:0%"></div>
+                                                </div>
                                             </div>
 
                                             <div class="slds-p-horizontal--small slds-size--2-of-12 learn-action">
                                                 <!-- Button trigger modal -->
                                                 <apex:outputPanel rendered="{!i.assignments != null}" layout="none">
                                                     <a href="javascript:void(0)" lms-data-sectionId="{!o.trainingPlanSection.Id}" lms-data-itemId="{!i.trainingPlanSectionItem.Id}" class="launch-learning-btn slds-button slds-button--brand small-btn" >{!$Label.ALMS_Launch}</a>
-                                                    <a href="javascript:void(0)" class="launch-btn-mobile">
-                                                        <span class="glyphicon glyphicon-unchecked"></span>
-                                                    </a>
+                                                    <a href="javascript:void(0)" class="launch-btn-mobile"></a>
                                                 </apex:outputPanel>
                                             </div>
 

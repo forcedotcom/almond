@@ -54,7 +54,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                 </apex:define>
 
                 <apex:define name="hero-banner-footer">
-                    <span><b>{!$Label.ALMS_Overall_Rating}</b> : {!tPlan.trainingPlan.Training_Plan_Rating__c}</span>
+                    <span style="padding:0 1rem;"><b>{!$Label.ALMS_Overall_Rating}</b> : {!tPlan.trainingPlan.Training_Plan_Rating__c}</span>
                 </apex:define>
 
                 <apex:define name="hero-banner-badge">

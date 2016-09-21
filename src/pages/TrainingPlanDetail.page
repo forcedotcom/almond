@@ -60,15 +60,17 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
         </apex:define>
 
         <apex:define name="hero-banner-footer">
-            <apex:outputPanel layout="none" rendered="{!tPlan.trainingPlan != null && tplan.trainingPlan.Hide_After_End_Date__c && tplan.trainingPlan.End_Date__c != null}">
-                <span><b>{!$Label.ALMS_Training_Plan_Due}</b> :&nbsp;<apex:outputField value="{!tPlan.trainingPlan.End_Date__c}" /> /</span>
-            </apex:outputPanel>
-            <apex:outputPanel layout="none" rendered="{!tPlan.totalMins != null && tPlan.totalMins > 0}">
-                <span><b>{!$Label.ALMS_Duration}</b> : {!tPlan.TotalDuration} /</span>
-            </apex:outputPanel>
-            <apex:outputPanel layout="none" rendered="{!tPlanAssignmentStatus != null}">
-                <span><b>{!$Label.ALMS_Training_Plan_Assignment_Status}</b> : {!IF(tPlanAssignmentStatus == 'Completed',$Label.ALMS_Training_Status_Completed, IF(tPlanAssignmentStatus == 'In Progress', $Label.ALMS_Training_Status_In_Progress, $Label.ALMS_Training_Status_Not_Started))}</span>
-            </apex:outputPanel>
+            <span style="padding:0 1rem;">
+                <apex:outputPanel layout="none" rendered="{!tPlan.trainingPlan != null && tplan.trainingPlan.Hide_After_End_Date__c && tplan.trainingPlan.End_Date__c != null}">
+                    <span><b>{!$Label.ALMS_Training_Plan_Due}</b> :&nbsp;<apex:outputField value="{!tPlan.trainingPlan.End_Date__c}" /> /</span>
+                </apex:outputPanel>
+                <apex:outputPanel layout="none" rendered="{!tPlan.totalMins != null && tPlan.totalMins > 0}">
+                    <span><b>{!$Label.ALMS_Duration}</b> : {!tPlan.TotalDuration} /</span>
+                </apex:outputPanel>
+                <apex:outputPanel layout="none" rendered="{!tPlanAssignmentStatus != null}">
+                    <span><b>{!$Label.ALMS_Training_Plan_Assignment_Status}</b> : {!IF(tPlanAssignmentStatus == 'Completed',$Label.ALMS_Training_Status_Completed, IF(tPlanAssignmentStatus == 'In Progress', $Label.ALMS_Training_Status_In_Progress, $Label.ALMS_Training_Status_Not_Started))}</span>
+                </apex:outputPanel>
+            </span>
         </apex:define>
 
         <apex:define name="body">
@@ -136,12 +138,10 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                                 </div>
 
                                 <div class="slds-p-horizontal--small slds-size--5-of-12 prog-status">
-                                    <!-- <div class="progress">
-                                      <div class="progress-bar {!IF(o.totalProgress == 100, 'progress-bar-success', '')}" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width:{!o.totalProgress}%">
-                                        <span class="sr-only"><apex:outputText value="{!o.totalProgress}"  />% {!$Label.ALMS_Complete_Success}</span>
-                                      </div>
-                                    </div> -->
-                                    <span class="sr-only"><apex:outputText value="{!o.totalProgress}"  />% {!$Label.ALMS_Complete_Success}</span>
+                                    <div class="progress-bar" title="{!o.totalProgress}%" style="width:140px;">
+                                        <div class="progress-bar-value progress-bar-value-{!IF(o.totalProgress == 100, 'success', 'default')}" style="width:{!o.totalProgress}%">
+                                        </div>
+                                    </div>
                                     <div class="progresshours">
                                         <apex:outputText value="{!o.totalDuration}" rendered="{!o.totalMins != null && o.totalMins > 0}"/>
                                     </div>
@@ -168,7 +168,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 
                                     <apex:outputPanel rendered="{!i.assignments != null}" layout="none">
                                         <a href="javascript:void(0)" class="mobile-learning-wrapper launch-learning-btn" lms-data-sectionId="{!o.trainingPlanSection.Id}" lms-data-itemId="{!i.trainingPlanSectionItem.Id}">
-                                            <div class="slds-p-horizontal--small slds-size--9-of-12 title">
+                                            <div class="slds-p-horizontal--small slds-size--1-of-1 slds-m-top--medium slds-m-bottom--medium title" style="position:relative;">
                                                 <apex:outputPanel layout="none" rendered="{!!i.trainingPlanSectionItem.Optional__c}">
                                                     <div class="requiredItem">*</div>
                                                 </apex:outputPanel>
@@ -178,7 +178,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                                     </apex:outputPanel>
 
                                     <apex:outputPanel rendered="{!i.assignments == null}" layout="none">
-                                        <div class="mobile-learning-wrapper slds-p-horizontal--small slds-size--9-of-12 title">
+                                        <div class="mobile-learning-wrapper slds-p-horizontal--small slds-size--1-of-1 slds-m-top--medium slds-m-bottom--medium title" style="position:relative;">
                                             <apex:outputPanel layout="none" rendered="{!!i.trainingPlanSectionItem.Optional__c}">
                                                 <div class="requiredItem">*</div>
                                             </apex:outputPanel>
@@ -187,12 +187,12 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                                     </apex:outputPanel>
 
                                     <div class="slds-p-horizontal--small slds-size--5-of-12 prog-status">
-                                        <!-- <div class="progress">
-                                          <div class="progress-bar {!IF(i.learning.RecordType.DeveloperName == 'Quiz' && i.latestAssignment.Evaluation_Result__c == 'Failed','progress-bar-danger','')}" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width:{!i.latestAssignment.Progress_Percentage__c}%">
-                                            <span class="sr-only"><apex:outputText value="{!i.latestAssignment.Progress_Percentage__c}"  /> {!$Label.ALMS_Complete_Success}</span>
-                                          </div>
-                                        </div> -->
-                                        <span class="sr-only"><apex:outputText value="{!i.latestAssignment.Progress_Percentage__c}"  /> {!$Label.ALMS_Complete_Success}</span>
+
+                                        <div class="progress-bar" title="{!i.latestAssignment.Progress_Percentage__c}%">
+                                            <div class="progress-bar-value progress-bar-value-{!IF(i.learning.RecordType.DeveloperName == 'Quiz' && i.latestAssignment.Evaluation_Result__c == 'Failed','error','default')}" style="width:{!i.latestAssignment.Progress_Percentage__c}%">
+                                            </div>
+                                        </div>
+
                                         <div class="progresshours">
                                             <apex:outputField value="{!i.trainingPlanSectionItem.Duration_hours__c}"  />
                                         </div>
@@ -203,7 +203,10 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                                         <apex:outputPanel rendered="{!i.assignments != null}" layout="none">
                                             <a href="javascript:void(0)" lms-data-sectionId="{!o.trainingPlanSection.Id}" lms-data-itemId="{!i.trainingPlanSectionItem.Id}" class="launch-learning-btn slds-button slds-button--brand small-btn" >{!$Label.ALMS_Launch}</a>
 
-                                            <div class="launch-btn-mobile">
+                                            <div class="launch-btn-mobile" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                                <svg aria-hidden="true" class="slds-button__icon slds-button__icon--medium sldsicon">
+                                                  <use xlink:href="{!URLFOR($Resource.almond_uilib, '/slds/icons/utility-sprite/svg/symbols.svg')}#close"></use>
+                                                </svg>
                                                 <span class="glyphicon glyphicon-{!IF(i.latestAssignment.Progress__c != 'Completed',IF(i.latestAssignment.Progress__c == 'In Review','time','unchecked'),'check')}"></span>
                                             </div>
                                         </apex:outputPanel>

@@ -54,11 +54,12 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
         </apex:define>
 
         <apex:define name="body">
-
-            <div class="progress">
-              <div class="progress-bar" role="progressbar" aria-valuemax="100" style="width: {!IF(totalCompleted != null && totalItems >0,(totalCompleted/totalItems)*100,"0")}%;">
-                <span class="sr-only"></span>
-              </div>
+          
+            <div style="padding:0 1rem;margin-bottom:20px;">
+                <div class="progress-bar" title=" {!IF(totalCompleted != null && totalItems >0,(totalCompleted/totalItems)*100,"0")}%" style="width:100%;">
+                    <div class="progress-bar-value progress-bar-value-default" style="width:{!IF(totalCompleted != null && totalItems >0,(totalCompleted/totalItems)*100,'0')}%;">
+                    </div>
+                </div>
             </div>
 
             <apex:repeat value="{!trackLevels}" var="l">

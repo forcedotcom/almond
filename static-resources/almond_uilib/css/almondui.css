@@ -102,6 +102,42 @@ td.noSidebarCell{
     bottom: 1px;
 }
 
+.almond .progress-bar{
+    width: 100px; /* width and height are arbitrary, just make sure the #bar styles are changed accordingly */
+    height: 20px;
+    border: 1px solid #d8dde6; 
+    background-color: #f4f6f9;
+    position: relative;
+    border-radius: 40px;
+}
+
+.almond .progress-bar-value p{
+    position: absolute;
+    text-align: center;
+    width: 100%;
+    margin: 0;
+    line-height: 20px;
+}
+
+.almond .progress-bar-value{
+    height: 19px;
+    border-radius: 40px;
+}
+.almond .progress-bar-value-default{
+    background-color: #0070d2;
+    color:#000;
+}
+
+.almond .progress-bar-value-error{
+    background-color: #c00;
+    color:#fff;
+}
+
+.almond .progress-bar-value-success{
+    background-color: #5cb85c;
+    color:#fff;
+}
+
 .almond.almond-template .tmpl-body-container{
     min-height: 400px;
 }
@@ -789,11 +825,6 @@ td.noSidebarCell{
     padding: 0;
 }
 
-.almond .activity-section-learning .learn-icon span.glyphicon{
-    margin-left: 10px;
-    margin-top: 12px;
-}
-
 .almond .activity-section-learning .learn-action {
     text-align: center;
 }
@@ -834,10 +865,9 @@ td.noSidebarCell{
     margin-top: 1px;
 }
 
-.almond .launch-btn-mobile .glyphicon{
+.almond .launch-btn-mobile .sldsicon{
     text-decoration:none;
-    color: #000;
-    opacity: 0.5;
+    margin-top:13px;
 }
 
 /* LMS Search styles */
@@ -1278,9 +1308,19 @@ td.noSidebarCell{
         width: 320px;
     }
 
+    .almond .activity-section-head{
+      background-color: #f4f6f9;
+      padding: 10px;
+      margin: 0px;
+    }
+    
     .almond .activity-section-head .title{
       width: 80%;
       margin-left: 10px;
+    }
+    
+    .almond .activity-section-learning .title{
+      margin-left: 18px;
     }
 
     .almond .mobile-learning-wrapper{
@@ -1318,10 +1358,6 @@ td.noSidebarCell{
     }
 
     /* Plan detail style overrides */
-    .almond .activity-section-head {
-        background-color: #ffffff;
-        margin:0px;
-    }
     .almond .activity-section-head .learn-icon img{
         margin-top: 0px;
         margin-bottom: 0px;

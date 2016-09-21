@@ -35,44 +35,44 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 
         <apex:define name="body">
 
-            <div class="trainingplan-container row">
-                <div class="col-xs-12 col-sm-6 col-md-4 launch-wrapper" item-url="{!$Page.MyTraining}">
+            <div class="trainingplan-container slds-grid slds-wrap slds-grid--pull-padded" style="padding:0 1rem;">
+                <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--6-of-12 slds-large-size--4-of-12 launch-wrapper" item-url="{!$Page.MyTraining}">
                     <div class="tplan_box tplan_box_home">
                         <div class="tplan_img">
                             <apex:image value="{!URLFOR($Resource.almond_uilib, '/img/mytraining.png')}"/>
                         </div>
                         <div class="tplan_details tplan_details_home">
-                            <h3>{!$Label.ALMS_My_Training}</h3>
+                            <h3 class="slds-text-heading--medium">{!$Label.ALMS_My_Training}</h3>
                         </div>
                     </div>
                 </div>
-                <div class="col-xs-12 col-sm-6 col-md-4 launch-wrapper" item-url="{!$Page.MyProfile}">
+                <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--6-of-12 slds-large-size--4-of-12 launch-wrapper" item-url="{!$Page.MyProfile}">
                     <div class="tplan_box tplan_box_home">
                         <div class="tplan_img">
                             <apex:image value="{!URLFOR($Resource.almond_uilib, '/img/achievements.png')}"/>
                         </div>
                         <div class="tplan_details tplan_details_home" >
-                            <h3>{!$Label.ALMS_Achievements}</h3>
+                            <h3 class="slds-text-heading--medium">{!$Label.ALMS_Achievements}</h3>
                         </div>
                     </div>
                 </div>
-                <div class="col-xs-12 col-sm-6 col-md-4 launch-wrapper" item-url="{!$Page.TrainingCatalogHome}">
+                <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--6-of-12 slds-large-size--4-of-12 launch-wrapper" item-url="{!$Page.TrainingCatalogHome}">
                     <div class="tplan_box tplan_box_home">
                         <div class="tplan_img">
                             <apex:image value="{!URLFOR($Resource.almond_uilib, '/img/catalogs.png')}"/>
                         </div>
                         <div class="tplan_details tplan_details_home" >
-                            <h3>{!$Label.ALMS_Training_Catalog}</h3>
+                            <h3 class="slds-text-heading--medium">{!$Label.ALMS_Training_Catalog}</h3>
                         </div>
                     </div>
                 </div>
-                <div class="col-xs-12 col-sm-6 col-md-4 launch-wrapper" item-url="{!$Page.TrainingTracks}">
+                <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--6-of-12 slds-large-size--4-of-12 launch-wrapper" item-url="{!$Page.TrainingTracks}">
                     <div class="tplan_box tplan_box_home">
                         <div class="tplan_img">
                             <apex:image value="{!URLFOR($Resource.almond_uilib, '/img/tracks.png')}"/>
                         </div>
                         <div class="tplan_details tplan_details_home" >
-                            <h3>{!$Label.ALMS_Training_Tracks}</h3>
+                            <h3 class="slds-text-heading--medium">{!$Label.ALMS_Training_Tracks}</h3>
                         </div>
                     </div>
                 </div>
@@ -88,7 +88,6 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 
             <script>
                 jQuery(document).ready(function($){
-
                     $(document.body).delegate('.launch-wrapper', 'click', function(){
                         var itemUrl = $(this).attr('item-url');
                         almond.redirectHandlerWithStatus(itemUrl,true);

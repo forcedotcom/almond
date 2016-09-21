@@ -27,7 +27,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 <apex:page controller="TrainingPlanDetailController" docType="html-5.0" sidebar="false" showHeader="{!showSFHeader}" standardStylesheets="false">
 
-    <apex:composition template="LMS_LXHeroTemplate">
+    <apex:composition template="LMS_HeroTemplate">
 
         <apex:define name="head">
             <title>{!tPlan.trainingPlan.Name}</title>

@@ -27,7 +27,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 <apex:page docType="html-5.0" standardController="Training_Plan__c" extensions="TrainingPlanAchievementManagementExt" sidebar="false" showHeader="false" standardStylesheets="false">
 
-    <apex:composition template="LMS_LXTemplate">
+    <apex:composition template="LMS_Template">
         <apex:define name="body">
             <apex:form id="aaAssignmentFormBatch">
                 <apex:commandButton value="{!$Label.ALMS_Update_Achievements}"

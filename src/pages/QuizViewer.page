@@ -101,10 +101,9 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                                 for (var i =0; i < source.length; i++) {
                                     if (source[i].checked){
                                         st = st+source[i].value+';';
-                                        stLabel = stLabel+sourceLabels[i].childNodes[3].innerHTML+';';
+                                        stLabel = stLabel+sourceLabels[i].innerHTML+';';
                                     }
                                 }
-
                                 target.value = st;
                                 targetSelectResponse.value = stLabel;
                             }

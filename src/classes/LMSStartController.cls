@@ -29,6 +29,8 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 public with sharing class LMSStartController {
 
     public String jsonData{get;set;}
+    public Boolean hasMessages{get{return ApexPages.hasMessages();}}
+    
     public LMSStartController(){
         jsonData = LMSInit.fetchInitData('almond_LMSInitData');
     }

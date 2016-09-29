@@ -26,15 +26,10 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 
 The following Third Party components are licensed as follows:
 
- * Bootstrap - Apache 2.0
  * ant contrib tasks (ant-contrib) - Apache 2.0
  * ant http task (ml-ant) - Apache 2.0
- * jasnyBootstrap - Apache 2.0
  * fastclick - MIT
  * jQuery - MIT
  * jQuery Hammer - MIT
  * jQuery RateIT - MIT
- * jQuery Filepicker - MIT
  * Scrollfix - MIT
-
-This project makes use of [GLYPHICONS](http://glyphicons.com/) provided as part of the bootstrap framework.

@@ -27,11 +27,10 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 <apex:page docType="html-5.0" controller="TaskViewerController" sidebar="false" showHeader="{!showSFHeader}" standardStylesheets="false" cache="false">
 
-    <apex:composition template="LMS_LXTemplate">
+    <apex:composition template="LMS_Template">
 
         <apex:define name="head">
             <title>{!task.Name}</title>
-            <script type="text/javascript" src="{!URLFOR($Resource.almond_uilib, '/js/jquery.filepicker.min.js')}"></script>
         </apex:define>
 
         <apex:define name="body">
@@ -208,13 +207,6 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                 </div>
 
                 <script>
-                    jQuery(document).ready(function($){
-                      $(".image-upload-control").attr('data-label', '{!JSENCODE($Label.ALMS_Select_Image)}');
-                      $("input[type='file']").filepicker({
-                        style: 'bootstrap'
-                      });
-                    });
-
                     function doRedirection(){
                         var retUrl = document.getElementById('{!$Component.redirectURL}').value;
                         if(retUrl && retUrl.length > 0){

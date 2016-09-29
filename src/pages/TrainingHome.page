@@ -27,7 +27,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 <apex:page docType="html-5.0" controller="LMSBaseController" sidebar="false" showHeader="{!showSFHeader}" standardStylesheets="false">
 
-    <apex:composition template="LMS_LXTemplate">
+    <apex:composition template="LMS_Template">
 
         <apex:define name="head">
             <title>{!$Label.ALMS_Learning_Home}</title>

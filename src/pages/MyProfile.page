@@ -27,7 +27,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 <apex:page controller="MyProfileController" docType="html-5.0" sidebar="false" showHeader="{!showSFHeader}" standardStylesheets="false">
 
-    <apex:composition template="LMS_LXHeroTemplate">
+    <apex:composition template="LMS_HeroTemplate">
 
         <apex:define name="head">
             <title>{!$Label.ALMS_Achievements}</title>
@@ -40,10 +40,10 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                 <ul>
                     <li class="profile-title">{!oUser.Title}</li>
                     <apex:outputPanel layout="none" rendered="{!oManager != null}">
-                        <li class="profile-manager"><span class="glyphicon glyphicon-chevron-up"></span><a href="javascript:almond.redirectHandlerWithStatus('{!$Page.MyProfile}?id={!oManager.Id}')"> {!oManager.Name}</a></li>
+                        <li class="profile-manager"><a href="javascript:almond.redirectHandlerWithStatus('{!$Page.MyProfile}?id={!oManager.Id}')"> {!oManager.Name}</a></li>
                     </apex:outputPanel>
-                    <li class="profile-mail"><span class="glyphicon glyphicon-envelope"></span> {!oUser.Email}</li>
-                    <li class="profile-mail"><span class="glyphicon glyphicon-comment"></span><a href="javascript:almond.redirectHandler('/{!oUser.Id}')"> @chatter</a></li>
+                    <li class="profile-mail">{!oUser.Email}</li>
+                    <li class="profile-mail"><a href="javascript:almond.redirectHandler('/{!oUser.Id}')"> @chatter</a></li>
                 </ul>
             </div>
 

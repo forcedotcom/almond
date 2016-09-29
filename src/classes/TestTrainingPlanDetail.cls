@@ -80,7 +80,7 @@ public class TestTrainingPlanDetail {
             extension.selectedItemId = ltpsitem.get(0).Id;
             extension.retrieveItemDetails();
             extension.launchLearning();
-            System.assert(extension.selectedItemStatusLabel == 'label-default', 'Error on selectedItemStatusLabel, label = ' + extension.selectedItemStatusLabel);
+            System.assert(extension.selectedItemStatusLabel == 'default', 'Error on selectedItemStatusLabel, label = ' + extension.selectedItemStatusLabel);
 
             List<Learning_Assignment__c> lassignment = [select Id,
                                                             Progress__c from Learning_Assignment__c
@@ -98,7 +98,7 @@ public class TestTrainingPlanDetail {
             extension.selectedItemId = ltpsitem.get(0).Id;
             extension.retrieveItemDetails();
             extension.launchLearning();
-            System.assert(extension.selectedItemStatusLabel == 'label-warning', 'Error on selectedItemStatusLabel, label = ' + extension.selectedItemStatusLabel);
+            System.assert(extension.selectedItemStatusLabel == 'warning', 'Error on selectedItemStatusLabel, label = ' + extension.selectedItemStatusLabel);
 
             for(Learning_Assignment__c oa : lassignment){
                 oa.Progress__c = 'Completed';
@@ -111,7 +111,7 @@ public class TestTrainingPlanDetail {
             extension.selectedItemId = ltpsitem.get(0).Id;
             extension.retrieveItemDetails();
             extension.launchLearning();
-            System.assert(extension.selectedItemStatusLabel == 'label-success', 'Error on selectedItemStatusLabel, label = ' + extension.selectedItemStatusLabel);
+            System.assert(extension.selectedItemStatusLabel == 'success', 'Error on selectedItemStatusLabel, label = ' + extension.selectedItemStatusLabel);
 
             List<Training_Plan_Section_Item__c> ltpsitem2 = [select id from Training_Plan_Section_Item__c where Training_Plan_Section__c =: ltpsec.get(1).Id order by Order__c asc];
             System.assert(ltpsitem2.size() == 3, 'Training Plan Section Item issues, size = ' + ltpsitem2.size());
@@ -204,7 +204,7 @@ public class TestTrainingPlanDetail {
             extension.selectedItemId = ltpsitem.get(0).Id;
             extension.retrieveItemDetails();
             extension.launchLearning();
-            System.assert(extension.selectedItemStatusLabel == 'label-default', 'Error on selectedItemStatusLabel, label = ' + extension.selectedItemStatusLabel);
+            System.assert(extension.selectedItemStatusLabel == 'default', 'Error on selectedItemStatusLabel, label = ' + extension.selectedItemStatusLabel);
 
             List<Learning_Assignment__c> lassignment = [select Id,
                                                             Progress__c from Learning_Assignment__c
@@ -222,7 +222,7 @@ public class TestTrainingPlanDetail {
             extension.selectedItemId = ltpsitem.get(0).Id;
             extension.retrieveItemDetails();
             extension.launchLearning();
-            System.assert(extension.selectedItemStatusLabel == 'label-warning', 'Error on selectedItemStatusLabel, label = ' + extension.selectedItemStatusLabel);
+            System.assert(extension.selectedItemStatusLabel == 'warning', 'Error on selectedItemStatusLabel, label = ' + extension.selectedItemStatusLabel);
 
             for(Learning_Assignment__c oa : lassignment){
                 oa.Progress__c = 'Completed';
@@ -235,7 +235,7 @@ public class TestTrainingPlanDetail {
             extension.selectedItemId = ltpsitem.get(0).Id;
             extension.retrieveItemDetails();
             extension.launchLearning();
-            System.assert(extension.selectedItemStatusLabel == 'label-success', 'Error on selectedItemStatusLabel, label = ' + extension.selectedItemStatusLabel);
+            System.assert(extension.selectedItemStatusLabel == 'success', 'Error on selectedItemStatusLabel, label = ' + extension.selectedItemStatusLabel);
 
             List<Training_Plan_Section_Item__c> ltpsitem2 = [select id from Training_Plan_Section_Item__c where Training_Plan_Section__c =: ltpsec.get(1).Id order by Order__c asc];
             System.assert(ltpsitem2.size() == 3, 'Training Plan Section Item issues, size = ' + ltpsitem2.size());
@@ -328,7 +328,7 @@ public class TestTrainingPlanDetail {
             extension.selectedItemId = ltpsitem.get(0).Id;
             extension.retrieveItemDetails();
             extension.launchLearning();
-            System.assert(extension.selectedItemStatusLabel == 'label-default', 'Error on selectedItemStatusLabel, label = ' + extension.selectedItemStatusLabel);
+            System.assert(extension.selectedItemStatusLabel == 'default', 'Error on selectedItemStatusLabel, label = ' + extension.selectedItemStatusLabel);
 
             List<Learning_Assignment__c> lassignment = [select Id,
                                                             Progress__c from Learning_Assignment__c
@@ -438,7 +438,7 @@ public class TestTrainingPlanDetail {
             extension.selectedItemId = ltpsitem.get(0).Id;
             extension.retrieveItemDetails();
             extension.launchLearning();
-            System.assert(extension.selectedItemStatusLabel == 'label-default', 'Error on selectedItemStatusLabel, label = ' + extension.selectedItemStatusLabel);
+            System.assert(extension.selectedItemStatusLabel == 'default', 'Error on selectedItemStatusLabel, label = ' + extension.selectedItemStatusLabel);
 
             List<Learning_Assignment__c> lassignment = [select Id,
                                                             Progress__c from Learning_Assignment__c

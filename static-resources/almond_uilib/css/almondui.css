@@ -1068,6 +1068,11 @@ td.noSidebarCell{
     padding: 0 1rem;
 }
 
+.almond .almond-quiz-checkbox,
+.almond .almond-quiz-radio{
+    margin:5px 0;
+}
+
 .almond .quiz-question-wrapper{
     border: 1px solid #cfd4d9;
     border-radius: 5px;
@@ -1269,32 +1274,6 @@ td.noSidebarCell{
     .almond .tplan_details_home{
         padding:35px 0 0 0;
         height: 90px;
-    }
-
-    /* Filepicker styles */
-
-    .almond .filepicker-ui button,
-    .almond .filepicker-ui input {
-      border: 1px solid lightgray;
-      font-size: 14px;
-      padding: 4px 20px;
-      height: 30px;
-    }
-
-    .almond .filepicker-ui button {
-      border-right: none;
-      border-top-left-radius: 5px;
-      border-bottom-left-radius: 5px;
-    }
-
-    .almond .filepicker-ui input {
-      border-top-right-radius: 5px;
-      border-bottom-right-radius: 5px;
-    }
-
-    .almond .filepicker-preview > div {
-      border: 1px solid lightgray;
-      padding: 5px;
     }
 
 }

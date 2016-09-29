@@ -27,7 +27,7 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 <apex:page controller="TrainingPlanDetailController" docType="html-5.0" sidebar="false" showHeader="{!showSFHeader}" standardStylesheets="false">
 
-    <apex:composition template="LMS_LXHeroTemplate">
+    <apex:composition template="LMS_HeroTemplate">
 
         <apex:define name="head">
             <title>{!tPlan.trainingPlan.Name}</title>
@@ -307,7 +307,9 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
                                   <h2 id="header43" class="slds-text-heading--medium">{!selectedItem.learning.Name}</h2>
                                 </div>
                                 <div class="slds-modal__content slds-p-around--medium">
-                                    <a id="contentLink" href="javascript:void(0)">{!$Label.ALMS_Open_New_Window}</a>
+                                    <div style="text-align:center;width:100%;">
+                                        <a id="contentLink" href="javascript:void(0)">{!$Label.ALMS_Open_New_Window}</a>
+                                    </div>
                                     <div id="contentIframeWrapper" style="padding:10px 0;">
                                         <iframe id="contentIframe" style="width:100%;"/>
                                     </div>

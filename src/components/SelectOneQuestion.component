@@ -5,17 +5,14 @@
 
     <apex:repeat value="{!qi.answers.Answer_Sequence_Items__r}" var="l" id="bar">
 
-        <div class="slds-form-element__control">
-            <span class="slds-radio">
+        <div class="radio almond-quiz-radio">
+            <label>
                 <input onClick="document.getElementsByName('{!$Component.resource}')[0].value='{!JSINHTMLENCODE(l.Item_Id__c)}';document.getElementsByName('{!$Component.selectresponse}')[0].value='{!JSINHTMLENCODE(l.Answer_Text__c)}';" 
                     type="radio" name="{!qi.question.Id}"
                     id="{!qi.question.id}{!l.Item_Id__c}"
                     value="{!l.Item_Id__c}" />
-                <label class="slds-radio__label" for="{!qi.question.id}{!l.Item_Id__c}">
-                    <span class="slds-radio--faux"></span>
-                    <span class="slds-form-element__label">{!l.Answer_Text__c}</span>
-                </label>
-            </span>
+                    {!l.Answer_Text__c}
+            </label>
         </div>
 
         <script>

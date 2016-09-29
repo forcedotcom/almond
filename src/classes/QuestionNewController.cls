@@ -255,7 +255,14 @@ public with sharing class QuestionNewController{
         ApexPages.PageReference currentRef = ApexPages.CurrentPage();
         if(LMSUtils.inSF1Context(currentRef)){
             Id parentQLId = LMSUtils.getLKID(currentRef, null);
-            String retId = parentQLId != null ? parentQLId : '';
+            String retId = '';
+            if(parentQLId == null){
+                if(question.Id != null){
+                  retId = question.Id;
+                }
+            }else{
+                retId = parentQLId;
+            }
             return new PageReference('/'+retId);
         }else{
             String returl = ApexPages.CurrentPage().getParameters().get('retURL');

@@ -3,27 +3,23 @@
     <apex:attribute name="QuizItem" type="QuizItem" description="pass in a quiz item"  required="true"/>
     <apex:variable var="qi" value="{!QuizItem}"/>
 
-    <div class="slds-form-element__control">
-        <div class="slds-radio">
+    <div class="radio almond-quiz-radio">
+        <label>
             <input onClick="document.getElementsByName('{!$Component.resource}')[0].value='true';"
                 type="radio" name="{!qi.question.Id}"
                 id="{!qi.question.id}true"
                 value="true" />
-            <label class="slds-radio__label" for="{!qi.question.id}true">
-                <span class="slds-radio--faux"></span>
-                <span class="slds-form-element__label">{!$Label.ALMS_Boolean_True}</span>
-            </label>
-        </div>
-        <div class="slds-radio">
+                {!$Label.ALMS_Boolean_True}
+        </label>
+    </div>
+    <div class="radio">
+        <label>
             <input onClick="document.getElementsByName('{!$Component.resource}')[0].value='false';"
                 type="radio" name="{!qi.question.Id}"
                 id="{!qi.question.id}false"
                 value="false" />
-            <label class="slds-radio__label" for="{!qi.question.id}false">
-                <span class="slds-radio--faux"></span>
-                <span class="slds-form-element__label">{!$Label.ALMS_Boolean_False}</span>
-            </label>
-        </div>    
+                {!$Label.ALMS_Boolean_False}
+        </label>
     </div>
 
     <script>

@@ -18,7 +18,7 @@
 
         <script>
             if( strcontains( '{!JSENCODE(qi.response.Response_Answer_Sequence_Long__c)}', '{!JSENCODE(l.Item_Id__c)}') ){
-                document.getElementById('{!qi.question.id}{!l.Item_Id__c}').checked=true;
+                document.getElementById('{!JSENCODE(qi.question.id)}{!JSENCODE(l.Item_Id__c)}').checked=true;
             };
         </script>
 
